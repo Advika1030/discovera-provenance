@@ -1,0 +1,215 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0120__Discovera__task_12",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Discovera",
+      "task_id": "12",
+      "run_date": "2026-01-20 19:30:17",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Salgia_2025_Cancer_Cell_TableS2I_Pseudobulk_DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-20/Salgia_2025_Cancer_Cell_TableS2I_Pseudobulk_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T003017Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=a8cc483c043a68fd53dc4f4bac5a31d2afefc805d96f06ad4a5e12f0af219827",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-20/Salgia_2025_Cancer_Cell_TableS2I_Pseudobulk_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T003017Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=a8cc483c043a68fd53dc4f4bac5a31d2afefc805d96f06ad4a5e12f0af219827\", \"name\": \"Salgia_2025_Cancer_Cell_TableS2I_Pseudobulk_DEG\", \"tags\": [\"user_input\", \"differential_expression\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Salgia_2025_Cancer_Cell_TableS2I_Pseudobulk_DEG.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Salgia_2025_Cancer_Cell_TableS2I_Pseudobulk_DEG.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1768955434_56181256"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1768955434_56181256\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gsea_pipe",
+      "step_index": 2,
+      "args": "{\"corr_col\": \"logFC\", \"csv_id\": \"1768955434_56181256\", \"fdr_threshold\": 0.05, \"gene_sets\": [\"MSigDB_Hallmark_2020\"], \"hit_col\": \"Gene\", \"p_value_threshold\": 0.05}",
+      "error": "",
+      "id": "step2_gsea_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "gsea_results_20260120_193057.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20260120_193057.csv",
+      "source_key": "gsea_result_metadata",
+      "is_plot": false,
+      "id": "1768955465_ad07bfac"
+    },
+    {
+      "type": "data_table",
+      "name": "gsea_results_20260120_193057.png",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20260120_193057.png",
+      "source_key": "gsea_plot_metadata",
+      "is_plot": true,
+      "id": "1768955465_9d65d223"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 3,
+      "args": "{\"conditions\": [{\"column\": \"Pathway\", \"op\": \"contains\", \"value\": \"Epithelial Mesenchymal Transition\"}, {\"column\": \"Pathway\", \"op\": \"contains\", \"value\": \"TNF\"}], \"csv_id\": \"1768955465_ad07bfac\", \"name\": \"hallmark_keyword_filter\"}",
+      "error": "",
+      "id": "step3_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "hallmark_keyword_filter_33f0843359.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/hallmark_keyword_filter_33f0843359.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1768955481_5f0a563e"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 4,
+      "args": "{\"conditions\": [{\"column\": \"Pathway\", \"op\": \"contains\", \"value\": \"Epithelial Mesenchymal Transition\"}, {\"column\": \"Pathway\", \"op\": \"contains\", \"value\": \"TNF-alpha\"}], \"csv_id\": \"1768955465_ad07bfac\", \"name\": \"hallmark_keyword_filter_corrected\"}",
+      "error": "",
+      "id": "step4_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "hallmark_keyword_filter_corrected_d7c218d3e3.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/hallmark_keyword_filter_corrected_d7c218d3e3.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1768955497_f8358060"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gene_info",
+      "step_index": 5,
+      "args": "{\"gene_list\": [\"SEMA3C\", \"DCBLD2\", \"TFAP2A\", \"NPR1\", \"MOXD1\"]}",
+      "error": "",
+      "id": "step5_gene_info"
+    },
+    {
+      "type": "tool_step",
+      "tool": "prioritize_genes",
+      "step_index": 6,
+      "args": "{\"context_term\": \"sarcomatoid transformation in renal cell carcinoma\", \"email\": \"yifanwu@vida.bio\", \"gene_list\": [\"SEMA3C\", \"DCBLD2\", \"TFAP2A\", \"NPR1\", \"MOXD1\"]}",
+      "error": "",
+      "id": "step6_prioritize_genes"
+    },
+    {
+      "type": "report",
+      "length": 5127,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768955434_56181256",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1768955434_56181256"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_gsea_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_gsea_pipe",
+      "target": "1768955434_56181256"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768955465_ad07bfac",
+      "target": "step2_gsea_pipe"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768955465_9d65d223",
+      "target": "step2_gsea_pipe"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_filter",
+      "target": "1768955465_ad07bfac"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768955481_5f0a563e",
+      "target": "step3_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_filter",
+      "target": "1768955465_ad07bfac"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768955497_f8358060",
+      "target": "step4_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_gene_info",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step6_prioritize_genes",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

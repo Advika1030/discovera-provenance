@@ -1,0 +1,127 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0124__Discovera__task_9.2",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Discovera",
+      "task_id": "9.2",
+      "run_date": "2026-01-21 15:51:40",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Wang_2025_Cancer_Cell_TableS2M.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Wang_2025_Cancer_Cell_TableS2M.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T205140Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=ae1ad41c1b1b0b053bf8087cf9f83f96bf556f0c786861276ed475ec9feabd19",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Wang_2025_Cancer_Cell_TableS2M.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T205140Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=ae1ad41c1b1b0b053bf8087cf9f83f96bf556f0c786861276ed475ec9feabd19\", \"name\": \"Wang_2025_Cancer_Cell_TableS2M\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Wang_2025_Cancer_Cell_TableS2M.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Wang_2025_Cancer_Cell_TableS2M.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769028716_3637aa45"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1769028716_3637aa45\", \"n_rows\": 50}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"HG vs LG IPMN\", \"op\": \">\", \"value\": 0.5}, {\"column\": \"FDR\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"HG IPMN vs ND\", \"op\": \">\", \"value\": 0.5}, {\"column\": \"FDR.1\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769028716_3637aa45\"}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769028716_3637aa45_ed3e982403.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_filter_1769028716_3637aa45_ed3e982403.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769028743_4cd8b2a4"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gene_info",
+      "step_index": 3,
+      "args": "{\"gene_list\": [\"SPINT2\", \"TFRC\", \"MCM3\", \"MCM7\", \"GRN\", \"HMGB3\", \"PLOD3\", \"SLC3A2\", \"PDHA2\"]}",
+      "error": "",
+      "id": "step3_gene_info"
+    },
+    {
+      "type": "report",
+      "length": 7656,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769028716_3637aa45",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1769028716_3637aa45"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1769028716_3637aa45"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769028743_4cd8b2a4",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_gene_info",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

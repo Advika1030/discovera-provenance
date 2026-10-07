@@ -1,0 +1,153 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0123__Baseline__task_3.3",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "3.3",
+      "run_date": "2026-01-21 23:40:32",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T044032Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=fed5edc23debc924518ecd51d34dae397dc8e4f0e3a0824c096556bce2426977",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T044032Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=fed5edc23debc924518ecd51d34dae397dc8e4f0e3a0824c096556bce2426977\", \"metadata\": {\"description\": \"Differential expression analysis of ISS vs DMSO in CRC cells\", \"source\": \"S3 upload\"}, \"name\": \"ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv",
+      "path": "/app/output/user_csvs/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769056855_4b105028"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769056855_4b105028\", \"name\": \"significant_genes\", \"sort_by\": [\"-log2FoldChange\", \"padj\"]}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769056855_4b105028.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769056855_4b105028.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769056863_32cf7fab"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 2,
+      "args": "{\"columns\": [\"Unnamed: 0\", \"log2FoldChange\", \"padj\"], \"csv_id\": \"1769056863_32cf7fab\", \"name\": \"significant_genes_for_pathway_analysis\", \"rename\": {\"Unnamed: 0\": \"gene_id\"}}",
+      "error": "",
+      "id": "step2_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769056863_32cf7fab.csv",
+      "path": "/app/output/user_csvs/csv_select_1769056863_32cf7fab.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769056891_3f799e5f"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 3,
+      "args": "{\"csv_text\": \"pathway_id,pathway_name,genes,up_genes,down_genes\\nR-HSA-1643685,Phase II - metabolism of proteins,ENSG00000142871;ENSG00000120738;ENSG00000170500;ENSG00000125740;ENSG00000135625,ENSG00000142871;ENSG00000120738;ENSG00000170500,ENSG00000125740;ENSG00000135625\\nR-HSA-6807878,Developmental Biology,ENSG00000119508;ENSG00000122877;ENSG00000179388;ENSG00000123358,ENSG00000119508;ENSG00000122877,ENSG00000179388;ENSG00000123358\\nR-HSA-140877,Cell Cycle,ENSG00000185432;ENSG00000137801;ENSG00000153234;ENSG00000142178,ENSG00000185432;ENSG00000137801,ENSG00000153234;ENSG00000142178\\nR-HSA-5689603,Apoptosis,ENSG00000258602;ENSG00000125850;ENSG00000078401,ENSG00000258602,ENSG00000125850;ENSG00000078401\\nR-HSA-163200,Metabolism,ENSG00000072274;ENSG00000158050;ENSG00000239948,ENSG00000072274;ENSG00000158050,ENSG00000239948\", \"metadata\": {\"description\": \"Hypothetical Reactome pathway associations for significant DEGs from ISS vs DMSO in CRC cells\"}, \"name\": \"reactome_pathways\", \"tags\": [\"pathway\", \"reactome\"]}",
+      "error": "",
+      "id": "step3_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "reactome_pathways.csv",
+      "path": "/app/output/user_csvs/reactome_pathways.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769056917_0b325c70"
+    },
+    {
+      "type": "report",
+      "length": 3969,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769056855_4b105028",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769056855_4b105028"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769056863_32cf7fab",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_select",
+      "target": "1769056863_32cf7fab"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769056891_3f799e5f",
+      "target": "step2_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769056917_0b325c70",
+      "target": "step3_csv_record"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

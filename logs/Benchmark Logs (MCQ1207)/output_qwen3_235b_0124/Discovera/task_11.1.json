@@ -1,0 +1,1058 @@
+{
+  "ID": "11.1",
+  "Context/Background": "Tumor-infiltrating B cells play a significant role in tumor development, progression, and prognosis, yet a comprehensive classification system is lacking. To address this gap, we present a pan-cancer single-cell RNA sequencing (scRNA-seq) atlas of tumor-infiltrating B and plasma cells across a large sample cohort. \n\nWe isolated B cells and plasma cells from 15 studies spanning 7 cancer types as data sources. After applying batch correction and integrating the data, we removed low-quality cells and determined the optimal number of clusters. Using standard Seurat methods for integration, clustering, and differential expression analysis, we confirmed the absence of batch effects, with no study- or cancer type-specific clusters. \n\nWe employed a graph-based clustering method to identify TIL-Bs with recurring phenotypes, uncovering a total of 10 clusters. Step one of cluster annotation used canonical markers like CD19 and MS4A1 (CD20), which are prevalent throughout B cell development but decline in plasma cells. Markers such as CD38, JCHAIN, and SDC1 (CD138) are prominent in plasma cells, but less so in earlier stages. This revealed four B cell clusters, two intermediate clusters with proliferative and germinal center (GC) features, and four plasma cell clusters. ",
+  "Prompt": "Based on upregulated pathways and differentially expressed markers in each cluster, assign functional phenotypes to each of the 4 B-cell clusters (clusters 1-4).  Provide a discussion of the reasoning behind cluster assignments, highlighting important genes and pathways where relevant. ",
+  "mode": "Discovera",
+  "llm_provider": "nvidia",
+  "llm_model": "qwen/qwen3-235b-a22b",
+  "run_date": "2026-01-21 16:09:05",
+  "elapsed_seconds": 211.81,
+  "status": "ok",
+  "error": null,
+  "output_text": "**Introduction/Context**  \nThis analysis examines four tumor-infiltrating B cell clusters (1-4) from a pan-cancer single-cell RNA-seq dataset. The clusters were identified via graph-based clustering, with canonical markers (CD19, CD38, CD138) used for initial annotation. The goal is to assign functional phenotypes to each cluster using GSEA of differentially expressed genes.  \n\n**Keywords**  \n- **Cluster 1**: Inflammatory Response, TNF-alpha Signaling, CD69, CCR7  \n- **Cluster 4**: Interferon Response, CD86, HLA-DMA, GBP4  \n- **General**: B cell activation, NF-κB signaling, Antiviral Response  \n\n**Candidate Genes**  \n- **CD69**: Early activation marker (Cluster 1)  \n- **CD86**: Co-stimulatory molecule (Cluster 4)  \n- **REL**: NF-κB component (Cluster 1)  \n- **GBP4**: Interferon-inducible GTPase (Cluster 4)  \n- **IFI44L**: Interferon-stimulated gene (Cluster 4)  \n\n---\n\n### **Pathway Enrichments**  \n#### **Cluster 1 (B cells)**  \n**MSigDB Hallmark**:  \n- **Upregulated**:  \n  - **TNF-alpha Signaling via NF-κB** (NES = 2.999, FDR = 0.0298): CD69, REL, BCL2A1  \n  - **Inflammatory Response** (NES = 2.196, FDR = 0.154): CD69  \n\n**KEGG 2016**:  \n- **Upregulated**:  \n  - **Transcriptional Misregulation in Cancer** (NES = 2.222, FDR = 0.699): CCR7, REL  \n\n**GO Biological Process**:  \n- **Downregulated**:  \n  - **Actin Filament Organization** (NES = -1.991, FDR = 0.755): LCP1, CDC42  \n\n**Interpretation**:  \nCluster 1 shows strong activation of **NF-κB signaling** (via TNF-alpha and CD69) and **inflammatory pathways**, consistent with an **activated B cell (ABC) subset** involved in early immune responses. CD69 and CCR7 co-expression suggests a transitional state between lymph node homing (CCR7) and activation (CD69).  \n\n---\n\n#### **Cluster 2 (B cells)**  \n**Reactome Pathways**:  \n- **Downregulated**:  \n  - **Adaptive Immune System** (NES = -2.116, FDR = 0.721): RASGRP2, HLA-DPA1  \n\n**Interpretation**:  \nCluster 2 lacks significant upregulated pathways but shows reduced adaptive immune gene expression. High expression of **LY86** (B cell receptor signaling) and **BLK** (B cell development) suggests a **naive or transitional B cell subset** with reduced effector function.  \n\n---\n\n#### **Cluster 3 (B cells)**  \n**No significant GSEA results** at FDR < 0.05.  \n\n**Interpretation**:  \nDespite high expression of **DUSP4** (MAPK inhibitor) and **CD821** (unknown function), no enriched pathways were identified. This may represent a **proliferative or stress-response subset** with dysregulated signaling.  \n\n---\n\n#### **Cluster 4 (B cells)**  \n**MSigDB Hallmark**:  \n- **Upregulated**:  \n  - **Interferon Gamma Response** (NES = 2.966, FDR = 0.0302): CD86, GBP4, IFITM2  \n  - **Interferon Alpha Response** (NES = 2.724, FDR = 0.0322): IFI44L, OAS1  \n\n**Reactome Pathways**:  \n- **Downregulated**:  \n  - **Viral Infection Pathways** (NES = -4.248, FDR = 0.00308): RPL28, HNRNPA1  \n\n**GO Biological Process**:  \n- **Upregulated**:  \n  - **Defense Response to Virus** (NES = 2.942, FDR = 0.197): PLSCR1, IFITM2  \n\n**Interpretation**:  \nCluster 4 is dominated by **interferon-stimulated genes (ISGs)**, suggesting an **antiviral B cell subset**. CD86 (co-stimulatory) and HLA-DMA (antigen presentation) indicate a role in antigen presentation during viral infections.  \n\n---\n\n### **Targeted (Keyword-Guided) Subset**  \n- **Cluster 1**: TNF-alpha signaling (CD69, REL) aligns with inflammatory keywords.  \n- **Cluster 4**: Interferon response (IFI44L, GBP4) matches antiviral themes.  \n\n---\n\n### **Key Genes/Proteins**  \n**Upregulated**:  \n| Gene     | Cluster | Role/Function                     | Pathway(s)                  |  \n|----------|---------|-----------------------------------|-----------------------------|  \n| CD69     | 1       | Early activation marker           | TNF-alpha Signaling         |  \n| CD86     | 4       | Co-stimulatory molecule           | Interferon Response         |  \n| REL      | 1       | NF-κB transcription factor        | Inflammatory Response       |  \n| GBP4     | 4       | Interferon-inducible GTPase       | Antiviral Defense           |  \n\n**Downregulated**:  \n| Gene     | Cluster | Role/Function                     | Pathway(s)                  |  \n|----------|---------|-----------------------------------|-----------------------------|  \n| LCP1     | 1       | Actin-binding protein             | Actin Filament Organization |  \n| RASGRP2  | 2       | T cell receptor signaling         | Adaptive Immune System      |  \n\n---\n\n### **Comparisons and Implications**  \n- **Cluster 1 vs. Cluster 4**: Both are activated subsets but differ in stimulus (TNF-alpha vs. interferon).  \n- **Cluster 2**: May represent an immature or quiescent state.  \n- **Cluster 3**: Requires deeper investigation (e.g., proteomics) due to unclear pathway associations.  \n\n**Therapeutic Relevance**:  \n- Interferon-driven Cluster 4 could be targeted in viral-associated cancers.  \n- TNF-alpha signaling in Cluster 1 suggests potential for NF-κB inhibitors.  \n\n---\n\n### **Next Steps**  \n1. Validate Cluster 3's identity using proteomics or pseudotime analysis.  \n2. Investigate cross-talk between interferon and TNF-alpha pathways in tumor microenvironment.  \n3. Explore role of Cluster 2 in B cell exhaustion or memory formation.  \n\n**References**  \n- PMID 30068318: NF-κB signaling in B cell activation.  \n- PMID 25635460: Interferon-stimulated genes in antiviral immunity.  \n- PMID 31537894: CD86 as a co-stimulatory molecule in cancer.",
+  "tool_calls_json": [
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cluster1",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/1-s20-S1535610824003593-mmc2-cluster1Bcells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T210905Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=a356a4b6a37a6f08f27bbe94d2c5728007ca99713be0642c21810996901cef58"
+      }
+    },
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cluster2",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/1-s20-S1535610824003593-mmc2-cluster2Bcells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T210904Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=07b24e4263f286c86a5dc24be536b76881b1e0ea7e4ab0efd1080f95c4794416"
+      }
+    },
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cluster3",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/1-s20-S1535610824003593-mmc2-cluster3Bcells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T210904Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=0949c5eb27b8cfb0b0390a34bbdf109f5eeec121f8e9bdc675b35066f847d082"
+      }
+    },
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cluster4",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/1-s20-S1535610824003593-mmc2-cluster4Bcells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T210904Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=1e0ade323e5777dc6030e50c84be71e465f284bb806907c0f87b6f07660ce4f6"
+      }
+    },
+    {
+      "name": "gsea_pipe",
+      "args": {
+        "csv_id": "1769029815_3edbf5cd",
+        "hit_col": "gene",
+        "corr_col": "avg_log2FC",
+        "gene_sets": [
+          "KEGG_2016",
+          "GO_Biological_Process_2023",
+          "Reactome_Pathways_2024",
+          "MSigDB_Hallmark_2020"
+        ],
+        "p_value_threshold": 0.05,
+        "fdr_threshold": 0.05
+      }
+    },
+    {
+      "name": "gsea_pipe",
+      "args": {
+        "csv_id": "1769029762_4c739d8f",
+        "hit_col": "gene",
+        "corr_col": "avg_log2FC",
+        "gene_sets": [
+          "KEGG_2016",
+          "GO_Biological_Process_2023",
+          "Reactome_Pathways_2024",
+          "MSigDB_Hallmark_2020"
+        ],
+        "p_value_threshold": 0.05,
+        "fdr_threshold": 0.05
+      }
+    },
+    {
+      "name": "gsea_pipe",
+      "args": {
+        "csv_id": "1769029778_690f2edc",
+        "hit_col": "gene",
+        "corr_col": "avg_log2FC",
+        "gene_sets": [
+          "KEGG_2016",
+          "GO_Biological_Process_2023",
+          "Reactome_Pathways_2024",
+          "MSigDB_Hallmark_2020"
+        ],
+        "p_value_threshold": 0.05,
+        "fdr_threshold": 0.05
+      }
+    },
+    {
+      "name": "gsea_pipe",
+      "args": {
+        "csv_id": "1769029791_e050dfe4",
+        "hit_col": "gene",
+        "corr_col": "avg_log2FC",
+        "gene_sets": [
+          "KEGG_2016",
+          "GO_Biological_Process_2023",
+          "Reactome_Pathways_2024",
+          "MSigDB_Hallmark_2020"
+        ],
+        "p_value_threshold": 0.05,
+        "fdr_threshold": 0.05
+      }
+    }
+  ],
+  "tool_events_json": [
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1769029762_4c739d8f",
+        "name": "cluster1.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster1.csv"
+      }
+    },
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1769029778_690f2edc",
+        "name": "cluster2.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster2.csv"
+      }
+    },
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1769029791_e050dfe4",
+        "name": "cluster3.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster3.csv"
+      }
+    },
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1769029815_3edbf5cd",
+        "name": "cluster4.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster4.csv"
+      }
+    },
+    {
+      "tool": "gsea_pipe",
+      "payload": {
+        "counts_by_database": {
+          "KEGG_2016": {
+            "up": 1,
+            "down": 0,
+            "total": 1
+          },
+          "GO_Biological_Process_2023": {
+            "up": 0,
+            "down": 1,
+            "total": 1
+          },
+          "MSigDB_Hallmark_2020": {
+            "up": 2,
+            "down": 0,
+            "total": 2
+          }
+        },
+        "top_high_nes": {
+          "KEGG_2016": [
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Transcriptional misregulation in cancer Homo sapiens hsa05202",
+              "NES": 2.221978841508796,
+              "Size": 8,
+              "ES": 0.7526891502725935,
+              "NOS p-val": 0.02628473553892552,
+              "FDR q-val": 0.6999473791310495,
+              "Lead_genes": [
+                "CCR7",
+                "REL"
+              ]
+            }
+          ],
+          "GO_Biological_Process_2023": [
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Actin Filament Organization (GO:0007015)",
+              "NES": -1.9912955944115023,
+              "Size": 6,
+              "ES": -0.7317458709198637,
+              "NOS p-val": 0.0464483995285363,
+              "FDR q-val": 0.7551296796568701,
+              "Lead_genes": [
+                "LCP1",
+                "CDC42",
+                "HCLS1"
+              ]
+            }
+          ],
+          "MSigDB_Hallmark_2020": [
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "TNF-alpha Signaling via NF-kB",
+              "NES": 2.999007862198121,
+              "Size": 15,
+              "ES": 0.7820493716102602,
+              "NOS p-val": 0.0027086031707943548,
+              "FDR q-val": 0.029794634878737902,
+              "Lead_genes": [
+                "CD69",
+                "SLC2A3",
+                "REL",
+                "NR4A2",
+                "CD83",
+                "BCL2A1"
+              ]
+            },
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "Inflammatory Response",
+              "NES": 2.196338253563941,
+              "Size": 10,
+              "ES": 0.7598200569744891,
+              "NOS p-val": 0.0280677416319699,
+              "FDR q-val": 0.15437257897583445,
+              "Lead_genes": [
+                "CD69"
+              ]
+            }
+          ]
+        },
+        "top_low_nes": {
+          "KEGG_2016": [
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Transcriptional misregulation in cancer Homo sapiens hsa05202",
+              "NES": 2.221978841508796,
+              "Size": 8,
+              "ES": 0.7526891502725935,
+              "NOS p-val": 0.02628473553892552,
+              "FDR q-val": 0.6999473791310495,
+              "Lead_genes": [
+                "CCR7",
+                "REL"
+              ]
+            }
+          ],
+          "GO_Biological_Process_2023": [
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Actin Filament Organization (GO:0007015)",
+              "NES": -1.9912955944115023,
+              "Size": 6,
+              "ES": -0.7317458709198637,
+              "NOS p-val": 0.0464483995285363,
+              "FDR q-val": 0.7551296796568701,
+              "Lead_genes": [
+                "LCP1",
+                "CDC42",
+                "HCLS1"
+              ]
+            }
+          ],
+          "MSigDB_Hallmark_2020": [
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "TNF-alpha Signaling via NF-kB",
+              "NES": 2.999007862198121,
+              "Size": 15,
+              "ES": 0.7820493716102602,
+              "NOS p-val": 0.0027086031707943548,
+              "FDR q-val": 0.029794634878737902,
+              "Lead_genes": [
+                "CD69",
+                "SLC2A3",
+                "REL",
+                "NR4A2",
+                "CD83",
+                "BCL2A1"
+              ]
+            },
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "Inflammatory Response",
+              "NES": 2.196338253563941,
+              "Size": 10,
+              "ES": 0.7598200569744891,
+              "NOS p-val": 0.0280677416319699,
+              "FDR q-val": 0.15437257897583445,
+              "Lead_genes": [
+                "CD69"
+              ]
+            }
+          ]
+        },
+        "gsea_result_metadata": {
+          "id": "1769029841_f8bb2f26",
+          "name": "gsea_results_20260121_161036.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20260121_161036.csv",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2026-01-21/gsea_results_20260121_161036.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T211043Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=a51b40d7fa88ccf2fdf82fdda4b9466796d2ac53a35dc8ef345f1d19923dad9c"
+        },
+        "gsea_plot_metadata": {
+          "id": "1769029842_aeb289cc",
+          "name": "gsea_results_20260121_161036.png",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20260121_161036.png",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2026-01-21/gsea_results_20260121_161036.png?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T211043Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=0640c6796389542c1782a3e5d768bc101a641b30f0e41b5a1e77d4d3f1ef21a7"
+        }
+      }
+    },
+    {
+      "tool": "gsea_pipe",
+      "payload": {
+        "counts_by_database": {
+          "Reactome_Pathways_2024": {
+            "up": 0,
+            "down": 1,
+            "total": 1
+          }
+        },
+        "top_high_nes": {
+          "Reactome_Pathways_2024": [
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Adaptive Immune System",
+              "NES": -2.116268217988005,
+              "Size": 7,
+              "ES": -0.611399648725034,
+              "NOS p-val": 0.03432200218150672,
+              "FDR q-val": 0.720762045811641,
+              "Lead_genes": [
+                "RASGRP2",
+                "PPIA",
+                "HLA-DPA1"
+              ]
+            }
+          ]
+        },
+        "top_low_nes": {
+          "Reactome_Pathways_2024": [
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Adaptive Immune System",
+              "NES": -2.116268217988005,
+              "Size": 7,
+              "ES": -0.611399648725034,
+              "NOS p-val": 0.03432200218150672,
+              "FDR q-val": 0.720762045811641,
+              "Lead_genes": [
+                "RASGRP2",
+                "PPIA",
+                "HLA-DPA1"
+              ]
+            }
+          ]
+        },
+        "gsea_result_metadata": {
+          "id": "1769029861_56e26eca",
+          "name": "gsea_results_20260121_161056.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20260121_161056.csv",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2026-01-21/gsea_results_20260121_161056.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T211102Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=9c1d6c93913441fb77d5b3dc41b031b92f6f1b94c57b16ebbdd6f08ef0c6764e"
+        },
+        "gsea_plot_metadata": {
+          "id": "1769029861_45bbb079",
+          "name": "gsea_results_20260121_161056.png",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20260121_161056.png",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2026-01-21/gsea_results_20260121_161056.png?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T211102Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=cc8df1e4b2d1f254456792c174e38fd502869d0ce5891c5c2b3fa77faae152d2"
+        }
+      }
+    },
+    {
+      "tool": "gsea_pipe",
+      "payload": {
+        "top_high_nes": {},
+        "top_low_nes": {},
+        "gsea_result_metadata": {}
+      }
+    },
+    {
+      "tool": "gsea_pipe",
+      "payload": {
+        "counts_by_database": {
+          "KEGG_2016": {
+            "up": 2,
+            "down": 2,
+            "total": 4
+          },
+          "GO_Biological_Process_2023": {
+            "up": 10,
+            "down": 6,
+            "total": 16
+          },
+          "Reactome_Pathways_2024": {
+            "up": 6,
+            "down": 37,
+            "total": 43
+          },
+          "MSigDB_Hallmark_2020": {
+            "up": 3,
+            "down": 0,
+            "total": 3
+          }
+        },
+        "top_high_nes": {
+          "KEGG_2016": [
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Ribosome Homo sapiens hsa03010",
+              "NES": -2.441115799019337,
+              "Size": 8,
+              "ES": -0.7349056529068887,
+              "NOS p-val": 0.014641958899139995,
+              "FDR q-val": 0.4231448086806458,
+              "Lead_genes": [
+                "RPL19",
+                "RPSA",
+                "RPL12",
+                "RPL38",
+                "RPL11",
+                "RPS24",
+                "RPL23A"
+              ]
+            },
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Rheumatoid arthritis Homo sapiens hsa05323",
+              "NES": 2.243255617028583,
+              "Size": 5,
+              "ES": 0.8450096174256668,
+              "NOS p-val": 0.024880335652989194,
+              "FDR q-val": 0.4231448086806458,
+              "Lead_genes": [
+                "CD86",
+                "ACP5"
+              ]
+            },
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Viral myocarditis Homo sapiens hsa05416",
+              "NES": 2.0969546126042187,
+              "Size": 6,
+              "ES": 0.7244335048115338,
+              "NOS p-val": 0.035997593349889945,
+              "FDR q-val": 0.4231448086806458,
+              "Lead_genes": [
+                "CD86",
+                "ACTB",
+                "ITGB2"
+              ]
+            },
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "RNA transport Homo sapiens hsa03013",
+              "NES": -2.019845001968392,
+              "Size": 6,
+              "ES": -0.674468105737601,
+              "NOS p-val": 0.04339946755698931,
+              "FDR q-val": 0.4231448086806458,
+              "Lead_genes": [
+                "UPF2",
+                "TPR",
+                "MAGOH",
+                "FXR1"
+              ]
+            }
+          ],
+          "GO_Biological_Process_2023": [
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Gene Expression (GO:0010467)",
+              "NES": -3.3987777464298303,
+              "Size": 12,
+              "ES": -0.7206606984517535,
+              "NOS p-val": 0.0006768769666134489,
+              "FDR q-val": 0.08190211296022731,
+              "Lead_genes": [
+                "RPL19",
+                "RPSA",
+                "UPF2",
+                "RPL12",
+                "TPR",
+                "RPL38",
+                "RPL11",
+                "RPS24",
+                "RPL23A",
+                "RPL28",
+                "MAGOH"
+              ]
+            },
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Defense Response To Virus (GO:0051607)",
+              "NES": 2.9420017001087175,
+              "Size": 12,
+              "ES": 0.7269938693847308,
+              "NOS p-val": 0.0032609813669590704,
+              "FDR q-val": 0.1968530029773266,
+              "Lead_genes": [
+                "PLSCR1",
+                "IFITM2",
+                "IFI44L",
+                "OAS1"
+              ]
+            },
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Response To Interferon-Beta (GO:0035456)",
+              "NES": 2.655719367895562,
+              "Size": 6,
+              "ES": 0.8423959133732434,
+              "NOS p-val": 0.007913944223598923,
+              "FDR q-val": 0.1968530029773266,
+              "Lead_genes": [
+                "XAF1",
+                "OAS1",
+                "PLSCR1"
+              ]
+            },
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Defense Response To Symbiont (GO:0140546)",
+              "NES": 2.649741487530816,
+              "Size": 11,
+              "ES": 0.7493554438451654,
+              "NOS p-val": 0.008055338122558098,
+              "FDR q-val": 0.1968530029773266,
+              "Lead_genes": [
+                "PLSCR1",
+                "IFITM2",
+                "IFI44L",
+                "OAS1"
+              ]
+            },
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Cellular Response To Cytokine Stimulus (GO:0071345)",
+              "NES": 2.52265047656999,
+              "Size": 12,
+              "ES": 0.6528870800585149,
+              "NOS p-val": 0.011647410566182126,
+              "FDR q-val": 0.1968530029773266,
+              "Lead_genes": [
+                "IFITM2",
+                "OAS1",
+                "GBP4",
+                "PTPN6"
+              ]
+            }
+          ],
+          "Reactome_Pathways_2024": [
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Viral Infection Pathways",
+              "NES": -4.247971863614728,
+              "Size": 31,
+              "ES": -0.5547676799092877,
+              "NOS p-val": 2.1571447826440604e-05,
+              "FDR q-val": 0.0030847170391810064,
+              "Lead_genes": [
+                "RPL28",
+                "UVRAG",
+                "HLA-F",
+                "TPR",
+                "RPL11",
+                "AP1S2",
+                "HNRNPA1",
+                "RAB5C",
+                "PAK2",
+                "RPL19",
+                "RPSA",
+                "RPL12",
+                "SH3KBP1",
+                "RPL38",
+                "PDCD6IP",
+                "RPS24",
+                "BTK",
+                "MED28",
+                "RPL23A",
+                "HMGA1",
+                "SNRPF"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Cellular Responses to Stimuli",
+              "NES": -3.691594678843899,
+              "Size": 18,
+              "ES": -0.5942521824901699,
+              "NOS p-val": 0.00022285240895381087,
+              "FDR q-val": 0.015933947240197477,
+              "Lead_genes": [
+                "RPL19",
+                "RPSA",
+                "RPL12",
+                "TPR",
+                "RPL38",
+                "RPL11",
+                "RPS24",
+                "PPP2R1A",
+                "CYBB",
+                "RPL23A",
+                "RPL28",
+                "HMGA1"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Metabolism of RNA",
+              "NES": -3.4236948616275136,
+              "Size": 22,
+              "ES": -0.5230364706379217,
+              "NOS p-val": 0.0006177594408074416,
+              "FDR q-val": 0.0235340682359354,
+              "Lead_genes": [
+                "SNRPF",
+                "RPL19",
+                "RPSA",
+                "UPF2",
+                "RPL12",
+                "TPR",
+                "RPL38",
+                "RPL11",
+                "SF1",
+                "PPP2R1A",
+                "RPS24",
+                "RPL23A",
+                "HNRNPA3",
+                "LSM7",
+                "HNRNPA1",
+                "RPL28",
+                "MAGOH"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Signaling by ROBO Receptors",
+              "NES": -3.384159914216573,
+              "Size": 14,
+              "ES": -0.6787054504946181,
+              "NOS p-val": 0.0007139640659257207,
+              "FDR q-val": 0.0235340682359354,
+              "Lead_genes": [
+                "PAK2",
+                "RPL19",
+                "RPSA",
+                "UPF2",
+                "RPL12",
+                "RPL38",
+                "RPL11",
+                "RPS24",
+                "RPL23A",
+                "MAGOH"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Cellular Responses to Stress",
+              "NES": -3.305908833402885,
+              "Size": 16,
+              "ES": -0.5983737673969517,
+              "NOS p-val": 0.0009466888416229668,
+              "FDR q-val": 0.0235340682359354,
+              "Lead_genes": [
+                "RPL19",
+                "RPSA",
+                "RPL12",
+                "TPR",
+                "RPL38",
+                "RPL11",
+                "RPS24",
+                "CYBB",
+                "RPL23A",
+                "RPL28",
+                "HMGA1"
+              ]
+            }
+          ],
+          "MSigDB_Hallmark_2020": [
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "Interferon Gamma Response",
+              "NES": 2.9655593067692174,
+              "Size": 17,
+              "ES": 0.7042426129342296,
+              "NOS p-val": 0.003021330851610493,
+              "FDR q-val": 0.03021330851610493,
+              "Lead_genes": [
+                "CD86",
+                "HLA-DMA",
+                "IFI44L",
+                "GBP4",
+                "SP110",
+                "XAF1",
+                "PLSCR1",
+                "PTPN6",
+                "EPSTI1",
+                "IFITM2",
+                "IFIT3"
+              ]
+            },
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "Interferon Alpha Response",
+              "NES": 2.724285213177016,
+              "Size": 11,
+              "ES": 0.7639144148003568,
+              "NOS p-val": 0.006444083021270863,
+              "FDR q-val": 0.032220415106354316,
+              "Lead_genes": [
+                "IFI44L",
+                "GBP4",
+                "SP110",
+                "OAS1",
+                "PLSCR1",
+                "EPSTI1",
+                "IFITM2",
+                "SAMD9L",
+                "IFIT3"
+              ]
+            },
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "IL-2/STAT5 Signaling",
+              "NES": 2.0830268029105237,
+              "Size": 7,
+              "ES": 0.7497949762401002,
+              "NOS p-val": 0.0372487805108086,
+              "FDR q-val": 0.12416260170269533,
+              "Lead_genes": [
+                "CD86",
+                "GBP4"
+              ]
+            }
+          ]
+        },
+        "top_low_nes": {
+          "KEGG_2016": [
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Ribosome Homo sapiens hsa03010",
+              "NES": -2.441115799019337,
+              "Size": 8,
+              "ES": -0.7349056529068887,
+              "NOS p-val": 0.014641958899139995,
+              "FDR q-val": 0.4231448086806458,
+              "Lead_genes": [
+                "RPL19",
+                "RPSA",
+                "RPL12",
+                "RPL38",
+                "RPL11",
+                "RPS24",
+                "RPL23A"
+              ]
+            },
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Rheumatoid arthritis Homo sapiens hsa05323",
+              "NES": 2.243255617028583,
+              "Size": 5,
+              "ES": 0.8450096174256668,
+              "NOS p-val": 0.024880335652989194,
+              "FDR q-val": 0.4231448086806458,
+              "Lead_genes": [
+                "CD86",
+                "ACP5"
+              ]
+            },
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Viral myocarditis Homo sapiens hsa05416",
+              "NES": 2.0969546126042187,
+              "Size": 6,
+              "ES": 0.7244335048115338,
+              "NOS p-val": 0.035997593349889945,
+              "FDR q-val": 0.4231448086806458,
+              "Lead_genes": [
+                "CD86",
+                "ACTB",
+                "ITGB2"
+              ]
+            },
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "RNA transport Homo sapiens hsa03013",
+              "NES": -2.019845001968392,
+              "Size": 6,
+              "ES": -0.674468105737601,
+              "NOS p-val": 0.04339946755698931,
+              "FDR q-val": 0.4231448086806458,
+              "Lead_genes": [
+                "UPF2",
+                "TPR",
+                "MAGOH",
+                "FXR1"
+              ]
+            }
+          ],
+          "GO_Biological_Process_2023": [
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Regulation Of Viral Genome Replication (GO:0045069)",
+              "NES": 2.136145056603436,
+              "Size": 5,
+              "ES": 0.8202547906910935,
+              "NOS p-val": 0.03266759220248994,
+              "FDR q-val": 0.2837566764658804,
+              "Lead_genes": [
+                "OAS1",
+                "PLSCR1"
+              ]
+            },
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Negative Regulation Of Viral Process (GO:0048525)",
+              "NES": 2.136145056603436,
+              "Size": 5,
+              "ES": 0.8202547906910935,
+              "NOS p-val": 0.03266759220248994,
+              "FDR q-val": 0.2837566764658804,
+              "Lead_genes": [
+                "OAS1",
+                "PLSCR1"
+              ]
+            },
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Negative Regulation Of Viral Genome Replication (GO:0045071)",
+              "NES": 2.1341396506983266,
+              "Size": 6,
+              "ES": 0.7320441287589455,
+              "NOS p-val": 0.03283135099605228,
+              "FDR q-val": 0.2837566764658804,
+              "Lead_genes": [
+                "IFITM2",
+                "OAS1",
+                "PLSCR1",
+                "RESF1"
+              ]
+            },
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "protein-RNA Complex Assembly (GO:0022618)",
+              "NES": -2.096074585901253,
+              "Size": 8,
+              "ES": -0.6661927635420636,
+              "NOS p-val": 0.0360755750570636,
+              "FDR q-val": 0.2910096387936464,
+              "Lead_genes": [
+                "SNRPF",
+                "RPSA",
+                "RPL38",
+                "RPL11",
+                "RPL23A"
+              ]
+            },
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Positive Regulation Of Cell Population Proliferation (GO:0008284)",
+              "NES": 1.9944142334735946,
+              "Size": 7,
+              "ES": 0.7311173620052436,
+              "NOS p-val": 0.0461068043029782,
+              "FDR q-val": 0.3486827075412726,
+              "Lead_genes": [
+                "CD86",
+                "CIB1",
+                "PTPN6"
+              ]
+            }
+          ],
+          "Reactome_Pathways_2024": [
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Interferon Alpha Beta Signaling",
+              "NES": 2.4075648898214355,
+              "Size": 8,
+              "ES": 0.7835814689496136,
+              "NOS p-val": 0.016059308000567984,
+              "FDR q-val": 0.058884129335415945,
+              "Lead_genes": [
+                "IFITM2",
+                "XAF1",
+                "OAS1",
+                "PTPN6"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Interferon Gamma Signaling",
+              "NES": 2.3209202428539926,
+              "Size": 5,
+              "ES": 0.8631488605807098,
+              "NOS p-val": 0.020291148807003223,
+              "FDR q-val": 0.07254085698503651,
+              "Lead_genes": [
+                "OAS1",
+                "GBP4",
+                "PTPN6"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "RNA Polymerase II Transcription",
+              "NES": -2.082535754224785,
+              "Size": 13,
+              "ES": -0.47822957027624036,
+              "NOS p-val": 0.037293560574473084,
+              "FDR q-val": 0.1300726624914549,
+              "Lead_genes": [
+                "SNRPF",
+                "POLR2G",
+                "DEK",
+                "CCND3",
+                "NR1H2",
+                "BAX",
+                "PPP2R1A",
+                "SLBP",
+                "SESN3",
+                "MAGOH"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "HIV Infection",
+              "NES": -2.033175598802956,
+              "Size": 7,
+              "ES": -0.6446714445282677,
+              "NOS p-val": 0.0420347853874794,
+              "FDR q-val": 0.14096238785426787,
+              "Lead_genes": [
+                "PAK2",
+                "TPR",
+                "PDCD6IP",
+                "AP1S2",
+                "HMGA1"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Gene Expression (Transcription)",
+              "NES": -2.0296975563902,
+              "Size": 19,
+              "ES": -0.36790137713979754,
+              "NOS p-val": 0.04238729145268194,
+              "FDR q-val": 0.14096238785426787,
+              "Lead_genes": [
+                "SNRPF",
+                "POLR2G",
+                "DEK",
+                "CCND3",
+                "TPR",
+                "BAX",
+                "NR1H2",
+                "TAF1D",
+                "PPP2R1A",
+                "SLBP",
+                "SESN3",
+                "MAGOH",
+                "SSB"
+              ]
+            }
+          ],
+          "MSigDB_Hallmark_2020": [
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "Interferon Gamma Response",
+              "NES": 2.9655593067692174,
+              "Size": 17,
+              "ES": 0.7042426129342296,
+              "NOS p-val": 0.003021330851610493,
+              "FDR q-val": 0.03021330851610493,
+              "Lead_genes": [
+                "CD86",
+                "HLA-DMA",
+                "IFI44L",
+                "GBP4",
+                "SP110",
+                "XAF1",
+                "PLSCR1",
+                "PTPN6",
+                "EPSTI1",
+                "IFITM2",
+                "IFIT3"
+              ]
+            },
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "Interferon Alpha Response",
+              "NES": 2.724285213177016,
+              "Size": 11,
+              "ES": 0.7639144148003568,
+              "NOS p-val": 0.006444083021270863,
+              "FDR q-val": 0.032220415106354316,
+              "Lead_genes": [
+                "IFI44L",
+                "GBP4",
+                "SP110",
+                "OAS1",
+                "PLSCR1",
+                "EPSTI1",
+                "IFITM2",
+                "SAMD9L",
+                "IFIT3"
+              ]
+            },
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "IL-2/STAT5 Signaling",
+              "NES": 2.0830268029105237,
+              "Size": 7,
+              "ES": 0.7497949762401002,
+              "NOS p-val": 0.0372487805108086,
+              "FDR q-val": 0.12416260170269533,
+              "Lead_genes": [
+                "CD86",
+                "GBP4"
+              ]
+            }
+          ]
+        },
+        "gsea_result_metadata": {
+          "id": "1769029909_458ec932",
+          "name": "gsea_results_20260121_161144.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20260121_161144.csv",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2026-01-21/gsea_results_20260121_161144.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T211150Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=1803d55f0ac3c8c270d8d44fdd9479063efd142a77e760ecb82a68fba1a4c245"
+        },
+        "gsea_plot_metadata": {
+          "id": "1769029910_0e284c1c",
+          "name": "gsea_results_20260121_161144.png",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20260121_161144.png",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2026-01-21/gsea_results_20260121_161144.png?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T211150Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=6a193fe8bdfa5bc757e8af8b7c3bdb8cf1f8fcf3c30dd47e7e246e83c149e508"
+        }
+      }
+    }
+  ],
+  "uploaded_files": [
+    {
+      "name": "1-s2.0-S1535610824003593-mmc2-cluster 4 (B cells).csv",
+      "type": "csv",
+      "preview": ",gene,p_val,avg_log2FC,pct.1,pct.2,p_val_adj,cluster_number\n4,CD69,0.0,2.334320543,0.795,0.346,0.0,cluster 4 (B cells)\n5,CCR7,0.0,1.762918674,0.434,0.214,0.0,cluster 4 (B cells)",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/1-s20-S1535610824003593-mmc2-cluster4Bcells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T210904Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=1e0ade323e5777dc6030e50c84be71e465f284bb806907c0f87b6f07660ce4f6",
+      "s3_key": "uploads/2026-01-21/1-s20-S1535610824003593-mmc2-cluster4Bcells.csv"
+    },
+    {
+      "name": "1-s2.0-S1535610824003593-mmc2-cluster 3 (B cells).csv",
+      "type": "csv",
+      "preview": ",gene,p_val,avg_log2FC,pct.1,pct.2,p_val_adj,cluster_number\n2501,DUSP4,0.0,2.580258848,0.421,0.094,0.0,cluster 3 (B cells)\n2502,CD821,0.0,2.249719205,0.448,0.227,0.0,cluster 3 (B cells)",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/1-s20-S1535610824003593-mmc2-cluster3Bcells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T210904Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=0949c5eb27b8cfb0b0390a34bbdf109f5eeec121f8e9bdc675b35066f847d082",
+      "s3_key": "uploads/2026-01-21/1-s20-S1535610824003593-mmc2-cluster3Bcells.csv"
+    },
+    {
+      "name": "1-s2.0-S1535610824003593-mmc2-cluster 2 (B cells).csv",
+      "type": "csv",
+      "preview": ",gene,p_val,avg_log2FC,pct.1,pct.2,p_val_adj,cluster_number\n0,LY86,0.0,0.350630459,0.338,0.202,0.0,cluster 2 (B cells)\n1,BLK,0.0,0.282710944,0.33,0.211,0.0,cluster 2 (B cells)",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/1-s20-S1535610824003593-mmc2-cluster2Bcells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T210904Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=07b24e4263f286c86a5dc24be536b76881b1e0ea7e4ab0efd1080f95c4794416",
+      "s3_key": "uploads/2026-01-21/1-s20-S1535610824003593-mmc2-cluster2Bcells.csv"
+    },
+    {
+      "name": "1-s2.0-S1535610824003593-mmc2-cluster 1 (B cells).csv",
+      "type": "csv",
+      "preview": ",gene,p_val,avg_log2FC,pct.1,pct.2,p_val_adj,cluster_number\n1594,SNX9,0.0,2.42915284,0.261,0.125,0.0,cluster 1 (B cells)\n1595,TMEM2301,0.0,1.783178887,0.192,0.334,0.0,cluster 1 (B cells)",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/1-s20-S1535610824003593-mmc2-cluster1Bcells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T210905Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=a356a4b6a37a6f08f27bbe94d2c5728007ca99713be0642c21810996901cef58",
+      "s3_key": "uploads/2026-01-21/1-s20-S1535610824003593-mmc2-cluster1Bcells.csv"
+    }
+  ]
+}

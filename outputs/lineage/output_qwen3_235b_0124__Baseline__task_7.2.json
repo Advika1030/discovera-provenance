@@ -1,0 +1,114 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0124__Baseline__task_7.2",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "7.2",
+      "run_date": "2026-01-22 01:24:24",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Ahmad_2025_Cancer_Cell_TableS3.xlsx - Elp1HETvsWT;Ptch1gRNA_RNA_GSEA.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/Ahmad_2025_Cancer_Cell_TableS3xlsx-Elp1HETvsWTPtch1gRNA_RNA_GSEA.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T062424Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=94952f330a536124b5487e399d2f8c28950e131fd175547cd08deb836fb39623",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/Ahmad_2025_Cancer_Cell_TableS3xlsx-Elp1HETvsWTPtch1gRNA_RNA_GSEA.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T062424Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=94952f330a536124b5487e399d2f8c28950e131fd175547cd08deb836fb39623\", \"metadata\": {\"description\": \"GSEA results comparing Elp1HET;Ptch1gRNA vs Elp1WT;Ptch1gRNA tumors in SHH-MB mouse model\", \"source\": \"Ahmad et al., 2025 Cancer Cell\"}, \"name\": \"Ahmad_2025_Cancer_Cell_TableS3.xlsx - Elp1HETvsWT;Ptch1gRNA_RNA_GSEA.csv\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Ahmad_2025_Cancer_Cell_TableS3.xlsx - Elp1HETvsWT;Ptch1gRNA_RNA_GSEA.csv.csv",
+      "path": "/app/output/user_csvs/Ahmad_2025_Cancer_Cell_TableS3.xlsx - Elp1HETvsWT;Ptch1gRNA_RNA_GSEA.csv.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769063080_e5455839"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1769063080_e5455839\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"qvalue\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769063080_e5455839\", \"name\": \"filtered_enriched_pathways\", \"sort_by\": [\"-NES\"]}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769063080_e5455839.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769063080_e5455839.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769063108_189a50dc"
+    },
+    {
+      "type": "report",
+      "length": 3664,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769063080_e5455839",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1769063080_e5455839"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1769063080_e5455839"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769063108_189a50dc",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

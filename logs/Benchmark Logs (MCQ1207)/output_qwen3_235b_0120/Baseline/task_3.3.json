@@ -1,0 +1,442 @@
+{
+  "ID": "3.3",
+  "Context/Background": "To find novel treatments and drug combinations that could effectively target colorectal cancer cells (CRCs) and lower the probability of disease relapse, we designed multiple different combinations between cisplatin, cannabidiol (CBD), and intermittent serum starvation (ISS) on colorectal cancer cell lines. We analyzed differentially expressed genes and affected pathways in colorectal cancer cell lines to understand further the potential molecular mechanisms behind the treatments and their interactions.",
+  "Prompt": "Based on the results of the differential expression analysis of ISS vs DMSO in colorectal cancer cells, run a pathway overrepresentation analysis for statistically significant genes (up and down combined) against the Reactome database. Then, provide a discussion of any relevant affected pathways, highlighting important up and down regulated genes in each.  Focus on any mechanisms by which intermittent serum starvation may alter cancer related pathways.",
+  "mode": "Baseline",
+  "llm_provider": "nvidia",
+  "llm_model": "qwen/qwen3-235b-a22b",
+  "run_date": "2026-01-21 11:39:04",
+  "elapsed_seconds": 262.3,
+  "status": "ok",
+  "error": null,
+  "output_text": "<tool_call>\n{\"name\": \"csv_record\", \"arguments\": {\"name\": \"ISS_up_gene_list\", \"csv_text\": \"gene_id\\nENSG00000248527\\nENSG00000223764\\nENSG00000187634\\nENSG00000187961\\nENSG00000272512\\nENSG00000187608\\nENSG00000217801\\nENSG00000162572\\nENSG00000224870\\nENSG00000225285\\nENSG00000179403\\nENSG00000160072\\nENSG00000189339\\nENSG00000142609\\nENSG00000157933\\nENSG00000116151\\nENSG00000269896\\nENSG00000157911\\nENSG00000149527\\nENSG00000157870\", \"tags\": [\"gene_list\", \"upregulated\"], \"metadata\": {\"description\": \"Significantly upregulated genes in ISS vs DMSO (padj <0.05, log2FC >0)\"}}\n</tool_call>",
+  "tool_calls_json": [
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "ISS_vs_DMSO_DEG",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T163904Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=390b7b720bda09e590b14fc2f9f3005054db9b30273c7b7d4324be6887b92d54",
+        "tags": [
+          "user_input",
+          "differential_expression"
+        ],
+        "metadata": {
+          "source": "ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv",
+          "description": "Differential expression analysis of intermittent serum starvation vs DMSO in colorectal cancer cells"
+        }
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1769013577_16e5e862",
+        "conditions": [
+          {
+            "column": "padj",
+            "op": "<",
+            "value": 0.05
+          }
+        ],
+        "name": "ISS_vs_DMSO_DEG_sig"
+      }
+    },
+    {
+      "name": "csv_select",
+      "args": {
+        "csv_id": "1769013593_28479655",
+        "columns": [
+          "Unnamed: 0",
+          "log2FoldChange",
+          "padj"
+        ],
+        "rename": {
+          "Unnamed: 0": "gene_id"
+        },
+        "name": "ISS_vs_DMSO_DEG_sig_renamed"
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1769013611_11729c9c",
+        "conditions": [
+          {
+            "column": "log2FoldChange",
+            "op": ">",
+            "value": 0
+          }
+        ],
+        "name": "ISS_up"
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1769013611_11729c9c",
+        "conditions": [
+          {
+            "column": "log2FoldChange",
+            "op": "<",
+            "value": 0
+          }
+        ],
+        "name": "ISS_down"
+      }
+    },
+    {
+      "name": "csv_aggregate",
+      "args": {
+        "csv_id": "1769013662_5730e9b6",
+        "aggregations": {
+          "up_gene_count": {
+            "func": "count",
+            "cols": [
+              "gene_id"
+            ]
+          }
+        },
+        "name": "ISS_up_count"
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1769013662_5730e9b6",
+        "n_rows": 0
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1769013697_5730e9b6",
+        "n_rows": 0
+      }
+    },
+    {
+      "name": "csv_aggregate",
+      "args": {
+        "csv_id": "1769013697_5730e9b6",
+        "aggregations": {
+          "down_gene_count": {
+            "func": "count",
+            "cols": [
+              "gene_id"
+            ]
+          }
+        },
+        "name": "ISS_down_count"
+      }
+    },
+    {
+      "name": "csv_aggregate",
+      "args": {
+        "csv_id": "1769013697_5730e9b6",
+        "aggregations": {
+          "down_gene_count": {
+            "func": "sum",
+            "cols": [
+              "gene_id"
+            ]
+          }
+        },
+        "name": "ISS_down_count"
+      }
+    },
+    {
+      "name": "csv_aggregate",
+      "args": {
+        "csv_id": "1769013662_5730e9b6",
+        "aggregations": {
+          "up_gene_count": {
+            "func": "sum",
+            "cols": [
+              "gene_id"
+            ]
+          }
+        },
+        "name": "ISS_up_count"
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1769013662_5730e9b6",
+        "n_rows": 0
+      }
+    }
+  ],
+  "tool_events_json": [
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1769013577_16e5e862",
+        "name": "ISS_vs_DMSO_DEG.csv",
+        "path": "/app/output/user_csvs/ISS_vs_DMSO_DEG.csv"
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "Unnamed: 0",
+          "baseMean",
+          "log2FoldChange",
+          "lfcSE",
+          "stat",
+          "pvalue",
+          "padj",
+          "comparison"
+        ],
+        "rows": "[{\"Unnamed: 0\":\"ENSG00000237683\",\"baseMean\":1079.9326670191,\"log2FoldChange\":-0.2585252334,\"lfcSE\":0.0749468511,\"stat\":-3.4494475682,\"pvalue\":0.0005617348,\"padj\":0.002265455,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000248527\",\"baseMean\":34189.1811876393,\"log2FoldChange\":0.1963012284,\"lfcSE\":0.0273349498,\"stat\":7.1813275742,\"pvalue\":0.0,\"padj\":0.0,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000223764\",\"baseMean\":67.009873249,\"log2FoldChange\":1.6071385175,\"lfcSE\":0.2487283275,\"stat\":6.4614213167,\"pvalue\":0.0000000001,\"padj\":0.0000000013,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000187634\",\"baseMean\":240.6918308245,\"log2FoldChange\":1.0786222916,\"lfcSE\":0.1282478847,\"stat\":8.4104489857,\"pvalue\":4.084441836e-17,\"padj\":9.361738855e-16,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000188976\",\"baseMean\":7866.1112717403,\"log2FoldChange\":-0.2832348517,\"lfcSE\":0.0429191014,\"stat\":-6.5992726397,\"pvalue\":0.0,\"padj\":0.0000000005,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000187961\",\"baseMean\":2468.917412665,\"log2FoldChange\":0.1751048914,\"lfcSE\":0.0541026169,\"stat\":3.2365327486,\"pvalue\":0.0012099134,\"padj\":0.0044918135,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000272512\",\"baseMean\":187.8231379498,\"log2FoldChange\":0.7047840493,\"lfcSE\":0.1556032923,\"stat\":4.5293646371,\"pvalue\":0.0000059161,\"padj\":0.0000363102,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000187608\",\"baseMean\":1944.1226336181,\"log2FoldChange\":1.3742452507,\"lfcSE\":0.0665917469,\"stat\":20.6368703916,\"pvalue\":1.280926775e-94,\"padj\":6.224206187e-92,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000188157\",\"baseMean\":9757.3573607975,\"log2FoldChange\":-0.1904567858,\"lfcSE\":0.0383471008,\"stat\":-4.9666541088,\"pvalue\":0.0000006812,\"padj\":0.0000049849,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000217801\",\"baseMean\":597.2825545213,\"log2FoldChange\":0.4051555335,\"lfcSE\":0.0885900103,\"stat\":4.5733772045,\"pvalue\":0.0000047992,\"padj\":0.0000300629,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000184163\",\"baseMean\":112.6638329985,\"log2FoldChange\":-0.8598796578,\"lfcSE\":0.1975154835,\"stat\":-4.3534797508,\"pvalue\":0.0000133993,\"padj\":0.0000771699,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000260179\",\"baseMean\":24.1112069636,\"log2FoldChange\":-1.190757189,\"lfcSE\":0.4003860295,\"stat\":-2.9740228215,\"pvalue\":0.0029392321,\"padj\":0.0098497578,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000162572\",\"baseMean\":247.0182334722,\"log2FoldChange\":0.3961151474,\"lfcSE\":0.1262327317,\"stat\":3.1379749303,\"pvalue\":0.0017011943,\"padj\":0.0060858668,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000221978\",\"baseMean\":8326.0427218704,\"log2FoldChange\":-0.1956240192,\"lfcSE\":0.0449924642,\"stat\":-4.3479285437,\"pvalue\":0.0000137429,\"padj\":0.0000790951,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000224870\",\"baseMean\":473.9892480827,\"log2FoldChange\":0.4618467977,\"lfcSE\":0.1013944265,\"stat\":4.5549525117,\"pvalue\":0.0000052397,\"padj\":0.000032618,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000225285\",\"baseMean\":86.3315649958,\"log2FoldChange\":0.5707714487,\"lfcSE\":0.2189784212,\"stat\":2.6065191518,\"pvalue\":0.0091467709,\"padj\":0.0264421438,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000179403\",\"baseMean\":1668.3390431848,\"log2FoldChange\":0.9451088305,\"lfcSE\":0.0600749569,\"stat\":15.7321599339,\"pvalue\":9.105133473e-56,\"padj\":1.54851005e-53,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000160072\",\"baseMean\":1461.9407691568,\"log2FoldChange\":0.1739692582,\"lfcSE\":0.0623838084,\"stat\":2.7886924941,\"pvalue\":0.0052921287,\"padj\":0.0165173854,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000189339\",\"baseMean\":1641.9666983697,\"log2FoldChange\":0.5316210973,\"lfcSE\":0.0553492959,\"stat\":9.6048393805,\"pvalue\":7.627676258e-22,\"padj\":2.509166153e-20,\"comparison\":\"serum_starv_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000078369\",\"baseMean\":13047.5691096743,\"log2FoldChange\":-0.1265837807,\"lfcSE\":0.0292084992,\"stat\":-4.333799552,\"pvalue\":0.0000146558,\"padj\":0.0000838945,\"comparison\":\"serum_starv_vs_dmso\"}]",
+        "total_rows": 6555,
+        "storage_entry": {
+          "id": "1769013593_28479655",
+          "name": "csv_filter_1769013577_16e5e862.csv",
+          "path": "/app/output/user_csvs/csv_filter_1769013577_16e5e862.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_select",
+      "payload": {
+        "columns": [
+          "gene_id",
+          "log2FoldChange",
+          "padj"
+        ],
+        "rows": "[{\"gene_id\":\"ENSG00000237683\",\"log2FoldChange\":-0.2585252334,\"padj\":0.002265455},{\"gene_id\":\"ENSG00000248527\",\"log2FoldChange\":0.1963012284,\"padj\":0.0},{\"gene_id\":\"ENSG00000223764\",\"log2FoldChange\":1.6071385175,\"padj\":0.0000000013},{\"gene_id\":\"ENSG00000187634\",\"log2FoldChange\":1.0786222916,\"padj\":9.361738855e-16},{\"gene_id\":\"ENSG00000188976\",\"log2FoldChange\":-0.2832348517,\"padj\":0.0000000005},{\"gene_id\":\"ENSG00000187961\",\"log2FoldChange\":0.1751048914,\"padj\":0.0044918135},{\"gene_id\":\"ENSG00000272512\",\"log2FoldChange\":0.7047840493,\"padj\":0.0000363102},{\"gene_id\":\"ENSG00000187608\",\"log2FoldChange\":1.3742452507,\"padj\":6.224206187e-92},{\"gene_id\":\"ENSG00000188157\",\"log2FoldChange\":-0.1904567858,\"padj\":0.0000049849},{\"gene_id\":\"ENSG00000217801\",\"log2FoldChange\":0.4051555335,\"padj\":0.0000300629},{\"gene_id\":\"ENSG00000184163\",\"log2FoldChange\":-0.8598796578,\"padj\":0.0000771699},{\"gene_id\":\"ENSG00000260179\",\"log2FoldChange\":-1.190757189,\"padj\":0.0098497578},{\"gene_id\":\"ENSG00000162572\",\"log2FoldChange\":0.3961151474,\"padj\":0.0060858668},{\"gene_id\":\"ENSG00000221978\",\"log2FoldChange\":-0.1956240192,\"padj\":0.0000790951},{\"gene_id\":\"ENSG00000224870\",\"log2FoldChange\":0.4618467977,\"padj\":0.000032618},{\"gene_id\":\"ENSG00000225285\",\"log2FoldChange\":0.5707714487,\"padj\":0.0264421438},{\"gene_id\":\"ENSG00000179403\",\"log2FoldChange\":0.9451088305,\"padj\":1.54851005e-53},{\"gene_id\":\"ENSG00000160072\",\"log2FoldChange\":0.1739692582,\"padj\":0.0165173854},{\"gene_id\":\"ENSG00000189339\",\"log2FoldChange\":0.5316210973,\"padj\":2.509166153e-20},{\"gene_id\":\"ENSG00000078369\",\"log2FoldChange\":-0.1265837807,\"padj\":0.0000838945}]",
+        "total_rows": 6555,
+        "storage_entry": {
+          "id": "1769013611_11729c9c",
+          "name": "csv_select_1769013593_28479655.csv",
+          "path": "/app/output/user_csvs/csv_select_1769013593_28479655.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "gene_id",
+          "log2FoldChange",
+          "padj"
+        ],
+        "rows": "[{\"gene_id\":\"ENSG00000248527\",\"log2FoldChange\":0.1963012284,\"padj\":0.0},{\"gene_id\":\"ENSG00000223764\",\"log2FoldChange\":1.6071385175,\"padj\":0.0000000013},{\"gene_id\":\"ENSG00000187634\",\"log2FoldChange\":1.0786222916,\"padj\":9.361738855e-16},{\"gene_id\":\"ENSG00000187961\",\"log2FoldChange\":0.1751048914,\"padj\":0.0044918135},{\"gene_id\":\"ENSG00000272512\",\"log2FoldChange\":0.7047840493,\"padj\":0.0000363102},{\"gene_id\":\"ENSG00000187608\",\"log2FoldChange\":1.3742452507,\"padj\":6.224206187e-92},{\"gene_id\":\"ENSG00000217801\",\"log2FoldChange\":0.4051555335,\"padj\":0.0000300629},{\"gene_id\":\"ENSG00000162572\",\"log2FoldChange\":0.3961151474,\"padj\":0.0060858668},{\"gene_id\":\"ENSG00000224870\",\"log2FoldChange\":0.4618467977,\"padj\":0.000032618},{\"gene_id\":\"ENSG00000225285\",\"log2FoldChange\":0.5707714487,\"padj\":0.0264421438},{\"gene_id\":\"ENSG00000179403\",\"log2FoldChange\":0.9451088305,\"padj\":1.54851005e-53},{\"gene_id\":\"ENSG00000160072\",\"log2FoldChange\":0.1739692582,\"padj\":0.0165173854},{\"gene_id\":\"ENSG00000189339\",\"log2FoldChange\":0.5316210973,\"padj\":2.509166153e-20},{\"gene_id\":\"ENSG00000142609\",\"log2FoldChange\":0.4613517623,\"padj\":0.0116379823},{\"gene_id\":\"ENSG00000157933\",\"log2FoldChange\":0.1614712862,\"padj\":0.0082430036},{\"gene_id\":\"ENSG00000116151\",\"log2FoldChange\":0.4502422744,\"padj\":0.0003374214},{\"gene_id\":\"ENSG00000269896\",\"log2FoldChange\":0.7157579141,\"padj\":0.0276792977},{\"gene_id\":\"ENSG00000157911\",\"log2FoldChange\":0.2775358258,\"padj\":0.0021077705},{\"gene_id\":\"ENSG00000149527\",\"log2FoldChange\":0.4720860108,\"padj\":0.0217480752},{\"gene_id\":\"ENSG00000157870\",\"log2FoldChange\":0.4026404842,\"padj\":0.0000000602}]",
+        "total_rows": 3274,
+        "storage_entry": {
+          "id": "1769013662_5730e9b6",
+          "name": "csv_filter_1769013611_11729c9c.csv",
+          "path": "/app/output/user_csvs/csv_filter_1769013611_11729c9c.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "gene_id",
+          "log2FoldChange",
+          "padj"
+        ],
+        "rows": "[{\"gene_id\":\"ENSG00000237683\",\"log2FoldChange\":-0.2585252334,\"padj\":0.002265455},{\"gene_id\":\"ENSG00000188976\",\"log2FoldChange\":-0.2832348517,\"padj\":0.0000000005},{\"gene_id\":\"ENSG00000188157\",\"log2FoldChange\":-0.1904567858,\"padj\":0.0000049849},{\"gene_id\":\"ENSG00000184163\",\"log2FoldChange\":-0.8598796578,\"padj\":0.0000771699},{\"gene_id\":\"ENSG00000260179\",\"log2FoldChange\":-1.190757189,\"padj\":0.0098497578},{\"gene_id\":\"ENSG00000221978\",\"log2FoldChange\":-0.1956240192,\"padj\":0.0000790951},{\"gene_id\":\"ENSG00000078369\",\"log2FoldChange\":-0.1265837807,\"padj\":0.0000838945},{\"gene_id\":\"ENSG00000157881\",\"log2FoldChange\":-0.3981537502,\"padj\":0.0000000631},{\"gene_id\":\"ENSG00000142611\",\"log2FoldChange\":-0.993618469,\"padj\":5.260609287e-21},{\"gene_id\":\"ENSG00000116254\",\"log2FoldChange\":-0.3810804022,\"padj\":0.0003063208},{\"gene_id\":\"ENSG00000158286\",\"log2FoldChange\":-0.1730960653,\"padj\":0.0296233489},{\"gene_id\":\"ENSG00000215788\",\"log2FoldChange\":-0.49855745,\"padj\":0.0},{\"gene_id\":\"ENSG00000171680\",\"log2FoldChange\":-0.441606171,\"padj\":0.0},{\"gene_id\":\"ENSG00000162408\",\"log2FoldChange\":-0.1888306932,\"padj\":0.0077985795},{\"gene_id\":\"ENSG00000162413\",\"log2FoldChange\":-0.1678398063,\"padj\":0.0052483852},{\"gene_id\":\"ENSG00000041988\",\"log2FoldChange\":-0.4532003184,\"padj\":0.0000186088},{\"gene_id\":\"ENSG00000162426\",\"log2FoldChange\":-0.2267561932,\"padj\":0.0220066791},{\"gene_id\":\"ENSG00000074800\",\"log2FoldChange\":-0.397630914,\"padj\":9.514167074e-45},{\"gene_id\":\"ENSG00000049239\",\"log2FoldChange\":-0.2857236312,\"padj\":0.000000412},{\"gene_id\":\"ENSG00000173614\",\"log2FoldChange\":-0.2513507147,\"padj\":0.0398316153}]",
+        "total_rows": 3281,
+        "storage_entry": {
+          "id": "1769013697_5730e9b6",
+          "name": "csv_filter_1769013611_11729c9c.csv",
+          "path": "/app/output/user_csvs/csv_filter_1769013611_11729c9c.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_aggregate",
+      "payload": {
+        "error": {
+          "tool": "csv_aggregate",
+          "type": "FileNotFoundError",
+          "message": "No entry with id 1769013662_5730e9b6",
+          "traceback": "Traceback (most recent call last):\n  File \"/app/src/baseline_fastmcp/server.py\", line 871, in csv_aggregate\n    csv_path = _resolve_path_from_id(params.csv_id)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/src/baseline_fastmcp/server.py\", line 117, in _resolve_path_from_id\n    raise FileNotFoundError(f\"No entry with id {file_id}\")\nFileNotFoundError: No entry with id 1769013662_5730e9b6\n"
+        },
+        "context": {
+          "csv_id": "1769013662_5730e9b6"
+        }
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": "Error: ToolException(\"Error calling tool 'csv_read': 'CsvReadInput' object has no attribute 'path'\")\n Please fix your mistakes."
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/app/output/user_csvs/csv_filter_1769013611_11729c9c.csv",
+        "columns": [
+          "gene_id",
+          "log2FoldChange",
+          "padj"
+        ],
+        "rows": [
+          {
+            "gene_id": "ENSG00000237683",
+            "log2FoldChange": -0.258525233410726,
+            "padj": 0.0022654550286431
+          },
+          {
+            "gene_id": "ENSG00000188976",
+            "log2FoldChange": -0.283234851695659,
+            "padj": 5.31098551222964e-10
+          },
+          {
+            "gene_id": "ENSG00000188157",
+            "log2FoldChange": -0.190456785804309,
+            "padj": 4.98486039333055e-06
+          },
+          {
+            "gene_id": "ENSG00000184163",
+            "log2FoldChange": -0.859879657794636,
+            "padj": 7.71698972989468e-05
+          },
+          {
+            "gene_id": "ENSG00000260179",
+            "log2FoldChange": -1.19075718903012,
+            "padj": 0.0098497578336593
+          },
+          {
+            "gene_id": "ENSG00000221978",
+            "log2FoldChange": -0.195624019204108,
+            "padj": 7.90951316834649e-05
+          },
+          {
+            "gene_id": "ENSG00000078369",
+            "log2FoldChange": -0.126583780745921,
+            "padj": 8.38944997340105e-05
+          },
+          {
+            "gene_id": "ENSG00000157881",
+            "log2FoldChange": -0.398153750220903,
+            "padj": 6.31423147782746e-08
+          },
+          {
+            "gene_id": "ENSG00000142611",
+            "log2FoldChange": -0.993618468959023,
+            "padj": 5.26060928664867e-21
+          },
+          {
+            "gene_id": "ENSG00000116254",
+            "log2FoldChange": -0.381080402222642,
+            "padj": 0.000306320777479
+          },
+          {
+            "gene_id": "ENSG00000158286",
+            "log2FoldChange": -0.173096065292297,
+            "padj": 0.0296233488883035
+          },
+          {
+            "gene_id": "ENSG00000215788",
+            "log2FoldChange": -0.498557449971887,
+            "padj": 3.0460547490945894e-11
+          },
+          {
+            "gene_id": "ENSG00000171680",
+            "log2FoldChange": -0.441606170969945,
+            "padj": 1.59584688960647e-15
+          },
+          {
+            "gene_id": "ENSG00000162408",
+            "log2FoldChange": -0.188830693163084,
+            "padj": 0.0077985795309569
+          },
+          {
+            "gene_id": "ENSG00000162413",
+            "log2FoldChange": -0.167839806260906,
+            "padj": 0.0052483852360727
+          },
+          {
+            "gene_id": "ENSG00000041988",
+            "log2FoldChange": -0.453200318425216,
+            "padj": 1.8608792735886e-05
+          },
+          {
+            "gene_id": "ENSG00000162426",
+            "log2FoldChange": -0.226756193197488,
+            "padj": 0.0220066791394944
+          },
+          {
+            "gene_id": "ENSG00000074800",
+            "log2FoldChange": -0.397630914013102,
+            "padj": 9.514167073604061e-45
+          },
+          {
+            "gene_id": "ENSG00000049239",
+            "log2FoldChange": -0.285723631170213,
+            "padj": 4.12018042793901e-07
+          },
+          {
+            "gene_id": "ENSG00000173614",
+            "log2FoldChange": -0.251350714693879,
+            "padj": 0.0398316152778114
+          }
+        ],
+        "total_rows": 3281
+      }
+    },
+    {
+      "tool": "csv_aggregate",
+      "payload": {
+        "error": {
+          "tool": "csv_aggregate",
+          "type": "ValueError",
+          "message": "Unsupported aggregation func 'count' for 'down_gene_count'",
+          "traceback": "Traceback (most recent call last):\n  File \"/app/src/baseline_fastmcp/server.py\", line 904, in csv_aggregate\n    raise ValueError(\nValueError: Unsupported aggregation func 'count' for 'down_gene_count'\n"
+        },
+        "context": {
+          "csv_id": "1769013697_5730e9b6"
+        }
+      }
+    },
+    {
+      "tool": "csv_aggregate",
+      "payload": {
+        "columns": [
+          "gene_id",
+          "log2FoldChange",
+          "padj",
+          "down_gene_count"
+        ],
+        "rows": "[{\"gene_id\":\"ENSG00000237683\",\"log2FoldChange\":-0.2585252334,\"padj\":0.002265455,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000188976\",\"log2FoldChange\":-0.2832348517,\"padj\":0.0000000005,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000188157\",\"log2FoldChange\":-0.1904567858,\"padj\":0.0000049849,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000184163\",\"log2FoldChange\":-0.8598796578,\"padj\":0.0000771699,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000260179\",\"log2FoldChange\":-1.190757189,\"padj\":0.0098497578,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000221978\",\"log2FoldChange\":-0.1956240192,\"padj\":0.0000790951,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000078369\",\"log2FoldChange\":-0.1265837807,\"padj\":0.0000838945,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000157881\",\"log2FoldChange\":-0.3981537502,\"padj\":0.0000000631,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000142611\",\"log2FoldChange\":-0.993618469,\"padj\":5.260609287e-21,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000116254\",\"log2FoldChange\":-0.3810804022,\"padj\":0.0003063208,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000158286\",\"log2FoldChange\":-0.1730960653,\"padj\":0.0296233489,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000215788\",\"log2FoldChange\":-0.49855745,\"padj\":0.0,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000171680\",\"log2FoldChange\":-0.441606171,\"padj\":0.0,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000162408\",\"log2FoldChange\":-0.1888306932,\"padj\":0.0077985795,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000162413\",\"log2FoldChange\":-0.1678398063,\"padj\":0.0052483852,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000041988\",\"log2FoldChange\":-0.4532003184,\"padj\":0.0000186088,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000162426\",\"log2FoldChange\":-0.2267561932,\"padj\":0.0220066791,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000074800\",\"log2FoldChange\":-0.397630914,\"padj\":9.514167074e-45,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000049239\",\"log2FoldChange\":-0.2857236312,\"padj\":0.000000412,\"down_gene_count\":0.0},{\"gene_id\":\"ENSG00000173614\",\"log2FoldChange\":-0.2513507147,\"padj\":0.0398316153,\"down_gene_count\":0.0}]",
+        "total_rows": 3281,
+        "storage_entry": {
+          "id": "1769013754_a5caa852",
+          "name": "csv_aggregate_1769013697_5730e9b6_down_gene_count.csv",
+          "path": "/app/output/user_csvs/csv_aggregate_1769013697_5730e9b6_down_gene_count.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_aggregate",
+      "payload": {
+        "error": {
+          "tool": "csv_aggregate",
+          "type": "FileNotFoundError",
+          "message": "No entry with id 1769013662_5730e9b6",
+          "traceback": "Traceback (most recent call last):\n  File \"/app/src/baseline_fastmcp/server.py\", line 871, in csv_aggregate\n    csv_path = _resolve_path_from_id(params.csv_id)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/src/baseline_fastmcp/server.py\", line 117, in _resolve_path_from_id\n    raise FileNotFoundError(f\"No entry with id {file_id}\")\nFileNotFoundError: No entry with id 1769013662_5730e9b6\n"
+        },
+        "context": {
+          "csv_id": "1769013662_5730e9b6"
+        }
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": "Error: ToolException(\"Error calling tool 'csv_read': 'CsvReadInput' object has no attribute 'path'\")\n Please fix your mistakes."
+    }
+  ],
+  "uploaded_files": [
+    {
+      "name": "ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv",
+      "type": "csv",
+      "preview": ",baseMean,log2FoldChange,lfcSE,stat,pvalue,padj,comparison\nENSG00000227232,537.987511255077,-0.063695843208867,0.0899262218494096,-0.708312235284743,0.478751380637603,0.621536238969749,serum_starv_vs_dmso\nENSG00000238009,9.86298796447121,0.676614851068152,0.624822181785406,1.08289185434286,0.278856427874056,0.420771117811559,serum_starv_vs_dmso",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T163904Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=390b7b720bda09e590b14fc2f9f3005054db9b30273c7b7d4324be6887b92d54",
+      "s3_key": "uploads/2026-01-21/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv"
+    }
+  ]
+}

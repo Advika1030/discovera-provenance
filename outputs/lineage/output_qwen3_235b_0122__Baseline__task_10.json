@@ -1,0 +1,102 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0122__Baseline__task_10",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "10",
+      "run_date": "2026-01-21 23:11:56",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "PIIS1535610825000789-baseline_Nivo_Rela.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/PIIS1535610825000789-baseline_Nivo_Rela.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T041156Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=85bf2aefa655eedeab4b707481a98f71424c0f62fb968b5c4b30387eed36b448",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "PIIS1535610825000789-baseline_Nivo_Ipi.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/PIIS1535610825000789-baseline_Nivo_Ipi.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T041156Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=f66b02cf8d366dfc7341b2c66307670ea4ad7deea7054b1a4f336e13926488e6",
+      "id": "upload:1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/PIIS1535610825000789-baseline_Nivo_Rela.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T041156Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=85bf2aefa655eedeab4b707481a98f71424c0f62fb968b5c4b30387eed36b448\", \"name\": \"Nivo+Rela DEGs\", \"tags\": [\"user_input\", \"DEG\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Nivo+Rela DEGs.csv",
+      "path": "/app/output/user_csvs/Nivo+Rela DEGs.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769055131_41b5f253"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 1,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/PIIS1535610825000789-baseline_Nivo_Ipi.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T041156Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=f66b02cf8d366dfc7341b2c66307670ea4ad7deea7054b1a4f336e13926488e6\", \"name\": \"Nivo+Ipi DEGs\", \"tags\": [\"user_input\", \"DEG\"]}",
+      "error": "",
+      "id": "step1_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Nivo+Ipi DEGs.csv",
+      "path": "/app/output/user_csvs/Nivo+Ipi DEGs.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769055149_ca24f4a6"
+    },
+    {
+      "type": "report",
+      "length": 4085,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769055131_41b5f253",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769055149_ca24f4a6",
+      "target": "step1_csv_record"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0124__Discovera__task_3.3",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Discovera",
+      "task_id": "3.3",
+      "run_date": "2026-01-21 14:44:26",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T194426Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=5c2496664fdf9b54d569c6490a3cb3094053e272012a43d312a442af8b271f9b",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T194426Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=5c2496664fdf9b54d569c6490a3cb3094053e272012a43d312a442af8b271f9b\", \"name\": \"DEG_CRC_ISS_vs_DMSO\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "DEG_CRC_ISS_vs_DMSO.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/DEG_CRC_ISS_vs_DMSO.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769024708_fde13fed"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769024708_fde13fed\"}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769024708_fde13fed_9ac74107a2.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_filter_1769024708_fde13fed_9ac74107a2.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769024743_631eb338"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 2,
+      "args": "{\"csv_id\": \"1769024743_631eb338\", \"rename\": {\"Unnamed: 0\": \"gene\"}}",
+      "error": "",
+      "id": "step2_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769024743_631eb338_6036518e14.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_select_1769024743_631eb338_6036518e14.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769024760_c0e29139"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 3,
+      "args": "{\"csv_id\": \"1769024760_c0e29138\", \"keep_columns\": [\"gene\"]}",
+      "error": "",
+      "id": "step3_csv_select"
+    },
+    {
+      "type": "missing_reference",
+      "id": "missing:1769024760_c0e29138"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 4,
+      "args": "{\"columns\": [\"gene\"], \"csv_id\": \"1769024760_c0e29138\"}",
+      "error": "{\"tool\": \"csv_select\", \"type\": \"FileNotFoundError\", \"message\": \"No entry with id 1769024760_c0e29138\", \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera_fastmcp/server.py\\\", line 2381, in csv_select\\n    csv_abs_path = _resolve_path_from_id(params.csv_id)\\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera_fastmcp/server.py\\\", line 310, in _resolve_path_from_id\\n    raise FileNotFoundError(f\\\"No entry with id {file_id}\\\")\\nFileNotFoundError: No entry with id 1769024760_c0e29138\\n\"}",
+      "id": "step4_csv_select"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 5,
+      "args": "{\"columns\": [\"gene\"], \"csv_id\": \"1769024760_c0e29139\"}",
+      "error": "",
+      "id": "step5_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769024760_c0e29139_49e37b4130.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_select_1769024760_c0e29139_49e37b4130.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769024797_7204d875"
+    },
+    {
+      "type": "tool_step",
+      "tool": "ora_pipe",
+      "step_index": 6,
+      "args": "{\"csv_id\": \"1769024797_7204d875\", \"gene_col\": \"gene\", \"gene_sets\": [\"Reactome_Pathways_2024\"]}",
+      "error": "",
+      "id": "step6_ora_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "ora_results_20260121_144654.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20260121_144654.csv",
+      "source_key": "ora_result_metadata",
+      "is_plot": false,
+      "id": "1769024832_24798360"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gene_info",
+      "step_index": 7,
+      "args": "{\"gene_list\": [\"IDI1\", \"FDPS\", \"SREBF1\", \"MVK\", \"HMGCS1\", \"CYP51A1\", \"HMGCR\", \"SQLE\", \"DHCR7\", \"FDFT1\"]}",
+      "error": "",
+      "id": "step7_gene_info"
+    },
+    {
+      "type": "report",
+      "length": 5858,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769024708_fde13fed",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769024708_fde13fed"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769024743_631eb338",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_select",
+      "target": "1769024743_631eb338"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769024760_c0e29139",
+      "target": "step2_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_select",
+      "target": "missing:1769024760_c0e29138"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_select",
+      "target": "missing:1769024760_c0e29138"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step5_csv_select",
+      "target": "1769024760_c0e29139"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769024797_7204d875",
+      "target": "step5_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step6_ora_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step6_ora_pipe",
+      "target": "1769024797_7204d875"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769024832_24798360",
+      "target": "step6_ora_pipe"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step7_gene_info",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

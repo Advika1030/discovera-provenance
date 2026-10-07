@@ -1,0 +1,111 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_o4_mini_1216__Baseline__task_7.1",
+      "model": "gpt-5-nano",
+      "mode": "Baseline",
+      "task_id": "7.1",
+      "run_date": "2026-01-18 03:52:51",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Ahmad_2025_Cancer_Cell_TableS2-GNP_Polysome_GSEA.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-18/Ahmad_2025_Cancer_Cell_TableS2-GNP_Polysome_GSEA.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260118%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260118T085248Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=156fee0a5ae4a78b5989ee44d9226cbfaa61f015e92033436c34d7c88dc1fa3f",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Ahmad_2025_Cancer_Cell_TableS2-GNP_Proteomics_DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-18/Ahmad_2025_Cancer_Cell_TableS2-GNP_Proteomics_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260118%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260118T085251Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=0f17e5cfc07553460c49dede8b6c4ed1e02071bf14182200ce6783eb87d20a28",
+      "id": "upload:1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 0,
+      "args": "{\"id\": \"Ahmad_2025_Cancer_Cell_TableS2-GNP_Polysome_GSEA.csv\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step0_csv_read"
+    },
+    {
+      "type": "missing_reference",
+      "id": "missing:Ahmad_2025_Cancer_Cell_TableS2-GNP_Polysome_GSEA.csv"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 1,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-18/Ahmad_2025_Cancer_Cell_TableS2-GNP_Polysome_GSEA.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260118%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260118T085248Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=156fee0a5ae4a78b5989ee44d9226cbfaa61f015e92033436c34d7c88dc1fa3f\", \"metadata\": {\"description\": \"Polysome GSEA results for Elp1HET vs Elp1WT GNPs (P7)\", \"source\": \"S3\"}, \"name\": \"Ahmad_2025_GNP_Polysome_GSEA\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step1_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Ahmad_2025_GNP_Polysome_GSEA.csv",
+      "path": "/app/output/user_csvs/Ahmad_2025_GNP_Polysome_GSEA.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1768726414_0942656d"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 2,
+      "args": "{\"id\": \"1768726414_0942656d\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step2_csv_read"
+    },
+    {
+      "type": "report",
+      "length": 14512,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_read",
+      "target": "missing:Ahmad_2025_Cancer_Cell_TableS2-GNP_Polysome_GSEA.csv"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768726414_0942656d",
+      "target": "step1_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_read",
+      "target": "1768726414_0942656d"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

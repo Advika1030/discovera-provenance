@@ -1,0 +1,254 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0120__Baseline__task_2.1",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "2.1",
+      "run_date": "2026-01-21 11:26:56",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "jciinsight-8-167744.sdt1-26_Table-S11-Fibro-DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/jciinsight-8-167744sdt1-26_Table-S11-Fibro-DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T162655Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=9aa2c2cb765fa074edfcb2c3624581acb1165d55349bf99616a338135375b03d",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "jciinsight-8-167744.sdt1-26_Table-S12-Blood-DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/jciinsight-8-167744sdt1-26_Table-S12-Blood-DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T162656Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=fd44fa0522f231856e4b38c54ef646d2bf77ebb9ba80651ff10c66fc5371c2b6",
+      "id": "upload:1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/jciinsight-8-167744sdt1-26_Table-S11-Fibro-DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T162655Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=9aa2c2cb765fa074edfcb2c3624581acb1165d55349bf99616a338135375b03d\", \"name\": \"fibroblast_deg\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "fibroblast_deg.csv",
+      "path": "/app/output/user_csvs/fibroblast_deg.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769012843_6a1e7fd7"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 1,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/jciinsight-8-167744sdt1-26_Table-S12-Blood-DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T162656Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=fd44fa0522f231856e4b38c54ef646d2bf77ebb9ba80651ff10c66fc5371c2b6\", \"name\": \"blood_deg\"}",
+      "error": "",
+      "id": "step1_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "blood_deg.csv",
+      "path": "/app/output/user_csvs/blood_deg.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769012870_30f1e78d"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_join",
+      "step_index": 2,
+      "args": "{\"how\": \"inner\", \"left_csv_id\": \"1769012843_6a1e7fd7\", \"name\": \"common_deg\", \"on\": \"gene_name\", \"right_csv_id\": \"1769012870_30f1e78d\"}",
+      "error": "",
+      "id": "step2_csv_join"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_join_1769012843_6a1e7fd7_1769012870_30f1e78d_gene_name.csv",
+      "path": "/app/output/user_csvs/csv_join_1769012843_6a1e7fd7_1769012870_30f1e78d_gene_name.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769012886_fb521380"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 3,
+      "args": "{\"conditions\": [{\"column\": \"log2FoldChange_left\", \"op\": \">\", \"value\": 0}, {\"column\": \"log2FoldChange_right\", \"op\": \">\", \"value\": 0}], \"csv_id\": \"1769012886_fb521380\", \"name\": \"common_up\"}",
+      "error": "",
+      "id": "step3_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769012886_fb521380.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769012886_fb521380.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769012908_9255f97a"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 4,
+      "args": "{\"conditions\": [{\"column\": \"log2FoldChange_left\", \"op\": \"<\", \"value\": 0}, {\"column\": \"log2FoldChange_right\", \"op\": \"<\", \"value\": 0}], \"csv_id\": \"1769012886_fb521380\", \"name\": \"common_down\"}",
+      "error": "",
+      "id": "step4_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769012886_fb521380.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769012886_fb521380.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769012926_9255f97a"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 5,
+      "args": "{\"csv_id\": \"1769012908_9255f97a\", \"name\": \"common_up_genes\"}",
+      "error": "",
+      "id": "step5_csv_record"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 6,
+      "args": "{\"columns\": [\"gene_name\", \"log2FoldChange_left\", \"log2FoldChange_right\"], \"csv_id\": \"1769012908_9255f97a\", \"name\": \"common_up_genes\"}",
+      "error": "{\"tool\": \"csv_select\", \"type\": \"FileNotFoundError\", \"message\": \"No entry with id 1769012908_9255f97a\", \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/app/src/baseline_fastmcp/server.py\\\", line 702, in csv_select\\n    csv_abs_path = _resolve_path_from_id(params.csv_id)\\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/app/src/baseline_fastmcp/server.py\\\", line 117, in _resolve_path_from_id\\n    raise FileNotFoundError(f\\\"No entry with id {file_id}\\\")\\nFileNotFoundError: No entry with id 1769012908_9255f97a\\n\"}",
+      "id": "step6_csv_select"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 7,
+      "args": "{\"id\": \"1769012908_9255f97a\", \"n_rows\": 5}",
+      "error": "",
+      "id": "step7_csv_read"
+    },
+    {
+      "type": "report",
+      "length": 4979,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769012843_6a1e7fd7",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769012870_30f1e78d",
+      "target": "step1_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_join",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_join",
+      "target": "1769012843_6a1e7fd7"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_join",
+      "target": "1769012870_30f1e78d"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769012886_fb521380",
+      "target": "step2_csv_join"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_filter",
+      "target": "1769012886_fb521380"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769012908_9255f97a",
+      "target": "step3_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_filter",
+      "target": "1769012886_fb521380"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769012926_9255f97a",
+      "target": "step4_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step5_csv_record",
+      "target": "1769012908_9255f97a"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step6_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step6_csv_select",
+      "target": "1769012908_9255f97a"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step7_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step7_csv_read",
+      "target": "1769012908_9255f97a"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

@@ -1,0 +1,289 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0120__Discovera__task_14.2",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Discovera",
+      "task_id": "14.2",
+      "run_date": "2026-01-20 19:45:36",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "41598_2024_75947_MOESM1_ESM-S2.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-20/41598_2024_75947_MOESM1_ESM-S2.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T004536Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=3c6ab8a0b5e123e6968e74f232f8bed990ab24851e9acec2a5f5f8e5379d30f7",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-20/41598_2024_75947_MOESM1_ESM-S2.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T004536Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=3c6ab8a0b5e123e6968e74f232f8bed990ab24851e9acec2a5f5f8e5379d30f7\", \"name\": \"Supplemental_Table_2\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Supplemental_Table_2.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Supplemental_Table_2.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1768956419_c30c9aee"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1768956419_c30c9aee\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 2,
+      "args": "{\"columns\": [\"Reactome Pathway ID\", \"GeneList\", \"GeneCount/direction\", \"Direction between Organoid Phenotypes\", \"Comparison within Mucosal Epithelial Phenotypes\"], \"id\": \"1768956419_c30c9aee\", \"rename\": {\"Comparison within Mucosal Epithelial Phenotypes\": \"Comparison\", \"Direction between Organoid Phenotypes\": \"Direction\", \"GeneCount/direction\": \"GeneCount\", \"Reactome Pathway ID\": \"Pathway\"}}",
+      "error": "",
+      "id": "step2_csv_select"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 3,
+      "args": "{\"columns\": [\"Reactome Pathway ID\", \"GeneList\", \"GeneCount/direction\", \"Direction between Organoid Phenotypes\", \"Comparison within Mucosal Epithelial Phenotypes\"], \"csv_id\": \"1768956419_c30c9aee\", \"rename\": {\"Comparison within Mucosal Epithelial Phenotypes\": \"Comparison\", \"Direction between Organoid Phenotypes\": \"Direction\", \"GeneCount/direction\": \"GeneCount\", \"Reactome Pathway ID\": \"Pathway\"}}",
+      "error": "",
+      "id": "step3_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1768956419_c30c9aee_17b48c9c57.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_select_1768956419_c30c9aee_17b48c9c57.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1768956452_0b55f2c7"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 4,
+      "args": "{\"id\": \"1768956452_0b55f2c7\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step4_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 5,
+      "args": "{\"id\": \"1768956452_0b55f2c7\"}",
+      "error": "",
+      "id": "step5_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 6,
+      "args": "{\"id\": \"1768956452_0b55f2c7\"}",
+      "error": "",
+      "id": "step6_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 7,
+      "args": "{\"conditions\": [{\"column\": \"Comparison\", \"op\": \"contains\", \"value\": \"PIF\"}], \"csv_id\": \"1768956452_0b55f2c7\", \"keep_columns\": [\"Pathway\", \"GeneCount\", \"Direction\", \"Comparison\"]}",
+      "error": "{\"tool\": \"csv_filter\", \"type\": \"EmptyDataError\", \"message\": \"No columns to parse from file\", \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera_fastmcp/server.py\\\", line 2244, in csv_filter\\n    df = pd.read_csv(csv_abs_path)\\n         ^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/.venv/lib/python3.11/site-packages/pandas/io/parsers/readers.py\\\", line 1026, in read_csv\\n    return _read(filepath_or_buffer, kwds)\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/.venv/lib/python3.11/site-packages/pandas/io/parsers/readers.py\\\", line 620, in _read\\n    parser = TextFileReader(filepath_or_buffer, **kwds)\\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/.venv/lib/python3.11/site-packages/pandas/io/parsers/readers.py\\\", line 1620, in __init__\\n    self._engine = self._make_engine(f, self.engine)\\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/.venv/lib/python3.11/site-packages/pandas/io/parsers/readers.py\\\", line 1898, in _make_engine\\n    return mapping[engine](f, **self.options)\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/.venv/lib/python3.11/site-packages/pandas/io/parsers/c_parser_wrapper.py\\\", line 93, in __init__\\n    self._reader = parsers.TextReader(src, **kwds)\\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"parsers.pyx\\\", line 581, in pandas._libs.parsers.TextReader.__cinit__\\npandas.errors.EmptyDataError: No columns to parse from file\\n\"}",
+      "id": "step7_csv_filter"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 8,
+      "args": "{\"id\": \"1768956419_c30c9aee\", \"n_rows\": 1}",
+      "error": "",
+      "id": "step8_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 9,
+      "args": "{\"columns\": [\"Reactome Pathway ID\", \"GeneList\", \"GeneCount/direction\", \"Direction between Organoid Phenotypes\", \"Comparison within Mucosal Epithelial Phenotypes\"], \"csv_id\": \"1768956419_c30c9aee\", \"rename\": {\"Comparison within Mucosal Epithelial Phenotypes\": \"Comparison\", \"Direction between Organoid Phenotypes\": \"Direction\", \"GeneCount/direction\": \"GeneCount\", \"Reactome Pathway ID\": \"Pathway\"}}",
+      "error": "",
+      "id": "step9_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1768956419_c30c9aee_17b48c9c57.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_select_1768956419_c30c9aee_17b48c9c57.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1768956530_0b55f2c7"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 10,
+      "args": "{\"header\": 0, \"id\": \"1768956419_c30c9aee\", \"n_rows\": 5}",
+      "error": "",
+      "id": "step10_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 11,
+      "args": "{\"id\": \"1768956419_c30c9aee\", \"n_rows\": 5}",
+      "error": "",
+      "id": "step11_csv_read"
+    },
+    {
+      "type": "report",
+      "length": 4491,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768956419_c30c9aee",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1768956419_c30c9aee"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_select",
+      "target": "1768956419_c30c9aee"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_select",
+      "target": "1768956419_c30c9aee"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768956452_0b55f2c7",
+      "target": "step3_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_read",
+      "target": "1768956452_0b55f2c7"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step5_csv_read",
+      "target": "1768956452_0b55f2c7"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step6_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step6_csv_read",
+      "target": "1768956452_0b55f2c7"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step7_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step7_csv_filter",
+      "target": "1768956452_0b55f2c7"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step8_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step8_csv_read",
+      "target": "1768956419_c30c9aee"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step9_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step9_csv_select",
+      "target": "1768956419_c30c9aee"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768956530_0b55f2c7",
+      "target": "step9_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step10_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step10_csv_read",
+      "target": "1768956419_c30c9aee"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step11_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step11_csv_read",
+      "target": "1768956419_c30c9aee"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

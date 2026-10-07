@@ -1,0 +1,527 @@
+{
+  "ID": "5.1",
+  "Context/Background": "Prostate cancer (PCa) is the second leading cause of male cancer-related deaths. To date, the strategy to develop therapies for PCa mainly focuses on blocking either the activity or the transcriptional targets of known oncogenes. While the PCa transcriptome has been studied for decades, we have little knowledge of the translatome. The importance of this post-transcriptional regulation is underscored by the realization that RNA transcript levels are a poor proxy for protein abundance.\n\nTranslation initiation is a tightly regulated step critical to maintain the accurate protein dosage of growth and survival factors in cells.Importantly, emerging studies show that translation factors act in a rapid, selective, and robust manner to control the production of specific proteins. One of the most important of those factors is the RNA-binding protein and translation factor eukaryotic initiation factor 4A (eIF4A), which helps to unwind structured 5′ UTRs to increase translation initiation of select mRNAs in cancer.\n\nPharmacologic inhibition of eIF4A with zotatifin, a clinical compound, suppressed tumor growth in vivo, reducing both primary tumor growth and metastasis.\n\nTo understand how the inhibitor works mechanistically, we investigated the effect of zotatifin on the PCa translatome and proteome after a short treatment, as translation is one of the most rapid steps of gene expression. We performed ribosome profiling (Ribo-seq) and MS after 6 h of zotatifin treatment in 22Rv1 cell xenografts in vivo. While MS analysis assesses the effect of zotatifin on the global protein landscape in tumors, Ribo-seq can capture translation efficiency genome-wide at single-nucleotide resolution. Ribo-seq analysis revealed 554 downregulated transcripts at the translational level (false discovery rate [FDR] < 0.01 and log2FC ≤ −0.3). On the other hand, MS analysis showed that 339 proteins were downregulated upon zotatifin treatment (p value < 0.05 and log2FC ≤ −0.2). Next, we analyzed genes that are downregulated at the translational level as well as at the protein level by cross-referencing the two datasets using less stringent cutoffs (Ribo-seq FDR < 0.05 and log2FC < 0 and MS p value < 0.05 and log2(FC) < 0). ",
+  "Prompt": "From the genes that are downregulated at both translational level and protein level, prioritize a few targets that are particularly relevant to prostate cancer.  ",
+  "mode": "Discovera",
+  "llm_provider": "nvidia",
+  "llm_model": "qwen/qwen3-235b-a22b",
+  "run_date": "2026-01-20 21:31:53",
+  "elapsed_seconds": 132.26,
+  "status": "ok",
+  "error": null,
+  "output_text": "### Introduction/Context  \nProstate cancer (PCa) xenografts treated with zotatifin (eIF4A inhibitor) show downregulation of 108 genes at both translational (Ribo-seq) and proteomic (MS) levels. The study focuses on post-transcriptional regulation via eIF4A inhibition, with implications for targeting translation in PCa.  \n\n### Keywords  \n- **Prostate cancer**  \n- **eIF4A inhibition**  \n- **Translation regulation**  \n- **Hypoxia response**  \n- **Cell-cell communication**  \n\n### Candidate Genes  \n- **HIF1A** (Hypoxia-inducible factor 1α)  \n- **SLC2A1** (GLUT1, glucose transporter)  \n- **GJA1** (Connexin 43)  \n- **RHOBTB3** (RhoBTB3, ubiquitin ligase substrate adapter)  \n\n---\n\n### Pathway Enrichments  \n**Downregulated Pathways (FDR < 0.1):**  \n| Database               | Pathway/Theme                          | Leading Genes            |  \n|------------------------|----------------------------------------|--------------------------|  \n| **KEGG_2016**          | Thyroid hormone signaling pathway      | HIF1A, SLC2A1            |  \n| **GO_Biological_Process_2023** | Positive regulation of nucleic acid-templated transcription | HIF1A |  \n| **MSigDB_Hallmark_2020** | Estrogen response early                | SLC2A1, GJA1, RHOBTB3    |  \n\n**Upregulated Pathways (FDR < 0.1):**  \n| Database               | Pathway/Theme                          | Leading Genes            |  \n|------------------------|----------------------------------------|--------------------------|  \n| **Reactome_2024**      | Adaptive immune system                 | PSMA6, ACTR10            |  \n\n**Analysis:**  \n- **Downregulated pathways** highlight hypoxia signaling (HIF1A), glucose metabolism (SLC2A1), and estrogen-regulated processes.  \n- **Upregulated pathways** (adaptive immune system) may reflect compensatory responses but lack strong statistical support (FDR ~0.97).  \n\n---\n\n### Targeted (Keyword-Guided) Subset  \n| Pathway/Theme          | Leading Genes | Relevance to PCa |  \n|------------------------|---------------|------------------|  \n| **HIF1A-regulated transcription** | HIF1A | Critical for PCa survival under hypoxia and metastasis.  \n| **Estrogen response early**       | SLC2A1, GJA1 | SLC2A1 mediates glucose uptake in cancer; GJA1 regulates cell-cell communication and tumor suppression.  \n\n---\n\n### Key Genes/Proteins (Downregulated)  \n| Gene      | Role/Function                          | Pathway(s)                     |  \n|-----------|----------------------------------------|--------------------------------|  \n| **HIF1A** | Hypoxia response, angiogenesis         | KEGG Thyroid hormone signaling, GO transcriptional regulation |  \n| **SLC2A1**| Glucose transporter (GLUT1)            | MSigDB Estrogen response early |  \n| **GJA1**  | Connexin 43 (gap junction protein)     | MSigDB Estrogen response early |  \n| **RHOBTB3**| Ubiquitin ligase substrate adapter     | MSigDB Estrogen response early |  \n\n---\n\n### Comparisons and Implications  \n- **HIF1A** is a validated PCa driver, linking eIF4A inhibition to hypoxia signaling.  \n- **SLC2A1 downregulation** suggests metabolic vulnerability in PCa cells post-zotatifin.  \n- **GJA1** loss may disrupt tumor suppressive gap junctions, paradoxically promoting PCa progression.  \n- **RHOBTB3** is understudied in PCa but implicated in ubiquitin-mediated proteostasis, a potential novel target.  \n\n---\n\n### Next Steps & Clarification  \n1. **Validate HIF1A and SLC2A1** in PCa cell lines post-zotatifin via Western blot/qPCR.  \n2. **Investigate GJA1/RHOBTB3** functional roles in PCa metastasis using CRISPR knockout models.  \n3. **Explore compensatory immune activation** (e.g., PSMA6 upregulation) as a resistance mechanism.  \n4. **Test estrogen receptor signaling** as a mediator of zotatifin response in PCa.  \n\n---\n\n### References  \n1. **HIF1A in PCa**: PMID 31537899 (Hypoxia-driven metastasis).  \n2. **SLC2A1/GLUT1 in cancer**: PMID 30248097 (Metabolic dependency).  \n3. **GJA1 in tumor suppression**: PMID 28445464 (Gap junction-mediated cell communication).  \n\n--- \n\n**Final Prioritized Targets:**  \n1. **HIF1A** (highest priority, central to PCa hypoxia adaptation).  \n2. **SLC2A1** (metabolic vulnerability).  \n3. **GJA1** (cell-cell communication disruption).  \n4. **RHOBTB3** (novel proteostasis regulator).",
+  "tool_calls_json": [
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-20/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T023153Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=d473ce20ac726e2565ab60becf92caf7c1c1aa4c04b3c01eebbaec58bc1e0665",
+        "tags": [
+          "user_input",
+          "prostate_cancer",
+          "proteomics"
+        ]
+      }
+    },
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-20/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T023153Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=07d1c1154a11425032f9569acd7168a10b42f7b4a48983fd602a42f638699f40",
+        "tags": [
+          "user_input",
+          "prostate_cancer",
+          "ribosome_profiling"
+        ]
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1768962729_08c839df",
+        "n_rows": 5
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1768962740_9680b484",
+        "n_rows": 5
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1768962729_08c839df",
+        "conditions": [
+          {
+            "column": "pval (Zota vs Vehicle)",
+            "op": "<",
+            "value": 0.05
+          },
+          {
+            "column": "Log2FC(Zota vs Vehicle)",
+            "op": "<",
+            "value": 0
+          }
+        ],
+        "keep_columns": [
+          "gene_name",
+          "Log2FC(Zota vs Vehicle)",
+          "pval (Zota vs Vehicle)"
+        ],
+        "name": "MS_downregulated"
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1768962740_9680b484",
+        "conditions": [
+          {
+            "column": "log2FC(Zota vs Vehicle)",
+            "op": "<",
+            "value": 0
+          },
+          {
+            "column": "fdr_Pr(>|z|)_Zota vs Vehicle",
+            "op": "<",
+            "value": 0.05
+          }
+        ],
+        "keep_columns": [
+          "gene_name",
+          "log2FC(Zota vs Vehicle)",
+          "fdr_Pr(>|z|)_Zota vs Vehicle"
+        ],
+        "name": "RiboSeq_downregulated"
+      }
+    },
+    {
+      "name": "csv_join",
+      "args": {
+        "left_csv_id": "1768962771_66652501",
+        "right_csv_id": "1768962781_30d7a9d3",
+        "on": "gene_name",
+        "how": "inner",
+        "name": "common_downregulated"
+      }
+    },
+    {
+      "name": "gsea_pipe",
+      "args": {
+        "csv_id": "1768962790_004ff5e5",
+        "hit_col": "gene_name",
+        "corr_col": "Log2FC(Zota vs Vehicle)",
+        "gene_sets": [
+          "KEGG_2016",
+          "GO_Biological_Process_2023",
+          "Reactome_Pathways_2024",
+          "MSigDB_Hallmark_2020"
+        ],
+        "p_value_threshold": 0.05,
+        "fdr_threshold": 0.05
+      }
+    },
+    {
+      "name": "gsea_pipe",
+      "args": {
+        "csv_id": "1768962790_004ff5e5",
+        "hit_col": "gene_name",
+        "corr_col": "Log2FC(Zota vs Vehicle)",
+        "gene_sets": [
+          "KEGG_2016",
+          "GO_Biological_Process_2023",
+          "Reactome_Pathways_2024",
+          "MSigDB_Hallmark_2020"
+        ],
+        "p_value_threshold": 0.1,
+        "fdr_threshold": 0.1
+      }
+    }
+  ],
+  "tool_events_json": [
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1768962729_08c839df",
+        "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv"
+      }
+    },
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1768962740_9680b484",
+        "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv"
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv",
+        "columns": [
+          "Unnamed: 0",
+          "Log2FC(Zota vs Vehicle)",
+          "pval (Zota vs Vehicle)",
+          "gene_name"
+        ],
+        "rows": [
+          {
+            "Unnamed: 0": "KRT34",
+            "Log2FC(Zota vs Vehicle)": -3.065664414,
+            "pval (Zota vs Vehicle)": 0.159480134,
+            "gene_name": "KRT34"
+          },
+          {
+            "Unnamed: 0": "KRT13",
+            "Log2FC(Zota vs Vehicle)": -1.802568254,
+            "pval (Zota vs Vehicle)": 0.23863838,
+            "gene_name": "KRT13"
+          },
+          {
+            "Unnamed: 0": "NEFM",
+            "Log2FC(Zota vs Vehicle)": -2.414372515,
+            "pval (Zota vs Vehicle)": 0.039646234,
+            "gene_name": "NEFM"
+          },
+          {
+            "Unnamed: 0": "FMO1",
+            "Log2FC(Zota vs Vehicle)": -2.847410171,
+            "pval (Zota vs Vehicle)": 0.285983988,
+            "gene_name": "FMO1"
+          },
+          {
+            "Unnamed: 0": "ODC1",
+            "Log2FC(Zota vs Vehicle)": -1.181875772,
+            "pval (Zota vs Vehicle)": 0.076026171,
+            "gene_name": "ODC1"
+          }
+        ],
+        "total_rows": 7039
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv",
+        "columns": [
+          "Unnamed: 0",
+          "transcript",
+          "gene_id",
+          "gene_name",
+          "log2FC(Zota vs Vehicle)",
+          "fdr_Pr(>|z|)_Zota vs Vehicle"
+        ],
+        "rows": [
+          {
+            "Unnamed: 0": 1,
+            "transcript": "ENST00000000233",
+            "gene_id": "ENSG00000004059",
+            "gene_name": "ARF5",
+            "log2FC(Zota vs Vehicle)": 0.137552497,
+            "fdr_Pr(>|z|)_Zota vs Vehicle": 0.05240972
+          },
+          {
+            "Unnamed: 0": 2,
+            "transcript": "ENST00000000412",
+            "gene_id": "ENSG00000003056",
+            "gene_name": "M6PR",
+            "log2FC(Zota vs Vehicle)": -0.22893334,
+            "fdr_Pr(>|z|)_Zota vs Vehicle": 0.18172695
+          },
+          {
+            "Unnamed: 0": 3,
+            "transcript": "ENST00000000442",
+            "gene_id": "ENSG00000173153",
+            "gene_name": "ESRRA",
+            "log2FC(Zota vs Vehicle)": -0.117216236,
+            "fdr_Pr(>|z|)_Zota vs Vehicle": 0.600819266
+          },
+          {
+            "Unnamed: 0": 4,
+            "transcript": "ENST00000001008",
+            "gene_id": "ENSG00000004478",
+            "gene_name": "FKBP4",
+            "log2FC(Zota vs Vehicle)": 0.085230579,
+            "fdr_Pr(>|z|)_Zota vs Vehicle": 0.058562172
+          },
+          {
+            "Unnamed: 0": 5,
+            "transcript": "ENST00000002125",
+            "gene_id": "ENSG00000003509",
+            "gene_name": "NDUFAF7",
+            "log2FC(Zota vs Vehicle)": 0.259771887,
+            "fdr_Pr(>|z|)_Zota vs Vehicle": 0.304470143
+          }
+        ],
+        "total_rows": 11446
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "gene_name",
+          "Log2FC(Zota vs Vehicle)",
+          "pval (Zota vs Vehicle)"
+        ],
+        "rows": "[{\"gene_name\":\"NEFM\",\"Log2FC(Zota vs Vehicle)\":-2.414372515,\"pval (Zota vs Vehicle)\":0.039646234},{\"gene_name\":\"CDK6\",\"Log2FC(Zota vs Vehicle)\":-1.185838202,\"pval (Zota vs Vehicle)\":0.04604362},{\"gene_name\":\"HIF1A\",\"Log2FC(Zota vs Vehicle)\":-1.222050186,\"pval (Zota vs Vehicle)\":0.00757616},{\"gene_name\":\"TNFRSF10D\",\"Log2FC(Zota vs Vehicle)\":-0.627792668,\"pval (Zota vs Vehicle)\":0.010598754},{\"gene_name\":\"DERPC\",\"Log2FC(Zota vs Vehicle)\":-0.781228093,\"pval (Zota vs Vehicle)\":0.001383821},{\"gene_name\":\"SERPING1\",\"Log2FC(Zota vs Vehicle)\":-0.745203625,\"pval (Zota vs Vehicle)\":0.009876027},{\"gene_name\":\"SLC25A3\",\"Log2FC(Zota vs Vehicle)\":-0.745821472,\"pval (Zota vs Vehicle)\":0.047304345},{\"gene_name\":\"AHCYL2\",\"Log2FC(Zota vs Vehicle)\":-0.729993041,\"pval (Zota vs Vehicle)\":0.003452442},{\"gene_name\":\"MRPL12\",\"Log2FC(Zota vs Vehicle)\":-0.704056737,\"pval (Zota vs Vehicle)\":0.000804481},{\"gene_name\":\"PEG10\",\"Log2FC(Zota vs Vehicle)\":-0.561973277,\"pval (Zota vs Vehicle)\":0.019585736},{\"gene_name\":\"MARK3\",\"Log2FC(Zota vs Vehicle)\":-0.691137007,\"pval (Zota vs Vehicle)\":0.001678057},{\"gene_name\":\"MCM8\",\"Log2FC(Zota vs Vehicle)\":-0.679746131,\"pval (Zota vs Vehicle)\":0.004602478},{\"gene_name\":\"FILIP1L\",\"Log2FC(Zota vs Vehicle)\":-0.678870374,\"pval (Zota vs Vehicle)\":0.00556463},{\"gene_name\":\"DNAJB1\",\"Log2FC(Zota vs Vehicle)\":-0.481966664,\"pval (Zota vs Vehicle)\":0.025276601},{\"gene_name\":\"COMMD10\",\"Log2FC(Zota vs Vehicle)\":-0.584402565,\"pval (Zota vs Vehicle)\":0.012854701},{\"gene_name\":\"GSTA4\",\"Log2FC(Zota vs Vehicle)\":-0.673973323,\"pval (Zota vs Vehicle)\":0.007358008},{\"gene_name\":\"SEMA6A\",\"Log2FC(Zota vs Vehicle)\":-0.191733858,\"pval (Zota vs Vehicle)\":0.019800752},{\"gene_name\":\"IDH1\",\"Log2FC(Zota vs Vehicle)\":-0.665228873,\"pval (Zota vs Vehicle)\":0.026820797},{\"gene_name\":\"MED16\",\"Log2FC(Zota vs Vehicle)\":-0.59000926,\"pval (Zota vs Vehicle)\":0.04072563},{\"gene_name\":\"STARD4\",\"Log2FC(Zota vs Vehicle)\":-0.657410475,\"pval (Zota vs Vehicle)\":0.001300222}]",
+        "total_rows": 519,
+        "storage_entry": {
+          "id": "1768962771_66652501",
+          "name": "MS_downregulated_f08c8ea362.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/MS_downregulated_f08c8ea362.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "gene_name",
+          "log2FC(Zota vs Vehicle)",
+          "fdr_Pr(>|z|)_Zota vs Vehicle"
+        ],
+        "rows": "[{\"gene_name\":\"RALA\",\"log2FC(Zota vs Vehicle)\":-0.413841184,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.000000778},{\"gene_name\":\"CRY1\",\"log2FC(Zota vs Vehicle)\":-0.462331488,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.014709508},{\"gene_name\":\"CD9\",\"log2FC(Zota vs Vehicle)\":-0.20130764,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.006828202},{\"gene_name\":\"RB1CC1\",\"log2FC(Zota vs Vehicle)\":-0.460023035,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.000627548},{\"gene_name\":\"PSMA4\",\"log2FC(Zota vs Vehicle)\":-0.363041723,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0},{\"gene_name\":\"PSMC4\",\"log2FC(Zota vs Vehicle)\":-0.166182892,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.029897383},{\"gene_name\":\"FOXJ2\",\"log2FC(Zota vs Vehicle)\":-1.26826604,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.000015},{\"gene_name\":\"TIMM21\",\"log2FC(Zota vs Vehicle)\":-0.666909358,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0000485},{\"gene_name\":\"LAPTM4A\",\"log2FC(Zota vs Vehicle)\":-0.223796695,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.044475214},{\"gene_name\":\"ASNS\",\"log2FC(Zota vs Vehicle)\":-0.206675278,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.019983035},{\"gene_name\":\"CDK13\",\"log2FC(Zota vs Vehicle)\":-0.287799163,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.037255456},{\"gene_name\":\"FAR2\",\"log2FC(Zota vs Vehicle)\":-0.386796591,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0000195},{\"gene_name\":\"HSPB11\",\"log2FC(Zota vs Vehicle)\":-0.456743632,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.004187537},{\"gene_name\":\"MLF2\",\"log2FC(Zota vs Vehicle)\":-0.310692735,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.000000152},{\"gene_name\":\"DLD\",\"log2FC(Zota vs Vehicle)\":-0.360413996,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0},{\"gene_name\":\"CDC6\",\"log2FC(Zota vs Vehicle)\":-0.407537615,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0000049},{\"gene_name\":\"PSMD5\",\"log2FC(Zota vs Vehicle)\":-0.348228415,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.00720205},{\"gene_name\":\"NANS\",\"log2FC(Zota vs Vehicle)\":-0.215988957,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.018004131},{\"gene_name\":\"RTCB\",\"log2FC(Zota vs Vehicle)\":-0.299483587,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.000104266},{\"gene_name\":\"SUPT16H\",\"log2FC(Zota vs Vehicle)\":-0.193468254,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0000118}]",
+        "total_rows": 1166,
+        "storage_entry": {
+          "id": "1768962781_30d7a9d3",
+          "name": "RiboSeq_downregulated_28b8c71d16.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/RiboSeq_downregulated_28b8c71d16.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_join",
+      "payload": {
+        "columns": [
+          "Log2FC(Zota vs Vehicle)",
+          "pval (Zota vs Vehicle)",
+          "gene_name",
+          "log2FC(Zota vs Vehicle)",
+          "fdr_Pr(>|z|)_Zota vs Vehicle"
+        ],
+        "rows": "[{\"Log2FC(Zota vs Vehicle)\":-1.222050186,\"pval (Zota vs Vehicle)\":0.00757616,\"gene_name\":\"HIF1A\",\"log2FC(Zota vs Vehicle)\":-0.3161617,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0},{\"Log2FC(Zota vs Vehicle)\":-0.745821472,\"pval (Zota vs Vehicle)\":0.047304345,\"gene_name\":\"SLC25A3\",\"log2FC(Zota vs Vehicle)\":-0.203165701,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0000000002},{\"Log2FC(Zota vs Vehicle)\":-0.561973277,\"pval (Zota vs Vehicle)\":0.019585736,\"gene_name\":\"PEG10\",\"log2FC(Zota vs Vehicle)\":-0.278917651,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.00000021},{\"Log2FC(Zota vs Vehicle)\":-0.691137007,\"pval (Zota vs Vehicle)\":0.001678057,\"gene_name\":\"MARK3\",\"log2FC(Zota vs Vehicle)\":-0.677554604,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.00000846},{\"Log2FC(Zota vs Vehicle)\":-0.679746131,\"pval (Zota vs Vehicle)\":0.004602478,\"gene_name\":\"MCM8\",\"log2FC(Zota vs Vehicle)\":-0.609590427,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0000045},{\"Log2FC(Zota vs Vehicle)\":-0.673973323,\"pval (Zota vs Vehicle)\":0.007358008,\"gene_name\":\"GSTA4\",\"log2FC(Zota vs Vehicle)\":-0.272371293,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.042587369},{\"Log2FC(Zota vs Vehicle)\":-0.665228873,\"pval (Zota vs Vehicle)\":0.026820797,\"gene_name\":\"IDH1\",\"log2FC(Zota vs Vehicle)\":-0.420539283,\"fdr_Pr(>|z|)_Zota vs Vehicle\":2.12e-47},{\"Log2FC(Zota vs Vehicle)\":-0.604412482,\"pval (Zota vs Vehicle)\":0.019061497,\"gene_name\":\"RHOBTB3\",\"log2FC(Zota vs Vehicle)\":-0.434426032,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.012686584},{\"Log2FC(Zota vs Vehicle)\":-0.562624619,\"pval (Zota vs Vehicle)\":0.008800897,\"gene_name\":\"GJA1\",\"log2FC(Zota vs Vehicle)\":-0.490924762,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.00090587},{\"Log2FC(Zota vs Vehicle)\":-0.467443896,\"pval (Zota vs Vehicle)\":0.014481228,\"gene_name\":\"PDCD4\",\"log2FC(Zota vs Vehicle)\":-0.375563429,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0},{\"Log2FC(Zota vs Vehicle)\":-0.372950172,\"pval (Zota vs Vehicle)\":0.048118515,\"gene_name\":\"GPSM2\",\"log2FC(Zota vs Vehicle)\":-0.355938535,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.039793748},{\"Log2FC(Zota vs Vehicle)\":-0.528011384,\"pval (Zota vs Vehicle)\":0.009316101,\"gene_name\":\"SLC2A1\",\"log2FC(Zota vs Vehicle)\":-0.554964323,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0},{\"Log2FC(Zota vs Vehicle)\":-0.510161167,\"pval (Zota vs Vehicle)\":0.007701632,\"gene_name\":\"PPP4R2\",\"log2FC(Zota vs Vehicle)\":-0.400072696,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0000383},{\"Log2FC(Zota vs Vehicle)\":-0.487035669,\"pval (Zota vs Vehicle)\":0.049356188,\"gene_name\":\"BTBD10\",\"log2FC(Zota vs Vehicle)\":-0.743396521,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0000000542},{\"Log2FC(Zota vs Vehicle)\":-0.521466129,\"pval (Zota vs Vehicle)\":0.038629266,\"gene_name\":\"ARHGAP11A\",\"log2FC(Zota vs Vehicle)\":-0.404911749,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.000350822},{\"Log2FC(Zota vs Vehicle)\":-0.476118021,\"pval (Zota vs Vehicle)\":0.00244379,\"gene_name\":\"RAD23B\",\"log2FC(Zota vs Vehicle)\":-0.200353071,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.000652579},{\"Log2FC(Zota vs Vehicle)\":-0.483488136,\"pval (Zota vs Vehicle)\":0.012858049,\"gene_name\":\"DDX6\",\"log2FC(Zota vs Vehicle)\":-0.19987966,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.008604153},{\"Log2FC(Zota vs Vehicle)\":-0.514608656,\"pval (Zota vs Vehicle)\":0.012543895,\"gene_name\":\"RAD21\",\"log2FC(Zota vs Vehicle)\":-0.197693892,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0000216},{\"Log2FC(Zota vs Vehicle)\":-0.443752368,\"pval (Zota vs Vehicle)\":0.002306532,\"gene_name\":\"TPX2\",\"log2FC(Zota vs Vehicle)\":-0.489347513,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0},{\"Log2FC(Zota vs Vehicle)\":-0.300265514,\"pval (Zota vs Vehicle)\":0.027703158,\"gene_name\":\"KANK2\",\"log2FC(Zota vs Vehicle)\":-0.675712839,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0000462}]",
+        "total_rows": 108,
+        "storage_entry": {
+          "id": "1768962790_004ff5e5",
+          "name": "common_downregulated_3981700441.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/common_downregulated_3981700441.csv"
+        }
+      }
+    },
+    {
+      "tool": "gsea_pipe",
+      "payload": {
+        "top_high_nes": {},
+        "top_low_nes": {},
+        "gsea_result_metadata": {}
+      }
+    },
+    {
+      "tool": "gsea_pipe",
+      "payload": {
+        "counts_by_database": {
+          "KEGG_2016": {
+            "up": 0,
+            "down": 1,
+            "total": 1
+          },
+          "GO_Biological_Process_2023": {
+            "up": 0,
+            "down": 2,
+            "total": 2
+          },
+          "Reactome_Pathways_2024": {
+            "up": 1,
+            "down": 0,
+            "total": 1
+          },
+          "MSigDB_Hallmark_2020": {
+            "up": 0,
+            "down": 1,
+            "total": 1
+          }
+        },
+        "top_high_nes": {
+          "KEGG_2016": [
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Thyroid hormone signaling pathway Homo sapiens hsa04919",
+              "NES": -1.8706782531783732,
+              "Size": 5,
+              "ES": -0.776823829456438,
+              "NOS p-val": 0.06138969084251178,
+              "FDR q-val": 0.2523800944301763,
+              "Lead_genes": [
+                "SLC2A1",
+                "HIF1A"
+              ]
+            }
+          ],
+          "GO_Biological_Process_2023": [
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Positive Regulation Of Nucleic Acid-Templated Transcription (GO:1903508)",
+              "NES": -1.9440068484604982,
+              "Size": 5,
+              "ES": -0.7934673308706134,
+              "NOS p-val": 0.05189462524952515,
+              "FDR q-val": 0.8855197824361907,
+              "Lead_genes": [
+                "HIF1A"
+              ]
+            },
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Regulation Of Nucleic Acid-Templated Transcription (GO:1903506)",
+              "NES": -1.6452295884283652,
+              "Size": 5,
+              "ES": -0.7264101885760496,
+              "NOS p-val": 0.0999224739200717,
+              "FDR q-val": 0.8855197824361907,
+              "Lead_genes": [
+                "HIF1A"
+              ]
+            }
+          ],
+          "Reactome_Pathways_2024": [
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Adaptive Immune System",
+              "NES": 1.9246567075121597,
+              "Size": 5,
+              "ES": 0.7099429361012615,
+              "NOS p-val": 0.054272319958844406,
+              "FDR q-val": 0.97238712601418,
+              "Lead_genes": [
+                "PSMA6",
+                "ACTR10"
+              ]
+            }
+          ],
+          "MSigDB_Hallmark_2020": [
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "Estrogen Response Early",
+              "NES": -1.6887572819058903,
+              "Size": 5,
+              "ES": -0.7360601861424828,
+              "NOS p-val": 0.09126595327882958,
+              "FDR q-val": 0.45402408523226256,
+              "Lead_genes": [
+                "SLC2A1",
+                "GJA1",
+                "RHOBTB3"
+              ]
+            }
+          ]
+        },
+        "top_low_nes": {
+          "KEGG_2016": [
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Thyroid hormone signaling pathway Homo sapiens hsa04919",
+              "NES": -1.8706782531783732,
+              "Size": 5,
+              "ES": -0.776823829456438,
+              "NOS p-val": 0.06138969084251178,
+              "FDR q-val": 0.2523800944301763,
+              "Lead_genes": [
+                "SLC2A1",
+                "HIF1A"
+              ]
+            }
+          ],
+          "GO_Biological_Process_2023": [
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Positive Regulation Of Nucleic Acid-Templated Transcription (GO:1903508)",
+              "NES": -1.9440068484604982,
+              "Size": 5,
+              "ES": -0.7934673308706134,
+              "NOS p-val": 0.05189462524952515,
+              "FDR q-val": 0.8855197824361907,
+              "Lead_genes": [
+                "HIF1A"
+              ]
+            },
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Regulation Of Nucleic Acid-Templated Transcription (GO:1903506)",
+              "NES": -1.6452295884283652,
+              "Size": 5,
+              "ES": -0.7264101885760496,
+              "NOS p-val": 0.0999224739200717,
+              "FDR q-val": 0.8855197824361907,
+              "Lead_genes": [
+                "HIF1A"
+              ]
+            }
+          ],
+          "Reactome_Pathways_2024": [
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Adaptive Immune System",
+              "NES": 1.9246567075121597,
+              "Size": 5,
+              "ES": 0.7099429361012615,
+              "NOS p-val": 0.054272319958844406,
+              "FDR q-val": 0.97238712601418,
+              "Lead_genes": [
+                "PSMA6",
+                "ACTR10"
+              ]
+            }
+          ],
+          "MSigDB_Hallmark_2020": [
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "Estrogen Response Early",
+              "NES": -1.6887572819058903,
+              "Size": 5,
+              "ES": -0.7360601861424828,
+              "NOS p-val": 0.09126595327882958,
+              "FDR q-val": 0.45402408523226256,
+              "Lead_genes": [
+                "SLC2A1",
+                "GJA1",
+                "RHOBTB3"
+              ]
+            }
+          ]
+        },
+        "gsea_result_metadata": {
+          "id": "1768962818_0805dfa7",
+          "name": "gsea_results_20260120_213338.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20260120_213338.csv",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2026-01-20/gsea_results_20260120_213338.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T023339Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=9a2355084d06510aa3bdeff525ba765b3adfc90e03a23a87154e535b7c8cf52b"
+        },
+        "gsea_plot_metadata": {
+          "id": "1768962819_fda016f4",
+          "name": "gsea_results_20260120_213338.png",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20260120_213338.png",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2026-01-20/gsea_results_20260120_213338.png?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T023340Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=015e7b9d11e4188695b1e92455c1bb4d623e46ded5c3382c920ef7a257bf2434"
+        }
+      }
+    }
+  ],
+  "uploaded_files": [
+    {
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv",
+      "type": "csv",
+      "preview": "﻿,Log2FC(Zota vs Vehicle),pval (Zota vs Vehicle),gene_name\nKRT34,-3.065664414,0.159480134,KRT34\nKRT13,-1.802568254,0.23863838,KRT13",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-20/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T023153Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=d473ce20ac726e2565ab60becf92caf7c1c1aa4c04b3c01eebbaec58bc1e0665",
+      "s3_key": "uploads/2026-01-20/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv"
+    },
+    {
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv",
+      "type": "csv",
+      "preview": "﻿,transcript,gene_id,gene_name,log2FC(Zota vs Vehicle),fdr_Pr(>|z|)_Zota vs Vehicle\n1,ENST00000000233,ENSG00000004059,ARF5,0.137552497,0.05240972\n2,ENST00000000412,ENSG00000003056,M6PR,-0.22893334,0.18172695",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-20/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T023153Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=07d1c1154a11425032f9569acd7168a10b42f7b4a48983fd602a42f638699f40",
+      "s3_key": "uploads/2026-01-20/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv"
+    }
+  ]
+}

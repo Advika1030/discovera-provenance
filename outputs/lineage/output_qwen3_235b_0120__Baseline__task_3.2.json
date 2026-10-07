@@ -1,0 +1,158 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0120__Baseline__task_3.2",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "3.2",
+      "run_date": "2026-01-21 11:36:33",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "ijms-24-14743-v2_crc_cells_cbd_vs_dmso_DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_cbd_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T163633Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=634819313c35943868ff5809f38becc4aadb0d35c6f796389c73d6f7afd346fd",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_cbd_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T163633Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=634819313c35943868ff5809f38becc4aadb0d35c6f796389c73d6f7afd346fd\", \"metadata\": {\"description\": \"Differential expression analysis of CBD vs DMSO in colorectal cancer cells\", \"source\": \"ijms-24-14743-v2_crc_cells_cbd_vs_dmso_DEG.csv\"}, \"name\": \"CBD_vs_DMSO_DEG\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "CBD_vs_DMSO_DEG.csv",
+      "path": "/app/output/user_csvs/CBD_vs_DMSO_DEG.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769013421_ca089f0b"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"padj\", \"op\": \"notnull\", \"value\": null}], \"csv_id\": \"1769013421_ca089f0b\", \"name\": \"significant_DEGs\"}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769013421_ca089f0b.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769013421_ca089f0b.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769013455_b3cbf68a"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"log2FoldChange\", \"op\": \">\", \"value\": 0}], \"csv_id\": \"1769013455_b3cbf68a\", \"name\": \"upregulated_genes\"}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769013455_b3cbf68a.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769013455_b3cbf68a.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769013488_db6fd6a1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 3,
+      "args": "{\"conditions\": [{\"column\": \"log2FoldChange\", \"op\": \"<\", \"value\": 0}], \"csv_id\": \"1769013455_b3cbf68a\", \"name\": \"downregulated_genes\"}",
+      "error": "",
+      "id": "step3_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769013455_b3cbf68a.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769013455_b3cbf68a.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769013503_db6fd6a1"
+    },
+    {
+      "type": "report",
+      "length": 4162,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769013421_ca089f0b",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769013421_ca089f0b"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769013455_b3cbf68a",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1769013455_b3cbf68a"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769013488_db6fd6a1",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_filter",
+      "target": "1769013455_b3cbf68a"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769013503_db6fd6a1",
+      "target": "step3_csv_filter"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

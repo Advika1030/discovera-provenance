@@ -1,0 +1,117 @@
+{
+  "ID": "3.1",
+  "Context/Background": "To find novel treatments and drug combinations that could effectively target colorectal cancer cells (CRCs) and lower the probability of disease relapse, we designed multiple different combinations between cisplatin, cannabidiol (CBD), and intermittent serum starvation (ISS) on colorectal cancer cell lines. We analyzed differentially expressed genes and affected pathways in colorectal cancer cell lines to understand further the potential molecular mechanisms behind the treatments and their interactions.",
+  "Prompt": "Based on the results of the differential expression analysis of Cisplatin vs DMSO in colorectal cancer cells, run a pathway overrepresentation analysis for statistically significant genes (up and down combined) against the Reactome database. Then, provide a discussion of any relevant affected pathways, highlighting important up and down regulated genes in each.  Focus on any mechanisms by which Cisplatin may alter cancer related pathways.",
+  "mode": "Baseline",
+  "llm_provider": "nvidia",
+  "llm_model": "qwen/qwen3-235b-a22b",
+  "run_date": "2026-01-21 23:35:00",
+  "elapsed_seconds": 70.81,
+  "status": "ok",
+  "error": null,
+  "output_text": "The pathway overrepresentation analysis against Reactome database cannot be executed with the current toolset. Available functions only support CSV manipulation (filtering, selection, joining, aggregation) but lack pathway analysis capabilities. A dedicated pathway analysis tool would be required to proceed with this step.",
+  "tool_calls_json": [
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cisplatin_vs_dmso_DEG",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_cisplatin_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T043500Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=c78267b5123403b9384258688b43247330bd21f2c58c482993618a1e167751fa",
+        "tags": [
+          "user_input",
+          "dataset"
+        ],
+        "metadata": {
+          "source": "Cisplatin vs DMSO DEG in CRC cells from ijms-24-14743-v2",
+          "description": "Differential expression data for cisplatin-treated colorectal cancer cells vs vehicle control"
+        }
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1769056525_40f8af1f",
+        "conditions": [
+          {
+            "column": "padj",
+            "op": "<",
+            "value": 0.05
+          }
+        ],
+        "name": "significant_DEG"
+      }
+    },
+    {
+      "name": "csv_select",
+      "args": {
+        "csv_id": "1769056548_e0e74280",
+        "columns": [
+          "Unnamed: 0",
+          "log2FoldChange",
+          "padj"
+        ],
+        "rename": {
+          "Unnamed: 0": "gene"
+        },
+        "name": "significant_genes_for_pathway"
+      }
+    }
+  ],
+  "tool_events_json": [
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1769056525_40f8af1f",
+        "name": "cisplatin_vs_dmso_DEG.csv",
+        "path": "/app/output/user_csvs/cisplatin_vs_dmso_DEG.csv"
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "Unnamed: 0",
+          "baseMean",
+          "log2FoldChange",
+          "lfcSE",
+          "stat",
+          "pvalue",
+          "padj",
+          "comparison"
+        ],
+        "rows": "[{\"Unnamed: 0\":\"ENSG00000131584\",\"baseMean\":1334.9447551678,\"log2FoldChange\":0.2589078164,\"lfcSE\":0.067297491,\"stat\":3.8472135094,\"pvalue\":0.0001194689,\"padj\":0.0038179954,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000116213\",\"baseMean\":1392.8611670605,\"log2FoldChange\":0.2626517698,\"lfcSE\":0.0672565963,\"stat\":3.9052194773,\"pvalue\":0.0000941399,\"padj\":0.0031291085,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000116254\",\"baseMean\":524.5298014519,\"log2FoldChange\":0.5522318357,\"lfcSE\":0.0970377369,\"stat\":5.6908977181,\"pvalue\":0.0000000126,\"padj\":0.0000014331,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000158292\",\"baseMean\":352.348824168,\"log2FoldChange\":0.4561497443,\"lfcSE\":0.1271247261,\"stat\":3.5882063098,\"pvalue\":0.0003329608,\"padj\":0.0084939616,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000069812\",\"baseMean\":694.7567945912,\"log2FoldChange\":1.0569306116,\"lfcSE\":0.0853847548,\"stat\":12.3784464097,\"pvalue\":3.418969774e-35,\"padj\":3.07593314e-32,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000074800\",\"baseMean\":77942.6466712569,\"log2FoldChange\":-0.2732585833,\"lfcSE\":0.0365520441,\"stat\":-7.4758769392,\"pvalue\":0.0,\"padj\":0.0,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000049239\",\"baseMean\":1883.2193887409,\"log2FoldChange\":-0.3313651593,\"lfcSE\":0.0656883649,\"stat\":-5.0445030825,\"pvalue\":0.0000004547,\"padj\":0.0000348648,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000160049\",\"baseMean\":2391.5644439566,\"log2FoldChange\":0.1960477741,\"lfcSE\":0.0542592165,\"stat\":3.6131700152,\"pvalue\":0.0003024762,\"padj\":0.0079260519,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000198793\",\"baseMean\":2555.6066637357,\"log2FoldChange\":0.1782040138,\"lfcSE\":0.0552731921,\"stat\":3.2240586611,\"pvalue\":0.0012638751,\"padj\":0.023525509,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000162490\",\"baseMean\":100.0611444428,\"log2FoldChange\":1.2046644659,\"lfcSE\":0.2389858276,\"stat\":5.0407360046,\"pvalue\":0.0000004637,\"padj\":0.0000353573,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000177000\",\"baseMean\":1049.495662473,\"log2FoldChange\":-0.2227952577,\"lfcSE\":0.0752748332,\"stat\":-2.9597575737,\"pvalue\":0.0030788121,\"padj\":0.0439667402,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000083444\",\"baseMean\":13353.1258677379,\"log2FoldChange\":-0.2360203798,\"lfcSE\":0.0460393641,\"stat\":-5.1264908686,\"pvalue\":0.0000002952,\"padj\":0.0000234331,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000162496\",\"baseMean\":1967.5445090934,\"log2FoldChange\":-0.2872803877,\"lfcSE\":0.0586705808,\"stat\":-4.8964981017,\"pvalue\":0.0000009756,\"padj\":0.0000648555,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000142621\",\"baseMean\":241.7069852761,\"log2FoldChange\":0.4569341438,\"lfcSE\":0.1328605529,\"stat\":3.43920098,\"pvalue\":0.0005834339,\"padj\":0.0132660142,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000065526\",\"baseMean\":7218.0273731076,\"log2FoldChange\":-0.1267917157,\"lfcSE\":0.0405359056,\"stat\":-3.1278865905,\"pvalue\":0.001760681,\"padj\":0.0297690526,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000142627\",\"baseMean\":9383.7108840996,\"log2FoldChange\":0.1608808793,\"lfcSE\":0.0541699522,\"stat\":2.9699283958,\"pvalue\":0.0029786917,\"padj\":0.0430379491,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000076864\",\"baseMean\":913.9019744627,\"log2FoldChange\":-0.3125648169,\"lfcSE\":0.0766916046,\"stat\":-4.0756066918,\"pvalue\":0.0000458945,\"padj\":0.001749567,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000179163\",\"baseMean\":870.5275229029,\"log2FoldChange\":0.3826952714,\"lfcSE\":0.0972986576,\"stat\":3.933201966,\"pvalue\":0.0000838218,\"padj\":0.002863733,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000189266\",\"baseMean\":2258.5942825814,\"log2FoldChange\":-0.1852842817,\"lfcSE\":0.0613920855,\"stat\":-3.0180483412,\"pvalue\":0.0025440832,\"padj\":0.0390140938,\"comparison\":\"cisplatin_vs_dmso\"},{\"Unnamed: 0\":\"ENSG00000185436\",\"baseMean\":651.3608423416,\"log2FoldChange\":-0.3215381641,\"lfcSE\":0.0872470416,\"stat\":-3.6853761254,\"pvalue\":0.0002283651,\"padj\":0.0063673295,\"comparison\":\"cisplatin_vs_dmso\"}]",
+        "total_rows": 1018,
+        "storage_entry": {
+          "id": "1769056548_e0e74280",
+          "name": "csv_filter_1769056525_40f8af1f.csv",
+          "path": "/app/output/user_csvs/csv_filter_1769056525_40f8af1f.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_select",
+      "payload": {
+        "columns": [
+          "gene",
+          "log2FoldChange",
+          "padj"
+        ],
+        "rows": "[{\"gene\":\"ENSG00000131584\",\"log2FoldChange\":0.2589078164,\"padj\":0.0038179954},{\"gene\":\"ENSG00000116213\",\"log2FoldChange\":0.2626517698,\"padj\":0.0031291085},{\"gene\":\"ENSG00000116254\",\"log2FoldChange\":0.5522318357,\"padj\":0.0000014331},{\"gene\":\"ENSG00000158292\",\"log2FoldChange\":0.4561497443,\"padj\":0.0084939616},{\"gene\":\"ENSG00000069812\",\"log2FoldChange\":1.0569306116,\"padj\":3.07593314e-32},{\"gene\":\"ENSG00000074800\",\"log2FoldChange\":-0.2732585833,\"padj\":0.0},{\"gene\":\"ENSG00000049239\",\"log2FoldChange\":-0.3313651593,\"padj\":0.0000348648},{\"gene\":\"ENSG00000160049\",\"log2FoldChange\":0.1960477741,\"padj\":0.0079260519},{\"gene\":\"ENSG00000198793\",\"log2FoldChange\":0.1782040138,\"padj\":0.023525509},{\"gene\":\"ENSG00000162490\",\"log2FoldChange\":1.2046644659,\"padj\":0.0000353573},{\"gene\":\"ENSG00000177000\",\"log2FoldChange\":-0.2227952577,\"padj\":0.0439667402},{\"gene\":\"ENSG00000083444\",\"log2FoldChange\":-0.2360203798,\"padj\":0.0000234331},{\"gene\":\"ENSG00000162496\",\"log2FoldChange\":-0.2872803877,\"padj\":0.0000648555},{\"gene\":\"ENSG00000142621\",\"log2FoldChange\":0.4569341438,\"padj\":0.0132660142},{\"gene\":\"ENSG00000065526\",\"log2FoldChange\":-0.1267917157,\"padj\":0.0297690526},{\"gene\":\"ENSG00000142627\",\"log2FoldChange\":0.1608808793,\"padj\":0.0430379491},{\"gene\":\"ENSG00000076864\",\"log2FoldChange\":-0.3125648169,\"padj\":0.001749567},{\"gene\":\"ENSG00000179163\",\"log2FoldChange\":0.3826952714,\"padj\":0.002863733},{\"gene\":\"ENSG00000189266\",\"log2FoldChange\":-0.1852842817,\"padj\":0.0390140938},{\"gene\":\"ENSG00000185436\",\"log2FoldChange\":-0.3215381641,\"padj\":0.0063673295}]",
+        "total_rows": 1018,
+        "storage_entry": {
+          "id": "1769056558_7713c909",
+          "name": "csv_select_1769056548_e0e74280.csv",
+          "path": "/app/output/user_csvs/csv_select_1769056548_e0e74280.csv"
+        }
+      }
+    }
+  ],
+  "uploaded_files": [
+    {
+      "name": "ijms-24-14743-v2_crc_cells_cisplatin_vs_dmso_DEG.csv",
+      "type": "csv",
+      "preview": ",baseMean,log2FoldChange,lfcSE,stat,pvalue,padj,comparison\nENSG00000227232,450.682772833157,-0.000616023466175029,0.106234181000541,-0.00579873125930992,0.995373307784939,0.998555069027487,cisplatin_vs_dmso\nENSG00000238009,10.1341459712791,0.303995510840732,0.669490733521145,0.45406978113332,0.649778602518962,,cisplatin_vs_dmso",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_cisplatin_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T043500Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=c78267b5123403b9384258688b43247330bd21f2c58c482993618a1e167751fa",
+      "s3_key": "uploads/2026-01-21/ijms-24-14743-v2_crc_cells_cisplatin_vs_dmso_DEG.csv"
+    }
+  ]
+}

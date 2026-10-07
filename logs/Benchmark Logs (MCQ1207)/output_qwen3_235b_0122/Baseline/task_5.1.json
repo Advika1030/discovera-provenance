@@ -1,0 +1,191 @@
+{
+  "ID": "5.1",
+  "Context/Background": "Prostate cancer (PCa) is the second leading cause of male cancer-related deaths. To date, the strategy to develop therapies for PCa mainly focuses on blocking either the activity or the transcriptional targets of known oncogenes. While the PCa transcriptome has been studied for decades, we have little knowledge of the translatome. The importance of this post-transcriptional regulation is underscored by the realization that RNA transcript levels are a poor proxy for protein abundance.\n\nTranslation initiation is a tightly regulated step critical to maintain the accurate protein dosage of growth and survival factors in cells.Importantly, emerging studies show that translation factors act in a rapid, selective, and robust manner to control the production of specific proteins. One of the most important of those factors is the RNA-binding protein and translation factor eukaryotic initiation factor 4A (eIF4A), which helps to unwind structured 5′ UTRs to increase translation initiation of select mRNAs in cancer.\n\nPharmacologic inhibition of eIF4A with zotatifin, a clinical compound, suppressed tumor growth in vivo, reducing both primary tumor growth and metastasis.\n\nTo understand how the inhibitor works mechanistically, we investigated the effect of zotatifin on the PCa translatome and proteome after a short treatment, as translation is one of the most rapid steps of gene expression. We performed ribosome profiling (Ribo-seq) and MS after 6 h of zotatifin treatment in 22Rv1 cell xenografts in vivo. While MS analysis assesses the effect of zotatifin on the global protein landscape in tumors, Ribo-seq can capture translation efficiency genome-wide at single-nucleotide resolution. Ribo-seq analysis revealed 554 downregulated transcripts at the translational level (false discovery rate [FDR] < 0.01 and log2FC ≤ −0.3). On the other hand, MS analysis showed that 339 proteins were downregulated upon zotatifin treatment (p value < 0.05 and log2FC ≤ −0.2). Next, we analyzed genes that are downregulated at the translational level as well as at the protein level by cross-referencing the two datasets using less stringent cutoffs (Ribo-seq FDR < 0.05 and log2FC < 0 and MS p value < 0.05 and log2(FC) < 0). ",
+  "Prompt": "From the genes that are downregulated at both translational level and protein level, prioritize a few targets that are particularly relevant to prostate cancer.  ",
+  "mode": "Baseline",
+  "llm_provider": "nvidia",
+  "llm_model": "qwen/qwen3-235b-a22b",
+  "run_date": "2026-01-21 22:55:37",
+  "elapsed_seconds": 86.79,
+  "status": "ok",
+  "error": null,
+  "output_text": "**Candidate Genes:**  \nCTSL, TOP2B, PTPN13, TRIM59, TBK1, FEN1, SARNP  \n\n**Key Genes/Proteins (leading edge):**  \n| Gene    | Direction | Role/Function                          | Pathway(s)                          |  \n|---------|-----------|----------------------------------------|-------------------------------------|  \n| CTSL    | Down      | Protease involved in invasion/metastasis | Extracellular matrix remodeling     |  \n| TOP2B   | Down      | DNA topoisomerase II beta (replication)  | Cell cycle/DNA replication          |  \n| PTPN13  | Down      | Protein tyrosine phosphatase (EGFR/HER2) | Growth factor signaling inhibition  |  \n| TRIM59  | Down      | E3 ubiquitin ligase (apoptosis regulation)| Ubiquitin-mediated proteolysis      |  \n| TBK1    | Down      | Serine/threonine kinase (NF-κB survival) | NF-κB signaling, innate immunity    |  \n| FEN1    | Down      | Flap endonuclease 1 (DNA repair)         | Base excision repair                |  \n| SARNP   | Down      | Spliceosome-associated factor            | Pre-mRNA splicing                   |  \n\n**Analysis:**  \n- **CTSL** (Cathepsin L) is a lysosomal protease directly linked to prostate cancer metastasis through extracellular matrix degradation. Its dual downregulation at both translational and protein levels suggests zotatifin may inhibit invasion.  \n- **TOP2B** (Topoisomerase II beta) is critical for DNA replication and a target of chemotherapeutic agents. Reduced expression aligns with suppressed tumor growth in the study.  \n- **PTPN13** (Protein tyrosine phosphatase 13) negatively regulates HER2/EGFR signaling, which is dysregulated in castration-resistant prostate cancer. Loss of this phosphatase may contribute to oncogenic signaling, and its inhibition could restore tumor suppression.  \n- **TRIM59** (Tripartite motif-containing 59) promotes ubiquitin-mediated degradation of tumor suppressors. Downregulation may stabilize antitumorigenic proteins.  \n- **TBK1** (TANK-binding kinase 1) activates NF-κB, a survival pathway in prostate cancer. Reduced TBK1 could sensitize cells to apoptosis.  \n- **FEN1** (Flap endonuclease 1) is essential for DNA repair, and its inhibition may synergize with zotatifin to induce replication stress.  \n- **SARNP** (Spliceosome-associated factor) is implicated in aberrant splicing events in cancer, including androgen receptor variants in PCa.  \n\n**Implications:**  \nThese targets highlight zotatifin’s potential to disrupt metastasis (CTSL), DNA repair (FEN1), and survival signaling (TBK1/NF-κB) in prostate cancer. Prioritization of CTSL and TOP2B is warranted for functional validation in PCa models.  \n\n**Next Steps:**  \n1. Validate CTSL and TOP2B downregulation via qPCR/Western blot in zotatifin-treated 22Rv1 cells.  \n2. Assess migratory/invasive phenotypes in CTSL-knockdown PCa cells treated with zotatifin.  \n3. Investigate synergy between zotatifin and TOP2B inhibitors (e.g., etoposide) in PCa xenografts.  \n4. Evaluate splicing alterations in SARNP-downregulated cells to link zotatifin’s effects to androgen receptor signaling.",
+  "tool_calls_json": [
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "MS_data",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035537Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=9581896f7005ce921481f640c509de705631f585db3aab5f08a61835409defa1"
+      }
+    },
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "RiboSeq_data",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035537Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=7d45d3df97720b71e5ba816d4f8b3dcae26bd6ca919ea86f8db8a6b54a3389b7"
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1769054152_d040b9d4",
+        "conditions": [
+          {
+            "column": "Log2FC(Zota vs Vehicle)",
+            "op": "<",
+            "value": 0
+          },
+          {
+            "column": "pval (Zota vs Vehicle)",
+            "op": "<",
+            "value": 0.05
+          }
+        ],
+        "keep_columns": [
+          "gene_name",
+          "Log2FC(Zota vs Vehicle)",
+          "pval (Zota vs Vehicle)"
+        ],
+        "sort_by": [
+          "-Log2FC(Zota vs Vehicle)"
+        ],
+        "name": "MS_downregulated"
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1769054171_a6e986ce",
+        "conditions": [
+          {
+            "column": "log2FC(Zota vs Vehicle)",
+            "op": "<",
+            "value": 0
+          },
+          {
+            "column": "fdr_Pr(>|z|)_Zota vs Vehicle",
+            "op": "<",
+            "value": 0.05
+          }
+        ],
+        "keep_columns": [
+          "gene_name",
+          "log2FC(Zota vs Vehicle)",
+          "fdr_Pr(>|z|)_Zota vs Vehicle"
+        ],
+        "sort_by": [
+          "-log2FC(Zota vs Vehicle)"
+        ],
+        "name": "RiboSeq_downregulated"
+      }
+    },
+    {
+      "name": "csv_join",
+      "args": {
+        "left_csv_id": "1769054182_3e6903de",
+        "right_csv_id": "1769054190_8d0c8fac",
+        "on": "gene_name",
+        "how": "inner",
+        "select": {
+          "left": [
+            "gene_name",
+            "Log2FC(Zota vs Vehicle)"
+          ],
+          "right": [
+            "log2FC(Zota vs Vehicle)"
+          ]
+        },
+        "suffixes": [
+          "_MS",
+          "_RiboSeq"
+        ],
+        "name": "common_downregulated"
+      }
+    }
+  ],
+  "tool_events_json": [
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1769054152_d040b9d4",
+        "name": "MS_data.csv",
+        "path": "/app/output/user_csvs/MS_data.csv"
+      }
+    },
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1769054171_a6e986ce",
+        "name": "RiboSeq_data.csv",
+        "path": "/app/output/user_csvs/RiboSeq_data.csv"
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "gene_name",
+          "Log2FC(Zota vs Vehicle)",
+          "pval (Zota vs Vehicle)"
+        ],
+        "rows": "[{\"gene_name\":\"MED14\",\"Log2FC(Zota vs Vehicle)\":-0.020873403,\"pval (Zota vs Vehicle)\":0.021763302},{\"gene_name\":\"NUDT6\",\"Log2FC(Zota vs Vehicle)\":-0.053640492,\"pval (Zota vs Vehicle)\":0.046858866},{\"gene_name\":\"ECPAS\",\"Log2FC(Zota vs Vehicle)\":-0.054292753,\"pval (Zota vs Vehicle)\":0.045131552},{\"gene_name\":\"ZADH2\",\"Log2FC(Zota vs Vehicle)\":-0.059931193,\"pval (Zota vs Vehicle)\":0.042881937},{\"gene_name\":\"UROD\",\"Log2FC(Zota vs Vehicle)\":-0.065693805,\"pval (Zota vs Vehicle)\":0.038387921},{\"gene_name\":\"LTN1\",\"Log2FC(Zota vs Vehicle)\":-0.0717756,\"pval (Zota vs Vehicle)\":0.009259746},{\"gene_name\":\"NDE1\",\"Log2FC(Zota vs Vehicle)\":-0.079276897,\"pval (Zota vs Vehicle)\":0.024586324},{\"gene_name\":\"DCAF11\",\"Log2FC(Zota vs Vehicle)\":-0.084072803,\"pval (Zota vs Vehicle)\":0.01623688},{\"gene_name\":\"TUBGCP6\",\"Log2FC(Zota vs Vehicle)\":-0.086672284,\"pval (Zota vs Vehicle)\":0.001615325},{\"gene_name\":\"PRR14L\",\"Log2FC(Zota vs Vehicle)\":-0.086732202,\"pval (Zota vs Vehicle)\":0.049106434},{\"gene_name\":\"PSMA6\",\"Log2FC(Zota vs Vehicle)\":-0.089572043,\"pval (Zota vs Vehicle)\":0.04922198},{\"gene_name\":\"G6PD\",\"Log2FC(Zota vs Vehicle)\":-0.089836518,\"pval (Zota vs Vehicle)\":0.034979935},{\"gene_name\":\"RTRAF\",\"Log2FC(Zota vs Vehicle)\":-0.090546622,\"pval (Zota vs Vehicle)\":0.02614387},{\"gene_name\":\"ANK3\",\"Log2FC(Zota vs Vehicle)\":-0.090594421,\"pval (Zota vs Vehicle)\":0.014940242},{\"gene_name\":\"SSBP1\",\"Log2FC(Zota vs Vehicle)\":-0.093229534,\"pval (Zota vs Vehicle)\":0.019145337},{\"gene_name\":\"MCCC1\",\"Log2FC(Zota vs Vehicle)\":-0.094917429,\"pval (Zota vs Vehicle)\":0.033215991},{\"gene_name\":\"ACTR10\",\"Log2FC(Zota vs Vehicle)\":-0.095271943,\"pval (Zota vs Vehicle)\":0.001302167},{\"gene_name\":\"RO60\",\"Log2FC(Zota vs Vehicle)\":-0.096135795,\"pval (Zota vs Vehicle)\":0.008938646},{\"gene_name\":\"HMBS\",\"Log2FC(Zota vs Vehicle)\":-0.09629844,\"pval (Zota vs Vehicle)\":0.017237431},{\"gene_name\":\"CCT5\",\"Log2FC(Zota vs Vehicle)\":-0.096739952,\"pval (Zota vs Vehicle)\":0.035819061}]",
+        "total_rows": 519,
+        "storage_entry": {
+          "id": "1769054182_3e6903de",
+          "name": "csv_filter_1769054152_d040b9d4.csv",
+          "path": "/app/output/user_csvs/csv_filter_1769054152_d040b9d4.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "gene_name",
+          "log2FC(Zota vs Vehicle)",
+          "fdr_Pr(>|z|)_Zota vs Vehicle"
+        ],
+        "rows": "[{\"gene_name\":\"HSP90AA1\",\"log2FC(Zota vs Vehicle)\":-0.042932838,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.032332752},{\"gene_name\":\"PTMA\",\"log2FC(Zota vs Vehicle)\":-0.055923024,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.001190067},{\"gene_name\":\"CALM3\",\"log2FC(Zota vs Vehicle)\":-0.083602239,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.012024058},{\"gene_name\":\"FKBP5\",\"log2FC(Zota vs Vehicle)\":-0.084768418,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0000146},{\"gene_name\":\"RPS25\",\"log2FC(Zota vs Vehicle)\":-0.092143921,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.047212686},{\"gene_name\":\"BTF3\",\"log2FC(Zota vs Vehicle)\":-0.092979536,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.035760244},{\"gene_name\":\"DNAJA1\",\"log2FC(Zota vs Vehicle)\":-0.096429968,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.042307388},{\"gene_name\":\"AHNAK\",\"log2FC(Zota vs Vehicle)\":-0.096591128,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.00000461},{\"gene_name\":\"RPL7\",\"log2FC(Zota vs Vehicle)\":-0.099738616,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.001615702},{\"gene_name\":\"MCM7\",\"log2FC(Zota vs Vehicle)\":-0.100122606,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.008828465},{\"gene_name\":\"RPL24\",\"log2FC(Zota vs Vehicle)\":-0.101534978,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.003878544},{\"gene_name\":\"TCP1\",\"log2FC(Zota vs Vehicle)\":-0.10694815,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.012240081},{\"gene_name\":\"RPS14\",\"log2FC(Zota vs Vehicle)\":-0.114937861,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.028078367},{\"gene_name\":\"ATP5F1A\",\"log2FC(Zota vs Vehicle)\":-0.115186445,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0000011},{\"gene_name\":\"MYL6\",\"log2FC(Zota vs Vehicle)\":-0.115554127,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.00000025},{\"gene_name\":\"ANP32B\",\"log2FC(Zota vs Vehicle)\":-0.116313903,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.014709508},{\"gene_name\":\"RAB11A\",\"log2FC(Zota vs Vehicle)\":-0.117328025,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.045955034},{\"gene_name\":\"NASP\",\"log2FC(Zota vs Vehicle)\":-0.117463391,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.022409352},{\"gene_name\":\"HSPA8\",\"log2FC(Zota vs Vehicle)\":-0.117705696,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.0},{\"gene_name\":\"PA2G4\",\"log2FC(Zota vs Vehicle)\":-0.118002343,\"fdr_Pr(>|z|)_Zota vs Vehicle\":0.001311847}]",
+        "total_rows": 1166,
+        "storage_entry": {
+          "id": "1769054190_8d0c8fac",
+          "name": "csv_filter_1769054171_a6e986ce.csv",
+          "path": "/app/output/user_csvs/csv_filter_1769054171_a6e986ce.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_join",
+      "payload": {
+        "columns": [
+          "Log2FC(Zota vs Vehicle)",
+          "gene_name",
+          "log2FC(Zota vs Vehicle)"
+        ],
+        "rows": "[{\"Log2FC(Zota vs Vehicle)\":-0.089572043,\"gene_name\":\"PSMA6\",\"log2FC(Zota vs Vehicle)\":-0.208951221},{\"Log2FC(Zota vs Vehicle)\":-0.095271943,\"gene_name\":\"ACTR10\",\"log2FC(Zota vs Vehicle)\":-0.281249501},{\"Log2FC(Zota vs Vehicle)\":-0.09629844,\"gene_name\":\"HMBS\",\"log2FC(Zota vs Vehicle)\":-0.30456777},{\"Log2FC(Zota vs Vehicle)\":-0.11110883,\"gene_name\":\"SRGAP2\",\"log2FC(Zota vs Vehicle)\":-0.449439077},{\"Log2FC(Zota vs Vehicle)\":-0.116827883,\"gene_name\":\"UGDH\",\"log2FC(Zota vs Vehicle)\":-0.545316342},{\"Log2FC(Zota vs Vehicle)\":-0.124623209,\"gene_name\":\"PRPSAP1\",\"log2FC(Zota vs Vehicle)\":-0.457013535},{\"Log2FC(Zota vs Vehicle)\":-0.133374384,\"gene_name\":\"TOP2B\",\"log2FC(Zota vs Vehicle)\":-0.335605903},{\"Log2FC(Zota vs Vehicle)\":-0.135829815,\"gene_name\":\"FEN1\",\"log2FC(Zota vs Vehicle)\":-0.18424153},{\"Log2FC(Zota vs Vehicle)\":-0.14136067,\"gene_name\":\"SARNP\",\"log2FC(Zota vs Vehicle)\":-0.221837157},{\"Log2FC(Zota vs Vehicle)\":-0.143990443,\"gene_name\":\"TBK1\",\"log2FC(Zota vs Vehicle)\":-0.2950142},{\"Log2FC(Zota vs Vehicle)\":-0.148249455,\"gene_name\":\"ACSM3\",\"log2FC(Zota vs Vehicle)\":-0.30696118},{\"Log2FC(Zota vs Vehicle)\":-0.149757015,\"gene_name\":\"HSPA4\",\"log2FC(Zota vs Vehicle)\":-0.205020621},{\"Log2FC(Zota vs Vehicle)\":-0.151629883,\"gene_name\":\"TRIM59\",\"log2FC(Zota vs Vehicle)\":-0.417517744},{\"Log2FC(Zota vs Vehicle)\":-0.152062131,\"gene_name\":\"PTPN13\",\"log2FC(Zota vs Vehicle)\":-0.558374984},{\"Log2FC(Zota vs Vehicle)\":-0.156635967,\"gene_name\":\"CTSL\",\"log2FC(Zota vs Vehicle)\":-0.411916785},{\"Log2FC(Zota vs Vehicle)\":-0.160600542,\"gene_name\":\"AHSA1\",\"log2FC(Zota vs Vehicle)\":-0.238171709},{\"Log2FC(Zota vs Vehicle)\":-0.160618435,\"gene_name\":\"LRBA\",\"log2FC(Zota vs Vehicle)\":-0.234276067},{\"Log2FC(Zota vs Vehicle)\":-0.163360384,\"gene_name\":\"TMOD3\",\"log2FC(Zota vs Vehicle)\":-0.350152569},{\"Log2FC(Zota vs Vehicle)\":-0.16360851,\"gene_name\":\"TDRD7\",\"log2FC(Zota vs Vehicle)\":-0.549794651},{\"Log2FC(Zota vs Vehicle)\":-0.163933946,\"gene_name\":\"HSPE1\",\"log2FC(Zota vs Vehicle)\":-0.427727864}]",
+        "total_rows": 108,
+        "storage_entry": {
+          "id": "1769054196_8a389bde",
+          "name": "csv_join_1769054182_3e6903de_1769054190_8d0c8fac_gene_name.csv",
+          "path": "/app/output/user_csvs/csv_join_1769054182_3e6903de_1769054190_8d0c8fac_gene_name.csv"
+        }
+      }
+    }
+  ],
+  "uploaded_files": [
+    {
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv",
+      "type": "csv",
+      "preview": "﻿,Log2FC(Zota vs Vehicle),pval (Zota vs Vehicle),gene_name\nKRT34,-3.065664414,0.159480134,KRT34\nKRT13,-1.802568254,0.23863838,KRT13",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035537Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=9581896f7005ce921481f640c509de705631f585db3aab5f08a61835409defa1",
+      "s3_key": "uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv"
+    },
+    {
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv",
+      "type": "csv",
+      "preview": "﻿,transcript,gene_id,gene_name,log2FC(Zota vs Vehicle),fdr_Pr(>|z|)_Zota vs Vehicle\n1,ENST00000000233,ENSG00000004059,ARF5,0.137552497,0.05240972\n2,ENST00000000412,ENSG00000003056,M6PR,-0.22893334,0.18172695",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035537Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=7d45d3df97720b71e5ba816d4f8b3dcae26bd6ca919ea86f8db8a6b54a3389b7",
+      "s3_key": "uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv"
+    }
+  ]
+}

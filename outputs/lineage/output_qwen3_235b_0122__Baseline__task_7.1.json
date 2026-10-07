@@ -1,0 +1,133 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0122__Baseline__task_7.1",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "7.1",
+      "run_date": "2026-01-21 22:58:33",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Ahmad_2025_Cancer_Cell_TableS2-GNP_Polysome_GSEA.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Ahmad_2025_Cancer_Cell_TableS2-GNP_Polysome_GSEA.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035832Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=af09f2fff474d7b7edf2cb3dde15cc5fc36295f7ee7ee2175cfe8e01ddcefb88",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Ahmad_2025_Cancer_Cell_TableS2-GNP_Proteomics_DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Ahmad_2025_Cancer_Cell_TableS2-GNP_Proteomics_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035833Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=92a229dc2e5e52f91a9da244142e12ed5df97343e23466abb2f5d9fb9a079a07",
+      "id": "upload:1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Ahmad_2025_Cancer_Cell_TableS2-GNP_Polysome_GSEA.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035832Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=af09f2fff474d7b7edf2cb3dde15cc5fc36295f7ee7ee2175cfe8e01ddcefb88\", \"name\": \"Ahmad_2025_Polysome_GSEA\", \"tags\": [\"user_input\", \"GSEA\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Ahmad_2025_Polysome_GSEA.csv",
+      "path": "/app/output/user_csvs/Ahmad_2025_Polysome_GSEA.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769054335_c167bca1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"p.adjust\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769054335_c167bca1\", \"keep_columns\": [\"ID\", \"enrichmentScore\", \"NES\", \"pvalue\", \"p.adjust\", \"leading_edge\"], \"sort_by\": [\"-NES\"]}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769054335_c167bca1.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769054335_c167bca1.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769054349_6dc10eab"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 2,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Ahmad_2025_Cancer_Cell_TableS2-GNP_Proteomics_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035833Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=92a229dc2e5e52f91a9da244142e12ed5df97343e23466abb2f5d9fb9a079a07\", \"name\": \"Ahmad_2025_Proteomics_DEG\", \"tags\": [\"user_input\", \"proteomics\"]}",
+      "error": "",
+      "id": "step2_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Ahmad_2025_Proteomics_DEG.csv",
+      "path": "/app/output/user_csvs/Ahmad_2025_Proteomics_DEG.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769054368_505efac2"
+    },
+    {
+      "type": "report",
+      "length": 7271,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054335_c167bca1",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769054335_c167bca1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054349_6dc10eab",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054368_505efac2",
+      "target": "step2_csv_record"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

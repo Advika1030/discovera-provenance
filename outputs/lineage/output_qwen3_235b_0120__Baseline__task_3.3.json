@@ -1,0 +1,328 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0120__Baseline__task_3.3",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "3.3",
+      "run_date": "2026-01-21 11:39:04",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T163904Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=390b7b720bda09e590b14fc2f9f3005054db9b30273c7b7d4324be6887b92d54",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T163904Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=390b7b720bda09e590b14fc2f9f3005054db9b30273c7b7d4324be6887b92d54\", \"metadata\": {\"description\": \"Differential expression analysis of intermittent serum starvation vs DMSO in colorectal cancer cells\", \"source\": \"ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv\"}, \"name\": \"ISS_vs_DMSO_DEG\", \"tags\": [\"user_input\", \"differential_expression\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "ISS_vs_DMSO_DEG.csv",
+      "path": "/app/output/user_csvs/ISS_vs_DMSO_DEG.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769013577_16e5e862"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769013577_16e5e862\", \"name\": \"ISS_vs_DMSO_DEG_sig\"}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769013577_16e5e862.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769013577_16e5e862.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769013593_28479655"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 2,
+      "args": "{\"columns\": [\"Unnamed: 0\", \"log2FoldChange\", \"padj\"], \"csv_id\": \"1769013593_28479655\", \"name\": \"ISS_vs_DMSO_DEG_sig_renamed\", \"rename\": {\"Unnamed: 0\": \"gene_id\"}}",
+      "error": "",
+      "id": "step2_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769013593_28479655.csv",
+      "path": "/app/output/user_csvs/csv_select_1769013593_28479655.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769013611_11729c9c"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 3,
+      "args": "{\"conditions\": [{\"column\": \"log2FoldChange\", \"op\": \">\", \"value\": 0}], \"csv_id\": \"1769013611_11729c9c\", \"name\": \"ISS_up\"}",
+      "error": "",
+      "id": "step3_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769013611_11729c9c.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769013611_11729c9c.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769013662_5730e9b6"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 4,
+      "args": "{\"conditions\": [{\"column\": \"log2FoldChange\", \"op\": \"<\", \"value\": 0}], \"csv_id\": \"1769013611_11729c9c\", \"name\": \"ISS_down\"}",
+      "error": "",
+      "id": "step4_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769013611_11729c9c.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769013611_11729c9c.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769013697_5730e9b6"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_aggregate",
+      "step_index": 5,
+      "args": "{\"aggregations\": {\"up_gene_count\": {\"cols\": [\"gene_id\"], \"func\": \"count\"}}, \"csv_id\": \"1769013662_5730e9b6\", \"name\": \"ISS_up_count\"}",
+      "error": "{\"tool\": \"csv_aggregate\", \"type\": \"FileNotFoundError\", \"message\": \"No entry with id 1769013662_5730e9b6\", \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/app/src/baseline_fastmcp/server.py\\\", line 871, in csv_aggregate\\n    csv_path = _resolve_path_from_id(params.csv_id)\\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/app/src/baseline_fastmcp/server.py\\\", line 117, in _resolve_path_from_id\\n    raise FileNotFoundError(f\\\"No entry with id {file_id}\\\")\\nFileNotFoundError: No entry with id 1769013662_5730e9b6\\n\"}",
+      "id": "step5_csv_aggregate"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 6,
+      "args": "{\"id\": \"1769013662_5730e9b6\", \"n_rows\": 0}",
+      "error": "",
+      "id": "step6_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 7,
+      "args": "{\"id\": \"1769013697_5730e9b6\", \"n_rows\": 0}",
+      "error": "",
+      "id": "step7_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_aggregate",
+      "step_index": 8,
+      "args": "{\"aggregations\": {\"down_gene_count\": {\"cols\": [\"gene_id\"], \"func\": \"count\"}}, \"csv_id\": \"1769013697_5730e9b6\", \"name\": \"ISS_down_count\"}",
+      "error": "{\"tool\": \"csv_aggregate\", \"type\": \"ValueError\", \"message\": \"Unsupported aggregation func 'count' for 'down_gene_count'\", \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/app/src/baseline_fastmcp/server.py\\\", line 904, in csv_aggregate\\n    raise ValueError(\\nValueError: Unsupported aggregation func 'count' for 'down_gene_count'\\n\"}",
+      "id": "step8_csv_aggregate"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_aggregate",
+      "step_index": 9,
+      "args": "{\"aggregations\": {\"down_gene_count\": {\"cols\": [\"gene_id\"], \"func\": \"sum\"}}, \"csv_id\": \"1769013697_5730e9b6\", \"name\": \"ISS_down_count\"}",
+      "error": "",
+      "id": "step9_csv_aggregate"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_aggregate_1769013697_5730e9b6_down_gene_count.csv",
+      "path": "/app/output/user_csvs/csv_aggregate_1769013697_5730e9b6_down_gene_count.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769013754_a5caa852"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_aggregate",
+      "step_index": 10,
+      "args": "{\"aggregations\": {\"up_gene_count\": {\"cols\": [\"gene_id\"], \"func\": \"sum\"}}, \"csv_id\": \"1769013662_5730e9b6\", \"name\": \"ISS_up_count\"}",
+      "error": "{\"tool\": \"csv_aggregate\", \"type\": \"FileNotFoundError\", \"message\": \"No entry with id 1769013662_5730e9b6\", \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/app/src/baseline_fastmcp/server.py\\\", line 871, in csv_aggregate\\n    csv_path = _resolve_path_from_id(params.csv_id)\\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/app/src/baseline_fastmcp/server.py\\\", line 117, in _resolve_path_from_id\\n    raise FileNotFoundError(f\\\"No entry with id {file_id}\\\")\\nFileNotFoundError: No entry with id 1769013662_5730e9b6\\n\"}",
+      "id": "step10_csv_aggregate"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 11,
+      "args": "{\"id\": \"1769013662_5730e9b6\", \"n_rows\": 0}",
+      "error": "",
+      "id": "step11_csv_read"
+    },
+    {
+      "type": "report",
+      "length": 593,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769013577_16e5e862",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769013577_16e5e862"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769013593_28479655",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_select",
+      "target": "1769013593_28479655"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769013611_11729c9c",
+      "target": "step2_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_filter",
+      "target": "1769013611_11729c9c"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769013662_5730e9b6",
+      "target": "step3_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_filter",
+      "target": "1769013611_11729c9c"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769013697_5730e9b6",
+      "target": "step4_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_csv_aggregate",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step5_csv_aggregate",
+      "target": "1769013662_5730e9b6"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step6_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step6_csv_read",
+      "target": "1769013662_5730e9b6"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step7_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step7_csv_read",
+      "target": "1769013697_5730e9b6"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step8_csv_aggregate",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step8_csv_aggregate",
+      "target": "1769013697_5730e9b6"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step9_csv_aggregate",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step9_csv_aggregate",
+      "target": "1769013697_5730e9b6"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769013754_a5caa852",
+      "target": "step9_csv_aggregate"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step10_csv_aggregate",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step10_csv_aggregate",
+      "target": "1769013662_5730e9b6"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step11_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step11_csv_read",
+      "target": "1769013662_5730e9b6"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

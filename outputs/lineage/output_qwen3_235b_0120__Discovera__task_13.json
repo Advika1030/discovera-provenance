@@ -1,0 +1,98 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0120__Discovera__task_13",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Discovera",
+      "task_id": "13",
+      "run_date": "2026-01-20 19:32:38",
+      "id": "agent_run"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_text\": \"gene,log2fc,adj_pval\\ntfb2m,1,0.05\\nxpo5,1,0.05\\nmsh6,1,0.05\\nrfc4,1,0.05\\nppm1g,1,0.05\\ncad,1,0.05\\nlrpprc,1,0.05\\nslirp,1,0.05\\npdcd11,1,0.05\\nnkrf,1,0.05\\nslc4a1ap,1,0.05\\nesf1,1,0.05\\nddx52,1,0.05\\ntbl3,1,0.05\\nbysl,1,0.05\\nselenbp1,-1,0.05\\nvps13c,-1,0.05\", \"name\": \"orf1p_signature_proteins\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "orf1p_signature_proteins.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/orf1p_signature_proteins.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1768955573_30df1f25"
+    },
+    {
+      "type": "tool_step",
+      "tool": "ora_pipe",
+      "step_index": 1,
+      "args": "{\"csv_id\": \"1768955573_30df1f25\", \"gene_col\": \"gene\", \"gene_sets\": [\"GO_Biological_Process_2023\", \"GO_Cellular_Component_2015\", \"GO_Molecular_Function_2015\"], \"p_value_threshold\": 0.2}",
+      "error": "",
+      "id": "step1_ora_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "ora_results_20260120_193303.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20260120_193303.csv",
+      "source_key": "ora_result_metadata",
+      "is_plot": false,
+      "id": "1768955584_b4d83cc7"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gene_info",
+      "step_index": 2,
+      "args": "{\"gene_list\": [\"MSH6\", \"XPO5\", \"LRPPRC\", \"NKRF\", \"SLIRP\"]}",
+      "error": "",
+      "id": "step2_gene_info"
+    },
+    {
+      "type": "report",
+      "length": 5327,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768955573_30df1f25",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_ora_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_ora_pipe",
+      "target": "1768955573_30df1f25"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768955584_b4d83cc7",
+      "target": "step1_ora_pipe"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_gene_info",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

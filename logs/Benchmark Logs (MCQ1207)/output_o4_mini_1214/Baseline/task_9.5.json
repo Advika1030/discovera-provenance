@@ -1,0 +1,69 @@
+{
+  "ID": "9.5",
+  "Context/Background": "Intraductal papillary neoplasms (IPNs),  including intraductal papillary mucinous neoplasms (IPMNs), intraductal oncocytic papillary neoplasms (IOPNs), and intraductal tubulopapillary neoplasms (ITPNs), are clinically detectable macroscopic non-invasive cyst-forming lesions, some of which progress to invasive pancreatic cancer. Proteins and glycoproteins have proven to be useful clinical biomarkers for classifying cyst-forming neoplasms in the pancreas.Here, we used proteomics and glycoproteomics to characterize a series of histologically and genetically well-characterized surgically resected IPNs, including IPMNs and IOPNs.\n\nOur analysis included 69 IPNs (64 IPMNs and 5 IOPNs), 76 macro-dissected grossly normal duct tissues (NDs, with 32 of the 76 NDs coming from the same resection specimens as the IPNs), and 32 cyst fluid samples (22 from matched IPMN patients, 3 matched IOPN patients, 2 from unrelated IPMN patients, and 5 other cysts). ",
+  "Prompt": "We applied proteomics-based NMF subtyping strategies to the IPMNs and PDACs to explore tumor heterogeneities and reveal progression features. This analysis showed three clusters, NMF 1 was entirely composed of PDACs. NMF 2 included some PDACs and some IPMNs, while NMF 3 was almost entirely composed of IPMNs with only one PDAC. Most (75%) IPMNs with an associated PDAC were clustered in NMF 2. Use the feature genes in each of the NMF clusters and pairwise comparison between clusters to interpret the differences between NMF clusters and provide a summary of functional and clinical implications.",
+  "mode": "Baseline",
+  "llm_provider": "openai",
+  "llm_model": "gpt-5-nano",
+  "run_date": "2026-01-17 20:09:32",
+  "elapsed_seconds": 194.81,
+  "status": "ok",
+  "error": null,
+  "output_text": "Introduction/Context\n- This analysis uses proteomics-based NMF subtyping to dissect heterogeneity and progression in intraductal pancreatic neoplasms (IPMNs, IPNs) and pancreatic ductal adenocarcinoma (PDAC). The study profile includes 69 IPNs (64 IPMNs, 5 IOPNs), 76 macro-dissected normal duct tissues, and 32 cyst fluids, with NMF clustering revealing three distinct clusters. NMF1 is PDAC-dominated, NMF3 is IPMN-dominated, and NMF2 contains a mix of PDACs and IPMNs; notably, about 75% of IPMNs associated with PDAC fall into NMF2, suggesting a progression-related signature bridging IPMN to PDAC. Feature genes per NMF cluster are reported in TableS4G, and pairwise differentials between clusters are provided in TableS4H. The present prompt focuses on interpreting these cluster-specific features and their pairwise contrasts to infer functional and clinical implications. Specific mutation status or treatment data are not provided in the prompt.\n\nKeywords\n- IPMN, IPNs, IPMNs, IOPN, PDAC\n- proteomics, glycoproteomics, non-negative matrix factorization (NMF)\n- tumor heterogeneity, progression, cyst fluid, normal duct tissue\n- cluster-specific genes, DEG comparisons, NMF1, NMF2, NMF3\n\nCandidate Genes\n- UBA6\n- ARHGAP10\n- IGKV1D-17\n- APOM\n- AKR1B15\n- VWA8\n- SH3PXD2B\n\nRationale (based on available cluster- and pairwise-DEG hints in the provided data)\n- NMF1 vs NMF2 Up: UBA6 and ARHGAP10 are elevated in NMF1, consistent with a PDAC-like proteomic state featuring ubiquitination/proteostasis and cytoskeletal signaling elements.\n- NMF2 vs NMF1 Up: IGKV1D-17 and APOM are elevated in NMF2, suggesting an immune/glycoprotein–related signature and lipid-transport–associated processes that may accompany a transition state.\n- NMF3 vs NMF1 Up: AKR1B15 and VWA8 are elevated in NMF3, implying redox/metabolic signaling (AKR1B15) and other non-classified functions (VWA8) in the IPMN-dominant cluster.\n- NMF3 vs NMF2 Up: AKR1B15 (and likely others like VWA8) remains higher in NMF3, reinforcing a distinct metabolic/proteostatic profile in the IPMN-dominated state compared with the mixed/progression-associated state (NMF2).\n\nNotes on interpretation (within the constraints of the data provided)\n- The visible DEG entries (from the DEG tables associated with pairwise cluster comparisons) support a progression axis: NMF1 shows proteostasis/cytoskeletal features, NMF2 exhibits immune/glycoprotein–related signals, and NMF3 shows metabolic/redox-associated features. The enrichment signals are limited to the listed genes, so conclusions about pathway-level enrichment should be considered preliminary targets for formal enrichment analyses (e.g., GO/KEGG/GSEA) using the complete feature gene sets from TableS4G and the full DEG tables (S4H).\n- The 75% of IPMNs with associated PDAC clustering in NMF2 supports the notion that NMF2 captures a transitional/progression-associated state rather than a purely IPMN- or PDAC-specific program.\n\nComparisons (high-level, data-grounded)\n- NMF1 vs NMF2: Up in NMF1 for UBA6 and ARHGAP10; Up in NMF2 for IGKV1D-17 and APOM (based on the available pairwise data), indicating opposing proteomic signatures between the PDAC-like cluster and the mixed/progression-associated cluster.\n- NMF3 vs NMF1/NMF2: Up for AKR1B15 and VWA8 in NMF3 relative to NMF1; AKR1B15 also appears up when comparing NMF3 to NMF2, highlighting a distinct IPMN-dominant/metabolic signature in NMF3.\n\nImplications (conceptual)\n- Therapeutic/resistance relevance: NMF2’s immune/glycoprotein–associated signature may reflect a tumor microenvironment state amenable to immunomodulatory approaches or glycoprotein–targeted diagnostics, distinguishing it from the proteostasis/cytoskeletal (NMF1) and metabolic/redox (NMF3) states.\n- Biomarker potential: APOM and IGKV1D-17 rise in NMF2 and could serve as progression-associated biomarkers, whereas AKR1B15 and related metabolic genes in NMF3 may mark IPMN-dominant biology with potential metabolic vulnerabilities.\n- Progression biology: The three-cluster arrangement supports a continuum from IPMN to PDAC, with NMF2 representing a transitional state enriched for PDAC-associated risk signals.\n\nNext steps & clarification (2–4 concrete follow-ups)\n- Validate enrichment signals: Run GO/KEGG and pathway analyses on the complete NMF-cluster feature sets (TableS4G) and the full pairwise DEG lists (TableS4H) to derive robust leading-edge genes and canonical pathways for each cluster.\n- Cross-validate with independent cohorts: Apply the same NMF framework to independent IPMN/PDAC proteomic cohorts to confirm the three-cluster structure and the association of NMF2 with progression risk.\n- Integrate clinical metadata: Correlate cluster assignments with outcomes (progression to PDAC, survival) and with mutation profiles to determine whether the proteomic clusters map to genetic alterations or to microenvironment features.\n- Targeted follow-up assays: Design targeted assays (e.g., immunoassays for APOM/IGKV1D-17, ubiquitination-related readouts for UBA6/ARHGAP10, and metabolic/redox readouts for AKR1B15) to test the proposed functional themes in tissue and cyst fluid samples.\n\nReferences\n- No PMIDs are provided in the current prompt for validation; references to PMIDs would follow if stepwise validation were completed.",
+  "tool_calls_json": [
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "Wang_2025_Cancer_Cell_TableS4G-features-in-each-NMF.csv",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-17/Wang_2025_Cancer_Cell_TableS4G-features-in-each-NMF.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260118%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260118T010930Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=dcfeb7332e18b016683c3c09b4cee188109bfe272ecf6c3de8d61b28b890465b",
+        "tags": [
+          "dataset",
+          "user_input"
+        ],
+        "metadata": {
+          "source": "Wang 2025 Cancer Cell TableS4G features-in-each-NMF"
+        }
+      }
+    }
+  ],
+  "tool_events_json": [
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1768698662_85e65848",
+        "name": "Wang_2025_Cancer_Cell_TableS4G-features-in-each-NMF.csv.csv",
+        "path": "/app/output/user_csvs/Wang_2025_Cancer_Cell_TableS4G-features-in-each-NMF.csv.csv"
+      }
+    }
+  ],
+  "uploaded_files": [
+    {
+      "name": "Wang_2025_Cancer_Cell_TableS4G-features-in-each-NMF.csv",
+      "type": "csv",
+      "preview": "NMF.cluster,UniProt accession,Gene,Probability\nNMF 1,A0AVT1,UBA6,0.913989826\nNMF 1,A1A4S6,ARHGAP10,0.850170789",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-17/Wang_2025_Cancer_Cell_TableS4G-features-in-each-NMF.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260118%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260118T010930Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=dcfeb7332e18b016683c3c09b4cee188109bfe272ecf6c3de8d61b28b890465b",
+      "s3_key": "uploads/2026-01-17/Wang_2025_Cancer_Cell_TableS4G-features-in-each-NMF.csv"
+    },
+    {
+      "name": "Wang_2025_Cancer_Cell_TableS4H-DEG-NMF3vs1-3vs2.csv",
+      "type": "csv",
+      "preview": "UniProt accession,Gene,\"NMF 3 vs 1, log2FC\",FDR,NMF 3 vs 2 log2FC,FDR,Up/Down\nA3KMH1,VWA8,0.739219482,2.87E-10,0.69169745,1.04E-08,Up\nC9JRZ8,AKR1B15,1.390062268,0.000384796,1.208178972,0.00182569,Up",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-17/Wang_2025_Cancer_Cell_TableS4H-DEG-NMF3vs1-3vs2.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260118%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260118T010930Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=925a7e7c2e600f7836fb6c9ac18651efa94c70b20d850728a48a3e7b57e1d949",
+      "s3_key": "uploads/2026-01-17/Wang_2025_Cancer_Cell_TableS4H-DEG-NMF3vs1-3vs2.csv"
+    },
+    {
+      "name": "Wang_2025_Cancer_Cell_TableS4H-DEG-NMF2vs1-2vs3.csv",
+      "type": "csv",
+      "preview": "UniProt accession,Gene,\"NMF 2 vs 1, log2FC\",FDR,NMF 2 vs 3 log2FC,FDR,Up/Down\nA0A075B6S4,IGKV1D-17,1.327208408,5.36E-08,0.985917201,0.015369439,Up\nO95445,APOM,0.733459827,6.67E-11,1.142754618,1.30E-06,Up",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-17/Wang_2025_Cancer_Cell_TableS4H-DEG-NMF2vs1-2vs3.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260118%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260118T010931Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=84d239fe35a5f85087425ba137711d7e119d3772e6f117bfe904b5ed04de7379",
+      "s3_key": "uploads/2026-01-17/Wang_2025_Cancer_Cell_TableS4H-DEG-NMF2vs1-2vs3.csv"
+    },
+    {
+      "name": "Wang_2025_Cancer_Cell_TableS4H-DEG-NMF1vs2-1vs3.csv",
+      "type": "csv",
+      "preview": "UniProt accession,Gene,\"NMF 1 vs 2, log2FC\",FDR,NMF 1 vs 3 log2FC,FDR,Up/Down\nA1X283,SH3PXD2B,0.610787853,5.98E-12,0.960447758,5.78E-11,Up\nA6NDG6,PGP,0.854995945,2.40E-17,0.830788373,7.67E-11,Up",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-17/Wang_2025_Cancer_Cell_TableS4H-DEG-NMF1vs2-1vs3.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260118%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260118T010932Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=477b8dcfab7f42e717d7eeac3986109a9a01a86f36ceaa0ac559bdf1fcd0dcf2",
+      "s3_key": "uploads/2026-01-17/Wang_2025_Cancer_Cell_TableS4H-DEG-NMF1vs2-1vs3.csv"
+    }
+  ]
+}

@@ -1,0 +1,243 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0121__Baseline__task_9.2",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "9.2",
+      "run_date": "2026-01-21 22:16:56",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Wang_2025_Cancer_Cell_TableS2M.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Wang_2025_Cancer_Cell_TableS2M.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T031656Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=259ad18a3126aa38b96551cefc92b1c2fad43ebf299cc00edc998ae737a04c2b",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Wang_2025_Cancer_Cell_TableS2M.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T031656Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=259ad18a3126aa38b96551cefc92b1c2fad43ebf299cc00edc998ae737a04c2b\", \"metadata\": {\"description\": \"Proteomics comparison of high-grade (HG) vs low-grade (LG) IPMN and HG IPMN vs normal duct (ND)\", \"source\": \"Wang et al., Cancer Cell 2025\"}, \"name\": \"Wang_2025_Cancer_Cell_TableS2M\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Wang_2025_Cancer_Cell_TableS2M.csv",
+      "path": "/app/output/user_csvs/Wang_2025_Cancer_Cell_TableS2M.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769051839_0cc90768"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"HG vs LG IPMN\", \"op\": \">\", \"value\": 0}, {\"column\": \"FDR\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769051839_0cc90768\", \"distinct\": true, \"keep_columns\": [\"Gene\"], \"name\": \"HG_LG_up\"}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769051839_0cc90768.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769051839_0cc90768.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769051859_ac9401fe"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"HG IPMN vs ND\", \"op\": \">\", \"value\": 0}, {\"column\": \"FDR\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769051839_0cc90768\", \"distinct\": true, \"keep_columns\": [\"Gene\"], \"name\": \"HG_ND_up\"}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769051839_0cc90768.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769051839_0cc90768.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769051872_ac9401fe"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_join",
+      "step_index": 3,
+      "args": "{\"how\": \"inner\", \"left_csv_id\": \"1769051859_ac9401fe\", \"name\": \"common_upregulated\", \"on\": \"Gene\", \"right_csv_id\": \"1769051872_ac9401fe\"}",
+      "error": "{\"tool\": \"csv_join\", \"type\": \"FileNotFoundError\", \"message\": \"No entry with id 1769051859_ac9401fe\", \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/app/src/baseline_fastmcp/server.py\\\", line 779, in csv_join\\n    left_path = _resolve_path_from_id(params.left_csv_id)\\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/app/src/baseline_fastmcp/server.py\\\", line 117, in _resolve_path_from_id\\n    raise FileNotFoundError(f\\\"No entry with id {file_id}\\\")\\nFileNotFoundError: No entry with id 1769051859_ac9401fe\\n\"}",
+      "id": "step3_csv_join"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 4,
+      "args": "{\"conditions\": [{\"column\": \"HG vs LG IPMN\", \"op\": \">\", \"value\": 0}, {\"column\": \"FDR\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769051839_0cc90768\", \"distinct\": true, \"keep_columns\": [\"Gene\"], \"name\": \"HG_LG_up\"}",
+      "error": "",
+      "id": "step4_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769051839_0cc90768.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769051839_0cc90768.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769051892_ac9401fe"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_join",
+      "step_index": 5,
+      "args": "{\"how\": \"inner\", \"left_csv_id\": \"1769051892_ac9401fe\", \"name\": \"common_upregulated\", \"on\": \"Gene\", \"right_csv_id\": \"1769051892_ac9401fe\"}",
+      "error": "",
+      "id": "step5_csv_join"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_join_1769051892_ac9401fe_1769051892_ac9401fe_Gene.csv",
+      "path": "/app/output/user_csvs/csv_join_1769051892_ac9401fe_1769051892_ac9401fe_Gene.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769051899_51aac884"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 6,
+      "args": "{\"columns\": [\"Gene\"], \"csv_id\": \"1769051899_51aac884\", \"name\": \"common_upregulated_genes\"}",
+      "error": "",
+      "id": "step6_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769051899_51aac884.csv",
+      "path": "/app/output/user_csvs/csv_select_1769051899_51aac884.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769051909_0d60067d"
+    },
+    {
+      "type": "report",
+      "length": 3422,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769051839_0cc90768",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769051839_0cc90768"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769051859_ac9401fe",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1769051839_0cc90768"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769051872_ac9401fe",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_join",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_join",
+      "target": "1769051859_ac9401fe"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_join",
+      "target": "1769051872_ac9401fe"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_filter",
+      "target": "1769051839_0cc90768"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769051892_ac9401fe",
+      "target": "step4_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_csv_join",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step5_csv_join",
+      "target": "1769051892_ac9401fe"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769051899_51aac884",
+      "target": "step5_csv_join"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step6_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step6_csv_select",
+      "target": "1769051899_51aac884"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769051909_0d60067d",
+      "target": "step6_csv_select"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

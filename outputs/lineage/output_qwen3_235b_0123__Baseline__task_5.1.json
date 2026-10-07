@@ -1,0 +1,231 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0123__Baseline__task_5.1",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "5.1",
+      "run_date": "2026-01-21 23:42:54",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T044253Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=76f2dad456e92bd94da3aac2b1cdd2c11dca45deaad34d6a4f6fb4a6abd4590a",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T044254Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=3d4daeb329d903c67e87da9e9601ce7ce17c2ec6aeec9f786b6f44d650cf2b0d",
+      "id": "upload:1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T044253Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=76f2dad456e92bd94da3aac2b1cdd2c11dca45deaad34d6a4f6fb4a6abd4590a\", \"name\": \"Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv.csv",
+      "path": "/app/output/user_csvs/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769056991_17c9464a"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 1,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T044254Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=3d4daeb329d903c67e87da9e9601ce7ce17c2ec6aeec9f786b6f44d650cf2b0d\", \"name\": \"Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv\"}",
+      "error": "",
+      "id": "step1_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv.csv",
+      "path": "/app/output/user_csvs/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769057000_c091c663"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"log2FC(Zota vs Vehicle)\", \"op\": \"<\", \"value\": 0}, {\"column\": \"fdr_Pr(>|z|)_Zota vs Vehicle\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769057000_c091c663\", \"name\": \"Ribo_down\"}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769057000_c091c663.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769057000_c091c663.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769057008_dcb1e45d"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 3,
+      "args": "{\"conditions\": [{\"column\": \"pval (Zota vs Vehicle)\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"Log2FC(Zota vs Vehicle)\", \"op\": \"<\", \"value\": 0}], \"csv_id\": \"1769056991_17c9464a\", \"name\": \"MS_down\"}",
+      "error": "",
+      "id": "step3_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769056991_17c9464a.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769056991_17c9464a.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769057015_a101b74a"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_join",
+      "step_index": 4,
+      "args": "{\"how\": \"inner\", \"left_csv_id\": \"1769057008_dcb1e45d\", \"name\": \"Common_down\", \"on\": \"gene_name\", \"right_csv_id\": \"1769057015_a101b74a\"}",
+      "error": "",
+      "id": "step4_csv_join"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_join_1769057008_dcb1e45d_1769057015_a101b74a_gene_name.csv",
+      "path": "/app/output/user_csvs/csv_join_1769057008_dcb1e45d_1769057015_a101b74a_gene_name.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769057023_e00b5ee9"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 5,
+      "args": "{\"columns\": [\"gene_name\", \"log2FC(Zota vs Vehicle)\", \"fdr_Pr(>|z|)_Zota vs Vehicle\", \"pval (Zota vs Vehicle)\", \"Log2FC(Zota vs Vehicle)\"], \"csv_id\": \"1769057023_e00b5ee9\", \"name\": \"Prioritized_Targets\"}",
+      "error": "",
+      "id": "step5_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769057023_e00b5ee9.csv",
+      "path": "/app/output/user_csvs/csv_select_1769057023_e00b5ee9.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769057041_7044b227"
+    },
+    {
+      "type": "report",
+      "length": 2407,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769056991_17c9464a",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769057000_c091c663",
+      "target": "step1_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1769057000_c091c663"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769057008_dcb1e45d",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_filter",
+      "target": "1769056991_17c9464a"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769057015_a101b74a",
+      "target": "step3_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_join",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_join",
+      "target": "1769057008_dcb1e45d"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_join",
+      "target": "1769057015_a101b74a"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769057023_e00b5ee9",
+      "target": "step4_csv_join"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step5_csv_select",
+      "target": "1769057023_e00b5ee9"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769057041_7044b227",
+      "target": "step5_csv_select"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

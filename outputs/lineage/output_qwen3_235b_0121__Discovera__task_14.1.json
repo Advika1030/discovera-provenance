@@ -1,0 +1,114 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0121__Discovera__task_14.1",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Discovera",
+      "task_id": "14.1",
+      "run_date": "2026-01-21 19:14:25",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "41598_2024_75947_MOESM1_ESM-S1.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/41598_2024_75947_MOESM1_ESM-S1.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T001425Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=830febf0d83464d0a7ad677f11d4fdcc199942d7bc306b92ec0a86f8e2cad688",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/41598_2024_75947_MOESM1_ESM-S1.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T001425Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=830febf0d83464d0a7ad677f11d4fdcc199942d7bc306b92ec0a86f8e2cad688\", \"name\": \"reactome_pathways\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "reactome_pathways.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/reactome_pathways.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769040943_c2ac2c04"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1769040943_c2ac2c04\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"Unnamed: 4\", \"op\": \"in\", \"value\": [\"PIFvsPNI\", \"PIFvsCtrl\"]}], \"csv_id\": \"1769040943_c2ac2c04\", \"keep_columns\": [\"Supplemental Table 1: Significant Reactome Pathways Obtained from Differentially Expressed Genes from Organoid Cells.\", \"Unnamed: 1\", \"Unnamed: 2\", \"Unnamed: 3\", \"Unnamed: 4\"]}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769040943_c2ac2c04_de19463228.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_filter_1769040943_c2ac2c04_de19463228.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769040966_f3aed0e8"
+    },
+    {
+      "type": "report",
+      "length": 5241,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769040943_c2ac2c04",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1769040943_c2ac2c04"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1769040943_c2ac2c04"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769040966_f3aed0e8",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

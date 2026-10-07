@@ -1,0 +1,83 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0123__Baseline__task_1",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "1",
+      "run_date": "2026-01-21 23:29:40",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "NIHMS1921121-supplement-7-CTNNB1 Hotspot vs WT - Protein.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/NIHMS1921121-supplement-7-CTNNB1HotspotvsWT-Protein.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T042940Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=70221fb7dc10cd22ebaa6c7a92b7ec82cb0f2b9c97f5b9bdccd286ed44e88c02",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/NIHMS1921121-supplement-7-CTNNB1HotspotvsWT-Protein.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T042940Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=70221fb7dc10cd22ebaa6c7a92b7ec82cb0f2b9c97f5b9bdccd286ed44e88c02\", \"metadata\": {\"assay\": \"proteomics\", \"contrast\": \"CTNNB1 hotspot-mutant vs WT in CNV-L EC subgroup\", \"source\": \"NIHMS1921121 supplement\"}, \"name\": \"CTNNB1_Hotspot_vs_WT_Protein\", \"tags\": [\"user_input\", \"differential_analysis\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "CTNNB1_Hotspot_vs_WT_Protein.csv",
+      "path": "/app/output/user_csvs/CTNNB1_Hotspot_vs_WT_Protein.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769056203_2663b50d"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1769056203_2663b50d\"}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "report",
+      "length": 4529,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769056203_2663b50d",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1769056203_2663b50d"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

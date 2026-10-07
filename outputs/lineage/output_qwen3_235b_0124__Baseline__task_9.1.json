@@ -1,0 +1,207 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0124__Baseline__task_9.1",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "9.1",
+      "run_date": "2026-01-22 01:27:30",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Wang_2025_Cancer_Cell_TableS2A.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/Wang_2025_Cancer_Cell_TableS2A.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T062730Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=1568aded8409399088deeff0016bd5d11347b3e3eff665bef76de16f0fc2afca",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/Wang_2025_Cancer_Cell_TableS2A.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T062730Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=1568aded8409399088deeff0016bd5d11347b3e3eff665bef76de16f0fc2afca\", \"metadata\": {\"contrast\": \"IPMN vs ND proteomics\", \"study\": \"Wang et al. 2025 Cancer Cell\"}, \"name\": \"Wang_2025_Cancer_Cell_TableS2A\", \"tags\": [\"user_input\", \"proteomics\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Wang_2025_Cancer_Cell_TableS2A.csv",
+      "path": "/app/output/user_csvs/Wang_2025_Cancer_Cell_TableS2A.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769063258_38928ca7"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"FDR\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"log2 FC\", \"op\": \">\", \"value\": 1}], \"csv_id\": \"1769063258_38928ca7\", \"name\": \"IPMN_upregulated\"}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769063258_38928ca7.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769063258_38928ca7.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769063277_93ebc9f5"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"FDR\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"log2 FC\", \"op\": \"<\", \"value\": -1}], \"csv_id\": \"1769063258_38928ca7\", \"name\": \"IPMN_downregulated\"}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769063258_38928ca7.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769063258_38928ca7.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769063284_93ebc9f5"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 3,
+      "args": "{\"columns\": [\"Gene\", \"log2 FC\", \"FDR\"], \"csv_id\": \"1769063277_93ebc9f5\", \"name\": \"IPMN_upregulated_genes\", \"rename\": {\"FDR\": \"FDR_up\", \"log2 FC\": \"log2FC_up\"}}",
+      "error": "{\"tool\": \"csv_select\", \"type\": \"FileNotFoundError\", \"message\": \"No entry with id 1769063277_93ebc9f5\", \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/app/src/baseline_fastmcp/server.py\\\", line 702, in csv_select\\n    csv_abs_path = _resolve_path_from_id(params.csv_id)\\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/app/src/baseline_fastmcp/server.py\\\", line 117, in _resolve_path_from_id\\n    raise FileNotFoundError(f\\\"No entry with id {file_id}\\\")\\nFileNotFoundError: No entry with id 1769063277_93ebc9f5\\n\"}",
+      "id": "step3_csv_select"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 4,
+      "args": "{\"conditions\": [{\"column\": \"FDR\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"log2 FC\", \"op\": \">\", \"value\": 1}], \"csv_id\": \"1769063258_38928ca7\", \"keep_columns\": [\"Gene\", \"log2 FC\", \"FDR\"], \"name\": \"IPMN_upregulated\"}",
+      "error": "",
+      "id": "step4_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769063258_38928ca7.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769063258_38928ca7.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769063303_93ebc9f5"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 5,
+      "args": "{\"conditions\": [{\"column\": \"FDR\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"log2 FC\", \"op\": \"<\", \"value\": -1}], \"csv_id\": \"1769063258_38928ca7\", \"keep_columns\": [\"Gene\", \"log2 FC\", \"FDR\"], \"name\": \"IPMN_downregulated\"}",
+      "error": "",
+      "id": "step5_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769063258_38928ca7.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769063258_38928ca7.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769063309_93ebc9f5"
+    },
+    {
+      "type": "report",
+      "length": 2519,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769063258_38928ca7",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769063258_38928ca7"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769063277_93ebc9f5",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1769063258_38928ca7"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769063284_93ebc9f5",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_select",
+      "target": "1769063277_93ebc9f5"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_filter",
+      "target": "1769063258_38928ca7"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769063303_93ebc9f5",
+      "target": "step4_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step5_csv_filter",
+      "target": "1769063258_38928ca7"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769063309_93ebc9f5",
+      "target": "step5_csv_filter"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

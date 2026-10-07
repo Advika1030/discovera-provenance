@@ -1,0 +1,102 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0122__Baseline__task_6",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "6",
+      "run_date": "2026-01-21 22:57:45",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Teng_2025_Cancer_Cell_TableS3-shRNA1_DE_sig.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Teng_2025_Cancer_Cell_TableS3-shRNA1_DE_sig.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035745Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8267a418183399b1275adb4bcad9b399223fc1640db4c96e795ea57edf2aa61e",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Teng_2025_Cancer_Cell_TableS3-shRNA2_DE_sig.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Teng_2025_Cancer_Cell_TableS3-shRNA2_DE_sig.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035745Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=19619a2b54edd4b1f466e7606c64353abe514b33652e8ec969a08163b5f4a24e",
+      "id": "upload:1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Teng_2025_Cancer_Cell_TableS3-shRNA1_DE_sig.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035745Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8267a418183399b1275adb4bcad9b399223fc1640db4c96e795ea57edf2aa61e\", \"name\": \"Teng_2025_shRNA1_DEG\", \"tags\": [\"user_input\", \"RNA-seq\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Teng_2025_shRNA1_DEG.csv",
+      "path": "/app/output/user_csvs/Teng_2025_shRNA1_DEG.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769054277_5e5830a1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 1,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Teng_2025_Cancer_Cell_TableS3-shRNA2_DE_sig.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035745Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=19619a2b54edd4b1f466e7606c64353abe514b33652e8ec969a08163b5f4a24e\", \"name\": \"Teng_2025_shRNA2_DEG\", \"tags\": [\"user_input\", \"RNA-seq\"]}",
+      "error": "",
+      "id": "step1_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Teng_2025_shRNA2_DEG.csv",
+      "path": "/app/output/user_csvs/Teng_2025_shRNA2_DEG.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769054289_f7b39c16"
+    },
+    {
+      "type": "report",
+      "length": 3224,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054277_5e5830a1",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054289_f7b39c16",
+      "target": "step1_csv_record"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0121__Discovera__task_13",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Discovera",
+      "task_id": "13",
+      "run_date": "2026-01-21 19:11:50",
+      "id": "agent_run"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_text\": \"gene,log2fc,padj\\nTFB2M,1,0.05\\nXPO5,1,0.05\\nMSH6,1,0.05\\nRFC4,1,0.05\\nPPM1G,1,0.05\\nCAD,1,0.05\\nLRPPRC,1,0.05\\nSLIRP,1,0.05\\nPDCD11,1,0.05\\nNKRF,1,0.05\\nSLC4A1AP,1,0.05\\nESF1,1,0.05\\nDDX52,1,0.05\\nTBL3,1,0.05\\nBYSL,1,0.05\\nSELENBP1,-1,0.05\\nVPS13C,-1,0.05\", \"name\": \"orf1p_signature\", \"tags\": [\"user_input\", \"differential_expression\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "orf1p_signature.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/orf1p_signature.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769040782_478153a2"
+    },
+    {
+      "type": "tool_step",
+      "tool": "ora_pipe",
+      "step_index": 1,
+      "args": "{\"csv_id\": \"1769040782_478153a2\", \"gene_col\": \"gene\", \"gene_sets\": [\"GO_Biological_Process_2023\", \"GO_Cellular_Component_2015\", \"GO_Molecular_Function_2015\"], \"p_value_threshold\": 0.2}",
+      "error": "",
+      "id": "step1_ora_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "ora_results_20260121_191312.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20260121_191312.csv",
+      "source_key": "ora_result_metadata",
+      "is_plot": false,
+      "id": "1769040793_a0ed2dd8"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"Term\", \"op\": \"contains\", \"value\": \"interferon\"}, {\"column\": \"Term\", \"op\": \"contains\", \"value\": \"viral\"}, {\"column\": \"Term\", \"op\": \"contains\", \"value\": \"immune\"}], \"csv_id\": \"1769040793_a0ed2dd8\", \"keep_columns\": [\"Gene_set\", \"Term\", \"Genes\", \"P-value\", \"Adjusted P-value\"], \"name\": \"ora_filtered\"}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "ora_filtered_28d2ea7a3a.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/ora_filtered_28d2ea7a3a.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769040807_c550f0d9"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gene_info",
+      "step_index": 3,
+      "args": "{\"gene_list\": [\"TFB2M\", \"XPO5\", \"MSH6\", \"RFC4\", \"PPM1G\", \"CAD\", \"LRPPRC\", \"SLIRP\", \"PDCD11\", \"NKRF\", \"SLC4A1AP\", \"ESF1\", \"DDX52\", \"TBL3\", \"BYSL\", \"SELENBP1\", \"VPS13C\"]}",
+      "error": "",
+      "id": "step3_gene_info"
+    },
+    {
+      "type": "tool_step",
+      "tool": "query_string_rumma",
+      "step_index": 4,
+      "args": "{\"term\": \"interferon repression viral mimicry ORF1p\"}",
+      "error": "",
+      "id": "step4_query_string_rumma"
+    },
+    {
+      "type": "report",
+      "length": 4054,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769040782_478153a2",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_ora_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_ora_pipe",
+      "target": "1769040782_478153a2"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769040793_a0ed2dd8",
+      "target": "step1_ora_pipe"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1769040793_a0ed2dd8"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769040807_c550f0d9",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_gene_info",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_query_string_rumma",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

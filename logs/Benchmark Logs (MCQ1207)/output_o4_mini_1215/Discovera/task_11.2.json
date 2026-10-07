@@ -1,0 +1,2844 @@
+{
+  "ID": "11.2",
+  "Context/Background": "Tumor-infiltrating B cells play a significant role in tumor development, progression, and prognosis, yet a comprehensive classification system is lacking. To address this gap, we present a pan-cancer single-cell RNA sequencing (scRNA-seq) atlas of tumor-infiltrating B and plasma cells across a large sample cohort. \n\nWe isolated B cells and plasma cells from 15 studies spanning 7 cancer types as data sources. After applying batch correction and integrating the data, we removed low-quality cells and determined the optimal number of clusters. Using standard Seurat methods for integration, clustering, and differential expression analysis, we confirmed the absence of batch effects, with no study- or cancer type-specific clusters. \n\nWe employed a graph-based clustering method to identify TIL-Bs with recurring phenotypes, uncovering a total of 10 clusters. Step one of cluster annotation used canonical markers like CD19 and MS4A1 (CD20), which are prevalent throughout B cell development but decline in plasma cells. Markers such as CD38, JCHAIN, and SDC1 (CD138) are prominent in plasma cells, but less so in earlier stages. This revealed four B cell clusters, two intermediate clusters with proliferative and germinal center (GC) features, and four plasma cell clusters. ",
+  "Prompt": "Based on upregulated pathways and differentially expressed markers in each cluster, assign functional phenotypes to each of the 2 intermediate clusters (clusters 5-6).  Provide a discussion of the reasoning behind cluster assignments, highlighting important genes and pathways where relevant. ",
+  "mode": "Discovera",
+  "llm_provider": "openai",
+  "llm_model": "o4-mini",
+  "run_date": "2025-12-14 18:26:37",
+  "elapsed_seconds": 548.12,
+  "status": "ok",
+  "error": null,
+  "output_text": "Based on their distinct marker genes and pathway enrichments, we assign:\n\n• Cluster 5 (Intermediate) → Proliferative, cell-cycle–active B cells (likely dark-zone germinal-center–like B cells).  \n  – Key markers: STMN1 (avg_log2FC ≈ 3.17), HMGB2, EIF6, MCM7, ORC6, CDC20.  \n  – Top GSEA/ORA signals: “Cell cycle” (KEGG hsa04110; NES ≈ 2.70, lead genes CCNA2, MCM7, ORC6, CDC20, PLK1…), “G2-M checkpoint” and “E2F targets” (Hallmark), “DNA replication” and “Mitotic sister chromatid cohesion” (Reactome/GO), plus strong ribosomal/translation signatures (GO:0002181).  \n  – Reasoning: The combination of high avg_log2FC in canonical proliferation genes (e.g., CDC20, STMN1, MCM7), E2F- and G2-M–related hallmarks, and DNA-replication/cohesin pathways points to an actively cycling, S/G2-M–phase B cell population.  \n\n• Cluster 6 (Intermediate) → Antigen-experienced germinal-center or early plasmablast-primed B cells, with enhanced BCR signaling, membrane remodeling, and autophagy.  \n  – Key markers: RGS13, SERPINA9, MS4A13, HLA-DMB, HLA-DPA1, LCK, LAT.  \n  – ORA highlights: “B cell receptor signaling” (KEGG hsa04662; adj p≈0.0094; lead DAPP1, PIK3AP1, CARD11, RASGRP3…), “Regulation of autophagosome assembly” (GO:2000785; lead PIKFYVE, RAB1B…), “Plasma membrane organization,” and “Organelle organization” (GO).  \n  – GSEA (fallback) also shows modest down-regulation in general protein-modification and protein-metabolism terms, consistent with a less proliferative but functionally active state.  \n  – Reasoning: Upregulation of GC-specific markers RGS13/SERPINA9 alongside BCR-signalosome components and MHC-II genes, plus autophagy assembly modules (which support antigen processing), indicates a B cell poised for selection and differentiation rather than division.  \n\nTogether, these intermediate clusters likely represent:  \n1. Cluster 5 as the proliferative (dark-zone) GC B cell compartment.  \n2. Cluster 6 as the antigen-engaged (light-zone or early plasmablast-primed) GC B cell compartment.",
+  "tool_calls_json": [
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cluster5_intermediate",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster5Intermediate.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T232637Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8f228393537d7ace2ec7e020ae9c4b10c08013cf5148d67bfaaec0453ef7f05",
+        "tags": [
+          "user_input",
+          "cluster5"
+        ]
+      }
+    },
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cluster6_intermediate",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster6Intermediate.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T232637Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=279b01bac2d79dadc7a101c68f8b0056f0db374ec8ed5533be0e29b568ad3651",
+        "tags": [
+          "user_input",
+          "cluster6"
+        ]
+      }
+    },
+    {
+      "name": "ora_pipe",
+      "args": {
+        "csv_id": "1765754853_a1cd4c9c",
+        "gene_col": "gene",
+        "gene_sets": [
+          "MSigDB_Hallmark_2020",
+          "KEGG_2016",
+          "Reactome_Pathways_2024",
+          "GO_Biological_Process_2023"
+        ],
+        "p_value_threshold": 0.05
+      }
+    },
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cluster5_intermediate.csv",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster5Intermediate.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T232637Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8f228393537d7ace2ec7e020ae9c4b10c08013cf5148d67bfaaec0453ef7f05",
+        "tags": [
+          "user_input",
+          "cluster5"
+        ]
+      }
+    },
+    {
+      "name": "storage_list",
+      "args": {
+        "category": null,
+        "name_contains": "cluster5"
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1763616323_16ba68e4",
+        "n_rows": 20
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1765754853_a1cd4c9c",
+        "n_rows": 20
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1763616323_16ba68e4",
+        "conditions": [
+          {
+            "column": "gene",
+            "op": "in",
+            "value": [
+              "STMN1",
+              "HMGB2"
+            ]
+          }
+        ],
+        "keep_columns": [
+          "gene",
+          "avg_log2FC",
+          "pct.1",
+          "pct.2"
+        ],
+        "name": "cluster5_keygenes_filter"
+      }
+    },
+    {
+      "name": "ora_pipe",
+      "args": {
+        "csv_id": "1763616323_16ba68e4",
+        "gene_col": "gene",
+        "gene_sets": [
+          "MSigDB_Hallmark_2020",
+          "KEGG_2016",
+          "Reactome_Pathways_2024",
+          "GO_Biological_Process_2023"
+        ],
+        "p_value_threshold": 0.05
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1765089525_29d5d98c",
+        "n_rows": 20
+      }
+    },
+    {
+      "name": "gsea_pipe",
+      "args": {
+        "csv_id": "1765089525_29d5d98c",
+        "hit_col": "gene",
+        "corr_col": "avg_log2FC",
+        "gene_sets": [
+          "KEGG_2016",
+          "GO_Biological_Process_2023",
+          "Reactome_Pathways_2024",
+          "MSigDB_Hallmark_2020"
+        ],
+        "p_value_threshold": 0.05,
+        "fdr_threshold": 0.05
+      }
+    },
+    {
+      "name": "csv_select",
+      "args": {
+        "csv_id": "1765754853_a1cd4c9c",
+        "columns": [
+          "gene",
+          "avg_log2FC"
+        ],
+        "name": "cluster6_ranked"
+      }
+    },
+    {
+      "name": "gsea_pipe",
+      "args": {
+        "csv_id": "1765755114_5e292209",
+        "hit_col": "gene",
+        "corr_col": "avg_log2FC",
+        "gene_sets": [
+          "KEGG_2016",
+          "GO_Biological_Process_2023",
+          "Reactome_Pathways_2024",
+          "MSigDB_Hallmark_2020"
+        ],
+        "p_value_threshold": 0.05,
+        "fdr_threshold": 0.05
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1765754900_61e14482",
+        "conditions": [
+          {
+            "column": "Term",
+            "op": "contains",
+            "value": "Autophagosome"
+          }
+        ],
+        "keep_columns": [
+          "Gene_set",
+          "Term",
+          "Genes"
+        ],
+        "name": "cluster6_autophagy"
+      }
+    },
+    {
+      "name": "gene_info",
+      "args": {
+        "gene_list": [
+          "STMN1",
+          "HMGB2",
+          "MCM7",
+          "ORC6",
+          "CDC20"
+        ]
+      }
+    },
+    {
+      "name": "sets_info_rumm",
+      "args": {
+        "gene_set_id": "2000785"
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1765755056_6f426177",
+        "conditions": [
+          {
+            "column": "Pathway",
+            "op": "contains",
+            "value": "Cell cycle"
+          }
+        ],
+        "keep_columns": [
+          "Data Base",
+          "Pathway",
+          "NES",
+          "Lead_genes"
+        ],
+        "name": "cluster5_cellcycle_gsea"
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1765754853_a1cd4c9c",
+        "conditions": [
+          {
+            "column": "gene",
+            "op": "in",
+            "value": [
+              "RGS13",
+              "SERPINA9"
+            ]
+          }
+        ],
+        "keep_columns": [
+          "gene",
+          "avg_log2FC",
+          "pct.1",
+          "pct.2"
+        ],
+        "name": "cluster6_keygenes_filter"
+      }
+    }
+  ],
+  "tool_events_json": [
+    {
+      "tool": "csv_record",
+      "payload": {
+        "error": {
+          "tool": "csv_record",
+          "type": "ValueError",
+          "message": "Failed to read CSV from URL: 403 Client Error: Forbidden for url: https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster5Intermediate.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T232637Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8f228393537d7ace2ec7e020ae9c4b10c08013cf5148d67bfaaec0453ef7f05",
+          "traceback": "Traceback (most recent call last):\n  File \"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera_fastmcp/server.py\", line 2110, in csv_record\n    response.raise_for_status()\n  File \"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/.venv/lib/python3.11/site-packages/requests/models.py\", line 1026, in raise_for_status\n    raise HTTPError(http_error_msg, response=self)\nrequests.exceptions.HTTPError: 403 Client Error: Forbidden for url: https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster5Intermediate.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T232637Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8f228393537d7ace2ec7e020ae9c4b10c08013cf5148d67bfaaec0453ef7f05\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera_fastmcp/server.py\", line 2114, in csv_record\n    raise ValueError(f\"Failed to read CSV from URL: {e}\")\nValueError: Failed to read CSV from URL: 403 Client Error: Forbidden for url: https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster5Intermediate.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T232637Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8f228393537d7ace2ec7e020ae9c4b10c08013cf5148d67bfaaec0453ef7f05\n"
+        },
+        "context": {
+          "name": "cluster5_intermediate"
+        }
+      }
+    },
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1765754853_a1cd4c9c",
+        "name": "cluster6_intermediate.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster6_intermediate.csv"
+      }
+    },
+    {
+      "tool": "ora_pipe",
+      "payload": {
+        "ora_results": [
+          {
+            "Gene_set": "GO_Biological_Process_2023",
+            "Term": "Regulation Of Autophagosome Assembly (GO:2000785)",
+            "Overlap": "4/40",
+            "P-value": 9.843097890675935e-05,
+            "Adjusted P-value": 0.0302491479336624,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 18.84425451092118,
+            "Combined Score": 173.8600125469043,
+            "Genes": "PIKFYVE;RAB1B;PIP4K2A;RAB3GAP1"
+          },
+          {
+            "Gene_set": "GO_Biological_Process_2023",
+            "Term": "Plasma Membrane Organization (GO:0007009)",
+            "Overlap": "5/72",
+            "P-value": 7.549940207095463e-05,
+            "Adjusted P-value": 0.0302491479336624,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 12.745753988677302,
+            "Combined Score": 120.97486869030044,
+            "Genes": "NSF;UGCG;BIN1;DEGS1;CHMP7"
+          },
+          {
+            "Gene_set": "KEGG_2016",
+            "Term": "B cell receptor signaling pathway Homo sapiens hsa04662",
+            "Overlap": "5/73",
+            "P-value": 8.0661695572381e-05,
+            "Adjusted P-value": 0.0094374183819685,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 12.557682555780932,
+            "Combined Score": 118.35925666514204,
+            "Genes": "PPP3CC;DAPP1;PIK3AP1;CARD11;RASGRP3"
+          },
+          {
+            "Gene_set": "GO_Biological_Process_2023",
+            "Term": "Negative Regulation Of Cellular Component Organization (GO:0051129)",
+            "Overlap": "5/79",
+            "P-value": 0.00011758658088887232,
+            "Adjusted P-value": 0.0302491479336624,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 11.535997204100653,
+            "Combined Score": 104.38157461133136,
+            "Genes": "DNAJB2;HSF1;EP300;TMC8;LILRB1"
+          },
+          {
+            "Gene_set": "GO_Biological_Process_2023",
+            "Term": "Organelle Organization (GO:0006996)",
+            "Overlap": "11/418",
+            "P-value": 4.744472795592709e-05,
+            "Adjusted P-value": 0.0302491479336624,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 4.7842751842751845,
+            "Combined Score": 47.63198130010764,
+            "Genes": "PIKFYVE;FGD6;BIN1;RAB1B;TRAPPC12;MICAL3;SLC25A33;CHMP7;SIPA1;RAB3GAP1;SYNE1"
+          }
+        ],
+        "ora_result_metadata": {
+          "id": "1765754900_61e14482",
+          "name": "ora_results_20251214_182814.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20251214_182814.csv",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-14/ora_results_20251214_182814.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T232820Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=9e4d8733e77b82a69f88887492c4e145f8b456a83c2b2600ae4acb48bbb5b68e"
+        }
+      }
+    },
+    {
+      "tool": "csv_record",
+      "payload": {
+        "error": {
+          "tool": "csv_record",
+          "type": "ValueError",
+          "message": "Failed to read CSV from URL: 403 Client Error: Forbidden for url: https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster5Intermediate.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T232637Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8f228393537d7ace2ec7e020ae9c4b10c08013cf5148d67bfaaec0453ef7f05",
+          "traceback": "Traceback (most recent call last):\n  File \"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera_fastmcp/server.py\", line 2110, in csv_record\n    response.raise_for_status()\n  File \"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/.venv/lib/python3.11/site-packages/requests/models.py\", line 1026, in raise_for_status\n    raise HTTPError(http_error_msg, response=self)\nrequests.exceptions.HTTPError: 403 Client Error: Forbidden for url: https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster5Intermediate.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T232637Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8f228393537d7ace2ec7e020ae9c4b10c08013cf5148d67bfaaec0453ef7f05\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera_fastmcp/server.py\", line 2114, in csv_record\n    raise ValueError(f\"Failed to read CSV from URL: {e}\")\nValueError: Failed to read CSV from URL: 403 Client Error: Forbidden for url: https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster5Intermediate.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T232637Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8f228393537d7ace2ec7e020ae9c4b10c08013cf5148d67bfaaec0453ef7f05\n"
+        },
+        "context": {
+          "name": "cluster5_intermediate.csv"
+        }
+      }
+    },
+    {
+      "tool": "storage_list",
+      "payload": {
+        "items": [
+          {
+            "id": "1761774486_11b8c7bb",
+            "name": "cluster5_intermediate_markers.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_intermediate_markers.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1761774533_ef6a1d9a",
+            "name": "cluster5_ranked_eb962374df.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_ranked_eb962374df.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1761776657_f5185b24",
+            "name": "cluster5_markers.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_markers.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1763616323_16ba68e4",
+            "name": "cluster5_intermediate.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_intermediate.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1764049240_16ba68e4",
+            "name": "cluster5_intermediate.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_intermediate.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1764049567_1d066ee4",
+            "name": "cluster5_candidate_genes_7567e75db1.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_candidate_genes_7567e75db1.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1764049595_c841e143",
+            "name": "cluster5_MCM_89d9ae6238.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_MCM_89d9ae6238.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1764049705_e19ba7c0",
+            "name": "cluster5_intermediate.csv.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_intermediate.csv.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1764049802_ce149d22",
+            "name": "cluster5_DGE.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_DGE.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1764049986_16ba68e4",
+            "name": "cluster5_intermediate.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_intermediate.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1764050111_16ba68e4",
+            "name": "cluster5_intermediate.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_intermediate.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1764050278_7acf8859",
+            "name": "cluster5_shaped_580483b327.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_shaped_580483b327.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765089217_16ba68e4",
+            "name": "cluster5_intermediate.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_intermediate.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765089241_a11ba000",
+            "name": "cluster5_genes_7042f02fa3.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_genes_7042f02fa3.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765089353_16ba68e4",
+            "name": "cluster5_intermediate.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_intermediate.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765089441_4ccab4f4",
+            "name": "cluster5_sig_gene_list_63afcbf474.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_sig_gene_list_63afcbf474.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765089525_29d5d98c",
+            "name": "cluster5_ranked_cba3e221e4.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_ranked_cba3e221e4.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765089760_b4e5b3a3",
+            "name": "cluster5_HLA_candidates_50d3ee0eb5.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_HLA_candidates_50d3ee0eb5.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765090031_03c148b4",
+            "name": "1-s2.0-S1535610824003593-mmc2-cluster5Intermediate.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/1-s2.0-S1535610824003593-mmc2-cluster5Intermediate.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765090123_3bdc1387",
+            "name": "cluster5_keygenes_filter_797819685b.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_keygenes_filter_797819685b.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765090188_0388dae2",
+            "name": "1-s2.0-S1535610824003593-mmc2-cluster5Intermediate.csv.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/1-s2.0-S1535610824003593-mmc2-cluster5Intermediate.csv.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765090222_d69cbc8d",
+            "name": "cluster5_marker_search_fd22afc920.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_marker_search_fd22afc920.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765090258_dfb570e1",
+            "name": "cluster5_CD24_search_aba8497033.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_CD24_search_aba8497033.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765090289_dc1040cd",
+            "name": "cluster5_key_goermarkers_af04998f44.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_key_goermarkers_af04998f44.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765090310_11f294a9",
+            "name": "cluster5_MS4A_0070b6d773.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_MS4A_0070b6d773.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765090318_a9d1e67e",
+            "name": "cluster5_CD19_f559ccc855.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_CD19_f559ccc855.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765090326_33a91505",
+            "name": "cluster5_CD38_d095617554.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_CD38_d095617554.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765090348_cb3712c1",
+            "name": "cluster5_AICDA_search_c7b43fd5bc.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_AICDA_search_c7b43fd5bc.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765090358_a910a608",
+            "name": "cluster5_Bcell_markers_search_eec1cbbaf2.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_Bcell_markers_search_eec1cbbaf2.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765090442_0388dae2",
+            "name": "1-s2.0-S1535610824003593-mmc2-cluster5Intermediate.csv.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/1-s2.0-S1535610824003593-mmc2-cluster5Intermediate.csv.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765090489_16ba68e4",
+            "name": "cluster5_intermediate.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_intermediate.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765090531_1bd98aee",
+            "name": "cluster5_stats_37ffefc639.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_stats_37ffefc639.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765090618_7e96076d",
+            "name": "cluster5_candidate_genes_33cf8115bd.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_candidate_genes_33cf8115bd.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765090622_2a3add9a",
+            "name": "cluster5_sig_genes_dab4804140.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_sig_genes_dab4804140.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765231539_16ba68e4",
+            "name": "cluster5_intermediate.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_intermediate.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765510823_16ba68e4",
+            "name": "cluster5_intermediate.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_intermediate.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765511017_01aca412",
+            "name": "cluster5_candidate_genes_30800d03db.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_candidate_genes_30800d03db.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765571026_f53f59c8",
+            "name": "cluster5_intermediate_markers.csv.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_intermediate_markers.csv.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765571122_a11ba000",
+            "name": "cluster5_genes_7042f02fa3.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_genes_7042f02fa3.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765742266_16ba68e4",
+            "name": "cluster5_intermediate.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_intermediate.csv",
+            "s3_presigned_url": null
+          },
+          {
+            "id": "1765742322_29d5d98c",
+            "name": "cluster5_ranked_cba3e221e4.csv",
+            "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_ranked_cba3e221e4.csv",
+            "s3_presigned_url": null
+          }
+        ]
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_intermediate.csv",
+        "columns": [
+          "Unnamed: 0",
+          "gene",
+          "p_val",
+          "avg_log2FC",
+          "pct.1",
+          "pct.2",
+          "p_val_adj",
+          "cluster_number"
+        ],
+        "rows": [
+          {
+            "Unnamed: 0": 3079,
+            "gene": "H4C3",
+            "p_val": 0.0,
+            "avg_log2FC": 4.19612573,
+            "pct.1": 0.83,
+            "pct.2": 0.414,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3080,
+            "gene": "STMN1",
+            "p_val": 0.0,
+            "avg_log2FC": 3.170659628,
+            "pct.1": 0.894,
+            "pct.2": 0.114,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3081,
+            "gene": "HMGB2",
+            "p_val": 0.0,
+            "avg_log2FC": 3.136512247,
+            "pct.1": 0.904,
+            "pct.2": 0.219,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3082,
+            "gene": "EIF6",
+            "p_val": 0.0,
+            "avg_log2FC": 3.125586323,
+            "pct.1": 0.526,
+            "pct.2": 0.192,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3083,
+            "gene": "PSMA71",
+            "p_val": 0.0,
+            "avg_log2FC": 3.057334751,
+            "pct.1": 0.838,
+            "pct.2": 0.484,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3084,
+            "gene": "CRIP12",
+            "p_val": 0.0,
+            "avg_log2FC": 2.838538046,
+            "pct.1": 0.629,
+            "pct.2": 0.3,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3085,
+            "gene": "PTMA",
+            "p_val": 0.0,
+            "avg_log2FC": 2.740524474,
+            "pct.1": 0.99,
+            "pct.2": 0.95,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3086,
+            "gene": "FABP5",
+            "p_val": 0.0,
+            "avg_log2FC": 2.719036019,
+            "pct.1": 0.65,
+            "pct.2": 0.125,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3087,
+            "gene": "TUBB",
+            "p_val": 0.0,
+            "avg_log2FC": 2.698642948,
+            "pct.1": 0.914,
+            "pct.2": 0.345,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3088,
+            "gene": "HMGB11",
+            "p_val": 0.0,
+            "avg_log2FC": 2.690399018,
+            "pct.1": 0.959,
+            "pct.2": 0.714,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3089,
+            "gene": "TFAM",
+            "p_val": 0.0,
+            "avg_log2FC": 2.576341884,
+            "pct.1": 0.405,
+            "pct.2": 0.113,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3090,
+            "gene": "DYNLL12",
+            "p_val": 0.0,
+            "avg_log2FC": 2.540381218,
+            "pct.1": 0.839,
+            "pct.2": 0.53,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3091,
+            "gene": "RBM171",
+            "p_val": 0.0,
+            "avg_log2FC": 2.487727636,
+            "pct.1": 0.675,
+            "pct.2": 0.239,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3092,
+            "gene": "H1-4",
+            "p_val": 0.0,
+            "avg_log2FC": 2.45701042,
+            "pct.1": 0.393,
+            "pct.2": 0.09,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3093,
+            "gene": "PIH1D11",
+            "p_val": 0.0,
+            "avg_log2FC": 2.453309613,
+            "pct.1": 0.453,
+            "pct.2": 0.153,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3094,
+            "gene": "LYRM2",
+            "p_val": 0.0,
+            "avg_log2FC": 2.434006479,
+            "pct.1": 0.291,
+            "pct.2": 0.099,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3095,
+            "gene": "SNRPE",
+            "p_val": 0.0,
+            "avg_log2FC": 2.397141738,
+            "pct.1": 0.702,
+            "pct.2": 0.263,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3096,
+            "gene": "CCDC59",
+            "p_val": 0.0,
+            "avg_log2FC": 2.386473402,
+            "pct.1": 0.438,
+            "pct.2": 0.21,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3097,
+            "gene": "H2AZ12",
+            "p_val": 0.0,
+            "avg_log2FC": 2.366926132,
+            "pct.1": 0.932,
+            "pct.2": 0.47,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3098,
+            "gene": "JAK11",
+            "p_val": 0.0,
+            "avg_log2FC": 2.362426736,
+            "pct.1": 0.623,
+            "pct.2": 0.357,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          }
+        ],
+        "total_rows": 2323
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster6_intermediate.csv",
+        "columns": [
+          "Unnamed: 0",
+          "gene",
+          "p_val",
+          "avg_log2FC",
+          "pct.1",
+          "pct.2",
+          "p_val_adj",
+          "cluster_number"
+        ],
+        "rows": [
+          {
+            "Unnamed: 0": 5402,
+            "gene": "RGS131",
+            "p_val": 0.0,
+            "avg_log2FC": 1.916533032,
+            "pct.1": 0.668,
+            "pct.2": 0.045,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5403,
+            "gene": "SERPINA91",
+            "p_val": 0.0,
+            "avg_log2FC": 1.846286674,
+            "pct.1": 0.473,
+            "pct.2": 0.02,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5404,
+            "gene": "MYO1E1",
+            "p_val": 0.0,
+            "avg_log2FC": 1.826008324,
+            "pct.1": 0.563,
+            "pct.2": 0.06,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5405,
+            "gene": "MS4A13",
+            "p_val": 0.0,
+            "avg_log2FC": 1.80665576,
+            "pct.1": 0.948,
+            "pct.2": 0.546,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5406,
+            "gene": "MARCKSL11",
+            "p_val": 0.0,
+            "avg_log2FC": 1.806595784,
+            "pct.1": 0.82,
+            "pct.2": 0.265,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5407,
+            "gene": "LAT22",
+            "p_val": 0.0,
+            "avg_log2FC": 1.739781961,
+            "pct.1": 0.663,
+            "pct.2": 0.234,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5408,
+            "gene": "LCK1",
+            "p_val": 0.0,
+            "avg_log2FC": 1.708693911,
+            "pct.1": 0.433,
+            "pct.2": 0.075,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5409,
+            "gene": "IRAG22",
+            "p_val": 0.0,
+            "avg_log2FC": 1.696625939,
+            "pct.1": 0.771,
+            "pct.2": 0.17,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5410,
+            "gene": "HLA-DMB2",
+            "p_val": 0.0,
+            "avg_log2FC": 1.674394427,
+            "pct.1": 0.793,
+            "pct.2": 0.32,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5411,
+            "gene": "PAG11",
+            "p_val": 0.0,
+            "avg_log2FC": 1.63999819,
+            "pct.1": 0.523,
+            "pct.2": 0.115,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5412,
+            "gene": "PRPSAP21",
+            "p_val": 0.0,
+            "avg_log2FC": 1.634230705,
+            "pct.1": 0.603,
+            "pct.2": 0.122,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5413,
+            "gene": "HLA-DPA13",
+            "p_val": 0.0,
+            "avg_log2FC": 1.603704537,
+            "pct.1": 0.939,
+            "pct.2": 0.735,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5414,
+            "gene": "ZFP36L12",
+            "p_val": 0.0,
+            "avg_log2FC": 1.597296889,
+            "pct.1": 0.813,
+            "pct.2": 0.481,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5415,
+            "gene": "CXCR53",
+            "p_val": 0.0,
+            "avg_log2FC": 1.568882074,
+            "pct.1": 0.508,
+            "pct.2": 0.146,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5416,
+            "gene": "HOPX1",
+            "p_val": 0.0,
+            "avg_log2FC": 1.530143634,
+            "pct.1": 0.321,
+            "pct.2": 0.099,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5417,
+            "gene": "LIMD22",
+            "p_val": 0.0,
+            "avg_log2FC": 1.516562503,
+            "pct.1": 0.871,
+            "pct.2": 0.467,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5418,
+            "gene": "TCL1A2",
+            "p_val": 0.0,
+            "avg_log2FC": 1.511623718,
+            "pct.1": 0.754,
+            "pct.2": 0.154,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5419,
+            "gene": "CD222",
+            "p_val": 0.0,
+            "avg_log2FC": 1.49394214,
+            "pct.1": 0.775,
+            "pct.2": 0.206,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5420,
+            "gene": "PTPN61",
+            "p_val": 0.0,
+            "avg_log2FC": 1.488128016,
+            "pct.1": 0.548,
+            "pct.2": 0.287,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5421,
+            "gene": "MTF21",
+            "p_val": 0.0,
+            "avg_log2FC": 1.462629903,
+            "pct.1": 0.446,
+            "pct.2": 0.132,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          }
+        ],
+        "total_rows": 714
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "gene",
+          "avg_log2FC",
+          "pct.1",
+          "pct.2"
+        ],
+        "rows": "[{\"gene\":\"STMN1\",\"avg_log2FC\":3.170659628,\"pct.1\":0.894,\"pct.2\":0.114},{\"gene\":\"HMGB2\",\"avg_log2FC\":3.136512247,\"pct.1\":0.904,\"pct.2\":0.219}]",
+        "total_rows": 2,
+        "storage_entry": {
+          "id": "1765754987_65ba35d6",
+          "name": "cluster5_keygenes_filter_6113435b00.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_keygenes_filter_6113435b00.csv"
+        }
+      }
+    },
+    {
+      "tool": "ora_pipe",
+      "payload": {
+        "ora_results": [
+          {
+            "Gene_set": "GO_Biological_Process_2023",
+            "Term": "Establishment Of Mitotic Sister Chromatid Cohesion (GO:0034087)",
+            "Overlap": "6/6",
+            "P-value": 6.637944332477556e-08,
+            "Adjusted P-value": 2.912999338948121e-06,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 112350.0,
+            "Combined Score": 1856907.1401363248,
+            "Genes": "NIPBL;STAG1;STAG2;RAD21;SMC1A;SMC3"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "G2 M DNA Replication Checkpoint",
+            "Overlap": "5/5",
+            "P-value": 1.0451258491940455e-06,
+            "Adjusted P-value": 8.533215030067294e-06,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 93625.0,
+            "Combined Score": 1289344.8205263657,
+            "Genes": "CCNB2;CCNB1;WEE1;CDK1;PKMYT1"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "E2F Targets",
+            "Overlap": "123/200",
+            "P-value": 1.3481252218412734e-95,
+            "Adjusted P-value": 6.471001064838112e-94,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 25.857954545454547,
+            "Combined Score": 5648.589207433222,
+            "Genes": "NUP107;POP7;CSE1L;BUB1B;MKI67;SMC3;SMC4;IPO7;CDC20;PTTG1;CHEK1;STMN1;KPNA2;TMPO;LIG1;CDC25B;ILF3;DDX39A;MELK;MSH2;TIMELESS;ASF1A;ASF1B;SNRPB;DNMT1;RNASEH2A;CDCA3;PRKDC;AK2;CDCA8;HMMR;PDS5B;RAD51AP1;CCNB2;ORC6;RACGAP1;UBR7;RAD21;LYAR;BARD1;CBX5;PLK1;PAICS;EIF2S1;POLA2;STAG1;DIAPH3;UBE2S;CDK4;UBE2T;ANP32E;CDK1;CNOT9;MXD3;EZH2;TOP2A;H2AX;MCM7;HMGB2;HMGB3;PSIP1;BRCA1;CTCF;BRCA2;CKS1B;LMNB1;SYNCRIP;XPO1;MYBL2;TK1;LBR;DLGAP5;TCF19;HELLS;RFC3;RFC1;EED;RFC2;TUBB;KIF22;TUBG1;SMC1A;DCK;RAD51C;DEPDC1;MCM3;MCM4;BIRC5;KIF2C;MCM5;MCM6;DCTPP1;MCM2;PRPS1;PCNA;SRSF1;AURKB;AURKA;POLD3;EXOSC8;POLD2;USP1;RBBP7;NOP56;DUT;CDKN2C;RRM2;SPAG5;ATAD2;DONSON;SSRP1;POLE4;CENPE;NUDT21;WEE1;PHF5A;RPA3;TACC3;CENPM;NCAPD2;MAD2L1;CDKN3;SPC25"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Establishment of Sister Chromatid Cohesion",
+            "Overlap": "10/11",
+            "P-value": 1.1115821895127972e-11,
+            "Adjusted P-value": 2.3149907338114337e-10,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 148.01581027667984,
+            "Combined Score": 3733.351217832477,
+            "Genes": "STAG1;STAG2;CDCA5;RAD21;ESCO2;PDS5B;PDS5A;SMC1A;SMC3;WAPL"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Cohesin Loading Onto Chromatin",
+            "Overlap": "9/10",
+            "P-value": 1.5966939420541937e-10,
+            "Adjusted P-value": 2.317625449224118e-09,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 133.10900473933648,
+            "Combined Score": 3002.6617110987254,
+            "Genes": "NIPBL;STAG1;STAG2;RAD21;PDS5B;PDS5A;SMC1A;SMC3;WAPL"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Mitotic Telophase Cytokinesis",
+            "Overlap": "11/13",
+            "P-value": 4.696646015818646e-12,
+            "Adjusted P-value": 1.0144686917207283e-10,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 81.46875,
+            "Combined Score": 2125.04492637248,
+            "Genes": "NIPBL;STAG1;STAG2;RAD21;PLK1;KIF23;PDS5B;PDS5A;SMC1A;SMC3;WAPL"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "G2-M Checkpoint",
+            "Overlap": "92/200",
+            "P-value": 2.954037098059842e-56,
+            "Adjusted P-value": 7.089689035343619e-55,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 13.40568548260856,
+            "Combined Score": 1714.0722938919505,
+            "Genes": "TOP2A;H2AX;HMGB3;KIF11;CTCF;MKI67;BRCA2;SMC4;SMC2;LMNB1;CKS1B;CDC20;SYNCRIP;MT2A;CHAF1A;XPO1;PTTG1;CHEK1;STMN1;PBK;NUSAP1;MYBL2;FBXO5;KPNA2;LBR;TMPO;SMARCC1;KIF23;KNL1;KIF22;SMC1A;RAD23B;CDC25B;CCNA2;ILF3;DDX39A;DBF4;TFDP1;DKC1;NUP50;MTF2;MCM3;BIRC5;KIF2C;MCM5;MCM6;KIF20B;PAFAH1B1;MCM2;DTYMK;TROAP;CUL3;SRSF1;HMMR;PDS5B;CENPA;AURKB;AURKA;CCNB2;ORC6;CDC45;RACGAP1;RAD21;NSD2;E2F1;E2F4;BUB1;BARD1;GINS2;DR1;CDKN2C;UBE2C;ODF2;PLK1;CBX1;CDC6;NDC80;TPX2;SQLE;CENPE;STAG1;POLA2;CENPF;UBE2S;CDK4;PRC1;TACC3;CDK1;MNAT1;EZH2;MAD2L1;CDKN3"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Cell Cycle",
+            "Overlap": "207/649",
+            "P-value": 3.712093687976977e-91,
+            "Adjusted P-value": 5.334278629622915e-88,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 8.017228888098023,
+            "Combined Score": 1669.3766411896438,
+            "Genes": "RB1;NUP107;PPP2R2A;SMC3;SMC4;SMC2;CDC20;PSMD6;PSMD2;CDC26;PSMD3;CHEK1;RCC1;FBXO5;GTSE1;CDK5RAP2;TMPO;DAXX;NUP210;ESCO2;KNL1;UBA52;RHNO1;ANAPC15;CDCA5;CDCA8;NCAPG;NCAPH;SKA2;CHTF8;RAD21;GAR1;NUP88;BARD1;CDT1;RCC2;PLK1;SMARCA5;CDC6;WAPL;ZWINT;DHFR;TPX2;POLA2;STAG1;RPS27;STAG2;STAG3;H2AC20;RAD17;CEP57;TOP2A;FEN1;NCAPG2;BRCA1;BRCA2;BABAM1;TUBA1C;NIPBL;TUBA1B;ACTR1A;XPO1;MIS18BP1;ENSA;NUF2;CNTRL;TK1;EMD;H3-3A;NDC1;OFD1;RMI2;TUBB;KIF23;TERF1;TUBG1;TERF2;PSMA6;H2AJ;RAD51C;KIF2A;KIF2C;CEP63;MAPRE1;PAFAH1B1;PCNA;TYMS;CENPA;NSD2;RPS27A;LCMT1;RAE1;CDKN2D;CENPU;DYNC1H1;GINS2;CDKN2C;CENPW;MZT1;CENPE;CENPF;MIS18A;CENPH;RPA3;CENPK;PSMC2;CENPM;CENPN;NCAPD2;NCAPD3;MAD2L1;SPC25;GMNN;HJURP;BUB1B;PTTG1;RUVBL2;RUVBL1;OIP5;CEP135;LIG1;UBE2E1;CDC25B;CTDNEP1;SGO1;SGO2;DKC1;UBE2V2;PSMD12;PSMD11;HMMR;PDS5B;PKMYT1;PDS5A;PMF1;CCNB2;CCNB1;ORC6;CLSPN;ODF2;UBE2C;NDC80;CDK4;UBE2S;CHMP2B;CDK1;MNAT1;MCM7;FOXM1;SYNE2;CKS1B;LMNB1;PPP6C;NUP62;MYBL2;SPDL1;TOPBP1;TNPO1;LBR;YWHAG;RFC5;RFC3;RFC4;RFC1;RFC2;SMC1A;CKAP5;HAUS2;HAUS1;CCNA2;DBF4;TFDP1;NUP50;MCM3;BIRC5;MCM4;CHMP3;MCM5;MCM6;ITGB3BP;NUP58;MCM2;HDAC1;NSL1;AURKB;AURKA;POLD3;CDC45;HAUS8;POLR2A;NUP42;POLR2D;POLD2;E2F1;RBBP8;E2F4;POLR2H;RBBP7;E2F5;BUB1;RRM2;MND1;CDK11B;POLE4;WEE1;POLE3;NUP37"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Cell Cycle, Mitotic",
+            "Overlap": "171/516",
+            "P-value": 9.821236431209763e-78,
+            "Adjusted P-value": 7.056558375824214e-75,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 8.251890359168241,
+            "Combined Score": 1463.2011873814286,
+            "Genes": "RB1;NUP107;GMNN;BUB1B;PPP2R2A;SMC3;SMC4;SMC2;CDC20;PSMD6;PTTG1;PSMD2;CDC26;PSMD3;RCC1;FBXO5;GTSE1;CDK5RAP2;TMPO;CEP135;NUP210;LIG1;UBE2E1;ESCO2;KNL1;CDC25B;CTDNEP1;SGO1;SGO2;UBA52;PSMD12;ANAPC15;PSMD11;CDCA5;CDCA8;NCAPG;HMMR;PDS5B;PKMYT1;PDS5A;PMF1;NCAPH;SKA2;CCNB2;CCNB1;ORC6;RAD21;NUP88;CDT1;ODF2;UBE2C;RCC2;PLK1;CDC6;NDC80;WAPL;ZWINT;DHFR;TPX2;POLA2;STAG1;RPS27;STAG2;CDK4;UBE2S;H2AC20;CHMP2B;CDK1;MNAT1;CEP57;TOP2A;FEN1;MCM7;NCAPG2;FOXM1;CKS1B;LMNB1;TUBA1C;NIPBL;TUBA1B;ACTR1A;XPO1;ENSA;NUF2;CNTRL;NUP62;MYBL2;TK1;SPDL1;TNPO1;EMD;LBR;H3-3A;YWHAG;NDC1;OFD1;RFC5;RFC3;RFC4;RFC1;RFC2;TUBB;KIF23;SMC1A;TUBG1;CKAP5;HAUS2;HAUS1;CCNA2;PSMA6;H2AJ;DBF4;TFDP1;KIF2A;NUP50;MCM3;BIRC5;MCM4;CHMP3;MCM5;KIF2C;CEP63;MCM6;MAPRE1;ITGB3BP;NUP58;PAFAH1B1;MCM2;PCNA;HDAC1;TYMS;CENPA;NSL1;AURKB;AURKA;POLD3;CDC45;HAUS8;NUP42;POLD2;E2F1;E2F4;RPS27A;E2F5;LCMT1;RAE1;BUB1;CDKN2D;CENPU;DYNC1H1;GINS2;CDKN2C;RRM2;CDK11B;MZT1;POLE4;CENPE;CENPF;WEE1;CENPH;RPA3;CENPK;PSMC2;POLE3;CENPM;CENPN;NCAPD2;NCAPD3;MAD2L1;SPC25;NUP37"
+          },
+          {
+            "Gene_set": "GO_Biological_Process_2023",
+            "Term": "Positive Regulation Of Chromosome Condensation (GO:1905821)",
+            "Overlap": "6/7",
+            "P-value": 4.393898314502992e-07,
+            "Adjusted P-value": 1.5652616583900072e-05,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 88.52955082742317,
+            "Combined Score": 1295.8848369265784,
+            "Genes": "NCAPG2;NCAPG;NCAPD3;SMC4;NCAPH;SMC2"
+          },
+          {
+            "Gene_set": "GO_Biological_Process_2023",
+            "Term": "Regulation Of Chromosome Condensation (GO:0060623)",
+            "Overlap": "6/7",
+            "P-value": 4.393898314502992e-07,
+            "Adjusted P-value": 1.5652616583900072e-05,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 88.52955082742317,
+            "Combined Score": 1295.8848369265784,
+            "Genes": "NCAPG2;NCAPG;NCAPD3;SMC4;NCAPH;SMC2"
+          },
+          {
+            "Gene_set": "KEGG_2016",
+            "Term": "DNA replication Homo sapiens hsa03030",
+            "Overlap": "22/36",
+            "P-value": 6.722290535518241e-18,
+            "Adjusted P-value": 5.333017158177803e-16,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 23.46608140462889,
+            "Combined Score": 927.8747353486608,
+            "Genes": "RFC5;FEN1;RFC3;RNASEH2A;PCNA;RFC4;MCM7;LIG1;RFC1;RFC2;POLD3;POLE4;POLA2;RNASEH1;RPA3;POLD2;POLE3;MCM3;MCM4;MCM5;MCM6;MCM2"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "DNA Strand Elongation",
+            "Overlap": "20/32",
+            "P-value": 1.1503048197107584e-16,
+            "Adjusted P-value": 4.1250511588329505e-15,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 24.851261620185923,
+            "Combined Score": 912.0744659673228,
+            "Genes": "RFC5;GINS2;FEN1;RFC3;PCNA;RFC4;MCM7;LIG1;RFC1;RFC2;POLD3;POLA2;CDC45;RPA3;POLD2;MCM3;MCM4;MCM5;MCM6;MCM2"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Phosphorylation of Emi1",
+            "Overlap": "5/6",
+            "P-value": 5.938966804721693e-06,
+            "Adjusted P-value": 4.183478087443663e-05,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 73.71653543307086,
+            "Combined Score": 887.1029723764689,
+            "Genes": "CDC20;CCNB1;PLK1;CDK1;FBXO5"
+          },
+          {
+            "Gene_set": "GO_Biological_Process_2023",
+            "Term": "DNA Strand Elongation Involved In DNA Replication (GO:0006271)",
+            "Overlap": "9/12",
+            "P-value": 3.124222122587686e-09,
+            "Adjusted P-value": 2.0565531711294603e-07,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 44.36492890995261,
+            "Combined Score": 868.8463393940018,
+            "Genes": "POLD3;RFC3;PCNA;RFC4;MCM7;POLD2;POLE3;MCM3;MCM4"
+          },
+          {
+            "Gene_set": "GO_Biological_Process_2023",
+            "Term": "Mitotic Sister Chromatid Cohesion (GO:0007064)",
+            "Overlap": "13/19",
+            "P-value": 5.120265641982775e-12,
+            "Adjusted P-value": 5.346263573766841e-10,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 32.137744321183305,
+            "Combined Score": 835.511124791934,
+            "Genes": "NAA50;RB1;CDCA5;ESCO2;PDS5B;PDS5A;SMC1A;SMC3;SGO1;NIPBL;STAG1;STAG2;RAD21"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Mitotic Metaphase and Anaphase",
+            "Overlap": "81/222",
+            "P-value": 2.3096448395487022e-40,
+            "Adjusted P-value": 5.531599390719141e-38,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 8.941302255960654,
+            "Combined Score": 816.0396631042343,
+            "Genes": "NUP107;BUB1B;PPP2R2A;SMC3;LMNB1;CDC20;TUBA1C;PSMD6;TUBA1B;XPO1;PTTG1;CDC26;PSMD2;PSMD3;NUF2;NUP62;RCC1;FBXO5;SPDL1;TNPO1;EMD;LBR;TMPO;NDC1;UBE2E1;KNL1;SMC1A;CKAP5;SGO1;PSMA6;SGO2;KIF2A;BIRC5;CHMP3;KIF2C;MAPRE1;UBA52;ITGB3BP;NUP58;PAFAH1B1;PSMD12;ANAPC15;PSMD11;CDCA5;CDCA8;PDS5B;PDS5A;CENPA;PMF1;AURKB;NSL1;SKA2;CCNB2;CCNB1;RAD21;RPS27A;BUB1;CENPU;DYNC1H1;UBE2C;RCC2;PLK1;WAPL;ZWINT;NDC80;CENPE;STAG1;CENPF;RPS27;STAG2;CENPH;UBE2S;CENPK;PSMC2;CHMP2B;CDK1;CENPM;CENPN;MAD2L1;SPC25;NUP37"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "M Phase",
+            "Overlap": "116/372",
+            "P-value": 2.321387072093551e-49,
+            "Adjusted P-value": 8.339583056496082e-47,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 7.22067784728214,
+            "Combined Score": 808.604032136857,
+            "Genes": "RB1;NUP107;BUB1B;PPP2R2A;SMC3;SMC4;SMC2;CDC20;PSMD6;PTTG1;CDC26;PSMD2;PSMD3;RCC1;FBXO5;CDK5RAP2;TMPO;CEP135;NUP210;UBE2E1;KNL1;CTDNEP1;SGO1;SGO2;UBA52;PSMD12;ANAPC15;PSMD11;CDCA5;CDCA8;NCAPG;PDS5B;PDS5A;PMF1;NCAPH;SKA2;CCNB2;CCNB1;RAD21;NUP88;ODF2;UBE2C;RCC2;PLK1;WAPL;ZWINT;NDC80;STAG1;RPS27;STAG2;UBE2S;H2AC20;CHMP2B;CDK1;CEP57;NCAPG2;LMNB1;TUBA1C;ACTR1A;NIPBL;TUBA1B;XPO1;CNTRL;ENSA;NUF2;NUP62;SPDL1;TNPO1;EMD;LBR;H3-3A;YWHAG;NDC1;OFD1;TUBB;KIF23;TUBG1;SMC1A;CKAP5;HAUS2;HAUS1;PSMA6;H2AJ;KIF2A;NUP50;BIRC5;CHMP3;KIF2C;CEP63;MAPRE1;ITGB3BP;NUP58;PAFAH1B1;CENPA;AURKB;NSL1;HAUS8;NUP42;RPS27A;RAE1;BUB1;CENPU;DYNC1H1;MZT1;CENPE;CENPF;CENPH;CENPK;PSMC2;CENPM;CENPN;NCAPD2;NCAPD3;MAD2L1;SPC25;NUP37"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "S Phase",
+            "Overlap": "61/150",
+            "P-value": 8.337114712985294e-34,
+            "Adjusted P-value": 1.1980433842559866e-31,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 10.521407548636692,
+            "Combined Score": 801.3859001350232,
+            "Genes": "RB1;FEN1;MCM7;GMNN;SMC3;CKS1B;PSMD6;CDC26;PSMD2;PSMD3;RFC5;RFC3;RFC4;LIG1;RFC1;RFC2;UBE2E1;ESCO2;SMC1A;CDC25B;CCNA2;PSMA6;TFDP1;MCM3;MCM4;MCM5;MCM6;UBA52;MCM2;PSMD12;ANAPC15;PSMD11;PCNA;CDCA5;PDS5B;PDS5A;POLD3;ORC6;CDC45;RAD21;POLD2;E2F1;E2F4;E2F5;RPS27A;CDT1;GINS2;UBE2C;CDC6;WAPL;POLE4;POLA2;STAG1;WEE1;STAG2;CDK4;UBE2S;RPA3;POLE3;PSMC2;MNAT1"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Mitotic Anaphase",
+            "Overlap": "80/221",
+            "P-value": 1.3972960562882484e-39,
+            "Adjusted P-value": 2.868449189837447e-37,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 8.823525920650464,
+            "Combined Score": 789.4080374810643,
+            "Genes": "NUP107;BUB1B;PPP2R2A;SMC3;LMNB1;CDC20;TUBA1C;PSMD6;TUBA1B;XPO1;PTTG1;CDC26;PSMD2;PSMD3;NUF2;NUP62;RCC1;SPDL1;TNPO1;EMD;LBR;TMPO;NDC1;UBE2E1;KNL1;SMC1A;CKAP5;SGO1;PSMA6;SGO2;KIF2A;BIRC5;CHMP3;KIF2C;MAPRE1;UBA52;ITGB3BP;NUP58;PAFAH1B1;PSMD12;ANAPC15;PSMD11;CDCA5;CDCA8;PDS5B;PDS5A;CENPA;PMF1;AURKB;NSL1;SKA2;CCNB2;CCNB1;RAD21;RPS27A;BUB1;CENPU;DYNC1H1;UBE2C;RCC2;PLK1;WAPL;ZWINT;NDC80;CENPE;STAG1;CENPF;RPS27;STAG2;CENPH;UBE2S;CENPK;PSMC2;CHMP2B;CDK1;CENPM;CENPN;MAD2L1;SPC25;NUP37"
+          }
+        ],
+        "ora_result_metadata": {
+          "id": "1765755011_2ccd94c7",
+          "name": "ora_results_20251214_182957.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20251214_182957.csv",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-14/ora_results_20251214_182957.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T233011Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=a3a95400c45e0a75bce77d5f24425a5257ca882668193ab6a1b2cb38b3233502"
+        }
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_ranked_cba3e221e4.csv",
+        "columns": [
+          "gene",
+          "avg_log2FC"
+        ],
+        "rows": [
+          {
+            "gene": "H4C3",
+            "avg_log2FC": 4.19612573
+          },
+          {
+            "gene": "STMN1",
+            "avg_log2FC": 3.170659628
+          },
+          {
+            "gene": "HMGB2",
+            "avg_log2FC": 3.136512247
+          },
+          {
+            "gene": "EIF6",
+            "avg_log2FC": 3.125586323
+          },
+          {
+            "gene": "PSMA71",
+            "avg_log2FC": 3.057334751
+          },
+          {
+            "gene": "CRIP12",
+            "avg_log2FC": 2.838538046
+          },
+          {
+            "gene": "PTMA",
+            "avg_log2FC": 2.740524474
+          },
+          {
+            "gene": "FABP5",
+            "avg_log2FC": 2.719036019
+          },
+          {
+            "gene": "TUBB",
+            "avg_log2FC": 2.698642948
+          },
+          {
+            "gene": "HMGB11",
+            "avg_log2FC": 2.690399018
+          },
+          {
+            "gene": "TFAM",
+            "avg_log2FC": 2.576341884
+          },
+          {
+            "gene": "DYNLL12",
+            "avg_log2FC": 2.540381218
+          },
+          {
+            "gene": "RBM171",
+            "avg_log2FC": 2.487727636
+          },
+          {
+            "gene": "H1-4",
+            "avg_log2FC": 2.45701042
+          },
+          {
+            "gene": "PIH1D11",
+            "avg_log2FC": 2.453309613
+          },
+          {
+            "gene": "LYRM2",
+            "avg_log2FC": 2.434006479
+          },
+          {
+            "gene": "SNRPE",
+            "avg_log2FC": 2.397141738
+          },
+          {
+            "gene": "CCDC59",
+            "avg_log2FC": 2.386473402
+          },
+          {
+            "gene": "H2AZ12",
+            "avg_log2FC": 2.366926132
+          },
+          {
+            "gene": "JAK11",
+            "avg_log2FC": 2.362426736
+          }
+        ],
+        "total_rows": 2323
+      }
+    },
+    {
+      "tool": "gsea_pipe",
+      "payload": {
+        "counts_by_database": {
+          "KEGG_2016": {
+            "up": 4,
+            "down": 5,
+            "total": 9
+          },
+          "GO_Biological_Process_2023": {
+            "up": 44,
+            "down": 23,
+            "total": 67
+          },
+          "Reactome_Pathways_2024": {
+            "up": 95,
+            "down": 4,
+            "total": 99
+          },
+          "MSigDB_Hallmark_2020": {
+            "up": 5,
+            "down": 2,
+            "total": 7
+          }
+        },
+        "top_high_nes": {
+          "KEGG_2016": [
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Ribosome Homo sapiens hsa03010",
+              "NES": 3.012782096261485,
+              "Size": 47,
+              "ES": 0.5752885931939996,
+              "NOS p-val": 0.002588647185656434,
+              "FDR q-val": 0.2510987770086741,
+              "Lead_genes": [
+                "RPL10A",
+                "RPL39",
+                "MRPL27",
+                "RPL37",
+                "RPS27",
+                "RPS17",
+                "RPL26",
+                "RPS15A",
+                "RPL32",
+                "RPS12",
+                "RPS27A",
+                "UBA52",
+                "MRPL9",
+                "MRPL28",
+                "RPS20",
+                "RPL30",
+                "RPS13",
+                "RPL14",
+                "RPL34",
+                "RPL36A",
+                "RPS21",
+                "RPL9",
+                "RPL22",
+                "RPS25",
+                "RPLP2",
+                "RPS23"
+              ]
+            },
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Cell cycle Homo sapiens hsa04110",
+              "NES": 2.7015128763415897,
+              "Size": 43,
+              "ES": 0.5455546768604882,
+              "NOS p-val": 0.006902480757732032,
+              "FDR q-val": 0.33477031675000357,
+              "Lead_genes": [
+                "CCNA2",
+                "MCM7",
+                "RAD21",
+                "TFDP1",
+                "PCNA",
+                "SMC3",
+                "ORC6",
+                "CDC20",
+                "PLK1",
+                "MCM3",
+                "CCNB2",
+                "CDK1",
+                "PTTG1",
+                "CCNB1",
+                "SMC1A",
+                "MAD2L1",
+                "PRKDC"
+              ]
+            },
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Citrate cycle (TCA cycle) Homo sapiens hsa00020",
+              "NES": -2.5245797735047097,
+              "Size": 5,
+              "ES": -0.7496062992126099,
+              "NOS p-val": 0.011583671110880323,
+              "FDR q-val": 0.37453869925179706,
+              "Lead_genes": [
+                "SDHD",
+                "IDH3A",
+                "DLD",
+                "IDH3G",
+                "FH"
+              ]
+            },
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Bacterial invasion of epithelial cells Homo sapiens hsa05100",
+              "NES": -2.3480932986702965,
+              "Size": 5,
+              "ES": -0.7145755478210212,
+              "NOS p-val": 0.018869794010816454,
+              "FDR q-val": 0.4297316540020517,
+              "Lead_genes": [
+                "ILK",
+                "MAD2L2",
+                "DNM2",
+                "CLTC"
+              ]
+            },
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Endocytosis Homo sapiens hsa04144",
+              "NES": -2.2711812225231154,
+              "Size": 16,
+              "ES": -0.47379601875352806,
+              "NOS p-val": 0.02313600966183671,
+              "FDR q-val": 0.4297316540020517,
+              "Lead_genes": [
+                "SMAP1",
+                "DNM2",
+                "SNX32",
+                "STAMBP",
+                "CLTC",
+                "ARF3",
+                "CHMP2B",
+                "RAB11A",
+                "AP2B1",
+                "ACAP2",
+                "EPN1",
+                "EPS15"
+              ]
+            }
+          ],
+          "GO_Biological_Process_2023": [
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Cytoplasmic Translation (GO:0002181)",
+              "NES": 3.4050008330084847,
+              "Size": 24,
+              "ES": 0.7792490909473306,
+              "NOS p-val": 0.0006616385197197872,
+              "FDR q-val": 0.46688358737663105,
+              "Lead_genes": [
+                "RPL10A",
+                "RPL39",
+                "RPL37",
+                "RPS29",
+                "RPS27",
+                "RPS17",
+                "RPL26",
+                "RPS15A",
+                "RPL32",
+                "RPS27A",
+                "UBA52",
+                "RPS20",
+                "RPL30",
+                "RPS13",
+                "RPL14",
+                "RPL34",
+                "RPS21",
+                "RPL9",
+                "RPL22",
+                "RPS25",
+                "RPLP2",
+                "RPS23"
+              ]
+            },
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Macromolecule Biosynthetic Process (GO:0009059)",
+              "NES": 3.172000863436809,
+              "Size": 43,
+              "ES": 0.6087050327742454,
+              "NOS p-val": 0.0015139255688905173,
+              "FDR q-val": 0.46688358737663105,
+              "Lead_genes": [
+                "RPL10A",
+                "RPL39",
+                "MRPL27",
+                "RPL37",
+                "RPS27",
+                "RPS17",
+                "RPL26",
+                "TYMS",
+                "RPS15A",
+                "RPL32",
+                "RPS27A",
+                "MRPL9",
+                "MRPL28",
+                "RPS20",
+                "RPL30",
+                "RPS13",
+                "RPL14",
+                "EIF4EBP2",
+                "RPL34",
+                "RPS21",
+                "RPL9",
+                "RPL22",
+                "RPS25",
+                "ABCF1",
+                "RPLP2",
+                "RPS23"
+              ]
+            },
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Peptide Biosynthetic Process (GO:0043043)",
+              "NES": 3.107757174725391,
+              "Size": 37,
+              "ES": 0.6394246129760981,
+              "NOS p-val": 0.0018851288857737458,
+              "FDR q-val": 0.46688358737663105,
+              "Lead_genes": [
+                "RPL10A",
+                "RPL39",
+                "MRPL27",
+                "RPL37",
+                "RPS27",
+                "RPS17",
+                "RPL26",
+                "RPS15A",
+                "RPL32",
+                "RPS27A",
+                "MRPL9",
+                "MRPL28",
+                "RPS20",
+                "RPL30",
+                "RPS13",
+                "RPL14",
+                "EIF4EBP2",
+                "RPL34",
+                "RPS21",
+                "RPL9",
+                "RPL22",
+                "RPS25",
+                "RPLP2",
+                "RPS23"
+              ]
+            },
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Regulation Of Stress Fiber Assembly (GO:0051492)",
+              "NES": 2.874357710259913,
+              "Size": 5,
+              "ES": 0.9262379982414466,
+              "NOS p-val": 0.004048501466497045,
+              "FDR q-val": 0.47620324539881603,
+              "Lead_genes": [
+                "STMN1"
+              ]
+            },
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Negative Regulation Of Proteasomal Ubiquitin-Dependent Protein Catabolic Process (GO:0032435)",
+              "NES": -2.803480715479367,
+              "Size": 5,
+              "ES": -0.806249979731834,
+              "NOS p-val": 0.005055425547785708,
+              "FDR q-val": 0.47620324539881603,
+              "Lead_genes": [
+                "BAG6",
+                "USP7",
+                "PHF20L1",
+                "DDRGK1"
+              ]
+            }
+          ],
+          "Reactome_Pathways_2024": [
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Cell Cycle, Mitotic",
+              "NES": 5.671818273926108,
+              "Size": 171,
+              "ES": 0.49439543296056365,
+              "NOS p-val": 1.4128981096206417e-08,
+              "FDR q-val": 9.607707145420363e-06,
+              "Lead_genes": [
+                "MCM7",
+                "MZT1",
+                "TUBB",
+                "RPS27",
+                "OFD1",
+                "ORC6",
+                "POLE4",
+                "H3-3A",
+                "UBE2C",
+                "PTTG1",
+                "LMNB1",
+                "CKS1B",
+                "ZWINT",
+                "CENPU",
+                "TYMS",
+                "GMNN",
+                "GINS2",
+                "SMC4",
+                "TUBA1B",
+                "CCNA2",
+                "RPS27A",
+                "TOP2A",
+                "RRM2",
+                "TFDP1",
+                "MYBL2",
+                "PLK1",
+                "CENPF",
+                "CDK1",
+                "CDT1",
+                "UBA52",
+                "TK1",
+                "MAD2L1",
+                "CEP63",
+                "ENSA",
+                "HMMR",
+                "BIRC5",
+                "UBE2S",
+                "RPA3",
+                "PCNA",
+                "SMC3",
+                "CEP57",
+                "CDC20",
+                "MCM3",
+                "CCNB2",
+                "DHFR",
+                "CCNB1",
+                "TPX2",
+                "SMC1A",
+                "AURKB",
+                "DBF4",
+                "RAD21",
+                "SMC2",
+                "TMPO",
+                "CENPM",
+                "LBR"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Signal Transduction",
+              "NES": 4.0094558631084265,
+              "Size": 185,
+              "ES": 0.3161217048384108,
+              "NOS p-val": 6.085882676565291e-05,
+              "FDR q-val": 0.016624446799724524,
+              "Lead_genes": [
+                "STMN1",
+                "FABP5",
+                "RPS27",
+                "OFD1",
+                "H3-3A",
+                "LMNB1",
+                "YBX1",
+                "RUVBL1",
+                "ZWINT",
+                "CENPU",
+                "TMOD3",
+                "RGS13",
+                "TUBA1B",
+                "DNMT1",
+                "SRRM1",
+                "RPS27A",
+                "TFDP1",
+                "PLK1",
+                "CENPF",
+                "CDK1",
+                "UBA52",
+                "MAD2L1",
+                "BIRC5",
+                "RALA",
+                "SMC3",
+                "CDC20",
+                "ARHGEF7",
+                "AURKB",
+                "RAD21",
+                "TMPO",
+                "CENPM",
+                "SHOC2",
+                "LBR",
+                "KRAS"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Disease",
+              "NES": 3.9651716555004457,
+              "Size": 182,
+              "ES": 0.3274140009167602,
+              "NOS p-val": 7.334314764584349e-05,
+              "FDR q-val": 0.016624446799724524,
+              "Lead_genes": [
+                "RPL10A",
+                "RPL39",
+                "SUZ12",
+                "SUPT16H",
+                "CHD4",
+                "POLR2D",
+                "TUBB",
+                "RPL37",
+                "TAF12",
+                "RPS27",
+                "SNRPE",
+                "RPS17",
+                "H3-3A",
+                "UBE2C",
+                "RPL26",
+                "LMNB1",
+                "RPS15A",
+                "RPL32",
+                "RPS12",
+                "TUBA1B",
+                "DNMT1",
+                "RPS27A",
+                "DUT",
+                "SNRPB",
+                "TFDP1",
+                "UBA52",
+                "POLR2H",
+                "CBX1",
+                "RPS20",
+                "UBE2S",
+                "RPA3",
+                "RPL30",
+                "CCNB1",
+                "RPS13",
+                "RPL14",
+                "SUDS3",
+                "RPL34",
+                "RPL36A",
+                "RPS21",
+                "EZH2",
+                "RPL9",
+                "RPL22",
+                "RPS25",
+                "MED30",
+                "RPLP2",
+                "NUP88",
+                "PSIP1",
+                "SHOC2",
+                "KRAS",
+                "SSRP1",
+                "RPS23"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Response of EIF2AK4 (GCN2) to Amino Acid Deficiency",
+              "NES": 3.6712212913395144,
+              "Size": 28,
+              "ES": 0.7800066523977616,
+              "NOS p-val": 0.00024139421832836128,
+              "FDR q-val": 0.01824337488745087,
+              "Lead_genes": [
+                "RPL10A",
+                "RPL39",
+                "RPL37",
+                "RPS27",
+                "RPS17",
+                "RPL26",
+                "RPS15A",
+                "RPL32",
+                "RPS12",
+                "RPS27A",
+                "UBA52",
+                "RPS20",
+                "RPL30",
+                "RPS13",
+                "RPL14",
+                "CEBPG",
+                "RPL36A",
+                "RPL34",
+                "RPS21",
+                "RPL9",
+                "RPL22",
+                "RPS25",
+                "RPLP2",
+                "RPS23"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Metabolism",
+              "NES": 3.6561767618396943,
+              "Size": 173,
+              "ES": 0.3480657703215756,
+              "NOS p-val": 0.000256004861324044,
+              "FDR q-val": 0.01824337488745087,
+              "Lead_genes": [
+                "NUDT1",
+                "RPL10A",
+                "RPL39",
+                "FABP5",
+                "RPL37",
+                "EBP",
+                "RPS29",
+                "LYRM2",
+                "RPS27",
+                "RPS17",
+                "RPL26",
+                "ACAT2",
+                "DTYMK",
+                "GNB2",
+                "DCTPP1",
+                "PRKD2",
+                "TYMS",
+                "RPS15A",
+                "RPL32",
+                "PSMD2",
+                "RPS12",
+                "RRM1",
+                "RPS27A",
+                "DUT",
+                "RRM2",
+                "MT-ATP8",
+                "HACD3",
+                "UBA52",
+                "TK1",
+                "SQLE",
+                "AK6",
+                "HADHA",
+                "SLC44A2",
+                "RPS20",
+                "HMMR",
+                "RPL30",
+                "DHFR",
+                "RPS13",
+                "AK2",
+                "RPL14",
+                "ITPA",
+                "RPL34",
+                "RPL36A",
+                "NUDT5",
+                "RPS21",
+                "RPL9",
+                "RPL22",
+                "NDUFAF4",
+                "ELOVL1",
+                "RPS25",
+                "RPLP2",
+                "MED30",
+                "NUP88",
+                "LBR",
+                "RPS23",
+                "DCK"
+              ]
+            }
+          ],
+          "MSigDB_Hallmark_2020": [
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "E2F Targets",
+              "NES": 4.64334680472516,
+              "Size": 123,
+              "ES": 0.6202593347611588,
+              "NOS p-val": 3.428102016922452e-06,
+              "FDR q-val": 0.00011655546857536336,
+              "Lead_genes": [
+                "STMN1",
+                "HMGB2",
+                "MCM7",
+                "RFC1",
+                "TUBB",
+                "CDCA8",
+                "ORC6",
+                "MKI67",
+                "POLE4",
+                "WEE1",
+                "PTTG1",
+                "LMNB1",
+                "CKS1B",
+                "TACC3",
+                "PRKDC",
+                "SMC4",
+                "DNMT1",
+                "DUT",
+                "TOP2A",
+                "SNRPB",
+                "RRM2",
+                "ATAD2",
+                "MYBL2",
+                "CBX5",
+                "PLK1",
+                "CDK1",
+                "ILF3",
+                "TK1",
+                "MAD2L1",
+                "LYAR",
+                "CDKN3",
+                "HMMR",
+                "BIRC5",
+                "UBE2S",
+                "RPA3",
+                "PCNA",
+                "SMC3",
+                "CDC20",
+                "MCM3",
+                "CCNB2",
+                "UBE2T",
+                "HELLS",
+                "CDCA3",
+                "SMC1A",
+                "AK2",
+                "AURKB",
+                "CENPE",
+                "RAD21",
+                "H2AX",
+                "EZH2",
+                "TMPO",
+                "NUDT21",
+                "ASF1B",
+                "PSIP1",
+                "CENPM",
+                "LBR",
+                "SSRP1",
+                "DCK"
+              ]
+            },
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "G2-M Checkpoint",
+              "NES": 3.96596094229376,
+              "Size": 92,
+              "ES": 0.6300493047675105,
+              "NOS p-val": 7.310083325529071e-05,
+              "FDR q-val": 0.001242714165339942,
+              "Lead_genes": [
+                "STMN1",
+                "ORC6",
+                "MKI67",
+                "UBE2C",
+                "PTTG1",
+                "LMNB1",
+                "CKS1B",
+                "NUSAP1",
+                "GINS2",
+                "SMC4",
+                "CCNA2",
+                "TOP2A",
+                "TFDP1",
+                "MYBL2",
+                "PLK1",
+                "CENPF",
+                "CDK1",
+                "ILF3",
+                "MAD2L1",
+                "SQLE",
+                "CDKN3",
+                "CBX1",
+                "HMMR",
+                "BIRC5",
+                "UBE2S",
+                "CDC20",
+                "KIF20B",
+                "CCNB2",
+                "MCM3",
+                "TPX2",
+                "SMC1A",
+                "AURKB",
+                "DBF4",
+                "CENPE",
+                "RAD21",
+                "H2AX",
+                "SMC2",
+                "TMPO",
+                "MT2A",
+                "LBR"
+              ]
+            },
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "Adipogenesis",
+              "NES": -3.2649629247126,
+              "Size": 19,
+              "ES": -0.5500286520985044,
+              "NOS p-val": 0.0010947840542754328,
+              "FDR q-val": 0.01240755261512157,
+              "Lead_genes": [
+                "UBQLN1",
+                "DECR1",
+                "YWHAG",
+                "IDH3A",
+                "APLP2",
+                "ACAA2",
+                "IMMT",
+                "DLD",
+                "IDH3G",
+                "CDKN2C"
+              ]
+            },
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "Cholesterol Homeostasis",
+              "NES": 2.40299454810653,
+              "Size": 5,
+              "ES": 0.8162296742721111,
+              "NOS p-val": 0.016261429864761867,
+              "FDR q-val": 0.13822215385047587,
+              "Lead_genes": [
+                "EBP",
+                "SQLE",
+                "FABP5"
+              ]
+            },
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "Mitotic Spindle",
+              "NES": 2.290342025414724,
+              "Size": 51,
+              "ES": 0.49210036865904216,
+              "NOS p-val": 0.022001497430671035,
+              "FDR q-val": 0.14961018252856303,
+              "Lead_genes": [
+                "SMC4",
+                "MYO1E",
+                "BIRC5",
+                "TOP2A",
+                "CEP57",
+                "SMC3",
+                "KIF20B",
+                "PLK1",
+                "CCNB2",
+                "CENPF",
+                "CDK1",
+                "LMNB1",
+                "ARHGEF7",
+                "TPX2",
+                "SMC1A",
+                "SAC3D1",
+                "NUSAP1"
+              ]
+            }
+          ]
+        },
+        "top_low_nes": {
+          "KEGG_2016": [
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Endocytosis Homo sapiens hsa04144",
+              "NES": -2.2711812225231154,
+              "Size": 16,
+              "ES": -0.47379601875352806,
+              "NOS p-val": 0.02313600966183671,
+              "FDR q-val": 0.4297316540020517,
+              "Lead_genes": [
+                "SMAP1",
+                "DNM2",
+                "SNX32",
+                "STAMBP",
+                "CLTC",
+                "ARF3",
+                "CHMP2B",
+                "RAB11A",
+                "AP2B1",
+                "ACAP2",
+                "EPN1",
+                "EPS15"
+              ]
+            },
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Oocyte meiosis Homo sapiens hsa04114",
+              "NES": 2.2150415364915608,
+              "Size": 20,
+              "ES": 0.6143703499249611,
+              "NOS p-val": 0.026757213656668277,
+              "FDR q-val": 0.4297316540020517,
+              "Lead_genes": [
+                "SMC3",
+                "CDC20",
+                "PLK1",
+                "CCNB2",
+                "CDK1",
+                "PTTG1",
+                "CCNB1",
+                "MAD2L1"
+              ]
+            },
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Pathogenic Escherichia coli infection Homo sapiens hsa05130",
+              "NES": 2.1569243071158875,
+              "Size": 5,
+              "ES": 0.7614263215627997,
+              "NOS p-val": 0.03101156265994187,
+              "FDR q-val": 0.4297316540020517,
+              "Lead_genes": [
+                "TUBB"
+              ]
+            },
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Carbon metabolism Homo sapiens hsa01200",
+              "NES": -2.096471012836037,
+              "Size": 17,
+              "ES": -0.4311591860502822,
+              "NOS p-val": 0.03604042871334223,
+              "FDR q-val": 0.4369901981492746,
+              "Lead_genes": [
+                "ADH5",
+                "ME2",
+                "SDHD",
+                "ESD",
+                "PGP",
+                "IDH3A",
+                "PHGDH",
+                "GOT2",
+                "DLD",
+                "IDH3G",
+                "FH"
+              ]
+            },
+            {
+              "Data Base": "KEGG_2016",
+              "Pathway": "Alzheimer's disease Homo sapiens hsa05010",
+              "NES": -2.0026418193184834,
+              "Size": 11,
+              "ES": -0.5167134673342787,
+              "NOS p-val": 0.04521574777311832,
+              "FDR q-val": 0.47017337459403125,
+              "Lead_genes": [
+                "NDUFA9",
+                "PPP3CB",
+                "NDUFA10",
+                "SDHD",
+                "BID",
+                "APH1A",
+                "NDUFS4",
+                "ATP2A2"
+              ]
+            }
+          ],
+          "GO_Biological_Process_2023": [
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Postreplication Repair (GO:0006301)",
+              "NES": 1.980505937805827,
+              "Size": 6,
+              "ES": 0.7318747444152571,
+              "NOS p-val": 0.047646706799970406,
+              "FDR q-val": 0.47620324539881603,
+              "Lead_genes": [
+                "PCLAF",
+                "PCNA"
+              ]
+            },
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "rRNA Processing (GO:0006364)",
+              "NES": 1.9767832838926371,
+              "Size": 33,
+              "ES": 0.48819711617236605,
+              "NOS p-val": 0.04806613199597343,
+              "FDR q-val": 0.47620324539881603,
+              "Lead_genes": [
+                "LYAR",
+                "EIF6",
+                "RPS27",
+                "RPS17",
+                "LSM6",
+                "POP4",
+                "EMG1",
+                "PRKDC",
+                "RPL14"
+              ]
+            },
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Regulation Of Intrinsic Apoptotic Signaling Pathway (GO:2001242)",
+              "NES": -1.9736002104224826,
+              "Size": 6,
+              "ES": -0.6390858944050442,
+              "NOS p-val": 0.04842721980326781,
+              "FDR q-val": 0.47620324539881603,
+              "Lead_genes": [
+                "UBQLN1",
+                "LCK",
+                "BID",
+                "SGMS1",
+                "CYLD",
+                "DNM1L"
+              ]
+            },
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Mitotic Cell Cycle Phase Transition (GO:0044772)",
+              "NES": 1.9732478888287235,
+              "Size": 26,
+              "ES": 0.5275614429671923,
+              "NOS p-val": 0.048467326840044844,
+              "FDR q-val": 0.47620324539881603,
+              "Lead_genes": [
+                "DBF4",
+                "CCNA2",
+                "CDKN3",
+                "ENSA",
+                "UBE2S",
+                "PLK1",
+                "CCNB2",
+                "UBE2C",
+                "CDK1",
+                "WEE1",
+                "CCNB1"
+              ]
+            },
+            {
+              "Data Base": "GO_Biological_Process_2023",
+              "Pathway": "Regulation Of Centriole Replication (GO:0046599)",
+              "NES": -1.9694821951497483,
+              "Size": 5,
+              "ES": -0.6412444970316941,
+              "NOS p-val": 0.04889774519563117,
+              "FDR q-val": 0.47620324539881603,
+              "Lead_genes": [
+                "CDK5RAP2",
+                "CEP295",
+                "NUP62"
+              ]
+            }
+          ],
+          "Reactome_Pathways_2024": [
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "E2F Mediated Regulation of DNA Replication",
+              "NES": 1.9920417673436452,
+              "Size": 7,
+              "ES": 0.7382603874430982,
+              "NOS p-val": 0.04636647536086835,
+              "FDR q-val": 0.3316118916978805,
+              "Lead_genes": [
+                "CDK1",
+                "CCNB1",
+                "ORC6"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Viral Infection Pathways",
+              "NES": 1.9879628710108137,
+              "Size": 113,
+              "ES": 0.38988347482714814,
+              "NOS p-val": 0.0468157964749949,
+              "FDR q-val": 0.3316118916978805,
+              "Lead_genes": [
+                "RPL10A",
+                "RPL39",
+                "SUZ12",
+                "SUPT16H",
+                "CHD4",
+                "POLR2D",
+                "TUBB",
+                "RPL37",
+                "TAF12",
+                "RPS27",
+                "SNRPE",
+                "RPS17",
+                "RPL26",
+                "RPS15A",
+                "RPL32",
+                "RPS12",
+                "TUBA1B",
+                "RPS27A",
+                "DUT",
+                "SNRPB",
+                "UBA52",
+                "POLR2H",
+                "CBX1",
+                "RPS20",
+                "RPL30",
+                "RPS13",
+                "RPL14",
+                "SUDS3",
+                "RPL34",
+                "RPL36A",
+                "RPS21",
+                "EZH2",
+                "RPL9",
+                "RPL22",
+                "RPS25",
+                "MED30",
+                "RPLP2",
+                "NUP88",
+                "PSIP1",
+                "SSRP1",
+                "RPS23"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Interconversion of Nucleotide Di- and Triphosphates",
+              "NES": 1.9691751583169261,
+              "Size": 10,
+              "ES": 0.6939352209403976,
+              "NOS p-val": 0.04893298050395245,
+              "FDR q-val": 0.34051281984703996,
+              "Lead_genes": [
+                "DUT",
+                "RRM2",
+                "DTYMK",
+                "DCTPP1",
+                "AK2",
+                "TYMS",
+                "AK6"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Glucose Metabolism",
+              "NES": -1.9636158272632145,
+              "Size": 12,
+              "ES": -0.49187467968570703,
+              "NOS p-val": 0.04957466053655435,
+              "FDR q-val": 0.34051281984703996,
+              "Lead_genes": [
+                "PGP",
+                "NUP210",
+                "NUP107",
+                "NUP62",
+                "RAE1"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Glycolysis",
+              "NES": -1.9636158272632145,
+              "Size": 12,
+              "ES": -0.49187467968570703,
+              "NOS p-val": 0.04957466053655435,
+              "FDR q-val": 0.34051281984703996,
+              "Lead_genes": [
+                "PGP",
+                "NUP210",
+                "NUP107",
+                "NUP62",
+                "RAE1"
+              ]
+            }
+          ],
+          "MSigDB_Hallmark_2020": [
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "Adipogenesis",
+              "NES": -3.2649629247126,
+              "Size": 19,
+              "ES": -0.5500286520985044,
+              "NOS p-val": 0.0010947840542754328,
+              "FDR q-val": 0.01240755261512157,
+              "Lead_genes": [
+                "UBQLN1",
+                "DECR1",
+                "YWHAG",
+                "IDH3A",
+                "APLP2",
+                "ACAA2",
+                "IMMT",
+                "DLD",
+                "IDH3G",
+                "CDKN2C"
+              ]
+            },
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "Cholesterol Homeostasis",
+              "NES": 2.40299454810653,
+              "Size": 5,
+              "ES": 0.8162296742721111,
+              "NOS p-val": 0.016261429864761867,
+              "FDR q-val": 0.13822215385047587,
+              "Lead_genes": [
+                "EBP",
+                "SQLE",
+                "FABP5"
+              ]
+            },
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "Mitotic Spindle",
+              "NES": 2.290342025414724,
+              "Size": 51,
+              "ES": 0.49210036865904216,
+              "NOS p-val": 0.022001497430671035,
+              "FDR q-val": 0.14961018252856303,
+              "Lead_genes": [
+                "SMC4",
+                "MYO1E",
+                "BIRC5",
+                "TOP2A",
+                "CEP57",
+                "SMC3",
+                "KIF20B",
+                "PLK1",
+                "CCNB2",
+                "CENPF",
+                "CDK1",
+                "LMNB1",
+                "ARHGEF7",
+                "TPX2",
+                "SMC1A",
+                "SAC3D1",
+                "NUSAP1"
+              ]
+            },
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "Oxidative Phosphorylation",
+              "NES": -2.189018159473923,
+              "Size": 30,
+              "ES": -0.46983257012967566,
+              "NOS p-val": 0.02859552016512934,
+              "FDR q-val": 0.16204128093573292,
+              "Lead_genes": [
+                "AFG3L2",
+                "DECR1",
+                "LRPPRC",
+                "SDHD",
+                "TIMM9",
+                "IDH3A",
+                "VDAC3",
+                "ACAA2",
+                "IMMT",
+                "DLD",
+                "FH",
+                "MRPS11",
+                "CYB5R3",
+                "IDH3G",
+                "MRPS22"
+              ]
+            },
+            {
+              "Data Base": "MSigDB_Hallmark_2020",
+              "Pathway": "Estrogen Response Late",
+              "NES": 1.963408898276129,
+              "Size": 14,
+              "ES": 0.6347872658263403,
+              "NOS p-val": 0.0495986807074158,
+              "FDR q-val": 0.22890848199474378,
+              "Lead_genes": [
+                "TOP2A",
+                "CDC20",
+                "NXT1",
+                "FABP5"
+              ]
+            }
+          ]
+        },
+        "gsea_result_metadata": {
+          "id": "1765755056_6f426177",
+          "name": "gsea_results_20251214_183046.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20251214_183046.csv",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-14/gsea_results_20251214_183046.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T233057Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=a65765bacbd52ad8c55b64583529161ea6d23cf08387d86b2ccae92941ce96ae"
+        },
+        "gsea_plot_metadata": {
+          "id": "1765755057_4adaedf6",
+          "name": "gsea_results_20251214_183046.png",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20251214_183046.png",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-14/gsea_results_20251214_183046.png?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T233057Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=4f3e10b46c3390ee52e2813d293541d026831963dd6be2f29f1e25bf20fe6f2b"
+        }
+      }
+    },
+    {
+      "tool": "csv_select",
+      "payload": {
+        "columns": [
+          "gene",
+          "avg_log2FC"
+        ],
+        "rows": "[{\"gene\":\"RGS131\",\"avg_log2FC\":1.916533032},{\"gene\":\"SERPINA91\",\"avg_log2FC\":1.846286674},{\"gene\":\"MYO1E1\",\"avg_log2FC\":1.826008324},{\"gene\":\"MS4A13\",\"avg_log2FC\":1.80665576},{\"gene\":\"MARCKSL11\",\"avg_log2FC\":1.806595784},{\"gene\":\"LAT22\",\"avg_log2FC\":1.739781961},{\"gene\":\"LCK1\",\"avg_log2FC\":1.708693911},{\"gene\":\"IRAG22\",\"avg_log2FC\":1.696625939},{\"gene\":\"HLA-DMB2\",\"avg_log2FC\":1.674394427},{\"gene\":\"PAG11\",\"avg_log2FC\":1.63999819},{\"gene\":\"PRPSAP21\",\"avg_log2FC\":1.634230705},{\"gene\":\"HLA-DPA13\",\"avg_log2FC\":1.603704537},{\"gene\":\"ZFP36L12\",\"avg_log2FC\":1.597296889},{\"gene\":\"CXCR53\",\"avg_log2FC\":1.568882074},{\"gene\":\"HOPX1\",\"avg_log2FC\":1.530143634},{\"gene\":\"LIMD22\",\"avg_log2FC\":1.516562503},{\"gene\":\"TCL1A2\",\"avg_log2FC\":1.511623718},{\"gene\":\"CD222\",\"avg_log2FC\":1.49394214},{\"gene\":\"PTPN61\",\"avg_log2FC\":1.488128016},{\"gene\":\"MTF21\",\"avg_log2FC\":1.462629903}]",
+        "total_rows": 714,
+        "storage_entry": {
+          "id": "1765755114_5e292209",
+          "name": "cluster6_ranked_cba3e221e4.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster6_ranked_cba3e221e4.csv"
+        }
+      }
+    },
+    {
+      "tool": "gsea_pipe",
+      "payload": {
+        "counts_by_database": {
+          "Reactome_Pathways_2024": {
+            "up": 0,
+            "down": 2,
+            "total": 2
+          }
+        },
+        "top_high_nes": {
+          "Reactome_Pathways_2024": [
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Post-translational Protein Modification",
+              "NES": -2.4011585407219282,
+              "Size": 11,
+              "ES": -0.5784802467834013,
+              "NOS p-val": 0.01634325398331571,
+              "FDR q-val": 0.49029761949947126,
+              "Lead_genes": [
+                "UIMC1",
+                "VCPKMT",
+                "TNKS2",
+                "METTL21A",
+                "NSF",
+                "PIAS1",
+                "RAB1B"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Metabolism of Proteins",
+              "NES": -2.1064816319717603,
+              "Size": 14,
+              "ES": -0.4665814235839282,
+              "NOS p-val": 0.03516253698748395,
+              "FDR q-val": 0.5274380548122592,
+              "Lead_genes": [
+                "UIMC1",
+                "VCPKMT",
+                "TNKS2",
+                "METTL21A",
+                "NSF",
+                "PIAS1",
+                "MRPL42",
+                "DAP3",
+                "RAB1B"
+              ]
+            }
+          ]
+        },
+        "top_low_nes": {
+          "Reactome_Pathways_2024": [
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Post-translational Protein Modification",
+              "NES": -2.4011585407219282,
+              "Size": 11,
+              "ES": -0.5784802467834013,
+              "NOS p-val": 0.01634325398331571,
+              "FDR q-val": 0.49029761949947126,
+              "Lead_genes": [
+                "UIMC1",
+                "VCPKMT",
+                "TNKS2",
+                "METTL21A",
+                "NSF",
+                "PIAS1",
+                "RAB1B"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Metabolism of Proteins",
+              "NES": -2.1064816319717603,
+              "Size": 14,
+              "ES": -0.4665814235839282,
+              "NOS p-val": 0.03516253698748395,
+              "FDR q-val": 0.5274380548122592,
+              "Lead_genes": [
+                "UIMC1",
+                "VCPKMT",
+                "TNKS2",
+                "METTL21A",
+                "NSF",
+                "PIAS1",
+                "MRPL42",
+                "DAP3",
+                "RAB1B"
+              ]
+            }
+          ]
+        },
+        "gsea_result_metadata": {
+          "id": "1765755157_00a21e46",
+          "name": "gsea_results_20251214_183231.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20251214_183231.csv",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-14/gsea_results_20251214_183231.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T233237Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=6a46a2471d4e59985f2d6710786765d80cef8073f4d9d60376f20566608c6b4a"
+        },
+        "gsea_plot_metadata": {
+          "id": "1765755157_2fa9e8ff",
+          "name": "gsea_results_20251214_183231.png",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20251214_183231.png",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-14/gsea_results_20251214_183231.png?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T233237Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=dbe7d7d413625f6038d3de68186ed6ac8f36ae660085446a322582368a9f8650"
+        }
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "Gene_set",
+          "Term",
+          "Genes"
+        ],
+        "rows": "[{\"Gene_set\":\"GO_Biological_Process_2023\",\"Term\":\"Regulation Of Autophagosome Assembly (GO:2000785)\",\"Genes\":\"PIKFYVE;RAB1B;PIP4K2A;RAB3GAP1\"}]",
+        "total_rows": 1,
+        "storage_entry": {
+          "id": "1765755203_fce83d30",
+          "name": "cluster6_autophagy_a7be8f622e.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster6_autophagy_a7be8f622e.csv"
+        }
+      }
+    },
+    {
+      "tool": "gene_info",
+      "payload": {
+        "results": [
+          {
+            "symbol": "STMN1",
+            "name": "stathmin 1",
+            "summary": "This gene belongs to the stathmin family of genes. It encodes a ubiquitous cytosolic phosphoprotein proposed to function as an intracellular relay integrating regulatory signals of the cellular environment. The encoded protein is involved …",
+            "aliases": "C1orf215; LAP18; Lag; OP18; PP17; PP19; PR22; SMN",
+            "entrezgene": "3925",
+            "ensembl_gene": "ENSG00000117632",
+            "HGNC": "6510"
+          },
+          {
+            "symbol": "HMGB2",
+            "name": "high mobility group box 2",
+            "summary": "This gene encodes a member of the non-histone chromosomal high mobility group protein family. The proteins of this family are chromatin-associated and ubiquitously distributed in the nucleus of higher eukaryotic cells. In vitro studies hav…",
+            "aliases": "HMG2",
+            "entrezgene": "3148",
+            "ensembl_gene": "ENSG00000164104",
+            "HGNC": "5000"
+          },
+          {
+            "symbol": "MCM7",
+            "name": "minichromosome maintenance complex component 7",
+            "summary": "The protein encoded by this gene is one of the highly conserved mini-chromosome maintenance proteins (MCM) that are essential for the initiation of eukaryotic genome replication. The hexameric protein complex formed by the MCM proteins is …",
+            "aliases": "CDC47; MCM2; P1.1-MCM3; P1CDC47; P85MCM; PNAS146; PPP1R104",
+            "entrezgene": "4176",
+            "ensembl_gene": "ENSG00000166508",
+            "HGNC": "6950"
+          },
+          {
+            "symbol": "ORC6",
+            "name": "origin recognition complex subunit 6",
+            "summary": "The origin recognition complex (ORC) is a highly conserved six subunit protein complex essential for the initiation of the DNA replication in eukaryotic cells. Studies in yeast demonstrated that ORC binds specifically to origins of replica…",
+            "aliases": "ORC6L",
+            "entrezgene": "23594",
+            "ensembl_gene": "ENSG00000091651",
+            "HGNC": "17151"
+          },
+          {
+            "symbol": "CDC20",
+            "name": "cell division cycle 20",
+            "summary": "CDC20 appears to act as a regulatory protein interacting with several other proteins at multiple points in the cell cycle. It is required for two microtubule-dependent processes, nuclear movement prior to anaphase and chromosome separation…",
+            "aliases": "CDC20A; OOMD14; OZEMA14; bA276H19.3; p55CDC",
+            "entrezgene": "991",
+            "ensembl_gene": "ENSG00000117399",
+            "HGNC": "1723"
+          }
+        ]
+      }
+    },
+    {
+      "tool": "sets_info_rumm",
+      "payload": {
+        "error": {
+          "tool": "sets_info_rumm",
+          "type": "ValueError",
+          "message": "Malformed response JSON: 'data'",
+          "traceback": "Traceback (most recent call last):\n  File \"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera/bkd/rummagene.py\", line 47, in _post_graphql\n    return response.json()[\"data\"]\n           ~~~~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera_fastmcp/server.py\", line 1737, in sets_info_rumm\n    df = genes_query(params.gene_set_id)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera/bkd/rummagene.py\", line 196, in genes_query\n    data = _post_graphql(\n           ^^^^^^^^^^^^^^\n  File \"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera/bkd/rummagene.py\", line 49, in _post_graphql\n    raise ValueError(f\"Malformed response JSON: {e}\")\nValueError: Malformed response JSON: 'data'\n"
+        },
+        "context": {
+          "gene_set_id": "2000785"
+        }
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "Data Base",
+          "Pathway",
+          "NES",
+          "Lead_genes"
+        ],
+        "rows": "[{\"Data Base\":\"KEGG_2016\",\"Pathway\":\"Cell cycle Homo sapiens hsa04110\",\"NES\":2.7015128763,\"Lead_genes\":\"CCNA2,MCM7,RAD21,TFDP1,PCNA,SMC3,ORC6,CDC20,PLK1,MCM3,CCNB2,CDK1,PTTG1,CCNB1,SMC1A,MAD2L1,PRKDC\"},{\"Data Base\":\"GO_Biological_Process_2023\",\"Pathway\":\"Positive Regulation Of Metaphase\\/Anaphase Transition Of Cell Cycle (GO:1902101)\",\"NES\":2.0930196855,\"Lead_genes\":\"UBE2C\"},{\"Data Base\":\"GO_Biological_Process_2023\",\"Pathway\":\"Regulation Of Cell Cycle (GO:0051726)\",\"NES\":2.0306455045,\"Lead_genes\":\"CDKN3,EPC1,CDC20,PLK1,TBRG1,PCLAF,CKS1B,RUVBL1,CDT1,GMNN,RPS15A\"},{\"Data Base\":\"GO_Biological_Process_2023\",\"Pathway\":\"Mitotic Cell Cycle Phase Transition (GO:0044772)\",\"NES\":1.9732478888,\"Lead_genes\":\"DBF4,CCNA2,CDKN3,ENSA,UBE2S,PLK1,CCNB2,UBE2C,CDK1,WEE1,CCNB1\"},{\"Data Base\":\"Reactome_Pathways_2024\",\"Pathway\":\"Cell Cycle, Mitotic\",\"NES\":5.6718182739,\"Lead_genes\":\"MCM7,MZT1,TUBB,RPS27,OFD1,ORC6,POLE4,H3-3A,UBE2C,PTTG1,LMNB1,CKS1B,ZWINT,CENPU,TYMS,GMNN,GINS2,SMC4,TUBA1B,CCNA2,RPS27A,TOP2A,RRM2,TFDP1,MYBL2,PLK1,CENPF,CDK1,CDT1,UBA52,TK1,MAD2L1,CEP63,ENSA,HMMR,BIRC5,UBE2S,RPA3,PCNA,SMC3,CEP57,CDC20,MCM3,CCNB2,DHFR,CCNB1,TPX2,SMC1A,AURKB,DBF4,RAD21,SMC2,TMPO,CENPM,LBR\"},{\"Data Base\":\"Reactome_Pathways_2024\",\"Pathway\":\"APC C-mediated Degradation of Cell Cycle Proteins\",\"NES\":2.6511390093,\"Lead_genes\":\"CCNA2,RPS27A,CDC20,PLK1,UBE2C,CDK1,PTTG1,CCNB1,UBA52,MAD2L1,AURKB\"},{\"Data Base\":\"Reactome_Pathways_2024\",\"Pathway\":\"Regulation of Mitotic Cell Cycle\",\"NES\":2.6511390093,\"Lead_genes\":\"CCNA2,RPS27A,CDC20,PLK1,UBE2C,CDK1,PTTG1,CCNB1,UBA52,MAD2L1,AURKB\"},{\"Data Base\":\"Reactome_Pathways_2024\",\"Pathway\":\"Cell Cycle Checkpoints\",\"NES\":2.2396917717,\"Lead_genes\":\"MCM7,CDCA8,RPS27,ORC6,UBE2C,WEE1,ZWINT,CENPU,PMF1,NUF2,PSMD2,CCNA2,RPS27A,CENPA,SGO2,PLK1,CENPF,CDK1,CLSPN,NDC80,UBA52,MAD2L1,CHEK1,KNL1,BIRC5,UBE2S,RPA3,CDC20,MCM3,CCNB2,CCNB1,UBE2V2,CDC6,AURKB,XPO1,CENPK,DBF4,MCM4,CENPE,RMI2,GTSE1,CENPM\"},{\"Data Base\":\"Reactome_Pathways_2024\",\"Pathway\":\"TP53 Regulates Transcription of Genes Involved in G2 Cell Cycle Arrest\",\"NES\":2.1487616835,\"Lead_genes\":\"CDK1,CCNB1,PCNA\"}]",
+        "total_rows": 9,
+        "storage_entry": {
+          "id": "1765755271_d7bb5f21",
+          "name": "cluster5_cellcycle_gsea_b70ab08bd4.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_cellcycle_gsea_b70ab08bd4.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "gene",
+          "avg_log2FC",
+          "pct.1",
+          "pct.2"
+        ],
+        "rows": "[]",
+        "total_rows": 0,
+        "storage_entry": {
+          "id": "1765755328_220dbd09",
+          "name": "cluster6_keygenes_filter_077873bfb6.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster6_keygenes_filter_077873bfb6.csv"
+        }
+      }
+    }
+  ],
+  "uploaded_files": [
+    {
+      "name": "1-s2.0-S1535610824003593-mmc2-cluster 5 (Intermediate).csv",
+      "type": "csv",
+      "preview": ",gene,p_val,avg_log2FC,pct.1,pct.2,p_val_adj,cluster_number\n3079,H4C3,0.0,4.19612573,0.83,0.414,0.0,cluster 5 (Intermediate)\n3080,STMN1,0.0,3.170659628,0.894,0.114,0.0,cluster 5 (Intermediate)",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster5Intermediate.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T232637Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8f228393537d7ace2ec7e020ae9c4b10c08013cf5148d67bfaaec0453ef7f05f",
+      "s3_key": "uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster5Intermediate.csv"
+    },
+    {
+      "name": "1-s2.0-S1535610824003593-mmc2-cluster 6 (Intermediate).csv",
+      "type": "csv",
+      "preview": ",gene,p_val,avg_log2FC,pct.1,pct.2,p_val_adj,cluster_number\n5402,RGS131,0.0,1.916533032,0.668,0.045,0.0,cluster 6 (Intermediate)\n5403,SERPINA91,0.0,1.846286674,0.473,0.02,0.0,cluster 6 (Intermediate)",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster6Intermediate.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T232637Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=279b01bac2d79dadc7a101c68f8b0056f0db374ec8ed5533be0e29b568ad3651",
+      "s3_key": "uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster6Intermediate.csv"
+    }
+  ]
+}

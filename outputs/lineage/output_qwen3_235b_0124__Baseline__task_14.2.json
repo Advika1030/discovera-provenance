@@ -1,0 +1,114 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0124__Baseline__task_14.2",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "14.2",
+      "run_date": "2026-01-22 05:51:42",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "41598_2024_75947_MOESM1_ESM-S2.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/41598_2024_75947_MOESM1_ESM-S2.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T105142Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=09e788a9d5fa04ada193618b8153e1990a77183c7d436ed0e98c0b2ff8e8a7de",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/41598_2024_75947_MOESM1_ESM-S2.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T105142Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=09e788a9d5fa04ada193618b8153e1990a77183c7d436ed0e98c0b2ff8e8a7de\", \"metadata\": {\"description\": \"Reactome pathway enrichments from mucosal epithelial cells in perianal CD phenotypes\", \"source\": \"Supplemental Table 2 from 41598_2024_75947_MOESM1_ESM-S2.csv\"}, \"name\": \"Reactome_Pathways_Supplemental_Table2\", \"tags\": [\"user_input\", \"pathway_enrichment\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Reactome_Pathways_Supplemental_Table2.csv",
+      "path": "/app/output/user_csvs/Reactome_Pathways_Supplemental_Table2.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769079117_0e3b30cb"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1769079117_0e3b30cb\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"Unnamed: 4\", \"op\": \"in\", \"value\": [\"PIFvsCtrl\", \"PIFvsPNI\"]}], \"csv_id\": \"1769079117_0e3b30cb\", \"keep_columns\": [\"Supplemental Table 2: Significant Reactome Pathways Obtained from Differentially Expressed Genes from Mucosal Epithelial (Undifferentiated) Cells.\", \"Unnamed: 2\", \"Unnamed: 3\", \"Unnamed: 4\"], \"name\": \"PIF_comparisons\", \"sort_by\": [\"-Unnamed: 2\"]}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769079117_0e3b30cb.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769079117_0e3b30cb.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769079134_c1c66124"
+    },
+    {
+      "type": "report",
+      "length": 4288,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769079117_0e3b30cb",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1769079117_0e3b30cb"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1769079117_0e3b30cb"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769079134_c1c66124",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_o4_mini_1214__Baseline__task_3.1",
+      "model": "gpt-5-nano",
+      "mode": "Baseline",
+      "task_id": "3.1",
+      "run_date": "2026-01-17 19:26:12",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "ijms-24-14743-v2_crc_cells_cisplatin_vs_dmso_DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-17/ijms-24-14743-v2_crc_cells_cisplatin_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260118%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260118T002612Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=e00ce86f2a2e383d7c28e42260c5d01ee8bf0db750fc67c961dc90a7594173f4",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-17/ijms-24-14743-v2_crc_cells_cisplatin_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260118%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260118T002612Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=e00ce86f2a2e383d7c28e42260c5d01ee8bf0db750fc67c961dc90a7594173f4\", \"metadata\": {\"contrast\": \"cisplatin_vs_dmso\", \"source\": \"uploaded_DEG_csv\", \"tissue\": \"colorectal cancer cell lines\"}, \"name\": \"cisplatin_vs_dmso_DEG_CRC\", \"tags\": [\"user_upload\", \"deg\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "cisplatin_vs_dmso_DEG_CRC.csv",
+      "path": "/app/output/user_csvs/cisplatin_vs_dmso_DEG_CRC.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1768696011_527025c1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"cisplatin_vs_dmso_DEG_CRC.csv\", \"n_rows\": 50}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "missing_reference",
+      "id": "missing:cisplatin_vs_dmso_DEG_CRC.csv"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 2,
+      "args": "{\"id\": \"1768696011_527025c1\", \"n_rows\": 2000}",
+      "error": "",
+      "id": "step2_csv_read"
+    },
+    {
+      "type": "report",
+      "length": 9632,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768696011_527025c1",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "missing:cisplatin_vs_dmso_DEG_CRC.csv"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_read",
+      "target": "1768696011_527025c1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

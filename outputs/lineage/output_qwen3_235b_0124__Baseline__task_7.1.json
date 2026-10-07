@@ -1,0 +1,102 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0124__Baseline__task_7.1",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "7.1",
+      "run_date": "2026-01-22 01:23:39",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Ahmad_2025_Cancer_Cell_TableS2-GNP_Polysome_GSEA.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/Ahmad_2025_Cancer_Cell_TableS2-GNP_Polysome_GSEA.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T062333Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=246b97946ed45f338b9b68bacf72a62f81064d67681c1b4a9731e93a4126d7ab",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Ahmad_2025_Cancer_Cell_TableS2-GNP_Proteomics_DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/Ahmad_2025_Cancer_Cell_TableS2-GNP_Proteomics_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T062339Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=c209c94b94cccd9ffbd783a1a1708b0f54e0ea20750986d44341e020baff5171",
+      "id": "upload:1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/Ahmad_2025_Cancer_Cell_TableS2-GNP_Polysome_GSEA.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T062333Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=246b97946ed45f338b9b68bacf72a62f81064d67681c1b4a9731e93a4126d7ab\", \"name\": \"Ahmad_2025_Polysome_GSEA\", \"tags\": [\"user_input\", \"GSEA\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Ahmad_2025_Polysome_GSEA.csv",
+      "path": "/app/output/user_csvs/Ahmad_2025_Polysome_GSEA.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769063033_c167bca1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 1,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/Ahmad_2025_Cancer_Cell_TableS2-GNP_Proteomics_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T062339Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=c209c94b94cccd9ffbd783a1a1708b0f54e0ea20750986d44341e020baff5171\", \"name\": \"Ahmad_2025_Proteomics_DEG\", \"tags\": [\"user_input\", \"proteomics\"]}",
+      "error": "",
+      "id": "step1_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Ahmad_2025_Proteomics_DEG.csv",
+      "path": "/app/output/user_csvs/Ahmad_2025_Proteomics_DEG.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769063044_505efac2"
+    },
+    {
+      "type": "report",
+      "length": 4531,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769063033_c167bca1",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769063044_505efac2",
+      "target": "step1_csv_record"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

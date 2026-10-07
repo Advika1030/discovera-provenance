@@ -1,0 +1,206 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0124__Baseline__task_5.2",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "5.2",
+      "run_date": "2026-01-22 01:21:16",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-Hyp_vs_Norm.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-Hyp_vs_Norm.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T062114Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=49dc64aa372a6f931813fa58f05f0750df0231d6252ae8a6c1e52c72260eed4d",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-HypZot_vs_HypVeh.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-HypZot_vs_HypVeh.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T062115Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=ff48435ee07be5ad49b3cf0cd4605b02f7a760d5b22509af4b033a4638fbcf52",
+      "id": "upload:1"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-NormZot_vs_NormVeh.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-NormZot_vs_NormVeh.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T062116Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=2573831f9012d4d659b2671618410c5987f71af6a1a863d650867ad3c85a735d",
+      "id": "upload:2"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-Hyp_vs_Norm.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T062114Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=49dc64aa372a6f931813fa58f05f0750df0231d6252ae8a6c1e52c72260eed4d\", \"name\": \"Hyp_vs_Norm\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Hyp_vs_Norm.csv",
+      "path": "/app/output/user_csvs/Hyp_vs_Norm.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769062890_089107d7"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"log2FoldChange\", \"op\": \">\", \"value\": 1}, {\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769062890_089107d7\", \"name\": \"HIF1a_candidate_targets\"}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769062890_089107d7.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769062890_089107d7.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769062900_4c41eed5"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 2,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-HypZot_vs_HypVeh.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T062115Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=ff48435ee07be5ad49b3cf0cd4605b02f7a760d5b22509af4b033a4638fbcf52\", \"name\": \"HypZot_vs_HypVeh\"}",
+      "error": "",
+      "id": "step2_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "HypZot_vs_HypVeh.csv",
+      "path": "/app/output/user_csvs/HypZot_vs_HypVeh.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769062911_e041b71a"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 3,
+      "args": "{\"conditions\": [{\"column\": \"log2FoldChange\", \"op\": \"<\", \"value\": -1}, {\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769062911_e041b71a\", \"name\": \"HIF1a_zotatifin_targets\"}",
+      "error": "",
+      "id": "step3_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769062911_e041b71a.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769062911_e041b71a.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769062926_4f4b54ab"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_join",
+      "step_index": 4,
+      "args": "{\"how\": \"inner\", \"left_csv_id\": \"1769062900_4c41eed5\", \"name\": \"HIF1a_overlap\", \"on\": \"gene_name\", \"right_csv_id\": \"1769062926_4f4b54ab\"}",
+      "error": "",
+      "id": "step4_csv_join"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_join_1769062900_4c41eed5_1769062926_4f4b54ab_gene_name.csv",
+      "path": "/app/output/user_csvs/csv_join_1769062900_4c41eed5_1769062926_4f4b54ab_gene_name.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769062938_502b4ad6"
+    },
+    {
+      "type": "report",
+      "length": 3742,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769062890_089107d7",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769062890_089107d7"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769062900_4c41eed5",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769062911_e041b71a",
+      "target": "step2_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_filter",
+      "target": "1769062911_e041b71a"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769062926_4f4b54ab",
+      "target": "step3_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_join",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_join",
+      "target": "1769062900_4c41eed5"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_join",
+      "target": "1769062926_4f4b54ab"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769062938_502b4ad6",
+      "target": "step4_csv_join"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

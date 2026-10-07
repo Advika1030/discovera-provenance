@@ -1,0 +1,138 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_o4_mini_1217__Baseline__task_5.1",
+      "model": "gpt-5-nano",
+      "mode": "Baseline",
+      "task_id": "5.1",
+      "run_date": "2026-01-18 05:30:54",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-18/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260118%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260118T103053Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=c2b6e4ce5c4e46d7874509372789f8925b5428a61a1af6561919e8b835870607",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-18/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260118%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260118T103054Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=da3acc33116d106bf3f4892a516154e0f451cd0562523b0300193d75094b5607",
+      "id": "upload:1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-18/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260118%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260118T103053Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=c2b6e4ce5c4e46d7874509372789f8925b5428a61a1af6561919e8b835870607\", \"name\": \"Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv\", \"tags\": [\"dataset\", \"MS\", \"prostate_cancer\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv.csv",
+      "path": "/app/output/user_csvs/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1768732330_17c9464a"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 1,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-18/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260118%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260118T103054Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=da3acc33116d106bf3f4892a516154e0f451cd0562523b0300193d75094b5607\", \"name\": \"Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv\", \"tags\": [\"dataset\", \"RiboSeq\", \"prostate_cancer\"]}",
+      "error": "",
+      "id": "step1_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv.csv",
+      "path": "/app/output/user_csvs/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1768732334_c091c663"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_join",
+      "step_index": 2,
+      "args": "{\"how\": \"inner\", \"left_csv_id\": \"1768732330_17c9464a\", \"name\": \"Zotatifin_downregulated_both_translational_protein_PCa\", \"on\": \"gene_name\", \"right_csv_id\": \"1768732334_c091c663\"}",
+      "error": "",
+      "id": "step2_csv_join"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_join_1768732330_17c9464a_1768732334_c091c663_gene_name.csv",
+      "path": "/app/output/user_csvs/csv_join_1768732330_17c9464a_1768732334_c091c663_gene_name.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1768732344_ea9309bb"
+    },
+    {
+      "type": "report",
+      "length": 6562,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768732330_17c9464a",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768732334_c091c663",
+      "target": "step1_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_join",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_join",
+      "target": "1768732330_17c9464a"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_join",
+      "target": "1768732334_c091c663"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768732344_ea9309bb",
+      "target": "step2_csv_join"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

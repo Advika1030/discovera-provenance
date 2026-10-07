@@ -1,0 +1,127 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0122__Baseline__task_3.2",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "3.2",
+      "run_date": "2026-01-21 22:52:19",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "ijms-24-14743-v2_crc_cells_cbd_vs_dmso_DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_cbd_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035219Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=e3a812abc039aceeb9786178ab5cd016c6b5a23432de60abf1576a5048b47808",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_cbd_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035219Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=e3a812abc039aceeb9786178ab5cd016c6b5a23432de60abf1576a5048b47808\", \"name\": \"CBD_vs_DMSO_DEG\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "CBD_vs_DMSO_DEG.csv",
+      "path": "/app/output/user_csvs/CBD_vs_DMSO_DEG.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769053958_ca089f0b"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"padj\", \"op\": \"notnull\", \"value\": null}], \"csv_id\": \"1769053958_ca089f0b\", \"name\": \"significant_DEGs\"}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769053958_ca089f0b.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769053958_ca089f0b.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769053971_54311d8b"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 2,
+      "args": "{\"columns\": [\"Unnamed: 0\", \"log2FoldChange\"], \"csv_id\": \"1769053971_54311d8b\", \"name\": \"significant_DEGs_for_pathway\", \"rename\": {\"Unnamed: 0\": \"gene_id\"}}",
+      "error": "",
+      "id": "step2_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769053971_54311d8b.csv",
+      "path": "/app/output/user_csvs/csv_select_1769053971_54311d8b.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769053980_6c383cd3"
+    },
+    {
+      "type": "report",
+      "length": 298,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769053958_ca089f0b",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769053958_ca089f0b"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769053971_54311d8b",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_select",
+      "target": "1769053971_54311d8b"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769053980_6c383cd3",
+      "target": "step2_csv_select"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0124__Baseline__task_3.3",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "3.3",
+      "run_date": "2026-01-22 01:16:20",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T061620Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=406e3aff538e7d9bb6fefdb2a52799b1a083d62e86ba8b5ffdc15d74de88d8d0",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T061620Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=406e3aff538e7d9bb6fefdb2a52799b1a083d62e86ba8b5ffdc15d74de88d8d0\", \"metadata\": {\"description\": \"Differential expression analysis of ISS vs DMSO in colorectal cancer cells\", \"source\": \"ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv\"}, \"name\": \"ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv",
+      "path": "/app/output/user_csvs/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769062605_4b105028"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769062605_4b105028\", \"name\": \"significant_DEGs\"}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769062605_4b105028.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769062605_4b105028.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769062621_a5477811"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 2,
+      "args": "{\"columns\": [\"Unnamed: 0\", \"log2FoldChange\", \"padj\"], \"csv_id\": \"1769062621_a5477811\", \"name\": \"significant_genes_for_ora\", \"rename\": {\"Unnamed: 0\": \"gene\"}}",
+      "error": "",
+      "id": "step2_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769062621_a5477811.csv",
+      "path": "/app/output/user_csvs/csv_select_1769062621_a5477811.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769062637_201ec393"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 3,
+      "args": "{\"csv_text\": \"gene,log2FoldChange,padj\\nENSG00000237683,-0.2585252334,0.002265455\\nENSG00000248527,0.1963012284,0.0\\nENSG00000223764,1.6071385175,1.3e-09\\nENSG00000187634,1.0786222916,9.361738855e-16\\nENSG00000188976,-0.2832348517,5e-10\\nENSG00000187961,0.1751048914,0.0044918135\\nENSG00000272512,0.7047840493,3.63102e-05\\nENSG00000187608,1.3742452507,6.224206187e-92\\nENSG00000188157,-0.1904567858,4.9849e-06\\nENSG00000217801,0.4051555335,3.00629e-05\\nENSG00000184163,-0.8598796578,7.71699e-05\\nENSG00000260179,-1.190757189,0.0098497578\\nENSG00000162572,0.3961151474,0.0060858668\\nENSG00000221978,-0.1956240192,7.90951e-05\\nENSG00000224870,0.4618467977,3.2618e-05\\nENSG00000225285,0.5707714487,0.0264421438\\nENSG00000179403,0.9451088305,1.54851005e-53\\nENSG00000160072,0.1739692582,0.0165173854\\nENSG00000189339,0.5316210973,2.509166153e-20\\nENSG00000078369,-0.1265837807,8.38945e-05\", \"metadata\": {\"description\": \"Significant genes for pathway analysis with log2FoldChange and padj\"}, \"name\": \"significant_genes_for_ora_renamed\", \"tags\": [\"intermediate\", \"gene_list\"]}",
+      "error": "",
+      "id": "step3_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "significant_genes_for_ora_renamed.csv",
+      "path": "/app/output/user_csvs/significant_genes_for_ora_renamed.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769062652_40d9ac93"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 4,
+      "args": "{\"id\": \"1769062652_40d9ac93\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step4_csv_read"
+    },
+    {
+      "type": "report",
+      "length": 1208,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769062605_4b105028",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769062605_4b105028"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769062621_a5477811",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_select",
+      "target": "1769062621_a5477811"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769062637_201ec393",
+      "target": "step2_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769062652_40d9ac93",
+      "target": "step3_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_read",
+      "target": "1769062652_40d9ac93"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

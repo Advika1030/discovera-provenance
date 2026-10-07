@@ -1,0 +1,127 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0121__Baseline__task_7.2",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "7.2",
+      "run_date": "2026-01-21 22:11:44",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Ahmad_2025_Cancer_Cell_TableS3.xlsx - Elp1HETvsWT;Ptch1gRNA_RNA_GSEA.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Ahmad_2025_Cancer_Cell_TableS3xlsx-Elp1HETvsWTPtch1gRNA_RNA_GSEA.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T031144Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=19b58fb9bd15fb0e6dda7b87e9f9f3e7a5e5bf0a6e91c66b381e2773916702f4",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Ahmad_2025_Cancer_Cell_TableS3xlsx-Elp1HETvsWTPtch1gRNA_RNA_GSEA.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T031144Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=19b58fb9bd15fb0e6dda7b87e9f9f3e7a5e5bf0a6e91c66b381e2773916702f4\", \"name\": \"Ahmad_2025_Cancer_Cell_TableS3.csv\", \"tags\": [\"user_input\", \"GSEA\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Ahmad_2025_Cancer_Cell_TableS3.csv.csv",
+      "path": "/app/output/user_csvs/Ahmad_2025_Cancer_Cell_TableS3.csv.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769051516_434ac4d2"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"qvalue\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769051516_434ac4d2\", \"name\": \"significant_pathways\", \"sort_by\": [\"-NES\"]}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769051516_434ac4d2.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769051516_434ac4d2.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769051530_1c16d30b"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"qvalue\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"NES\", \"op\": \"<\", \"value\": 0}], \"csv_id\": \"1769051516_434ac4d2\", \"name\": \"downregulated_pathways\", \"sort_by\": [\"NES\"]}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769051516_434ac4d2.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769051516_434ac4d2.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769051546_1c16d30b"
+    },
+    {
+      "type": "report",
+      "length": 6074,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769051516_434ac4d2",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769051516_434ac4d2"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769051530_1c16d30b",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1769051516_434ac4d2"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769051546_1c16d30b",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

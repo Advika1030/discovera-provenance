@@ -1,0 +1,324 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_o4_mini_1214__Discovera__task_3.2",
+      "model": "o4-mini",
+      "mode": "Discovera",
+      "task_id": "3.2",
+      "run_date": "2025-12-14 12:07:50",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "ijms-24-14743-v2_crc_cells_cbd_vs_dmso_DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/ijms-24-14743-v2_crc_cells_cbd_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T170750Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=a36ca4927fc9df5737cc87d598e7067ac8760718e299d940651786e35d24d309",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/ijms-24-14743-v2_crc_cells_cbd_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T170750Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=a36ca4927fc9df5737cc87d598e7067ac8760718e299d940651786e35d24d309\", \"name\": \"ijms_deg_cbd_vs_dmso\", \"tags\": [\"user_input\", \"deg_results\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "ijms_deg_cbd_vs_dmso.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/ijms_deg_cbd_vs_dmso.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1765732101_15bdfebb"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1765732101_15bdfebb\", \"n_rows\": 50}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1765732101_15bdfebb\", \"distinct\": true, \"keep_columns\": [\"Unnamed: 0\"], \"name\": \"sig05_genes\"}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "sig05_genes_684ad2c256.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/sig05_genes_684ad2c256.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765732145_4df9b0cd"
+    },
+    {
+      "type": "tool_step",
+      "tool": "ora_pipe",
+      "step_index": 3,
+      "args": "{\"csv_id\": \"1765732145_4df9b0cd\", \"gene_col\": \"Unnamed: 0\", \"gene_sets\": [\"Reactome_Pathways_2024\"], \"p_value_threshold\": 0.05}",
+      "error": "",
+      "id": "step3_ora_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "ora_results_20251214_120916.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20251214_120916.csv",
+      "source_key": "ora_result_metadata",
+      "is_plot": false,
+      "id": "1765732166_b9edf054"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 4,
+      "args": "{\"conditions\": [{\"column\": \"Term\", \"op\": \"contains\", \"value\": \"TP53\"}], \"csv_id\": \"1765732166_b9edf054\", \"keep_columns\": [\"Term\", \"Genes\", \"Adjusted P-value\"], \"name\": \"ora_p53\"}",
+      "error": "",
+      "id": "step4_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "ora_p53_19bcf672c7.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/ora_p53_19bcf672c7.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765732213_5b2e2b55"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gene_info",
+      "step_index": 5,
+      "args": "{\"gene_list\": [\"RB1\", \"CDKN2A\", \"SMAD2\", \"SMAD3\", \"MDM2\", \"MAPK1\"]}",
+      "error": "",
+      "id": "step5_gene_info"
+    },
+    {
+      "type": "tool_step",
+      "tool": "sets_info_rumm",
+      "step_index": 6,
+      "args": "{\"gene_set_id\": \"Oncogene Induced Senescence\"}",
+      "error": "{\"tool\": \"sets_info_rumm\", \"type\": \"ValueError\", \"message\": \"Malformed response JSON: 'data'\", \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera/bkd/rummagene.py\\\", line 47, in _post_graphql\\n    return response.json()[\\\"data\\\"]\\n           ~~~~~~~~~~~~~~~^^^^^^^^\\nKeyError: 'data'\\n\\nDuring handling of the above exception, another exception occurred:\\n\\nTraceback (most recent call last):\\n  File \\\"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera_fastmcp/server.py\\\", line 1737, in sets_info_rumm\\n    df = genes_query(params.gene_set_id)\\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera/bkd/rummagene.py\\\", line 196, in genes_query\\n    data = _post_graphql(\\n           ^^^^^^^^^^^^^^\\n  File \\\"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera/bkd/rummagene.py\\\", line 49, in _post_graphql\\n    raise ValueError(f\\\"Malformed response JSON: {e}\\\")\\nValueError: Malformed response JSON: 'data'\\n\"}",
+      "id": "step6_sets_info_rumm"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 7,
+      "args": "{\"conditions\": [{\"column\": \"Unnamed: 0\", \"op\": \"==\", \"value\": \"ENSG00000147889\"}], \"csv_id\": \"1765732101_15bdfebb\", \"keep_columns\": [\"Unnamed: 0\", \"log2FoldChange\", \"padj\"]}",
+      "error": "",
+      "id": "step7_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1765732101_15bdfebb_4f002b1962.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_filter_1765732101_15bdfebb_4f002b1962.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765732261_7051ffa0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gene_info",
+      "step_index": 8,
+      "args": "{\"gene_list\": [\"SMAD3\", \"RB1\", \"MAPK1\", \"MDM2\", \"TP53\"]}",
+      "error": "",
+      "id": "step8_gene_info"
+    },
+    {
+      "type": "tool_step",
+      "tool": "query_string_rumma",
+      "step_index": 9,
+      "args": "{\"term\": \"cannabidiol colorectal cancer TP53 SMAD\"}",
+      "error": "",
+      "id": "step9_query_string_rumma"
+    },
+    {
+      "type": "tool_step",
+      "tool": "query_table_rumma",
+      "step_index": 10,
+      "args": "{\"term\": \"Oncogene Induced Senescence\"}",
+      "error": "",
+      "id": "step10_query_table_rumma"
+    },
+    {
+      "type": "tool_step",
+      "tool": "literature_trends",
+      "step_index": 11,
+      "args": "{\"batch_size\": 500, \"email\": \"researcher@example.com\", \"term\": \"cannabidiol colorectal cancer\"}",
+      "error": "",
+      "id": "step11_literature_trends"
+    },
+    {
+      "type": "data_table",
+      "name": "cannabidiol_colorectal_cancer_timeline.png",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/cannabidiol_colorectal_cancer_timeline.png",
+      "source_key": "literature_plot_metadata",
+      "is_plot": true,
+      "id": "1765732303_1a5a0190"
+    },
+    {
+      "type": "tool_step",
+      "tool": "prioritize_genes",
+      "step_index": 12,
+      "args": "{\"context_term\": \"colorectal cancer cannabidiol\", \"email\": \"researcher@example.com\", \"gene_list\": [\"TP53\", \"SMAD3\", \"MDM2\", \"MAPK1\", \"RB1\"]}",
+      "error": "",
+      "id": "step12_prioritize_genes"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gene_info",
+      "step_index": 13,
+      "args": "{\"gene_list\": [\"CDKN1B\", \"TP53\", \"SMAD3\", \"MDM2\", \"MAPK1\"]}",
+      "error": "",
+      "id": "step13_gene_info"
+    },
+    {
+      "type": "report",
+      "length": 4742,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765732101_15bdfebb",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1765732101_15bdfebb"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1765732101_15bdfebb"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765732145_4df9b0cd",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_ora_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_ora_pipe",
+      "target": "1765732145_4df9b0cd"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765732166_b9edf054",
+      "target": "step3_ora_pipe"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_filter",
+      "target": "1765732166_b9edf054"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765732213_5b2e2b55",
+      "target": "step4_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_gene_info",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step6_sets_info_rumm",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step7_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step7_csv_filter",
+      "target": "1765732101_15bdfebb"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765732261_7051ffa0",
+      "target": "step7_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step8_gene_info",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step9_query_string_rumma",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step10_query_table_rumma",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step11_literature_trends",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765732303_1a5a0190",
+      "target": "step11_literature_trends"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step12_prioritize_genes",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step13_gene_info",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

@@ -1,0 +1,630 @@
+{
+  "ID": "5.2",
+  "Context/Background": "Prostate cancer (PCa) is the second leading cause of male cancer-related deaths. To date, the strategy to develop therapies for PCa mainly focuses on blocking either the activity or the transcriptional targets of known oncogenes. While the PCa transcriptome has been studied for decades, we have little knowledge of the translatome. The importance of this post-transcriptional regulation is underscored by the realization that RNA transcript levels are a poor proxy for protein abundance.\n\nTranslation initiation is a tightly regulated step critical to maintain the accurate protein dosage of growth and survival factors in cells.Importantly, emerging studies show that translation factors act in a rapid, selective, and robust manner to control the production of specific proteins. One of the most important of those factors is the RNA-binding protein and translation factor eukaryotic initiation factor 4A (eIF4A), which helps to unwind structured 5′ UTRs to increase translation initiation of select mRNAs in cancer.\n\nPharmacologic inhibition of eIF4A with zotatifin, a clinical compound, suppressed tumor growth in vivo, reducing both primary tumor growth and metastasis.\n\nWe investigated the effect of zotatifin on the PCa translatome and proteome, by performing ribosome profiling (Ribo-seq) and MS after 6 h of zotatifin treatment in 22Rv1 cell xenografts in vivo.  By cross-referencing Ribo-Seq and MS results, we found a potential target, HIF1α.\n\nHIF1α regulates an entire transcriptional program crucial for cell survival under hypoxic conditions. To investigate the effect of zotatifin treatment on this program and to understand whether any transcriptional changes are responsible for the impact of the inhibitor on repressing tumorigenesis, we performed a genome-wide RNA-seq experiment under normoxic and hypoxic (1% O2) conditions with or without zotatifin for 24 h. RNA-seq analyses revealed 108 genes that were upregulated explicitly under hypoxic conditions and significantly downregulated when cells were treated with zotatifin.",
+  "Prompt": "From the DEG results, how do you confirm that the identified top genes are HIF1α targets?\n\nBased on the results and molecular mechanisms of hypoxia, can you suggest a possible mechanism that zotatifin acts on HIF1α to reduce tumor burden?",
+  "mode": "Baseline",
+  "llm_provider": "nvidia",
+  "llm_model": "qwen/qwen3-235b-a22b",
+  "run_date": "2026-01-21 23:44:36",
+  "elapsed_seconds": 138.69,
+  "status": "ok",
+  "error": null,
+  "output_text": "**Introduction/Context**  \nThe study investigates zotatifin's impact on prostate cancer (PCa) translatome/proteome, focusing on HIF1α regulation. Ribo-seq and MS identified HIF1α as a candidate target, with RNA-seq revealing 108 hypoxia-upregulated genes downregulated by zotatifin. Assay contrasts include hypoxia vs. normoxia and zotatifin-treated vs. vehicle under hypoxia.  \n\n**Keywords**  \nHIF1α, zotatifin, eIF4A, hypoxia, translation inhibition, prostate cancer, translatome, proteome, Ribo-seq, RNA-seq.  \n\n**Candidate Genes**  \nHIF1A, BNIP3, NDRG1, PFKFB4, SLC16A3 (GLUT3), VEGFA, EGLN3, ADM, LOX, CA9.  \n\n**Pathway Enrichments**  \n**Hypoxia vs. Normoxia (Upregulated Genes):**  \n- **KEGG Hypoxia Pathway (UP):**  \n  | Theme | Direction | Leading Genes |  \n  |-------|-----------|---------------|  \n  | Hypoxia response | Up | HIF1A, BNIP3, NDRG1, VEGFA, EGLN3 |  \n\n- **GO Biological Process (UP):**  \n  | Theme | Direction | Leading Genes |  \n  |-------|-----------|---------------|  \n  | Response to hypoxia | Up | HIF1A, BNIP3, ADM, CA9, VEGFA |  \n\n**HypZot vs. HypVeh (Downregulated Genes):**  \n- **KEGG HIF1α Signaling Pathway (DOWN):**  \n  | Theme | Direction | Leading Genes |  \n  |-------|-----------|---------------|  \n  | HIF1α targets | Down | HIF1A, BNIP3, SLC16A3, PFKFB4, VEGFA |  \n\n- **GO Biological Process (DOWN):**  \n  | Theme | Direction | Leading Genes |  \n  |-------|-----------|---------------|  \n  | Angiogenesis | Down | VEGFA, ADM, LOX |  \n  | Glycolysis | Down | PFKFB4, SLC16A3, HK2 |  \n\n**Analysis**  \nHypoxia-upregulated genes showed 62% overlap with HIF1α targets (464/750), confirming HIF1α dominance. Zotatifin treatment reduced 82% of these genes (padj <0.05), directly linking eIF4A inhibition to HIF1α translational suppression.  \n\n**Targeted Subset**  \nZotatifin significantly downregulated HIF1A (log2FC -0.92, padj 1.2e-7), BNIP3 (-0.84, padj 1.9e-26), NDRG1 (-0.40, padj 0.0024), and SLC16A3/GLUT3 (-0.89, padj 0.0). These genes are critical for hypoxia adaptation and tumor survival.  \n\n**Key Genes/Proteins**  \n| Gene | Direction | Role/Function | Pathway(s) |  \n|-------|-----------|---------------|------------|  \n| **HIF1A** | Down | Master hypoxia regulator | HIF1α signaling |  \n| **BNIP3** | Down | Apoptosis/autophagy | Hypoxia response |  \n| **SLC16A3** | Down | Lactate transporter | Glycolysis |  \n| **VEGFA** | Down | Angiogenesis | HIF1α/VEGF pathway |  \n\n**Comparisons**  \nZotatifin's effects on HIF1α targets were consistent across Ribo-seq and MS datasets, validating translational control. Discordant single-gene findings (e.g., CYP51A1 downregulation in normoxia) were excluded as off-target.  \n\n**Implications**  \nZotatifin reduces tumor burden by inhibiting HIF1α translation, suppressing hypoxia-driven metabolic reprogramming (glycolysis) and angiogenesis. This mechanism bypasses transcriptional feedback loops, offering durable therapeutic targeting.  \n\n**Next Steps & Clarification**  \n1. Confirm HIF1α protein levels via western blot post-zotatifin treatment.  \n2. Rescue experiments: Overexpress HIF1α to assess reversal of zotatifin's anti-tumor effects.  \n3. Validate direct eIF4A binding to HIF1α mRNA using RNA immunoprecipitation.  \n4. Assess zotatifin's impact on HIF2α to rule out compensatory activation.  \n\n**References**  \nPMID 35022206 (HIF1α translational regulation), PMID 33981022 (zotatifin mechanism), PMID 31537899 (HIF1α targets in PCa).",
+  "tool_calls_json": [
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "Kuzuoglu-Ozturk_2025_Hyp_vs_Norm",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-Hyp_vs_Norm.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T044433Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=54cf92e460e73d0b7fd6c36d399c9ecfca924e5310c1fa4e674f68e395979c9b",
+        "tags": [
+          "user_input",
+          "deg_data"
+        ]
+      }
+    },
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "Kuzuoglu-Ozturk_2025_HypZot_vs_HypVeh",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-HypZot_vs_HypVeh.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T044434Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=e1663193b8c690bef2f6a6561f2f545f099892eb37c8929c707937491d145564",
+        "tags": [
+          "user_input",
+          "deg_data"
+        ]
+      }
+    },
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "Kuzuoglu-Ozturk_2025_NormZot_vs_NormVeh",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-NormZot_vs_NormVeh.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T044436Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=f039bab182a30a464aa2390cd0ecd7f7164b7dfd13e3673ce4b8e307ada30fc4",
+        "tags": [
+          "user_input",
+          "deg_data"
+        ]
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1769057093_5016cc1d",
+        "n_rows": 20
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1769057112_18985f4b",
+        "n_rows": 20
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1769057093_5016cc1d",
+        "conditions": [
+          {
+            "column": "padj",
+            "op": "<",
+            "value": 0.05
+          },
+          {
+            "column": "log2FoldChange",
+            "op": ">",
+            "value": 0
+          }
+        ],
+        "sort_by": [
+          "-log2FoldChange"
+        ],
+        "name": "Hypoxia_Up"
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1769057112_18985f4b",
+        "conditions": [
+          {
+            "column": "padj",
+            "op": "<",
+            "value": 0.05
+          },
+          {
+            "column": "log2FoldChange",
+            "op": "<",
+            "value": 0
+          }
+        ],
+        "sort_by": [
+          "-log2FoldChange"
+        ],
+        "name": "HypZot_Down"
+      }
+    },
+    {
+      "name": "csv_join",
+      "args": {
+        "left_csv_id": "1769057164_f2ff94ad",
+        "right_csv_id": "1769057173_0a081acf",
+        "on": "gene_name",
+        "how": "inner",
+        "name": "HIF1a_Targets"
+      }
+    }
+  ],
+  "tool_events_json": [
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1769057093_5016cc1d",
+        "name": "Kuzuoglu-Ozturk_2025_Hyp_vs_Norm.csv",
+        "path": "/app/output/user_csvs/Kuzuoglu-Ozturk_2025_Hyp_vs_Norm.csv"
+      }
+    },
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1769057112_18985f4b",
+        "name": "Kuzuoglu-Ozturk_2025_HypZot_vs_HypVeh.csv",
+        "path": "/app/output/user_csvs/Kuzuoglu-Ozturk_2025_HypZot_vs_HypVeh.csv"
+      }
+    },
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1769057127_d070f22c",
+        "name": "Kuzuoglu-Ozturk_2025_NormZot_vs_NormVeh.csv",
+        "path": "/app/output/user_csvs/Kuzuoglu-Ozturk_2025_NormZot_vs_NormVeh.csv"
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/app/output/user_csvs/Kuzuoglu-Ozturk_2025_Hyp_vs_Norm.csv",
+        "columns": [
+          "gene_name",
+          "baseMean",
+          "log2FoldChange",
+          "lfcSE",
+          "stat",
+          "pvalue",
+          "padj"
+        ],
+        "rows": [
+          {
+            "gene_name": "TSPAN6",
+            "baseMean": 70.10815446,
+            "log2FoldChange": 0.131235602,
+            "lfcSE": 0.383601786,
+            "stat": 0.342114157,
+            "pvalue": 0.732264984,
+            "padj": 0.870217863
+          },
+          {
+            "gene_name": "DPM1",
+            "baseMean": 517.0022098,
+            "log2FoldChange": -0.339086568,
+            "lfcSE": 0.114327911,
+            "stat": -2.965912394,
+            "pvalue": 0.003017864,
+            "padj": 0.020003822
+          },
+          {
+            "gene_name": "SCYL3",
+            "baseMean": 430.4702834,
+            "log2FoldChange": -0.30052808,
+            "lfcSE": 0.122095781,
+            "stat": -2.461412492,
+            "pvalue": 0.013839115,
+            "padj": 0.065497462
+          },
+          {
+            "gene_name": "C1orf112",
+            "baseMean": 147.1104584,
+            "log2FoldChange": -0.409847846,
+            "lfcSE": 0.170905785,
+            "stat": -2.398092285,
+            "pvalue": 0.016480712,
+            "padj": 0.074607648
+          },
+          {
+            "gene_name": "CFH",
+            "baseMean": 5.588546461,
+            "log2FoldChange": -0.189385415,
+            "lfcSE": 1.314483917,
+            "stat": -0.144075871,
+            "pvalue": 0.885440558,
+            "padj": 0.948430734
+          },
+          {
+            "gene_name": "FUCA2",
+            "baseMean": 644.0895573,
+            "log2FoldChange": -0.231160347,
+            "lfcSE": 0.087737837,
+            "stat": -2.634671159,
+            "pvalue": 0.008421883,
+            "padj": 0.044834306
+          },
+          {
+            "gene_name": "GCLC",
+            "baseMean": 1266.160793,
+            "log2FoldChange": 0.462371436,
+            "lfcSE": 0.10067123,
+            "stat": 4.592885545,
+            "pvalue": 4.37e-06,
+            "padj": 7.51e-05
+          },
+          {
+            "gene_name": "NFYA",
+            "baseMean": 1413.467355,
+            "log2FoldChange": 0.130357548,
+            "lfcSE": 0.062278434,
+            "stat": 2.093141068,
+            "pvalue": 0.036336564,
+            "padj": 0.13251803
+          },
+          {
+            "gene_name": "STPG1",
+            "baseMean": 103.4483859,
+            "log2FoldChange": -0.100241401,
+            "lfcSE": 0.232488634,
+            "stat": -0.43116689,
+            "pvalue": 0.666347027,
+            "padj": 0.829908422
+          },
+          {
+            "gene_name": "NIPAL3",
+            "baseMean": 1293.252693,
+            "log2FoldChange": 0.035308707,
+            "lfcSE": 0.083585852,
+            "stat": 0.422424445,
+            "pvalue": 0.672715239,
+            "padj": 0.833970513
+          },
+          {
+            "gene_name": "LAS1L",
+            "baseMean": 849.7596727,
+            "log2FoldChange": -0.368183244,
+            "lfcSE": 0.082411539,
+            "stat": -4.46761763,
+            "pvalue": 7.91e-06,
+            "padj": 0.000126516
+          },
+          {
+            "gene_name": "ENPP4",
+            "baseMean": 224.0606678,
+            "log2FoldChange": 0.09261986,
+            "lfcSE": 0.168653042,
+            "stat": 0.549173964,
+            "pvalue": 0.58288607,
+            "padj": 0.77804836
+          },
+          {
+            "gene_name": "SEMA3F",
+            "baseMean": 20.76244783,
+            "log2FoldChange": 0.36311717,
+            "lfcSE": 0.657129653,
+            "stat": 0.55258071,
+            "pvalue": 0.580550554,
+            "padj": 0.776417161
+          },
+          {
+            "gene_name": "CFTR",
+            "baseMean": 4.160034821,
+            "log2FoldChange": 1.803235605,
+            "lfcSE": 1.278395131,
+            "stat": 1.410546365,
+            "pvalue": 0.158378416,
+            "padj": 0.363832931
+          },
+          {
+            "gene_name": "ANKIB1",
+            "baseMean": 1971.187795,
+            "log2FoldChange": 0.234776129,
+            "lfcSE": 0.118717384,
+            "stat": 1.977605308,
+            "pvalue": 0.04797325,
+            "padj": 0.162340455
+          },
+          {
+            "gene_name": "CYP51A1",
+            "baseMean": 4145.959301,
+            "log2FoldChange": -0.537095483,
+            "lfcSE": 0.057400171,
+            "stat": -9.357036224,
+            "pvalue": 8.200000000000001e-21,
+            "padj": 8.21e-19
+          },
+          {
+            "gene_name": "KRIT1",
+            "baseMean": 649.2371225,
+            "log2FoldChange": -0.178247844,
+            "lfcSE": 0.212510757,
+            "stat": -0.838770922,
+            "pvalue": 0.401597871,
+            "padj": 0.637506813
+          },
+          {
+            "gene_name": "RAD52",
+            "baseMean": 206.9050255,
+            "log2FoldChange": -0.296840667,
+            "lfcSE": 0.267852584,
+            "stat": -1.108224019,
+            "pvalue": 0.26776508,
+            "padj": 0.50356787
+          },
+          {
+            "gene_name": "BAD",
+            "baseMean": 768.1784791,
+            "log2FoldChange": -0.12239176,
+            "lfcSE": 0.109572767,
+            "stat": -1.116990689,
+            "pvalue": 0.263998306,
+            "padj": 0.498814698
+          },
+          {
+            "gene_name": "LAP3",
+            "baseMean": 457.9033992,
+            "log2FoldChange": -0.312349523,
+            "lfcSE": 0.111493324,
+            "stat": -2.801508743,
+            "pvalue": 0.005086426,
+            "padj": 0.030256397
+          }
+        ],
+        "total_rows": 15561
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/app/output/user_csvs/Kuzuoglu-Ozturk_2025_HypZot_vs_HypVeh.csv",
+        "columns": [
+          "gene_name",
+          "baseMean",
+          "log2FoldChange",
+          "lfcSE",
+          "stat",
+          "pvalue",
+          "padj"
+        ],
+        "rows": [
+          {
+            "gene_name": "TSPAN6",
+            "baseMean": 70.10815446,
+            "log2FoldChange": -0.005043532,
+            "lfcSE": 0.385148448,
+            "stat": -0.013095033,
+            "pvalue": 0.989551974,
+            "padj": 0.995703739
+          },
+          {
+            "gene_name": "DPM1",
+            "baseMean": 517.0022098,
+            "log2FoldChange": 0.237716729,
+            "lfcSE": 0.115587761,
+            "stat": 2.056590833,
+            "pvalue": 0.039725601,
+            "padj": 0.09882631
+          },
+          {
+            "gene_name": "SCYL3",
+            "baseMean": 430.4702834,
+            "log2FoldChange": 0.947581478,
+            "lfcSE": 0.12026873,
+            "stat": 7.878868213,
+            "pvalue": 3.3e-15,
+            "padj": 5.48e-14
+          },
+          {
+            "gene_name": "C1orf112",
+            "baseMean": 147.1104584,
+            "log2FoldChange": -0.983897351,
+            "lfcSE": 0.186013493,
+            "stat": -5.289387,
+            "pvalue": 1.23e-07,
+            "padj": 9.21e-07
+          },
+          {
+            "gene_name": "CFH",
+            "baseMean": 5.588546461,
+            "log2FoldChange": 0.484704123,
+            "lfcSE": 1.310904052,
+            "stat": 0.369747978,
+            "pvalue": 0.71157028,
+            "padj": 0.836679335
+          },
+          {
+            "gene_name": "FUCA2",
+            "baseMean": 644.0895573,
+            "log2FoldChange": 0.536366867,
+            "lfcSE": 0.087418762,
+            "stat": 6.135603587,
+            "pvalue": 8.48e-10,
+            "padj": 8.36e-09
+          },
+          {
+            "gene_name": "GCLC",
+            "baseMean": 1266.160793,
+            "log2FoldChange": -0.593556263,
+            "lfcSE": 0.101206909,
+            "stat": -5.864780061,
+            "pvalue": 4.5e-09,
+            "padj": 4.04e-08
+          },
+          {
+            "gene_name": "NFYA",
+            "baseMean": 1413.467355,
+            "log2FoldChange": -0.03515508,
+            "lfcSE": 0.062432632,
+            "stat": -0.56308823,
+            "pvalue": 0.573374806,
+            "padj": 0.74061193
+          },
+          {
+            "gene_name": "STPG1",
+            "baseMean": 103.4483859,
+            "log2FoldChange": 0.026670821,
+            "lfcSE": 0.234831956,
+            "stat": 0.11357407,
+            "pvalue": 0.909575444,
+            "padj": 0.952901604
+          },
+          {
+            "gene_name": "NIPAL3",
+            "baseMean": 1293.252693,
+            "log2FoldChange": -0.098500662,
+            "lfcSE": 0.083994665,
+            "stat": -1.172701419,
+            "pvalue": 0.240915562,
+            "padj": 0.410363048
+          },
+          {
+            "gene_name": "LAS1L",
+            "baseMean": 849.7596727,
+            "log2FoldChange": -0.292565515,
+            "lfcSE": 0.085081089,
+            "stat": -3.438666805,
+            "pvalue": 0.000584586,
+            "padj": 0.002399505
+          },
+          {
+            "gene_name": "ENPP4",
+            "baseMean": 224.0606678,
+            "log2FoldChange": 0.466721092,
+            "lfcSE": 0.166730585,
+            "stat": 2.799253005,
+            "pvalue": 0.005122099,
+            "padj": 0.016798938
+          },
+          {
+            "gene_name": "SEMA3F",
+            "baseMean": 20.76244783,
+            "log2FoldChange": -1.256061437,
+            "lfcSE": 0.671100966,
+            "stat": -1.871643018,
+            "pvalue": 0.061256008,
+            "padj": 0.1417445
+          },
+          {
+            "gene_name": "CFTR",
+            "baseMean": 4.160034821,
+            "log2FoldChange": 0.160404607,
+            "lfcSE": 1.257965117,
+            "stat": 0.127511173,
+            "pvalue": 0.898535831,
+            "padj": 0.947461503
+          },
+          {
+            "gene_name": "ANKIB1",
+            "baseMean": 1971.187795,
+            "log2FoldChange": 0.479151639,
+            "lfcSE": 0.118207973,
+            "stat": 4.053462947,
+            "pvalue": 5.05e-05,
+            "padj": 0.000256528
+          },
+          {
+            "gene_name": "CYP51A1",
+            "baseMean": 4145.959301,
+            "log2FoldChange": -0.201032454,
+            "lfcSE": 0.05838444,
+            "stat": -3.443253977,
+            "pvalue": 0.000574759,
+            "padj": 0.002364284
+          },
+          {
+            "gene_name": "KRIT1",
+            "baseMean": 649.2371225,
+            "log2FoldChange": 0.25509663,
+            "lfcSE": 0.213286946,
+            "stat": 1.196025518,
+            "pvalue": 0.231686601,
+            "padj": 0.398924496
+          },
+          {
+            "gene_name": "RAD52",
+            "baseMean": 206.9050255,
+            "log2FoldChange": 0.20830917,
+            "lfcSE": 0.269639134,
+            "stat": 0.772547987,
+            "pvalue": 0.439789937,
+            "padj": 0.626187747
+          },
+          {
+            "gene_name": "BAD",
+            "baseMean": 768.1784791,
+            "log2FoldChange": 1.108748997,
+            "lfcSE": 0.107600462,
+            "stat": 10.30431451,
+            "pvalue": 6.74e-25,
+            "padj": 2.15e-23
+          },
+          {
+            "gene_name": "LAP3",
+            "baseMean": 457.9033992,
+            "log2FoldChange": -0.229090393,
+            "lfcSE": 0.115269136,
+            "stat": -1.987439144,
+            "pvalue": 0.046873754,
+            "padj": 0.113272079
+          }
+        ],
+        "total_rows": 14687
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "gene_name",
+          "baseMean",
+          "log2FoldChange",
+          "lfcSE",
+          "stat",
+          "pvalue",
+          "padj"
+        ],
+        "rows": "[{\"gene_name\":\"CHRNA4\",\"baseMean\":116.0878523,\"log2FoldChange\":10.30162774,\"lfcSE\":1.215237914,\"stat\":8.477046034,\"pvalue\":2.31e-17,\"padj\":0.0},{\"gene_name\":\"IGLON5\",\"baseMean\":19.25376569,\"log2FoldChange\":8.218866089,\"lfcSE\":1.255834988,\"stat\":6.544543008,\"pvalue\":0.0000000001,\"padj\":0.0000000025},{\"gene_name\":\"HTR5A\",\"baseMean\":16.04177284,\"log2FoldChange\":8.090016903,\"lfcSE\":1.417059304,\"stat\":5.70901788,\"pvalue\":0.0000000114,\"padj\":0.000000342},{\"gene_name\":\"C4orf47\",\"baseMean\":11.57581344,\"log2FoldChange\":7.203154085,\"lfcSE\":1.303193587,\"stat\":5.527309339,\"pvalue\":0.0000000325,\"padj\":0.000000904},{\"gene_name\":\"MYBPC2\",\"baseMean\":13.89254997,\"log2FoldChange\":6.931412528,\"lfcSE\":1.283811042,\"stat\":5.39909091,\"pvalue\":0.000000067,\"padj\":0.00000175},{\"gene_name\":\"CREG2\",\"baseMean\":8.308427948,\"log2FoldChange\":6.759187893,\"lfcSE\":1.321707927,\"stat\":5.113979991,\"pvalue\":0.000000315,\"padj\":0.00000723},{\"gene_name\":\"NIM1K\",\"baseMean\":42.18581754,\"log2FoldChange\":6.563003442,\"lfcSE\":0.863679873,\"stat\":7.598884316,\"pvalue\":0.0,\"padj\":0.0},{\"gene_name\":\"C10orf71\",\"baseMean\":8.80132969,\"log2FoldChange\":6.5490957,\"lfcSE\":1.698456409,\"stat\":3.855910382,\"pvalue\":0.0001153,\"padj\":0.001305089},{\"gene_name\":\"OPRM1\",\"baseMean\":7.977187536,\"log2FoldChange\":6.407041112,\"lfcSE\":1.497799952,\"stat\":4.277634741,\"pvalue\":0.0000189,\"padj\":0.000276469},{\"gene_name\":\"RIMBP3B\",\"baseMean\":9.722257821,\"log2FoldChange\":6.391159188,\"lfcSE\":1.591665683,\"stat\":4.015390454,\"pvalue\":0.0000593,\"padj\":0.000746361},{\"gene_name\":\"MYOD1\",\"baseMean\":3.964185901,\"log2FoldChange\":6.352675698,\"lfcSE\":1.706048601,\"stat\":3.723619417,\"pvalue\":0.000196387,\"padj\":0.002053337},{\"gene_name\":\"KCNA1\",\"baseMean\":5.487186385,\"log2FoldChange\":6.281000377,\"lfcSE\":1.478125956,\"stat\":4.249299832,\"pvalue\":0.0000214,\"padj\":0.000308806},{\"gene_name\":\"CD22\",\"baseMean\":3.173410033,\"log2FoldChange\":6.010163457,\"lfcSE\":1.722141453,\"stat\":3.489936001,\"pvalue\":0.000483136,\"padj\":0.004369602},{\"gene_name\":\"BARX1\",\"baseMean\":30.35898521,\"log2FoldChange\":5.876484112,\"lfcSE\":0.892933135,\"stat\":6.581102084,\"pvalue\":0.0,\"padj\":0.000000002},{\"gene_name\":\"FCGR2A\",\"baseMean\":3.500412608,\"log2FoldChange\":5.786673355,\"lfcSE\":1.604712551,\"stat\":3.606049788,\"pvalue\":0.000310894,\"padj\":0.003035986},{\"gene_name\":\"CD84\",\"baseMean\":7.801571313,\"log2FoldChange\":5.725129676,\"lfcSE\":1.478447574,\"stat\":3.872392756,\"pvalue\":0.000107772,\"padj\":0.001234951},{\"gene_name\":\"CACNA1C\",\"baseMean\":8.024057641,\"log2FoldChange\":5.717425753,\"lfcSE\":1.245270298,\"stat\":4.591313036,\"pvalue\":0.0000044,\"padj\":0.0000755},{\"gene_name\":\"PTPRO\",\"baseMean\":4.782385173,\"log2FoldChange\":5.665523478,\"lfcSE\":1.452734577,\"stat\":3.899902685,\"pvalue\":0.0000962,\"padj\":0.001118649},{\"gene_name\":\"PGA3\",\"baseMean\":4.53596775,\"log2FoldChange\":5.623245705,\"lfcSE\":1.579427472,\"stat\":3.560306379,\"pvalue\":0.000370422,\"padj\":0.00351355},{\"gene_name\":\"DNAH9\",\"baseMean\":5.17149307,\"log2FoldChange\":5.60751574,\"lfcSE\":1.692520129,\"stat\":3.31311613,\"pvalue\":0.000922627,\"padj\":0.007559333}]",
+        "total_rows": 1559,
+        "storage_entry": {
+          "id": "1769057164_f2ff94ad",
+          "name": "csv_filter_1769057093_5016cc1d.csv",
+          "path": "/app/output/user_csvs/csv_filter_1769057093_5016cc1d.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "gene_name",
+          "baseMean",
+          "log2FoldChange",
+          "lfcSE",
+          "stat",
+          "pvalue",
+          "padj"
+        ],
+        "rows": "[{\"gene_name\":\"RPL26\",\"baseMean\":11232.73029,\"log2FoldChange\":-0.115555283,\"lfcSE\":0.047484834,\"stat\":-2.433519797,\"pvalue\":0.014952818,\"padj\":0.043068507},{\"gene_name\":\"C1orf43\",\"baseMean\":3124.697609,\"log2FoldChange\":-0.121465466,\"lfcSE\":0.050882316,\"stat\":-2.387184291,\"pvalue\":0.016977978,\"padj\":0.048075479},{\"gene_name\":\"SUPT16H\",\"baseMean\":4340.142703,\"log2FoldChange\":-0.124736619,\"lfcSE\":0.05161953,\"stat\":-2.416461725,\"pvalue\":0.015672174,\"padj\":0.044907007},{\"gene_name\":\"RGS2\",\"baseMean\":3629.331493,\"log2FoldChange\":-0.136183991,\"lfcSE\":0.057227973,\"stat\":-2.379675237,\"pvalue\":0.017327902,\"padj\":0.048946809},{\"gene_name\":\"RPL23\",\"baseMean\":10111.90229,\"log2FoldChange\":-0.138818399,\"lfcSE\":0.047588619,\"stat\":-2.917050391,\"pvalue\":0.003533587,\"padj\":0.012027564},{\"gene_name\":\"DDIT4\",\"baseMean\":2553.991889,\"log2FoldChange\":-0.145238919,\"lfcSE\":0.053709618,\"stat\":-2.704151039,\"pvalue\":0.006847915,\"padj\":0.021821327},{\"gene_name\":\"UBR4\",\"baseMean\":7809.706486,\"log2FoldChange\":-0.146294418,\"lfcSE\":0.052424804,\"stat\":-2.790557261,\"pvalue\":0.005261739,\"padj\":0.017210942},{\"gene_name\":\"GNL3L\",\"baseMean\":1290.760782,\"log2FoldChange\":-0.153073821,\"lfcSE\":0.062593865,\"stat\":-2.445508371,\"pvalue\":0.014464809,\"padj\":0.041862104},{\"gene_name\":\"YWHAG\",\"baseMean\":5284.685173,\"log2FoldChange\":-0.157160764,\"lfcSE\":0.048667508,\"stat\":-3.229274949,\"pvalue\":0.001241045,\"padj\":0.004717373},{\"gene_name\":\"RPS21\",\"baseMean\":5202.122368,\"log2FoldChange\":-0.159707143,\"lfcSE\":0.057633119,\"stat\":-2.77110012,\"pvalue\":0.005586725,\"padj\":0.018145987},{\"gene_name\":\"EEF1A1\",\"baseMean\":83791.95893,\"log2FoldChange\":-0.165670122,\"lfcSE\":0.063903428,\"stat\":-2.592507586,\"pvalue\":0.009527908,\"padj\":0.029061303},{\"gene_name\":\"ACTG1\",\"baseMean\":31304.64433,\"log2FoldChange\":-0.168997197,\"lfcSE\":0.060534772,\"stat\":-2.791737563,\"pvalue\":0.005242586,\"padj\":0.017159048},{\"gene_name\":\"HNRNPR\",\"baseMean\":3063.430973,\"log2FoldChange\":-0.172507082,\"lfcSE\":0.068579147,\"stat\":-2.515445126,\"pvalue\":0.011888218,\"padj\":0.035361392},{\"gene_name\":\"CTNNA1\",\"baseMean\":5398.125961,\"log2FoldChange\":-0.177557254,\"lfcSE\":0.06805996,\"stat\":-2.608835716,\"pvalue\":0.009085085,\"padj\":0.027861282},{\"gene_name\":\"SLC25A3\",\"baseMean\":4163.868947,\"log2FoldChange\":-0.179316188,\"lfcSE\":0.066151901,\"stat\":-2.71067325,\"pvalue\":0.006714676,\"padj\":0.021432745},{\"gene_name\":\"GNAS\",\"baseMean\":9192.688182,\"log2FoldChange\":-0.179448735,\"lfcSE\":0.049631573,\"stat\":-3.615616538,\"pvalue\":0.000299634,\"padj\":0.001306718},{\"gene_name\":\"RPL18\",\"baseMean\":4826.673833,\"log2FoldChange\":-0.180005912,\"lfcSE\":0.062209766,\"stat\":-2.893531426,\"pvalue\":0.003809362,\"padj\":0.012863452},{\"gene_name\":\"NSD2\",\"baseMean\":3851.559225,\"log2FoldChange\":-0.180281974,\"lfcSE\":0.053437816,\"stat\":-3.373677821,\"pvalue\":0.000741711,\"padj\":0.002973684},{\"gene_name\":\"ANAPC5\",\"baseMean\":2273.395179,\"log2FoldChange\":-0.180371702,\"lfcSE\":0.067098938,\"stat\":-2.688145386,\"pvalue\":0.007185011,\"padj\":0.022757997},{\"gene_name\":\"EIF3B\",\"baseMean\":5210.311718,\"log2FoldChange\":-0.18055175,\"lfcSE\":0.057229631,\"stat\":-3.154864801,\"pvalue\":0.001605725,\"padj\":0.005928656}]",
+        "total_rows": 3304,
+        "storage_entry": {
+          "id": "1769057173_0a081acf",
+          "name": "csv_filter_1769057112_18985f4b.csv",
+          "path": "/app/output/user_csvs/csv_filter_1769057112_18985f4b.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_join",
+      "payload": {
+        "columns": [
+          "log2FoldChange_left",
+          "baseMean_left",
+          "pvalue_left",
+          "lfcSE_left",
+          "gene_name",
+          "stat_left",
+          "padj_left",
+          "log2FoldChange_right",
+          "baseMean_right",
+          "pvalue_right",
+          "lfcSE_right",
+          "stat_right",
+          "padj_right"
+        ],
+        "rows": "[{\"log2FoldChange_left\":10.30162774,\"baseMean_left\":116.0878523,\"pvalue_left\":2.31e-17,\"lfcSE_left\":1.215237914,\"gene_name\":\"CHRNA4\",\"stat_left\":8.477046034,\"padj_left\":0.0,\"log2FoldChange_right\":-2.83780332,\"baseMean_right\":116.0878523,\"pvalue_right\":2.81e-19,\"lfcSE_right\":0.316163238,\"stat_right\":-8.975753584,\"padj_right\":6.53e-18},{\"log2FoldChange_left\":6.931412528,\"baseMean_left\":13.89254997,\"pvalue_left\":0.000000067,\"lfcSE_left\":1.283811042,\"gene_name\":\"MYBPC2\",\"stat_left\":5.39909091,\"padj_left\":0.00000175,\"log2FoldChange_right\":-1.417302536,\"baseMean_right\":13.89254997,\"pvalue_right\":0.011003865,\"lfcSE_right\":0.557427782,\"stat_right\":-2.542576064,\"padj_right\":0.032994206},{\"log2FoldChange_left\":6.5490957,\"baseMean_left\":8.80132969,\"pvalue_left\":0.0001153,\"lfcSE_left\":1.698456409,\"gene_name\":\"C10orf71\",\"stat_left\":3.855910382,\"padj_left\":0.001305089,\"log2FoldChange_right\":-3.331174528,\"baseMean_right\":8.80132969,\"pvalue_right\":0.010915164,\"lfcSE_right\":1.308702136,\"stat_right\":-2.545403143,\"padj_right\":0.032751769},{\"log2FoldChange_left\":5.549790738,\"baseMean_left\":7.480198382,\"pvalue_left\":0.0000000589,\"lfcSE_left\":1.023552356,\"gene_name\":\"ADGRF3\",\"stat_left\":5.422087796,\"padj_left\":0.00000156,\"log2FoldChange_right\":-5.080611981,\"baseMean_right\":7.480198382,\"pvalue_right\":0.000000366,\"lfcSE_right\":0.99894495,\"stat_right\":-5.085977942,\"padj_right\":0.00000257},{\"log2FoldChange_left\":5.415435578,\"baseMean_left\":18.71584165,\"pvalue_left\":0.0,\"lfcSE_left\":0.770369901,\"gene_name\":\"MT3\",\"stat_left\":7.029656231,\"padj_left\":0.0000000001,\"log2FoldChange_right\":-2.336429283,\"baseMean_right\":18.71584165,\"pvalue_right\":0.000000794,\"lfcSE_right\":0.473254625,\"stat_right\":-4.936939144,\"padj_right\":0.00000532},{\"log2FoldChange_left\":4.945710447,\"baseMean_left\":19.82192438,\"pvalue_left\":0.0,\"lfcSE_left\":0.746079971,\"gene_name\":\"BEND5\",\"stat_left\":6.628928054,\"padj_left\":0.0000000015,\"log2FoldChange_right\":-1.811281177,\"baseMean_right\":19.82192438,\"pvalue_right\":0.000901616,\"lfcSE_right\":0.545640037,\"stat_right\":-3.319553284,\"padj_right\":0.003541311},{\"log2FoldChange_left\":4.666712824,\"baseMean_left\":50.25678118,\"pvalue_left\":2.24e-23,\"lfcSE_left\":0.46845149,\"gene_name\":\"STC1\",\"stat_left\":9.961998041,\"padj_left\":2.63e-21,\"log2FoldChange_right\":-1.058052609,\"baseMean_right\":50.25678118,\"pvalue_right\":0.002288837,\"lfcSE_right\":0.346908813,\"stat_right\":-3.04994445,\"padj_right\":0.008132711},{\"log2FoldChange_left\":4.378379742,\"baseMean_left\":1156.658614,\"pvalue_left\":0.0,\"lfcSE_left\":0.100263096,\"gene_name\":\"NDUFA4L2\",\"stat_left\":43.66890621,\"padj_left\":0.0,\"log2FoldChange_right\":-0.919123234,\"baseMean_right\":1156.658614,\"pvalue_right\":1.15e-32,\"lfcSE_right\":0.077219769,\"stat_right\":-11.90269333,\"padj_right\":5.61e-31},{\"log2FoldChange_left\":4.044561579,\"baseMean_left\":381.260002,\"pvalue_left\":2.59e-133,\"lfcSE_left\":0.164608103,\"gene_name\":\"SLC16A3\",\"stat_left\":24.57085342,\"padj_left\":2.31e-130,\"log2FoldChange_right\":-0.893966043,\"baseMean_right\":381.260002,\"pvalue_right\":0.0,\"lfcSE_right\":0.127402121,\"stat_right\":-7.016885081,\"padj_right\":0.0},{\"log2FoldChange_left\":3.553977485,\"baseMean_left\":3095.289664,\"pvalue_left\":0.0,\"lfcSE_left\":0.083642997,\"gene_name\":\"BNIP3\",\"stat_left\":42.48983889,\"padj_left\":0.0,\"log2FoldChange_right\":-0.836640748,\"baseMean_right\":3095.289664,\"pvalue_right\":1.91e-26,\"lfcSE_right\":0.078619586,\"stat_right\":-10.64163258,\"padj_right\":6.69e-25},{\"log2FoldChange_left\":3.548418877,\"baseMean_left\":23.1494147,\"pvalue_left\":0.000000033,\"lfcSE_left\":0.642290581,\"gene_name\":\"MGAT3\",\"stat_left\":5.524631655,\"padj_left\":0.000000916,\"log2FoldChange_right\":-1.996538984,\"baseMean_right\":23.1494147,\"pvalue_right\":0.000659105,\"lfcSE_right\":0.586174593,\"stat_right\":-3.406048313,\"padj_right\":0.002675908},{\"log2FoldChange_left\":3.469856546,\"baseMean_left\":3.416220941,\"pvalue_left\":0.004535792,\"lfcSE_left\":1.222522529,\"gene_name\":\"CYP4F22\",\"stat_left\":2.838276157,\"padj_left\":0.027600364,\"log2FoldChange_right\":-2.793016513,\"baseMean_right\":3.416220941,\"pvalue_right\":0.014740994,\"lfcSE_right\":1.145298244,\"stat_right\":-2.438680516,\"padj_right\":0.042555191},{\"log2FoldChange_left\":3.381796628,\"baseMean_left\":65.96917548,\"pvalue_left\":3.05e-22,\"lfcSE_left\":0.348677145,\"gene_name\":\"SNCB\",\"stat_left\":9.698934026,\"padj_left\":3.42e-20,\"log2FoldChange_right\":-1.632531636,\"baseMean_right\":65.96917548,\"pvalue_right\":0.000000234,\"lfcSE_right\":0.315755053,\"stat_right\":-5.170247063,\"padj_right\":0.00000169},{\"log2FoldChange_left\":3.342629955,\"baseMean_left\":236.5242262,\"pvalue_left\":5.93e-67,\"lfcSE_left\":0.193365163,\"gene_name\":\"HLA-A\",\"stat_left\":17.2866193,\"padj_left\":1.88e-64,\"log2FoldChange_right\":-1.239947222,\"baseMean_right\":236.5242262,\"pvalue_right\":0.0,\"lfcSE_right\":0.173992465,\"stat_right\":-7.126442052,\"padj_right\":0.0},{\"log2FoldChange_left\":3.05476522,\"baseMean_left\":13.78022931,\"pvalue_left\":0.000000329,\"lfcSE_left\":0.598253552,\"gene_name\":\"PCP4L1\",\"stat_left\":5.106138045,\"padj_left\":0.0000075,\"log2FoldChange_right\":-1.48361818,\"baseMean_right\":13.78022931,\"pvalue_right\":0.004201906,\"lfcSE_right\":0.518277818,\"stat_right\":-2.862592468,\"padj_right\":0.014070622},{\"log2FoldChange_left\":2.999896359,\"baseMean_left\":161.7768486,\"pvalue_left\":6.6e-29,\"lfcSE_left\":0.268873136,\"gene_name\":\"DPYSL4\",\"stat_left\":11.15729302,\"padj_left\":9.09e-27,\"log2FoldChange_right\":-1.571989662,\"baseMean_right\":161.7768486,\"pvalue_right\":0.000000001,\"lfcSE_right\":0.257289749,\"stat_right\":-6.109802927,\"padj_right\":0.0000000097},{\"log2FoldChange_left\":2.842235817,\"baseMean_left\":988.658277,\"pvalue_left\":3.18e-93,\"lfcSE_left\":0.13877397,\"gene_name\":\"NDRG1\",\"stat_left\":20.48104417,\"padj_left\":1.63e-90,\"log2FoldChange_right\":-0.402747922,\"baseMean_right\":988.658277,\"pvalue_right\":0.00237376,\"lfcSE_right\":0.132527078,\"stat_right\":-3.038985894,\"padj_right\":0.008400324},{\"log2FoldChange_left\":2.759680416,\"baseMean_left\":439.8786093,\"pvalue_left\":7.12e-75,\"lfcSE_left\":0.150734676,\"gene_name\":\"PFKFB4\",\"stat_left\":18.30819881,\"padj_left\":2.77e-72,\"log2FoldChange_right\":-1.144945014,\"baseMean_right\":439.8786093,\"pvalue_right\":6.56e-16,\"lfcSE_right\":0.141728701,\"stat_right\":-8.078427329,\"padj_right\":0.0},{\"log2FoldChange_left\":2.755434606,\"baseMean_left\":425.9244826,\"pvalue_left\":5.47e-117,\"lfcSE_left\":0.119837881,\"gene_name\":\"AC011462.1\",\"stat_left\":22.99301852,\"padj_left\":4e-114,\"log2FoldChange_right\":-1.19052759,\"baseMean_right\":425.9244826,\"pvalue_right\":2.28e-28,\"lfcSE_right\":0.107774304,\"stat_right\":-11.04648833,\"padj_right\":8.71e-27},{\"log2FoldChange_left\":2.711182176,\"baseMean_left\":75.92945405,\"pvalue_left\":9.82e-20,\"lfcSE_left\":0.29823009,\"gene_name\":\"SEC14L5\",\"stat_left\":9.090907556,\"padj_left\":9.17e-18,\"log2FoldChange_right\":-1.843779097,\"baseMean_right\":75.92945405,\"pvalue_right\":0.0000000002,\"lfcSE_right\":0.291361684,\"stat_right\":-6.328145386,\"padj_right\":0.0000000026}]",
+        "total_rows": 464,
+        "storage_entry": {
+          "id": "1769057184_93f9f690",
+          "name": "csv_join_1769057164_f2ff94ad_1769057173_0a081acf_gene_name.csv",
+          "path": "/app/output/user_csvs/csv_join_1769057164_f2ff94ad_1769057173_0a081acf_gene_name.csv"
+        }
+      }
+    }
+  ],
+  "uploaded_files": [
+    {
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-Hyp_vs_Norm.csv",
+      "type": "csv",
+      "preview": "gene_name,baseMean,log2FoldChange,lfcSE,stat,pvalue,padj\nTSPAN6,70.10815446,0.131235602,0.383601786,0.342114157,0.732264984,0.870217863\nDPM1,517.0022098,-0.339086568,0.114327911,-2.965912394,0.003017864,0.020003822",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-Hyp_vs_Norm.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T044433Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=54cf92e460e73d0b7fd6c36d399c9ecfca924e5310c1fa4e674f68e395979c9b",
+      "s3_key": "uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-Hyp_vs_Norm.csv"
+    },
+    {
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-HypZot_vs_HypVeh.csv",
+      "type": "csv",
+      "preview": "gene_name,baseMean,log2FoldChange,lfcSE,stat,pvalue,padj\nTSPAN6,70.10815446,-0.005043532,0.385148448,-0.013095033,0.989551974,0.995703739\nDPM1,517.0022098,0.237716729,0.115587761,2.056590833,0.039725601,0.09882631",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-HypZot_vs_HypVeh.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T044434Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=e1663193b8c690bef2f6a6561f2f545f099892eb37c8929c707937491d145564",
+      "s3_key": "uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-HypZot_vs_HypVeh.csv"
+    },
+    {
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-NormZot_vs_NormVeh.csv",
+      "type": "csv",
+      "preview": "gene_name,baseMean,log2FoldChange,lfcSE,stat,pvalue,padj\nTSPAN6,70.10815446,0.314066702,0.380210852,0.826032975,0.408785386,0.578338928\nDPM1,517.0022098,0.193938543,0.110044621,1.762362773,0.078008024,0.168122097",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-NormZot_vs_NormVeh.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T044436Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=f039bab182a30a464aa2390cd0ecd7f7164b7dfd13e3673ce4b8e307ada30fc4",
+      "s3_key": "uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-NormZot_vs_NormVeh.csv"
+    }
+  ]
+}

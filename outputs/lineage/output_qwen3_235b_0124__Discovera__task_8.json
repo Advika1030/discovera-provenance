@@ -1,0 +1,176 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0124__Discovera__task_8",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Discovera",
+      "task_id": "8",
+      "run_date": "2026-01-21 15:47:00",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Garner_2025_Cancer_Cell_TableS1-ClusterMembership.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Garner_2025_Cancer_Cell_TableS1-ClusterMembership.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T204700Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=7db7c3d7a667b217f78a376502e8909eac4ce00ef2ef06de29501d94671a0b1a",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Garner_2025_Cancer_Cell_TableS1-ClusterMembership.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T204700Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=7db7c3d7a667b217f78a376502e8909eac4ce00ef2ef06de29501d94671a0b1a\", \"name\": \"Garner_2025_Cancer_Cell_TableS1-ClusterMembership\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Garner_2025_Cancer_Cell_TableS1-ClusterMembership.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Garner_2025_Cancer_Cell_TableS1-ClusterMembership.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769028438_a71b4dd9"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1769028438_a71b4dd9\", \"n_rows\": 50}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"cluster\", \"op\": \"isnull\", \"value\": null}], \"csv_id\": \"1769028438_a71b4dd9\", \"keep_columns\": [\"gene_symbol\", \"cluster\"]}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769028438_a71b4dd9_cd3a19decc.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_filter_1769028438_a71b4dd9_cd3a19decc.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769028496_6308cd13"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 3,
+      "args": "{\"conditions\": [{\"column\": \"cluster\", \"op\": \"in\", \"value\": [\"Down Early\", \"Up Early\", \"Middle\", \"Late\"]}], \"csv_id\": \"1769028438_a71b4dd9\", \"keep_columns\": [\"gene_symbol\", \"cluster\"]}",
+      "error": "",
+      "id": "step3_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769028438_a71b4dd9_1eaf42759f.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_filter_1769028438_a71b4dd9_1eaf42759f.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769028510_ef3c324d"
+    },
+    {
+      "type": "tool_step",
+      "tool": "ora_pipe",
+      "step_index": 4,
+      "args": "{\"csv_id\": \"1769028510_ef3c324d\", \"gene_col\": \"gene_symbol\", \"gene_sets\": [\"MSigDB_Hallmark_2020\", \"KEGG_2021_Human\"]}",
+      "error": "",
+      "id": "step4_ora_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "ora_results_20260121_154843.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20260121_154843.csv",
+      "source_key": "ora_result_metadata",
+      "is_plot": false,
+      "id": "1769028532_68d54961"
+    },
+    {
+      "type": "report",
+      "length": 5170,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769028438_a71b4dd9",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1769028438_a71b4dd9"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1769028438_a71b4dd9"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769028496_6308cd13",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_filter",
+      "target": "1769028438_a71b4dd9"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769028510_ef3c324d",
+      "target": "step3_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_ora_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_ora_pipe",
+      "target": "1769028510_ef3c324d"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769028532_68d54961",
+      "target": "step4_ora_pipe"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

@@ -1,0 +1,1667 @@
+{
+  "ID": "11.3",
+  "Context/Background": "Tumor-infiltrating B cells play a significant role in tumor development, progression, and prognosis, yet a comprehensive classification system is lacking. To address this gap, we present a pan-cancer single-cell RNA sequencing (scRNA-seq) atlas of tumor-infiltrating B and plasma cells across a large sample cohort. \n\nWe isolated B cells and plasma cells from 15 studies spanning 7 cancer types as data sources. After applying batch correction and integrating the data, we removed low-quality cells and determined the optimal number of clusters. Using standard Seurat methods for integration, clustering, and differential expression analysis, we confirmed the absence of batch effects, with no study- or cancer type-specific clusters. \n\nWe employed a graph-based clustering method to identify TIL-Bs with recurring phenotypes, uncovering a total of 10 clusters. Step one of cluster annotation used canonical markers like CD19 and MS4A1 (CD20), which are prevalent throughout B cell development but decline in plasma cells. Markers such as CD38, JCHAIN, and SDC1 (CD138) are prominent in plasma cells, but less so in earlier stages. This revealed four B cell clusters, two intermediate clusters and four plasma cell clusters. ",
+  "Prompt": "Based on upregulated pathways and differentially expressed markers in each cluster, assign functional phenotypes to each of the 4 Plasma cell clusters (clusters 7-10).  Provide a discussion of the reasoning behind cluster assignments, highlighting important genes and pathways where relevant. ",
+  "mode": "Discovera",
+  "llm_provider": "openai",
+  "llm_model": "o4-mini",
+  "run_date": "2025-12-15 21:33:23",
+  "elapsed_seconds": 313.7,
+  "status": "ok",
+  "error": null,
+  "output_text": "Here is a concise functional annotation of the four plasma‐cell clusters (7–10), based on their most highly upregulated markers and inferred pathway activities:\n\nCluster 7 (“ER-Secretory Plasma Cells”)  \nKey markers:  \n • High immunoglobulin transcript load (e.g. IGLV6-57, IGKV4-1, IGHA1, IGKC)  \n • ER/chaperone machinery (MZB1, DERL3, FKBP11, SSR4, SEC11C, SDF2L1, HSP90B1, TXNDC15)  \nFunctional phenotype: Fully differentiated plasma cells with maximized antibody production. Enrichment of genes involved in “protein processing in endoplasmic reticulum” and UPR-related chaperones supports a high secretory burden and robust ER quality control.\n\nCluster 8 (“Stress-Responsive/UPR-High Plasma Cells”)  \nKey markers:  \n • Heat-shock proteins and stress chaperones (HSPA6, HSPA1A/B, HSPB1, HSPD1)  \n • Immediate-early TFs and UPR regulators (ATF3, XBP1, JUN, FOS)  \n • Co-chaperones (DNAJB1, ZFAND2A, BTG2, PPP1R15A)  \nFunctional phenotype: Plasma cells under acute proteotoxic or environmental stress. The dominant HSPs and UPR effectors indicate activation of the heat-shock response and endoplasmic-reticulum stress pathways, suggesting either engagement in intense secretory demand or adaptation to a hostile microenvironment.\n\nCluster 9 (“Class-Switched Antibody-Secreting Cells”)  \nKey markers:  \n • Class-switched immunoglobulins (IGHA2, IGHG1/2/3/4) and JCHAIN  \n • Plasma-cell receptors (TNFRSF17/BCMA) and SDC1/CD138  \nFunctional phenotype: Mature, class-switched plasma cells specialized for IgA/IgG secretion. Expression of BCMA and CD138 indicates long-lived or tissue-resident plasma-cell status, reflecting a more “homeostatic” or memory-type effector.\n\nCluster 10 (“Metallothionein-Enriched Plasma Cells”)  \nKey markers:  \n • Metallothionein family (MT2A, MT1X, MT1E, MT1F)  \n • Stress/ER-translocation components (SSR4, SSR3, SEC61B)  \n • Oxidative-stress modulators (GADD45A, S100A11, LGALS3)  \nFunctional phenotype: Plasma cells tuned for metal ion buffering and redox homeostasis. High metallothionein expression implies a role in heavy-metal detoxification or protection from oxidative damage, possibly reflecting a specialized niche or response to local microenvironmental stressors.\n\nDiscussion of reasoning  \n• Clusters 7 and 9 both express immunoglobulin genes but differ in auxiliary machinery: cluster 7 has a pronounced ER-processing signature (MZB1, FKBP11, DERL3), whereas cluster 9 shows class-switch markers and plasma‐cell surface receptors (BCMA, SDC1).  \n• Cluster 8 is set apart by an immediate-early stress profile (HSPs, ATF3, XBP1), indicating acute heat‐shock/UPR activation rather than baseline antibody output.  \n• Cluster 10’s unique metallothionein signature (MT family) together with ER‐translocon genes suggests a metal‐stress adaptation phenotype.  \n• These four functional states—secretory‐effector, stress‐responsive, class‐switched/memory, and metal-detoxification—likely represent distinct plasma‐cell roles within tumor microenvironments, from maximal antibody secretion to microenvironmental adaptation and survival.",
+  "tool_calls_json": [
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cluster9_plasma_cells",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-15/1-s20-S1535610824003593-mmc2-cluster9Plasmacells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251216%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251216T023322Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=d992d4724ce4d326c8f270d61d558e15bf706f912876220f484b27b245adc267",
+        "tags": [
+          "user_input"
+        ]
+      }
+    },
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cluster7_plasma_cells",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-15/1-s20-S1535610824003593-mmc2-cluster7Plasmacells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251216%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251216T023323Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=095d76c15f2b257b9483dd2f95667efbf3dedf93a6dd757e6fbbc353d1009171",
+        "tags": [
+          "user_input"
+        ]
+      }
+    },
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cluster10_plasma_cells",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-15/1-s20-S1535610824003593-mmc2-cluster10Plasmacells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251216%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251216T023323Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=ab6483308c3acf9c335058a4a8619e5425935777297ddc9633d1577448accc10",
+        "tags": [
+          "user_input"
+        ]
+      }
+    },
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cluster8_plasma_cells",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-15/1-s20-S1535610824003593-mmc2-cluster8Plasmacells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251216%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251216T023323Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=f66f531c22341fb4eace10cea51ee6f93d868a3f1590542778a43d3724a4ebfd",
+        "tags": [
+          "user_input"
+        ]
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1765852495_cde6c8e6",
+        "n_rows": 20
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1765852507_5c2220e2",
+        "n_rows": 20
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1765852432_d375ed95",
+        "n_rows": 20
+      }
+    },
+    {
+      "name": "ora_pipe",
+      "args": {
+        "csv_id": "1765852495_cde6c8e6",
+        "gene_col": "gene",
+        "gene_sets": [
+          "MSigDB_Hallmark_2020",
+          "KEGG_2021_Human"
+        ]
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1765852501_b4c16f50",
+        "n_rows": 20
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1765852495_cde6c8e6",
+        "conditions": [
+          {
+            "column": "gene",
+            "op": "contains",
+            "value": "MZB1"
+          }
+        ],
+        "keep_columns": [
+          "gene",
+          "avg_log2FC"
+        ],
+        "name": "cluster7_MZB1"
+      }
+    },
+    {
+      "name": "ora_pipe",
+      "args": {
+        "csv_id": "1765852507_5c2220e2",
+        "gene_col": "gene",
+        "gene_sets": [
+          "MSigDB_Hallmark_2020",
+          "KEGG_2021_Human"
+        ]
+      }
+    },
+    {
+      "name": "ora_pipe",
+      "args": {
+        "csv_id": "1765852432_d375ed95",
+        "gene_col": "gene",
+        "gene_sets": [
+          "MSigDB_Hallmark_2020",
+          "KEGG_2021_Human"
+        ]
+      }
+    },
+    {
+      "name": "gene_info",
+      "args": {
+        "gene_list": [
+          "MZB1",
+          "XBP1",
+          "HSPA6",
+          "MT2A",
+          "TNFRSF17"
+        ]
+      }
+    }
+  ],
+  "tool_events_json": [
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1765852432_d375ed95",
+        "name": "cluster9_plasma_cells.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster9_plasma_cells.csv"
+      }
+    },
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1765852495_cde6c8e6",
+        "name": "cluster7_plasma_cells.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster7_plasma_cells.csv"
+      }
+    },
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1765852501_b4c16f50",
+        "name": "cluster10_plasma_cells.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster10_plasma_cells.csv"
+      }
+    },
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1765852507_5c2220e2",
+        "name": "cluster8_plasma_cells.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster8_plasma_cells.csv"
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster7_plasma_cells.csv",
+        "columns": [
+          "Unnamed: 0",
+          "gene",
+          "p_val",
+          "avg_log2FC",
+          "pct.1",
+          "pct.2",
+          "p_val_adj",
+          "cluster_number"
+        ],
+        "rows": [
+          {
+            "Unnamed: 0": 155,
+            "gene": "IGLV6-57",
+            "p_val": 0.0,
+            "avg_log2FC": 3.231657074,
+            "pct.1": 0.252,
+            "pct.2": 0.053,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 156,
+            "gene": "IGKV4-1",
+            "p_val": 0.0,
+            "avg_log2FC": 3.224405058,
+            "pct.1": 0.287,
+            "pct.2": 0.119,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 157,
+            "gene": "MZB1",
+            "p_val": 0.0,
+            "avg_log2FC": 3.062985612,
+            "pct.1": 0.97,
+            "pct.2": 0.28,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 158,
+            "gene": "DERL3",
+            "p_val": 0.0,
+            "avg_log2FC": 2.971024841,
+            "pct.1": 0.909,
+            "pct.2": 0.214,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 159,
+            "gene": "FKBP11",
+            "p_val": 0.0,
+            "avg_log2FC": 2.951224126,
+            "pct.1": 0.895,
+            "pct.2": 0.198,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 160,
+            "gene": "SSR4",
+            "p_val": 0.0,
+            "avg_log2FC": 2.905424793,
+            "pct.1": 0.98,
+            "pct.2": 0.567,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 161,
+            "gene": "IGLV3-1",
+            "p_val": 0.0,
+            "avg_log2FC": 2.891012738,
+            "pct.1": 0.401,
+            "pct.2": 0.089,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 162,
+            "gene": "PRDX4",
+            "p_val": 0.0,
+            "avg_log2FC": 2.802592196,
+            "pct.1": 0.814,
+            "pct.2": 0.206,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 163,
+            "gene": "IGLC3",
+            "p_val": 0.0,
+            "avg_log2FC": 2.779497979,
+            "pct.1": 0.491,
+            "pct.2": 0.264,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 164,
+            "gene": "IGLC2",
+            "p_val": 0.0,
+            "avg_log2FC": 2.774963285,
+            "pct.1": 0.538,
+            "pct.2": 0.328,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 165,
+            "gene": "FKBP2",
+            "p_val": 0.0,
+            "avg_log2FC": 2.758111751,
+            "pct.1": 0.894,
+            "pct.2": 0.28,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 166,
+            "gene": "SEC11C",
+            "p_val": 0.0,
+            "avg_log2FC": 2.73892681,
+            "pct.1": 0.914,
+            "pct.2": 0.322,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 167,
+            "gene": "SDF2L1",
+            "p_val": 0.0,
+            "avg_log2FC": 2.672856231,
+            "pct.1": 0.837,
+            "pct.2": 0.205,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 168,
+            "gene": "IGHA1",
+            "p_val": 0.0,
+            "avg_log2FC": 2.640603835,
+            "pct.1": 0.671,
+            "pct.2": 0.382,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 169,
+            "gene": "SPCS3",
+            "p_val": 0.0,
+            "avg_log2FC": 2.588766532,
+            "pct.1": 0.861,
+            "pct.2": 0.267,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 170,
+            "gene": "ITM2C",
+            "p_val": 0.0,
+            "avg_log2FC": 2.571513655,
+            "pct.1": 0.837,
+            "pct.2": 0.208,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 171,
+            "gene": "IGKC",
+            "p_val": 0.0,
+            "avg_log2FC": 2.558554951,
+            "pct.1": 0.829,
+            "pct.2": 0.644,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 172,
+            "gene": "MYDGF",
+            "p_val": 0.0,
+            "avg_log2FC": 2.550694126,
+            "pct.1": 0.807,
+            "pct.2": 0.251,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 173,
+            "gene": "HSP90B1",
+            "p_val": 0.0,
+            "avg_log2FC": 2.550126203,
+            "pct.1": 0.957,
+            "pct.2": 0.41,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 174,
+            "gene": "TXNDC15",
+            "p_val": 0.0,
+            "avg_log2FC": 2.529520172,
+            "pct.1": 0.687,
+            "pct.2": 0.164,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 7 (Plasma cells)"
+          }
+        ],
+        "total_rows": 1439
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster8_plasma_cells.csv",
+        "columns": [
+          "Unnamed: 0",
+          "gene",
+          "p_val",
+          "avg_log2FC",
+          "pct.1",
+          "pct.2",
+          "p_val_adj",
+          "cluster_number"
+        ],
+        "rows": [
+          {
+            "Unnamed: 0": 1707,
+            "gene": "HSPA6",
+            "p_val": 0.0,
+            "avg_log2FC": 6.650533878,
+            "pct.1": 0.345,
+            "pct.2": 0.039,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1708,
+            "gene": "HSPA1B",
+            "p_val": 0.0,
+            "avg_log2FC": 4.005115014,
+            "pct.1": 0.9,
+            "pct.2": 0.316,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1709,
+            "gene": "HSPA1A",
+            "p_val": 0.0,
+            "avg_log2FC": 3.83125913,
+            "pct.1": 0.949,
+            "pct.2": 0.33,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1710,
+            "gene": "DNAJB1",
+            "p_val": 0.0,
+            "avg_log2FC": 3.501825747,
+            "pct.1": 0.862,
+            "pct.2": 0.406,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1711,
+            "gene": "JUN1",
+            "p_val": 0.0,
+            "avg_log2FC": 3.274597637,
+            "pct.1": 0.885,
+            "pct.2": 0.607,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1712,
+            "gene": "HSPB1",
+            "p_val": 0.0,
+            "avg_log2FC": 3.075901998,
+            "pct.1": 0.663,
+            "pct.2": 0.282,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1713,
+            "gene": "FOS1",
+            "p_val": 0.0,
+            "avg_log2FC": 3.050804831,
+            "pct.1": 0.697,
+            "pct.2": 0.517,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1714,
+            "gene": "ZFAND2A",
+            "p_val": 0.0,
+            "avg_log2FC": 2.724929226,
+            "pct.1": 0.353,
+            "pct.2": 0.14,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1715,
+            "gene": "DUSP11",
+            "p_val": 0.0,
+            "avg_log2FC": 2.715101078,
+            "pct.1": 0.766,
+            "pct.2": 0.596,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1716,
+            "gene": "HSP90AA11",
+            "p_val": 0.0,
+            "avg_log2FC": 2.505321985,
+            "pct.1": 0.959,
+            "pct.2": 0.743,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1717,
+            "gene": "UBC1",
+            "p_val": 0.0,
+            "avg_log2FC": 2.358684171,
+            "pct.1": 0.942,
+            "pct.2": 0.803,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1718,
+            "gene": "ATF3",
+            "p_val": 0.0,
+            "avg_log2FC": 2.330519877,
+            "pct.1": 0.281,
+            "pct.2": 0.099,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1719,
+            "gene": "XBP11",
+            "p_val": 0.0,
+            "avg_log2FC": 2.193507939,
+            "pct.1": 0.647,
+            "pct.2": 0.378,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1720,
+            "gene": "EGR11",
+            "p_val": 0.0,
+            "avg_log2FC": 2.165552001,
+            "pct.1": 0.341,
+            "pct.2": 0.164,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1721,
+            "gene": "BTG21",
+            "p_val": 0.0,
+            "avg_log2FC": 2.114827646,
+            "pct.1": 0.726,
+            "pct.2": 0.598,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1722,
+            "gene": "PPP1R15A1",
+            "p_val": 0.0,
+            "avg_log2FC": 2.059698687,
+            "pct.1": 0.699,
+            "pct.2": 0.453,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1723,
+            "gene": "HSPA81",
+            "p_val": 0.0,
+            "avg_log2FC": 1.958058659,
+            "pct.1": 0.838,
+            "pct.2": 0.701,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1724,
+            "gene": "HSPA51",
+            "p_val": 0.0,
+            "avg_log2FC": 1.888929044,
+            "pct.1": 0.637,
+            "pct.2": 0.432,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1725,
+            "gene": "HSPD11",
+            "p_val": 0.0,
+            "avg_log2FC": 1.776932599,
+            "pct.1": 0.673,
+            "pct.2": 0.451,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 1726,
+            "gene": "IER22",
+            "p_val": 0.0,
+            "avg_log2FC": 1.755172082,
+            "pct.1": 0.649,
+            "pct.2": 0.504,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 8 (Plasma cells)"
+          }
+        ],
+        "total_rows": 794
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster9_plasma_cells.csv",
+        "columns": [
+          "Unnamed: 0",
+          "gene",
+          "p_val",
+          "avg_log2FC",
+          "pct.1",
+          "pct.2",
+          "p_val_adj",
+          "cluster_number"
+        ],
+        "rows": [
+          {
+            "Unnamed: 0": 3059,
+            "gene": "IGHA21",
+            "p_val": 0.0,
+            "avg_log2FC": 1.868646162,
+            "pct.1": 0.324,
+            "pct.2": 0.152,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3060,
+            "gene": "IGKC2",
+            "p_val": 0.0,
+            "avg_log2FC": 1.408829325,
+            "pct.1": 0.888,
+            "pct.2": 0.661,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3061,
+            "gene": "IGHGP1",
+            "p_val": 0.0,
+            "avg_log2FC": 1.391987531,
+            "pct.1": 0.252,
+            "pct.2": 0.087,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3062,
+            "gene": "JCHAIN2",
+            "p_val": 0.0,
+            "avg_log2FC": 1.28860099,
+            "pct.1": 0.764,
+            "pct.2": 0.414,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3063,
+            "gene": "IGHG42",
+            "p_val": 0.0,
+            "avg_log2FC": 1.032707875,
+            "pct.1": 0.486,
+            "pct.2": 0.236,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3064,
+            "gene": "IGHG12",
+            "p_val": 0.0,
+            "avg_log2FC": 0.990170556,
+            "pct.1": 0.675,
+            "pct.2": 0.395,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3065,
+            "gene": "IGHA12",
+            "p_val": 0.0,
+            "avg_log2FC": 0.966186195,
+            "pct.1": 0.627,
+            "pct.2": 0.417,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3066,
+            "gene": "IGHG22",
+            "p_val": 0.0,
+            "avg_log2FC": 0.870978866,
+            "pct.1": 0.363,
+            "pct.2": 0.17,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3067,
+            "gene": "IGHG32",
+            "p_val": 0.0,
+            "avg_log2FC": 0.851999491,
+            "pct.1": 0.633,
+            "pct.2": 0.321,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3068,
+            "gene": "TNFRSF172",
+            "p_val": 0.0,
+            "avg_log2FC": 0.416012001,
+            "pct.1": 0.465,
+            "pct.2": 0.23,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3069,
+            "gene": "IGLV3-12",
+            "p_val": 2.05380066142226e-307,
+            "avg_log2FC": 0.513852321,
+            "pct.1": 0.294,
+            "pct.2": 0.131,
+            "p_val_adj": 1.35359840192357e-302,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3070,
+            "gene": "SDC12",
+            "p_val": 1.44899381634031e-232,
+            "avg_log2FC": 0.472115529,
+            "pct.1": 0.322,
+            "pct.2": 0.161,
+            "p_val_adj": 9.54988354535408e-228,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3071,
+            "gene": "MT-RNR22",
+            "p_val": 3.6861883803551898e-224,
+            "avg_log2FC": 0.907650005,
+            "pct.1": 0.467,
+            "pct.2": 0.296,
+            "p_val_adj": 2.4294561758406998e-219,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3072,
+            "gene": "MT-RNR12",
+            "p_val": 3.90848215841274e-206,
+            "avg_log2FC": 0.609914371,
+            "pct.1": 0.423,
+            "pct.2": 0.267,
+            "p_val_adj": 2.5759633361450804e-201,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3073,
+            "gene": "CREB3L22",
+            "p_val": 1.68379287930576e-97,
+            "avg_log2FC": 0.283416312,
+            "pct.1": 0.263,
+            "pct.2": 0.166,
+            "p_val_adj": 1.1097373729640499e-92,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3074,
+            "gene": "IGLC22",
+            "p_val": 4.35588693920478e-86,
+            "avg_log2FC": 0.444497291,
+            "pct.1": 0.466,
+            "pct.2": 0.356,
+            "p_val_adj": 2.8708344050217e-81,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3075,
+            "gene": "MT-ND31",
+            "p_val": 1.2630401129512395e-77,
+            "avg_log2FC": 0.489864597,
+            "pct.1": 0.816,
+            "pct.2": 0.894,
+            "p_val_adj": 8.32431847242773e-73,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3076,
+            "gene": "IGHM2",
+            "p_val": 4.07966857273439e-41,
+            "avg_log2FC": 1.113434777,
+            "pct.1": 0.31,
+            "pct.2": 0.388,
+            "p_val_adj": 2.68878716623206e-36,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3077,
+            "gene": "PABPC42",
+            "p_val": 1.96506868473503e-07,
+            "avg_log2FC": 0.319490466,
+            "pct.1": 0.249,
+            "pct.2": 0.274,
+            "p_val_adj": 0.012951178,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 3078,
+            "gene": "SSR12",
+            "p_val": 0.000494097,
+            "avg_log2FC": 0.271601638,
+            "pct.1": 0.277,
+            "pct.2": 0.285,
+            "p_val_adj": 1.0,
+            "cluster_number": "cluster 9 (Plasma cells)"
+          }
+        ],
+        "total_rows": 20
+      }
+    },
+    {
+      "tool": "ora_pipe",
+      "payload": {
+        "ora_results": [
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "Oxidative Phosphorylation",
+            "Overlap": "104/200",
+            "P-value": 1.4060293419964653e-66,
+            "Adjusted P-value": 6.889543775782681e-65,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 15.5703933747412,
+            "Combined Score": 2360.936356972138,
+            "Genes": "COX6A1;PHB2;TOMM22;MPC1;ATP6V1G1;ATP6V0E1;ECH1;SDHC;SDHA;COX6B1;OXA1L;COX7A2L;FDX1;UQCRC1;VDAC2;SUCLG1;UQCRC2;ISCU;UQCRB;MGST3;COX17;ATP5MC2;ATP5MC3;COX7A2;UQCRH;ATP5MC1;PRDX3;LDHB;LDHA;CYC1;NDUFV2;NDUFV1;ATP5MG;ATP5MF;ATP6V1F;ATP5ME;HSPA9;SURF1;IDH2;UQCRQ;CYCS;ACO2;COX7B;MRPS15;SLC25A3;ACADVL;COX4I1;MRPS12;ETFA;ETFB;TCIRG1;MRPL34;COX7C;TIMM17A;UQCRFS1;COX8A;ATP6V0B;ATP6AP1;GPX4;NDUFC2;NDUFC1;NDUFS8;NDUFS7;NDUFS6;NDUFS3;SLC25A5;SLC25A4;SLC25A6;NDUFB8;ECHS1;NDUFB7;NDUFB6;NDUFB5;NDUFB4;NDUFB3;TIMM13;NDUFB2;NDUFB1;UQCR11;UQCR10;COX5B;COX5A;HSD17B10;ATP5F1A;ATP5F1B;POLR2F;TIMM8B;ATP5PF;NDUFA8;ATP5PD;NDUFA6;MDH1;NDUFA5;ATP5PB;MDH2;NDUFA3;NDUFA2;NDUFA1;ATP5F1C;COX6C;ATP5F1D;ATP5F1E;NDUFAB1;ATP5PO"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Oxidative phosphorylation",
+            "Overlap": "76/133",
+            "P-value": 6.458322298194579e-53,
+            "Adjusted P-value": 4.8114501121549616e-51,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 18.79533941236069,
+            "Combined Score": 2258.6667681330728,
+            "Genes": "NDUFA13;COX7B;NDUFA11;NDUFA12;COX4I1;TCIRG1;COX6A1;COX7C;UQCRFS1;COX8A;ATP6V1G1;ATP6V0B;ATP6V0E1;ATP6AP1;NDUFC2;SDHC;NDUFC1;SDHA;COX6B1;COX7A2L;NDUFS8;NDUFS7;PPA1;NDUFS6;NDUFS5;UQCRC1;NDUFS3;UQCRC2;NDUFB9;NDUFB8;NDUFB7;NDUFB10;UQCRB;NDUFB6;NDUFB11;NDUFB5;NDUFB4;COX17;NDUFB3;ATP5MC2;NDUFB2;ATP5MC3;NDUFB1;COX7A2;UQCR11;UQCR10;COX5B;COX5A;UQCRH;ATP5MC1;ATP5F1A;ATP5F1B;CYC1;NDUFV3;NDUFV2;ATP5MG;NDUFV1;ATP5MF;ATP5ME;ATP6V1F;ATP5PF;NDUFA8;ATP5PD;NDUFA6;NDUFA5;ATP5PB;NDUFA3;NDUFA2;NDUFA1;ATP5F1C;COX6C;ATP5F1D;ATP5F1E;UQCRQ;NDUFAB1;ATP5PO"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Parkinson disease",
+            "Overlap": "118/249",
+            "P-value": 1.326535913850055e-69,
+            "Adjusted P-value": 3.953077023273164e-67,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 13.063896844703825,
+            "Combined Score": 2071.8791770587454,
+            "Genes": "NDUFA13;NDUFA11;NDUFA12;UBE2L6;PARK7;COX6A1;UBE2L3;TXN2;PSMD8;PSMD7;PSMD4;KIF5B;SDHC;SDHA;TUBA4A;COX6B1;ERN1;COX7A2L;UQCRC1;VDAC2;UQCRC2;ATF4;NDUFB10;PSMD14;UQCRB;NDUFB11;PSMD13;ATP5MC2;ATP5MC3;COX7A2;TXN;UQCRH;UBE2J1;ATP5MC1;UBB;UBC;CYC1;NDUFV3;NDUFV2;NDUFV1;XBP1;HSPA5;EIF2AK3;SEM1;UQCRQ;GNAS;CYCS;CALM3;CALM1;COX7B;COX4I1;COX7C;CASP3;UQCRFS1;COX8A;DUSP1;NDUFC2;NDUFC1;PSMA5;PSMA3;PSMA4;NDUFS8;PSMA1;NDUFS7;PSMA2;NDUFS6;NDUFS5;NDUFS3;SLC25A5;SLC25A4;SLC25A6;NDUFB9;NDUFB8;NDUFB7;NDUFB6;NDUFB5;NDUFB4;NDUFB3;NDUFB2;NDUFB1;UQCR11;UQCR10;COX5B;COX5A;PSMA7;GNAI2;PSMB6;PSMB7;ATP5F1A;PSMB4;ATP5F1B;PSMB5;PSMB2;PSMB3;PSMB1;ATP5PF;NDUFA8;ATP5PD;NDUFA6;NDUFA5;ATP5PB;NDUFA3;ADRM1;NDUFA2;NDUFA1;UBE2G1;ATP5F1C;COX6C;TUBB4B;ATP5F1D;ATP5F1E;PSMC5;PSMC6;PSMC3;PSMC4;PSMC1;NDUFAB1;ATP5PO"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Proteasome",
+            "Overlap": "32/46",
+            "P-value": 6.0559997586523285e-27,
+            "Adjusted P-value": 1.388221483137226e-25,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 31.250420168067222,
+            "Combined Score": 1886.5487411000809,
+            "Genes": "PSMD14;PSMD13;POMP;PSMA7;PSMB10;PSMB6;PSMD8;PSMB7;PSMB4;PSMB5;PSMD7;PSMB2;PSMD4;PSMB3;PSMB1;PSMF1;ADRM1;PSMB8;PSMB9;PSMA5;SEM1;PSMA3;PSMC5;PSMA4;PSMC6;PSMA1;PSMC3;PSMA2;PSMC4;PSMC1;PSME1;PSME2"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Protein export",
+            "Overlap": "18/23",
+            "P-value": 3.182702564609227e-17,
+            "Adjusted P-value": 6.322969095023664e-16,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 48.7414847161572,
+            "Combined Score": 1851.5045608347716,
+            "Genes": "HSPA5;SRP54;SRP14;SRP9;OXA1L;SEC61A1;SPCS3;SPCS2;SPCS1;SRP72;SEC61G;SRPRA;SRPRB;SEC61B;SEC62;SEC11A;SEC11C;SEC63"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Protein processing in endoplasmic reticulum",
+            "Overlap": "84/171",
+            "P-value": 2.8298334653067424e-51,
+            "Adjusted P-value": 1.6865807453228182e-49,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 13.671517452283032,
+            "Combined Score": 1591.250089817648,
+            "Genes": "TRAM1;PRKCSH;UBE2D2;UBE2D3;NGLY1;HERPUD1;SEC61A1;MAN1A2;SEC61G;CAPN2;UFD1;MAN1A1;SEC61B;SEC62;UBXN4;SIL1;SEC63;SKP1;PDIA3;HSP90AA1;SEC13;SSR4;SSR2;SSR3;RAD23A;PDIA6;CKAP4;DDOST;PDIA4;RBX1;ERN1;DNAJC3;DNAJC1;SELENOS;DAD1;DNAJB11;CANX;ERP29;PREB;ATF4;PPP1R15A;VCP;RPN2;SAR1A;SAR1B;DERL3;RPN1;SEL1L;DERL1;DERL2;RRBP1;HSP90B1;UBE2J1;ERLEC1;LMAN1;GANAB;OS9;LMAN2;BAG1;SSR1;SEC23B;MARCHF6;SEC31A;TXNDC5;BCAP31;MBTPS1;XBP1;SEC24A;HSPA5;EDEM1;EIF2AK1;EDEM2;EIF2AK3;SYVN1;UBE2G1;EIF2AK4;SVIP;STT3A;HYOU1;STUB1;CALR;STT3B;P4HB;SEC24D"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Prion disease",
+            "Overlap": "111/273",
+            "P-value": 6.842858356197947e-57,
+            "Adjusted P-value": 1.019585895073494e-54,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 9.866452713447249,
+            "Combined Score": 1275.970559060322,
+            "Genes": "NDUFA13;NCF1;NDUFA11;NDUFA12;NCF4;COX6A1;PSMD8;PSMD7;PSMD4;KIF5B;CREB3L2;CYBA;SDHC;SDHA;TUBA4A;COX6B1;COX7A2L;CSNK2B;UQCRC1;VDAC2;UQCRC2;ATF4;NDUFB10;PSMD14;UQCRB;NDUFB11;PSMD13;ATP5MC2;ATP5MC3;COX7A2;UQCRH;ATP5MC1;CYC1;NDUFV3;NDUFV2;NDUFV1;EGR1;HSPA5;CAV1;EIF2AK3;SEM1;UQCRQ;CYCS;COX7B;COX4I1;COX7C;CASP3;UQCRFS1;RAC1;COX8A;NDUFC2;NDUFC1;PSMA5;CREB3;PSMA3;PSMA4;NDUFS8;PSMA1;NDUFS7;PSMA2;NDUFS6;NDUFS5;NDUFS3;SLC25A5;SLC25A4;SLC25A6;NDUFB9;NDUFB8;NDUFB7;NDUFB6;NDUFB5;NDUFB4;NDUFB3;NDUFB2;NDUFB1;UQCR11;UQCR10;COX5B;COX5A;PSMA7;PSMB6;PSMB7;ATP5F1A;PSMB4;ATP5F1B;PSMB5;PSMB2;PSMB3;PSMB1;ATP5PF;NDUFA8;ATP5PD;NDUFA6;NDUFA5;ATP5PB;NDUFA3;ADRM1;NDUFA2;NDUFA1;ATP5F1C;COX6C;TUBB4B;ATP5F1D;ATP5F1E;PSMC5;PSMC6;PSMC3;PSMC4;PSMC1;NDUFAB1;ATP5PO"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "Myc Targets V1",
+            "Overlap": "85/200",
+            "P-value": 1.5266612775405886e-45,
+            "Adjusted P-value": 3.740320129974441e-44,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 10.458101859552244,
+            "Combined Score": 1079.2054779410043,
+            "Genes": "YWHAE;SLC25A3;RPLP0;HNRNPU;HNRNPR;PHB2;RPL6;UBE2L3;PSMD8;EEF1B2;PSMD7;SNRPD2;YWHAQ;SNRPD1;C1QBP;RACK1;SNRPD3;AP3S1;TXNL4A;RPS10;ACP1;DDX18;STARD7;EIF1AX;PABPC4;RPS5;MRPS18B;ILF2;NME1;GNL3;TUFM;PSMA4;PSMA1;PSMA2;CANX;SRSF2;SNRPG;ERH;KPNB1;SET;PSMD14;GLO1;ODC1;COX5A;GSPT1;PSMA7;HSPD1;SRM;PPM1G;PRDX3;LDHA;PRDX4;PSMB2;PSMB3;PCBP1;RPS3;PGK1;EIF4H;SNRPB2;RPS2;CYC1;BUB3;RPL18;EIF4E;H2AZ1;RANBP1;CNBP;PA2G4;MRPL23;EIF2S2;HSPE1;LSM2;RSL1D1;PSMC6;PSMC4;APEX1;HNRNPA2B1;SERBP1;NDUFAB1;EIF3J;HNRNPD;RNPS1;SSBP1;EIF3D;EIF4G2"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Huntington disease",
+            "Overlap": "115/306",
+            "P-value": 1.2615885010920997e-54,
+            "Adjusted P-value": 1.2531779110848193e-52,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 8.683453119426666,
+            "Combined Score": 1077.6792559989408,
+            "Genes": "NDUFA13;NDUFA11;NDUFA12;COX6A1;PSMD8;PSMD7;PSMD4;KIF5B;CREB3L2;AP2M1;SDHC;SDHA;TUBA4A;COX6B1;ERN1;COX7A2L;UQCRC1;VDAC2;UQCRC2;NDUFB10;PSMD14;UQCRB;NDUFB11;PSMD13;ATP5MC2;ATP5MC3;COX7A2;UQCRH;ATP5MC1;CYC1;NDUFV3;NDUFV2;NDUFV1;SEM1;UQCRQ;CYCS;COX7B;COX4I1;CLTB;CLTA;COX7C;CASP3;UQCRFS1;COX8A;NDUFC2;NDUFC1;WIPI1;PSMA5;CREB3;PSMA3;PSMA4;NDUFS8;PSMA1;NDUFS7;PSMA2;NDUFS6;NDUFS5;NDUFS3;SLC25A5;SLC25A4;SLC25A6;NDUFB9;NDUFB8;NDUFB7;DCTN2;NDUFB6;NDUFB5;NDUFB4;DCTN3;NDUFB3;NDUFB2;NDUFB1;UQCR11;UQCR10;COX5B;COX5A;PSMA7;PSMB6;PSMB7;ATP5F1A;PSMB4;ATP5F1B;PSMB5;PSMB2;PSMB3;PSMB1;AP2S1;POLR2E;POLR2F;POLR2I;POLR2J;POLR2K;POLR2L;ATP5PF;NDUFA8;ATP5PD;NDUFA6;NDUFA5;ATP5PB;NDUFA3;ADRM1;NDUFA2;NDUFA1;ATP5F1C;COX6C;TUBB4B;ATP5F1D;ATP5F1E;PSMC5;PSMC6;PSMC3;PSMC4;PSMC1;NDUFAB1;ATP5PO"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Diabetic cardiomyopathy",
+            "Overlap": "82/203",
+            "P-value": 6.252091142492304e-42,
+            "Adjusted P-value": 2.070136844958563e-40,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 9.563648981136836,
+            "Combined Score": 907.3574891550376,
+            "Genes": "COX7B;NDUFA13;NCF1;NDUFA11;NDUFA12;COX4I1;NCF4;COX6A1;COX7C;PPP1CB;PPP1CC;MPC1;MPC2;UQCRFS1;RAC1;CTSD;COX8A;PARP1;NDUFC2;CYBA;SDHC;NDUFC1;SDHA;COX6B1;COX7A2L;NDUFS8;NDUFS7;NDUFS6;NDUFS5;UQCRC1;NDUFS3;VDAC2;UQCRC2;SLC25A5;GAPDH;SLC25A4;SLC25A6;NDUFB9;NDUFB8;NDUFB7;NDUFB10;UQCRB;NDUFB6;NDUFB11;NDUFB5;NDUFB4;NDUFB3;ATP5MC2;NDUFB2;ATP5MC3;NDUFB1;UQCR11;COX7A2;UQCR10;COX5B;COX5A;UQCRH;ATP5MC1;ATP5F1A;ATP5F1B;CYC1;NDUFV3;NDUFV2;NDUFV1;ATP5PF;NDUFA8;ATP5PD;TGFB1;NDUFA6;NDUFA5;ATP5PB;NDUFA3;NDUFA2;NDUFA1;ATP5F1C;COX6C;ATP5F1D;ATP5F1E;PPP1CA;UQCRQ;NDUFAB1;ATP5PO"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Non-alcoholic fatty liver disease",
+            "Overlap": "66/155",
+            "P-value": 1.2043367455169829e-35,
+            "Adjusted P-value": 3.2626577287641892e-34,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 10.356855966241293,
+            "Combined Score": 832.7383356961051,
+            "Genes": "NDUFA13;COX7B;NDUFA11;NDUFA12;COX4I1;COX6A1;COX7C;CASP3;UQCRFS1;RAC1;COX8A;NDUFC2;SDHC;NDUFC1;FOS;SDHA;COX6B1;ERN1;COX7A2L;NDUFS8;NDUFS7;NDUFS6;NDUFS5;UQCRC1;NDUFS3;UQCRC2;ATF4;NDUFB9;NDUFB8;NDUFB7;NDUFB10;UQCRB;NDUFB6;NDUFB11;NDUFB5;NDUFB4;NDUFB3;NDUFB2;NDUFB1;COX7A2;UQCR11;UQCR10;ADIPOR1;COX5B;COX5A;UQCRH;SOCS3;BCL2L11;CYC1;NDUFV3;NDUFV2;NDUFV1;NDUFA8;JUN;XBP1;TGFB1;NDUFA6;NDUFA5;NDUFA3;NDUFA2;EIF2AK3;NDUFA1;COX6C;UQCRQ;NDUFAB1;CYCS"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Amyotrophic lateral sclerosis",
+            "Overlap": "118/364",
+            "P-value": 3.4967140321069316e-48,
+            "Adjusted P-value": 1.736701302613109e-46,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 6.913491850774081,
+            "Combined Score": 755.4528844471029,
+            "Genes": "NDUFA13;NDUFA11;NDUFA12;COX6A1;ACTG1;PSMD8;PSMD7;PSMD4;KIF5B;GABARAPL2;SDHC;SDHA;TUBA4A;COX6B1;ERN1;COX7A2L;UQCRC1;UQCRC2;SQSTM1;OPTN;ATF4;VCP;NDUFB10;PSMD14;UQCRB;NDUFB11;PSMD13;ATP5MC2;ATP5MC3;COX7A2;GABARAP;UQCRH;ATP5MC1;CYC1;NDUFV3;NDUFV2;NDUFV1;XBP1;HSPA5;EIF2AK3;CHCHD10;SEM1;UQCRQ;CYCS;COX7B;COX4I1;COX7C;CASP3;ANXA7;UQCRFS1;RAC1;RAB8A;COX8A;SEC13;NDUFC2;NDUFC1;WIPI1;PSMA5;PSMA3;PSMA4;NDUFS8;PSMA1;NDUFS7;PSMA2;NDUFS6;NDUFS5;NDUFS3;NDUFB9;RAB1A;NDUFB8;NDUFB7;DCTN2;NDUFB6;NDUFB5;NDUFB4;DCTN3;NDUFB3;DERL1;NDUFB2;NDUFB1;UQCR11;UQCR10;COX5B;COX5A;PSMA7;PSMB6;PSMB7;ATP5F1A;PSMB4;ATP5F1B;PSMB5;PSMB2;PSMB3;PSMB1;ATP5PF;NDUFA8;ATP5PD;NDUFA6;NDUFA5;ATP5PB;NDUFA3;ADRM1;NDUFA2;NDUFA1;ATP5F1C;COX6C;TUBB4B;ATP5F1D;ATP5F1E;PSMC5;CCS;PSMC6;PSMC3;PSMC4;PSMC1;HNRNPA2B1;NDUFAB1;ATP5PO"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Ribosome",
+            "Overlap": "63/158",
+            "P-value": 4.5633629144790857e-32,
+            "Adjusted P-value": 1.1332351237623064e-30,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 9.23780444338838,
+            "Combined Score": 666.6430458365846,
+            "Genes": "RPL4;RPL5;MRPS15;RPL3;MRPS16;MRPS14;RPLP1;MRPS12;RPLP0;MRPL36;RPL8;MRPL34;RPL6;RPL7;MRPL33;RPS15;RPS4X;RPS14;MRPL3;RPL7A;RPS16;RPL18A;RPS19;RPL36AL;RPS18;RPL36;RPL35;RPS11;RPS10;RPS9;RPL21;RPS7;RPS8;RPL23;RPS5;MRPS21;RPL13A;MRPS7;MRPS6;MRPS18C;RPL37A;RPL24;RPL27;RPL29;RPL10;RPS27L;MRPL14;MRPL20;RPS3;RPL13;RPL15;RPS2;RPL18;RPL17;RPL41;RPL35A;MRPL23;RPS26;RPS28;RPL27A;RPL22L1;FAU;RSL24D1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Alzheimer disease",
+            "Overlap": "114/369",
+            "P-value": 3.362100386567336e-44,
+            "Adjusted P-value": 1.2523823939963329e-42,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 6.420086532265488,
+            "Combined Score": 642.658226012991,
+            "Genes": "NDUFA13;NDUFA11;NDUFA12;COX6A1;PSMD8;PSMD7;PSMD4;KIF5B;CAPN2;MAP2K2;SDHC;SDHA;TUBA4A;COX6B1;ERN1;COX7A2L;CSNK2B;UQCRC1;VDAC2;UQCRC2;ATF4;RTN3;NDUFB10;PSMD14;UQCRB;NDUFB11;PSMD13;ATP5MC2;ATP5MC3;COX7A2;UQCRH;ATP5MC1;CYC1;NDUFV3;NDUFV2;NDUFV1;XBP1;EIF2AK3;SEM1;UQCRQ;CYCS;CALM3;CALM1;COX7B;COX4I1;COX7C;CASP3;UQCRFS1;COX8A;PSENEN;NDUFC2;NDUFC1;WIPI1;PSMA5;PSMA3;PSMA4;NDUFS8;PSMA1;NDUFS7;PSMA2;NDUFS6;NDUFS5;NDUFS3;SLC25A5;GAPDH;SLC25A4;SLC25A6;NDUFB9;NDUFB8;NDUFB7;NDUFB6;NDUFB5;NDUFB4;NDUFB3;NDUFB2;NDUFB1;UQCR11;UQCR10;COX5B;COX5A;HSD17B10;PSMA7;PSMB6;PSMB7;ATP5F1A;PSMB4;ATP5F1B;PSMB5;PSMB2;PSMB3;PSMB1;ATP5PF;NDUFA8;ATP5PD;NDUFA6;NDUFA5;ATP5PB;CSNK1A1;NDUFA3;ADRM1;NDUFA2;NDUFA1;ATP5F1C;COX6C;TUBB4B;ATP5F1D;ATP5F1E;PSMC5;PSMC6;PSMC3;PSMC4;PSMC1;NDUFAB1;ATP5PO"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Thermogenesis",
+            "Overlap": "81/232",
+            "P-value": 6.134102819903165e-36,
+            "Adjusted P-value": 1.827962640331143e-34,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 7.552078439692667,
+            "Combined Score": 612.3164746020896,
+            "Genes": "COX7B;NDUFA13;SMARCB1;NDUFA11;NDUFA12;COX4I1;COX6A1;COX7C;ACTG1;CREB3L2;UQCRFS1;COX8A;NDUFC2;SDHC;NDUFC1;SDHA;COX6B1;CREB3;COX7A2L;NDUFS8;NDUFS7;NDUFS6;NDUFS5;UQCRC1;NDUFS3;UQCRC2;NDUFB9;NDUFB8;NDUFB7;NDUFB10;UQCRB;NDUFB6;NDUFB11;NDUFB5;NDUFB4;COX17;NDUFB3;ATP5MC2;NDUFB2;ATP5MC3;NDUFB1;UQCR11;COX7A2;UQCR10;COX5B;COX5A;UQCRH;ATP5MC1;ATP5F1A;ATP5F1B;COX14;CYC1;NDUFV3;NDUFV2;ATP5MG;NDUFV1;ATP5MF;ATP5ME;ATP5PF;COA3;NDUFA8;ATP5PD;NDUFA6;NDUFA5;ATP5PB;NDUFA3;NDUFA2;NDUFA1;ATP5F1C;COX6C;ATP5F1D;ATP5F1E;NDUFAF8;RHEB;UQCRQ;NDUFAB1;RPS6KB2;ATP5PO;GNAS;NDUFAF3;GRB2"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Pathways of neurodegeneration",
+            "Overlap": "131/475",
+            "P-value": 1.3356278058185518e-44,
+            "Adjusted P-value": 5.685958373341834e-43,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 5.515611456393043,
+            "Combined Score": 557.2110216612473,
+            "Genes": "NDUFA13;NDUFA11;NDUFA12;UBE2L6;PARK7;COX6A1;UBE2L3;PSMD8;PSMD7;PSMD4;KIF5B;CAPN2;GABARAPL2;MAP2K2;SDHC;SDHA;TUBA4A;COX6B1;ERN1;COX7A2L;CSNK2B;UQCRC1;VDAC2;UQCRC2;SQSTM1;OPTN;ATF4;VCP;UQCRB;NDUFB10;PSMD14;NDUFB11;PSMD13;ATP5MC2;ATP5MC3;COX7A2;GABARAP;UQCRH;UBE2J1;ATP5MC1;UBB;UBC;CYC1;NDUFV3;NDUFV2;NDUFV1;XBP1;HSPA5;EIF2AK3;SEM1;UQCRQ;CYCS;CALM3;CALM1;COX7B;COX4I1;COX7C;CASP3;UQCRFS1;RAC1;RAB8A;COX8A;NDUFC2;NDUFC1;WIPI1;PSMA5;PSMA3;PSMA4;NDUFS8;PSMA1;NDUFS7;PSMA2;NDUFS6;NDUFS5;NDUFS3;SLC25A5;SLC25A4;SLC25A6;NDUFB9;RAB1A;NDUFB8;NDUFB7;NDUFB6;DCTN2;NDUFB5;NDUFB4;NDUFB3;DCTN3;NDUFB2;DERL1;NDUFB1;UQCR11;UQCR10;COX5B;HSD17B10;COX5A;PSMA7;PSMB6;PSMB7;PSMB4;ATP5F1A;PSMB5;ATP5F1B;PSMB2;PSMB3;PSMB1;NDUFA8;ATP5PF;NDUFA6;ATP5PD;NDUFA5;CSNK1A1;ATP5PB;NDUFA3;ADRM1;NDUFA2;NDUFA1;UBE2G1;TUBB4B;ATP5F1C;COX6C;ATP5F1D;ATP5F1E;PSMC5;CCS;PSMC6;PSMC3;PSMC4;PSMC1;NDUFAB1;ATP5PO"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Coronavirus disease",
+            "Overlap": "61/232",
+            "P-value": 4.1796304471959913e-20,
+            "Adjusted P-value": 8.89664195188861e-19,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 4.941353508991613,
+            "Combined Score": 220.490501966533,
+            "Genes": "RPL4;RPL5;RPL3;RPLP1;RPLP0;ADAR;RPL8;RPL6;RPL7;RPS15;RPS4X;RPS14;RPL7A;RPS16;RPL18A;RPS19;RPL36AL;RPS18;RPL36;RPL35;RPS11;RPS10;IFNAR2;RPS9;RPL21;RPS7;RPS8;RPL23;RPS5;RPL13A;FOS;IRF3;RPL37A;RPL24;RPL27;RPL29;IL6ST;IFNAR1;RPL10;RPS27L;PLCG2;RPS3;RPL13;RPL15;RPS2;RPL18;RPL17;JUN;RPL41;STAT1;STAT3;MX1;RPL35A;ISG15;RPS26;NFKBIA;RPS28;RPL27A;RPL22L1;FAU;RSL24D1"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "Unfolded Protein Response",
+            "Overlap": "36/113",
+            "P-value": 3.0170732209449865e-15,
+            "Adjusted P-value": 2.9567317565260867e-14,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 6.389265601654982,
+            "Combined Score": 213.621831534505,
+            "Genes": "SLC1A4;HSP90B1;HERPUD1;RPS14;SERP1;KIF5B;SSR1;DNAJB9;BANF1;EIF4E;SEC11A;SEC31A;HSPA9;XBP1;HSPA5;IMP3;EDEM1;EIF2AK3;LSM1;WIPI1;EEF2;PDIA6;YIF1A;ERN1;DNAJC3;SPCS3;SPCS1;MTHFD2;DDIT4;SRPRA;SRPRB;PREB;HYOU1;CALR;ATF4;EIF4G1"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "Interferon Gamma Response",
+            "Overlap": "54/200",
+            "P-value": 1.6429009938934568e-18,
+            "Adjusted P-value": 2.0125537175194848e-17,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 5.10344615762639,
+            "Combined Score": 208.98646767907027,
+            "Genes": "CDKN1A;TNFAIP3;UBE2L6;ADAR;IFI35;CASP3;CASP4;PIM1;PDE4B;CD38;ITGB7;B2M;ZBP1;IFNAR2;NCOA3;HLA-B;TAP1;HLA-A;TAPBP;VAMP8;PSMA3;MTHFD2;PSMA2;IRF4;IRF1;IRF2;PSME1;PELI1;IRF7;PSME2;TXNIP;LAP3;VAMP5;LY6E;SRI;PSMB10;SOCS3;RNF213;APOL6;PSMB2;SLAMF7;PTPN1;STAT1;IL10RA;STAT3;MX1;ISG15;PSMB8;WARS1;PSMB9;BST2;ISG20;NFKBIA;PTPN2"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "mTORC1 Signaling",
+            "Overlap": "54/200",
+            "P-value": 1.6429009938934568e-18,
+            "Adjusted P-value": 2.0125537175194848e-17,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 5.10344615762639,
+            "Combined Score": 208.98646767907027,
+            "Genes": "CDKN1A;BTG2;UBE2D3;ARPC5L;ENO1;SERP1;CTSC;PDK1;TPI1;CACYBP;TUBA4A;PSMA3;PSMA4;MTHFD2;PPA1;DDIT4;CANX;ALDOA;SQSTM1;GAPDH;PPP1R15A;RAB1A;FKBP2;PSMD14;SHMT2;PSMD13;RPN1;USO1;SLC1A4;GLRX;SLC1A5;HSP90B1;ATP5MC1;HSPD1;LDHA;PSMB5;PRDX1;PGK1;SSR1;SEC11A;HSPA9;XBP1;SDF2L1;HSPA5;EDEM1;PDAP1;EIF2S2;HSPE1;WARS1;UFM1;PSMC6;PSMC4;TCEA1;CALR"
+          }
+        ],
+        "ora_result_metadata": {
+          "id": "1765852552_020a0ad0",
+          "name": "ora_results_20251215_213547.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20251215_213547.csv",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-15/ora_results_20251215_213547.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251216%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251216T023552Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=79cda3878760caa35473e67742cddc2782f77b154ab83b398a28df9adba5fb36"
+        }
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster10_plasma_cells.csv",
+        "columns": [
+          "Unnamed: 0",
+          "gene",
+          "p_val",
+          "avg_log2FC",
+          "pct.1",
+          "pct.2",
+          "p_val_adj",
+          "cluster_number"
+        ],
+        "rows": [
+          {
+            "Unnamed: 0": 6116,
+            "gene": "MT2A1",
+            "p_val": 0.0,
+            "avg_log2FC": 4.567595365,
+            "pct.1": 0.919,
+            "pct.2": 0.189,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6117,
+            "gene": "MT1X1",
+            "p_val": 0.0,
+            "avg_log2FC": 4.072330619,
+            "pct.1": 0.764,
+            "pct.2": 0.102,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6118,
+            "gene": "MT1E",
+            "p_val": 0.0,
+            "avg_log2FC": 2.476422753,
+            "pct.1": 0.388,
+            "pct.2": 0.04,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6119,
+            "gene": "MT1F",
+            "p_val": 0.0,
+            "avg_log2FC": 2.164841216,
+            "pct.1": 0.426,
+            "pct.2": 0.055,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6120,
+            "gene": "SSR42",
+            "p_val": 1.54953959434094e-249,
+            "avg_log2FC": 0.370283479,
+            "pct.1": 0.827,
+            "pct.2": 0.631,
+            "p_val_adj": 1.02125506044228e-244,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6121,
+            "gene": "IGLV3-13",
+            "p_val": 1.2177134112828298e-216,
+            "avg_log2FC": 1.835121904,
+            "pct.1": 0.347,
+            "pct.2": 0.136,
+            "p_val_adj": 8.02558377974178e-212,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6122,
+            "gene": "LGALS32",
+            "p_val": 7.41676036781318e-206,
+            "avg_log2FC": 0.261638721,
+            "pct.1": 0.391,
+            "pct.2": 0.168,
+            "p_val_adj": 4.88816425561463e-201,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6123,
+            "gene": "SSR32",
+            "p_val": 6.1791545498684705e-198,
+            "avg_log2FC": 0.357504872,
+            "pct.1": 0.646,
+            "pct.2": 0.401,
+            "p_val_adj": 4.072495389181809e-193,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6124,
+            "gene": "SEC61G3",
+            "p_val": 3.61764086433348e-177,
+            "avg_log2FC": 0.631604368,
+            "pct.1": 0.683,
+            "pct.2": 0.457,
+            "p_val_adj": 2.38427856445627e-172,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6125,
+            "gene": "S100A113",
+            "p_val": 6.68290261774755e-172,
+            "avg_log2FC": 0.41209721,
+            "pct.1": 0.57,
+            "pct.2": 0.343,
+            "p_val_adj": 4.40450062827888e-167,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6126,
+            "gene": "KDELR12",
+            "p_val": 3.673074966078701e-170,
+            "avg_log2FC": 0.272893246,
+            "pct.1": 0.533,
+            "pct.2": 0.306,
+            "p_val_adj": 2.420813517893491e-165,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6127,
+            "gene": "GADD45A2",
+            "p_val": 3.85001527949412e-170,
+            "avg_log2FC": 0.584224551,
+            "pct.1": 0.312,
+            "pct.2": 0.131,
+            "p_val_adj": 2.53742957025619e-165,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6128,
+            "gene": "SEC61B3",
+            "p_val": 2.48588806313097e-164,
+            "avg_log2FC": 0.35254573,
+            "pct.1": 0.723,
+            "pct.2": 0.537,
+            "p_val_adj": 1.63837424576773e-159,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6129,
+            "gene": "MANF3",
+            "p_val": 2.34010919272513e-159,
+            "avg_log2FC": 0.274121479,
+            "pct.1": 0.535,
+            "pct.2": 0.304,
+            "p_val_adj": 1.5422957656493502e-154,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6130,
+            "gene": "KDELR22",
+            "p_val": 3.2539668806902897e-159,
+            "avg_log2FC": 0.29665482,
+            "pct.1": 0.562,
+            "pct.2": 0.327,
+            "p_val_adj": 2.1445919520565503e-154,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6131,
+            "gene": "TMEM2583",
+            "p_val": 8.32947181713092e-150,
+            "avg_log2FC": 0.335806776,
+            "pct.1": 0.698,
+            "pct.2": 0.513,
+            "p_val_adj": 5.48970499051647e-145,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6132,
+            "gene": "CHID12",
+            "p_val": 3.4353108708888802e-136,
+            "avg_log2FC": 0.575292462,
+            "pct.1": 0.347,
+            "pct.2": 0.166,
+            "p_val_adj": 2.26411033567674e-131,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6133,
+            "gene": "IGHG33",
+            "p_val": 1.7320385139125698e-135,
+            "avg_log2FC": 1.49050279,
+            "pct.1": 0.535,
+            "pct.2": 0.336,
+            "p_val_adj": 1.14153462336436e-130,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6134,
+            "gene": "IGHG43",
+            "p_val": 9.77917990942084e-135,
+            "avg_log2FC": 1.360009291,
+            "pct.1": 0.44,
+            "pct.2": 0.247,
+            "p_val_adj": 6.44516410290199e-130,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          },
+          {
+            "Unnamed: 0": 6135,
+            "gene": "IGHG13",
+            "p_val": 4.15924405021085e-133,
+            "avg_log2FC": 1.860820791,
+            "pct.1": 0.568,
+            "pct.2": 0.409,
+            "p_val_adj": 2.7412329761724696e-128,
+            "cluster_number": "cluster 10 (Plasma cells)"
+          }
+        ],
+        "total_rows": 112
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "gene",
+          "avg_log2FC"
+        ],
+        "rows": "[{\"gene\":\"MZB1\",\"avg_log2FC\":3.062985612}]",
+        "total_rows": 1,
+        "storage_entry": {
+          "id": "1765852630_3e468364",
+          "name": "cluster7_MZB1_eb00cf8487.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster7_MZB1_eb00cf8487.csv"
+        }
+      }
+    },
+    {
+      "tool": "ora_pipe",
+      "payload": {
+        "ora_results": [
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Spliceosome",
+            "Overlap": "8/150",
+            "P-value": 1.9917820762635864e-08,
+            "Adjusted P-value": 1.454000915672418e-06,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 20.653103808033386,
+            "Combined Score": 366.21362858925687,
+            "Genes": "HNRNPK;TRA2B;HSPA6;EIF4A3;SRSF7;SRSF10;HSPA1B;HSPA1A"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Antigen processing and presentation",
+            "Overlap": "4/78",
+            "P-value": 0.00010056793579398252,
+            "Adjusted P-value": 0.0024471531043202,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 18.512581547064304,
+            "Combined Score": 170.40233507244125,
+            "Genes": "HSPA4;HSPA6;HSPA1B;HSPA1A"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "UV Response Up",
+            "Overlap": "6/158",
+            "P-value": 9.428955044459253e-06,
+            "Adjusted P-value": 0.00031115551646715526,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 13.946898496240602,
+            "Combined Score": 161.3896778966011,
+            "Genes": "STIP1;DNAJB1;NR4A1;AMD1;FKBP4;ATF3"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Legionellosis",
+            "Overlap": "3/57",
+            "P-value": 0.0007367316031541088,
+            "Adjusted P-value": 0.0105125851804868,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 18.72316384180791,
+            "Combined Score": 135.0555525963716,
+            "Genes": "HSPA6;HSPA1B;HSPA1A"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Longevity regulating pathway",
+            "Overlap": "4/102",
+            "P-value": 0.00028344295688453224,
+            "Adjusted P-value": 0.0051728339631427,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 13.961998592540464,
+            "Combined Score": 114.0485808304462,
+            "Genes": "HSPA6;HSPA1B;HSPA1A;SOD1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Prion disease",
+            "Overlap": "7/273",
+            "P-value": 2.1178986191914024e-05,
+            "Adjusted P-value": 0.0007730329960048618,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 9.41244019138756,
+            "Combined Score": 101.30139777446782,
+            "Genes": "STIP1;HSPA6;VDAC1;SLC25A31;HSPA1B;HSPA1A;SOD1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Estrogen signaling pathway",
+            "Overlap": "4/137",
+            "P-value": 0.000864048097026319,
+            "Adjusted P-value": 0.0105125851804868,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 10.269639616282085,
+            "Combined Score": 72.44082729745651,
+            "Genes": "HSPA6;FKBP4;HSPA1B;HSPA1A"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "mTORC1 Signaling",
+            "Overlap": "5/200",
+            "P-value": 0.00038763478399228226,
+            "Adjusted P-value": 0.0063959739358726,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 8.881241565452092,
+            "Combined Score": 69.76612187866111,
+            "Genes": "ACTR3;STIP1;EPRS1;HSPA4;ELOVL5"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Protein processing in endoplasmic reticulum",
+            "Overlap": "4/171",
+            "P-value": 0.001956540020486,
+            "Adjusted P-value": 0.0175692873675836,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 8.164773900474913,
+            "Combined Score": 50.92024651792556,
+            "Genes": "DNAJB1;HSPA6;HSPA1B;HSPA1A"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Toxoplasmosis",
+            "Overlap": "3/112",
+            "P-value": 0.0050861387351963,
+            "Adjusted P-value": 0.0337534661517576,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 9.25003887420308,
+            "Combined Score": 48.85164139792481,
+            "Genes": "HSPA6;HSPA1B;HSPA1A"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Endocytosis",
+            "Overlap": "5/252",
+            "P-value": 0.0011001880226617,
+            "Adjusted P-value": 0.0114733893791863,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 6.993039278357838,
+            "Combined Score": 47.63850094429965,
+            "Genes": "ACTR3;HSPA6;HSPA1B;HSPA1A;ARF6"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "Myc Targets V1",
+            "Overlap": "4/200",
+            "P-value": 0.0034429423303528,
+            "Adjusted P-value": 0.0284042742254108,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 6.946516537649543,
+            "Combined Score": 39.39667426105362,
+            "Genes": "EPRS1;TRA2B;VDAC1;SRSF7"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "TNF-alpha Signaling via NF-kB",
+            "Overlap": "4/200",
+            "P-value": 0.0034429423303528,
+            "Adjusted P-value": 0.0284042742254108,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 6.946516537649543,
+            "Combined Score": 39.39667426105362,
+            "Genes": "NR4A1;DNAJB4;PNRC1;ATF3"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "MAPK signaling pathway",
+            "Overlap": "5/294",
+            "P-value": 0.0021660765247705,
+            "Adjusted P-value": 0.0175692873675836,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 5.964001699751108,
+            "Combined Score": 36.58818307305086,
+            "Genes": "NR4A1;HSPA6;HSPB1;HSPA1B;HSPA1A"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "Cholesterol Homeostasis",
+            "Overlap": "2/74",
+            "P-value": 0.0221349386007329,
+            "Adjusted P-value": 0.1140915450667605,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 9.197222222222225,
+            "Combined Score": 35.046916482830376,
+            "Genes": "PNRC1;ATF3"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Lipid and atherosclerosis",
+            "Overlap": "4/215",
+            "P-value": 0.0044518503285501,
+            "Adjusted P-value": 0.0324985073984158,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 6.4477855858800455,
+            "Combined Score": 34.91111894727882,
+            "Genes": "HSPA4;HSPA6;HSPA1B;HSPA1A"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Measles",
+            "Overlap": "3/139",
+            "P-value": 0.0092141524197732,
+            "Adjusted P-value": 0.0560527605536205,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 7.403539381854436,
+            "Combined Score": 34.70049769572088,
+            "Genes": "HSPA6;HSPA1B;HSPA1A"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "Apoptosis",
+            "Overlap": "3/161",
+            "P-value": 0.0136891453342921,
+            "Adjusted P-value": 0.0903483592063281,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 6.365586783951942,
+            "Combined Score": 27.315700914638473,
+            "Genes": "HSPB1;ATF3;SOD1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Influenza A",
+            "Overlap": "3/172",
+            "P-value": 0.0163164076366118,
+            "Adjusted P-value": 0.0916229044209739,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 5.94794905225153,
+            "Combined Score": 24.479284392301867,
+            "Genes": "DNAJB1;VDAC1;SLC25A31"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Fc gamma R-mediated phagocytosis",
+            "Overlap": "2/97",
+            "P-value": 0.0364696439287218,
+            "Adjusted P-value": 0.1774856004531128,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 6.962456140350877,
+            "Combined Score": 23.054607218008137,
+            "Genes": "ACTR3;ARF6"
+          }
+        ],
+        "ora_result_metadata": {
+          "id": "1765852651_02eed7eb",
+          "name": "ora_results_20251215_213727.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20251215_213727.csv",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-15/ora_results_20251215_213727.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251216%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251216T023731Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=b9fab4254dbd8525930a949514268d3f2b1c34ace693625a3f350ae1b88c7249"
+        }
+      }
+    },
+    {
+      "tool": "ora_pipe",
+      "payload": {
+        "ora_results": {},
+        "ora_result_metadata": {}
+      }
+    },
+    {
+      "tool": "gene_info",
+      "payload": {
+        "results": [
+          {
+            "symbol": "MZB1",
+            "name": "marginal zone B and B1 cell specific protein",
+            "summary": "Involved in positive regulation of cell population proliferation. Located in cytoplasm and extracellular region. [provided by Alliance of Genome Resources, Apr 2022]",
+            "aliases": "MEDA-7; PACAP; pERp1",
+            "entrezgene": "51237",
+            "ensembl_gene": "ENSG00000170476",
+            "HGNC": "30125"
+          },
+          {
+            "symbol": "XBP1",
+            "name": "X-box binding protein 1",
+            "summary": "This gene encodes a transcription factor that regulates MHC class II genes by binding to a promoter element referred to as an X box. This gene product is a bZIP protein, which was also identified as a cellular transcription factor that bin…",
+            "aliases": "TREB-5; TREB5; XBP-1; XBP2",
+            "entrezgene": "7494",
+            "ensembl_gene": "ENSG00000100219",
+            "HGNC": "12801"
+          },
+          {
+            "symbol": "HSPA6",
+            "name": "heat shock protein family A (Hsp70) member 6",
+            "summary": "Enables enzyme binding activity; heat shock protein binding activity; and unfolded protein binding activity. Involved in cellular response to heat and protein refolding. Located in centriole and cytosol. Colocalizes with COP9 signalosome. …",
+            "aliases": "HSP70B'",
+            "entrezgene": "3310",
+            "ensembl_gene": "ENSG00000173110",
+            "HGNC": "5239"
+          },
+          {
+            "symbol": "MT2A",
+            "name": "metallothionein 2A",
+            "summary": "This gene is a member of the metallothionein family of genes. Proteins encoded by this gene family are low in molecular weight, are cysteine-rich, lack aromatic residues, and bind divalent heavy metal ions, altering the intracellular conce…",
+            "aliases": "MT-2; MT-II; MT2",
+            "entrezgene": "4502",
+            "ensembl_gene": "ENSG00000125148",
+            "HGNC": "7406"
+          },
+          {
+            "symbol": "TNFRSF17",
+            "name": "TNF receptor superfamily member 17",
+            "summary": "The protein encoded by this gene is a member of the TNF-receptor superfamily. This receptor is preferentially expressed in mature B lymphocytes, and may be important for B cell development and autoimmune response. This receptor has been sh…",
+            "aliases": "BCM; BCMA; CD269; TNFRSF13A",
+            "entrezgene": "608",
+            "ensembl_gene": "ENSG00000048462",
+            "HGNC": "11913"
+          }
+        ]
+      }
+    }
+  ],
+  "uploaded_files": [
+    {
+      "name": "1-s2.0-S1535610824003593-mmc2-cluster 9 (Plasma cells).csv",
+      "type": "csv",
+      "preview": ",gene,p_val,avg_log2FC,pct.1,pct.2,p_val_adj,cluster_number\n3059,IGHA21,0.0,1.868646162,0.324,0.152,0.0,cluster 9 (Plasma cells)\n3060,IGKC2,0.0,1.408829325,0.888,0.661,0.0,cluster 9 (Plasma cells)",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-15/1-s20-S1535610824003593-mmc2-cluster9Plasmacells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251216%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251216T023322Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=d992d4724ce4d326c8f270d61d558e15bf706f912876220f484b27b245adc267",
+      "s3_key": "uploads/2025-12-15/1-s20-S1535610824003593-mmc2-cluster9Plasmacells.csv"
+    },
+    {
+      "name": "1-s2.0-S1535610824003593-mmc2-cluster 7 (Plasma cells).csv",
+      "type": "csv",
+      "preview": ",gene,p_val,avg_log2FC,pct.1,pct.2,p_val_adj,cluster_number\n155,IGLV6-57,0.0,3.231657074,0.252,0.053,0.0,cluster 7 (Plasma cells)\n156,IGKV4-1,0.0,3.224405058,0.287,0.119,0.0,cluster 7 (Plasma cells)",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-15/1-s20-S1535610824003593-mmc2-cluster7Plasmacells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251216%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251216T023323Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=095d76c15f2b257b9483dd2f95667efbf3dedf93a6dd757e6fbbc353d1009171",
+      "s3_key": "uploads/2025-12-15/1-s20-S1535610824003593-mmc2-cluster7Plasmacells.csv"
+    },
+    {
+      "name": "1-s2.0-S1535610824003593-mmc2-cluster 10 (Plasma cells).csv",
+      "type": "csv",
+      "preview": ",gene,p_val,avg_log2FC,pct.1,pct.2,p_val_adj,cluster_number\n6116,MT2A1,0.0,4.567595365,0.919,0.189,0.0,cluster 10 (Plasma cells)\n6117,MT1X1,0.0,4.072330619,0.764,0.102,0.0,cluster 10 (Plasma cells)",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-15/1-s20-S1535610824003593-mmc2-cluster10Plasmacells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251216%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251216T023323Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=ab6483308c3acf9c335058a4a8619e5425935777297ddc9633d1577448accc10",
+      "s3_key": "uploads/2025-12-15/1-s20-S1535610824003593-mmc2-cluster10Plasmacells.csv"
+    },
+    {
+      "name": "1-s2.0-S1535610824003593-mmc2-cluster 8 (Plasma cells).csv",
+      "type": "csv",
+      "preview": ",gene,p_val,avg_log2FC,pct.1,pct.2,p_val_adj,cluster_number\n1707,HSPA6,0.0,6.650533878,0.345,0.039,0.0,cluster 8 (Plasma cells)\n1708,HSPA1B,0.0,4.005115014,0.9,0.316,0.0,cluster 8 (Plasma cells)",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-15/1-s20-S1535610824003593-mmc2-cluster8Plasmacells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251216%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251216T023323Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=f66f531c22341fb4eace10cea51ee6f93d868a3f1590542778a43d3724a4ebfd",
+      "s3_key": "uploads/2025-12-15/1-s20-S1535610824003593-mmc2-cluster8Plasmacells.csv"
+    }
+  ]
+}

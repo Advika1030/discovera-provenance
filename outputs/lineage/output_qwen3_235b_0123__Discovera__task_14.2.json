@@ -1,0 +1,163 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0123__Discovera__task_14.2",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Discovera",
+      "task_id": "14.2",
+      "run_date": "2026-01-21 17:41:48",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "41598_2024_75947_MOESM1_ESM-S2.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/41598_2024_75947_MOESM1_ESM-S2.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T224148Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=f727ca6abfd389c3ecf95307740d04d1a0e7645ffe2b3935559d98d8c3bfd64f",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/41598_2024_75947_MOESM1_ESM-S2.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T224148Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=f727ca6abfd389c3ecf95307740d04d1a0e7645ffe2b3935559d98d8c3bfd64f\", \"metadata\": {\"cell_type\": \"mucosal epithelial (undifferentiated) cells\", \"comparisons\": [\"PIF vs PNI\", \"PIF vs Control\", \"PNI vs Control\"], \"disease\": \"Perianal fistulizing Crohn\\u2019s disease\", \"source\": \"Supplemental Table 2: Significant Reactome Pathways Obtained from Differentially Expressed Genes from Mucosal Epithelial (Undifferentiated) Cells\"}, \"name\": \"41598_2024_75947_MOESM1_ESM-S2\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "41598_2024_75947_MOESM1_ESM-S2.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/41598_2024_75947_MOESM1_ESM-S2.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769035323_3f88ee29"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1769035323_3f88ee29\", \"n_rows\": 50}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 2,
+      "args": "{\"columns\": [\"Reactome Pathway ID\", \"GeneList\", \"GeneCount/direction\", \"Direction between Organoid Phenotypes\", \"Comparison within Mucosal Epithelial Phenotypes\"], \"distinct\": true, \"id\": \"1769035323_3f88ee29\", \"rename\": {\"Comparison within Mucosal Epithelial Phenotypes\": \"comparison\", \"Direction between Organoid Phenotypes\": \"direction\", \"GeneCount/direction\": \"gene_count\", \"GeneList\": \"genes\", \"Reactome Pathway ID\": \"pathway\"}, \"sort_by\": [\"-gene_count\"]}",
+      "error": "",
+      "id": "step2_csv_select"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 3,
+      "args": "{\"columns\": [\"Reactome Pathway ID\", \"GeneList\", \"GeneCount/direction\", \"Direction between Organoid Phenotypes\", \"Comparison within Mucosal Epithelial Phenotypes\"], \"csv_id\": \"1769035323_3f88ee29\", \"distinct\": true, \"rename\": {\"Comparison within Mucosal Epithelial Phenotypes\": \"comparison\", \"Direction between Organoid Phenotypes\": \"direction\", \"GeneCount/direction\": \"gene_count\", \"GeneList\": \"genes\", \"Reactome Pathway ID\": \"pathway\"}, \"sort_by\": [\"-gene_count\"]}",
+      "error": "",
+      "id": "step3_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769035323_3f88ee29_4b78ff8eba.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_select_1769035323_3f88ee29_4b78ff8eba.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769035365_b4f5c917"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 4,
+      "args": "{\"columns\": [\"Supplemental Table 2: Significant Reactome Pathways Obtained from Differentially Expressed Genes from Mucosal Epithelial (Undifferentiated) Cells.\", \"Unnamed: 1\", \"Unnamed: 2\", \"Unnamed: 3\", \"Unnamed: 4\"], \"csv_id\": \"1769035323_3f88ee29\", \"distinct\": true, \"rename\": {\"Supplemental Table 2: Significant Reactome Pathways Obtained from Differentially Expressed Genes from Mucosal Epithelial (Undifferentiated) Cells.\": \"pathway\", \"Unnamed: 1\": \"genes\", \"Unnamed: 2\": \"gene_count\", \"Unnamed: 3\": \"direction\", \"Unnamed: 4\": \"comparison\"}, \"sort_by\": [\"-gene_count\"]}",
+      "error": "",
+      "id": "step4_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769035323_3f88ee29_c48f03a722.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_select_1769035323_3f88ee29_c48f03a722.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769035380_92e48562"
+    },
+    {
+      "type": "report",
+      "length": 5276,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769035323_3f88ee29",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1769035323_3f88ee29"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_select",
+      "target": "1769035323_3f88ee29"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_select",
+      "target": "1769035323_3f88ee29"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769035365_b4f5c917",
+      "target": "step3_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_select",
+      "target": "1769035323_3f88ee29"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769035380_92e48562",
+      "target": "step4_csv_select"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

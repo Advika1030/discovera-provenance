@@ -1,0 +1,164 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0123__Baseline__task_10",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "10",
+      "run_date": "2026-01-22 00:07:51",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "PIIS1535610825000789-baseline_Nivo_Rela.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/PIIS1535610825000789-baseline_Nivo_Rela.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T050751Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=7b0a89b1574308bf330a9ffffcdfa985803e1f664f169f4818e4749f6730753f",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "PIIS1535610825000789-baseline_Nivo_Ipi.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/PIIS1535610825000789-baseline_Nivo_Ipi.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T050751Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=258de15d7dad3c0060a6fdd9adf1cd371fbf7d34fd3e88f3330c0754000e3e78",
+      "id": "upload:1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/PIIS1535610825000789-baseline_Nivo_Rela.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T050751Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=7b0a89b1574308bf330a9ffffcdfa985803e1f664f169f4818e4749f6730753f\", \"metadata\": {\"description\": \"Differentially expressed genes in pTR-2 vs pTR-0 tumors for Nivo+Rela cohort\", \"source\": \"clinical trial analysis\"}, \"name\": \"baseline_Nivo_Rela\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "baseline_Nivo_Rela.csv",
+      "path": "/app/output/user_csvs/baseline_Nivo_Rela.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769058491_bd7e2dcb"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 1,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/PIIS1535610825000789-baseline_Nivo_Ipi.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T050751Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=258de15d7dad3c0060a6fdd9adf1cd371fbf7d34fd3e88f3330c0754000e3e78\", \"metadata\": {\"description\": \"Differentially expressed genes in pTR-2 vs pTR-0 tumors for Nivo+Ipi cohort\", \"source\": \"clinical trial analysis\"}, \"name\": \"baseline_Nivo_Ipi\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step1_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "baseline_Nivo_Ipi.csv",
+      "path": "/app/output/user_csvs/baseline_Nivo_Ipi.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769058499_15e4547c"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"pTR-2 vs. pTR-0\", \"op\": \"contains\", \"value\": \"Up\"}], \"csv_id\": \"1769058491_bd7e2dcb\", \"keep_columns\": [\"Gene\", \"avg_log2FC\", \"p_val_adj\"], \"name\": \"nivo_rela_upregulated\", \"sort_by\": [\"-avg_log2FC\"]}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769058491_bd7e2dcb.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769058491_bd7e2dcb.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769058507_4a9d5724"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 3,
+      "args": "{\"conditions\": [{\"column\": \"pTR-2 vs. pTR-0\", \"op\": \"contains\", \"value\": \"up\"}], \"csv_id\": \"1769058499_15e4547c\", \"keep_columns\": [\"Gene\", \"avg_log2FC\", \"p_val_adj\"], \"name\": \"nivo_ipi_upregulated\", \"sort_by\": [\"-avg_log2FC\"]}",
+      "error": "",
+      "id": "step3_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769058499_15e4547c.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769058499_15e4547c.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769058517_9c62866f"
+    },
+    {
+      "type": "report",
+      "length": 4298,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769058491_bd7e2dcb",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769058499_15e4547c",
+      "target": "step1_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1769058491_bd7e2dcb"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769058507_4a9d5724",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_filter",
+      "target": "1769058499_15e4547c"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769058517_9c62866f",
+      "target": "step3_csv_filter"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

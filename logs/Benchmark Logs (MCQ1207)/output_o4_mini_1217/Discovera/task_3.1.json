@@ -1,0 +1,1251 @@
+{
+  "ID": "3.1",
+  "Context/Background": "To find novel treatments and drug combinations that could effectively target colorectal cancer cells (CRCs) and lower the probability of disease relapse, we designed multiple different combinations between cisplatin, cannabidiol (CBD), and intermittent serum starvation (ISS) on colorectal cancer cell lines. We analyzed differentially expressed genes and affected pathways in colorectal cancer cell lines to understand further the potential molecular mechanisms behind the treatments and their interactions.",
+  "Prompt": "Based on the results of the differential expression analysis of Cisplatin vs DMSO in colorectal cancer cells, run a pathway overrepresentation analysis for statistically significant genes (up and down combined) against the Reactome database. Then, provide a discussion of any relevant affected pathways, highlighting important up and down regulated genes in each.  Focus on any mechanisms by which Cisplatin may alter cancer related pathways.",
+  "mode": "Discovera",
+  "llm_provider": "openai",
+  "llm_model": "o4-mini",
+  "run_date": "2025-12-15 16:58:22",
+  "elapsed_seconds": 562.49,
+  "status": "ok",
+  "error": null,
+  "output_text": "Here is the Reactome Over-Representation Analysis (ORA) on all genes with p-value < 0.05 in the Cisplatin vs DMSO contrast (combined up- and down-regulated), followed by a brief discussion of key cancer-relevant modules and mechanistic insights.\n\nReactome ORA (combined sig genes; p<0.05)  \n| Term                                                               | Overlap | Adj P-value    | Leading Genes (examples)                                   |\n|--------------------------------------------------------------------|---------|----------------|-------------------------------------------------------------|\n| Loss of MECP2 Binding Ability to the NCoR SMRT Complex             | 6/7     | 2.27 × 10⁻³    | MECP2; NCOR2; HDAC3; NCOR1; TBL1XR1; TBL1X                  |\n| TP53 Regulates Transcription of Cell Cycle Genes                   | 27/49   | 1.85 × 10⁻⁸    | CDKN1A; CDKN1B; PCNA; BAX; GADD45A; PLK2; CDC25C; CCNE1      |\n| ATF6 (ATF6-alpha) Activates Chaperone Genes                        | 7/10    | 3.75 × 10⁻³    | ATF6; ATF4; XBP1; HSPA5; DDIT3; CALR                        |\n| TP53 Regulates Transcription of Additional Cell Cycle Genes        | 12/21   | 3.06 × 10⁻⁴    | PLK3; RGCC; NPM1; CDC25C; BTG2                              |\n| Aberrant Regulation of Mitotic G1-S Transition in Cancer (RB1)     | 10/17   | 1.15 × 10⁻³    | RB1; CDKN1A; CCND1; CCNE2; E2F3                             |\n| TP53 Regulates Transcription of Genes Involved in G2 Cell Cycle Arrest | 10/18 | 2.05 × 10⁻³    | SFN; BAX; PCNA; GADD45A; CARM1                              |\n| Unfolded Protein Response (UPR)                                    | 34/95   | 7.38 × 10⁻⁶    | ATF4; ATF6; XBP1; HSPA5; HERPUD1; DDIT3                     |\n| TRAIL Signaling                                                    | 5/8     | 3.47 × 10⁻²    | CASP10; TNFRSF10A/B; CFLAR                                  |\n| Regulation of NFE2L2 (NRF2) Gene Expression                       | 5/8     | 3.47 × 10⁻²    | EP300; NOTCH1; MYC; NFKB1; RELA                             |\n| Laminin Interactions                                               | 14/30   | 9.19 × 10⁻⁴    | ITGA2; ITGB4; LAMA2; COL4A5; LAMC1                          |\n| ATF4 Activates Genes in Response to ER Stress                      | 13/28   | 1.81 × 10⁻³    | ATF4; ATF3; CEBPG; ASNS; EXOSC1                             |\n| Transcriptional Regulation by TP53                                 | 95/362  | 7.97 × 10⁻⁸    | MDM2; FAS; BAX; CDKN1A; CCNG1; GADD45A; SESN1                |\n\nDiscussion  \n1. **DNA damage–p53–cell cycle axis**: Cisplatin induces DNA crosslinks, activating TP53-dependent arrest (G1/S and G2 checkpoints). Enrichment of “TP53 Regulates Transcription of Cell Cycle Genes” and RB1/E2F modules highlights upregulation of CDKN1A (p21), GADD45A, PLK2 and down-modulation of CCNE1/2, consistent with halted proliferation.  \n2. **Apoptosis & TRAIL signaling**: Enrichment of “TRAIL Signaling” with CASP10 and TNFRSF10A/B suggests engagement of extrinsic apoptotic pathways. Concomitant upregulation of BAX in TP53 modules reinforces intrinsic apoptosis.  \n3. **Endoplasmic reticulum stress & UPR**: Terms “Unfolded Protein Response” and ATF4/ATF6 activation indicate strong ER stress. Key chaperones (HSPA5/BiP), DDIT3 (CHOP), and ATF4 are upregulated, pointing to ER-mediated cell death.  \n4. **Oxidative stress response**: “Regulation of NFE2L2 Gene Expression” implies modulation of NRF2 targets (EP300, NFKB1, RELA), potentially reflecting a counter-reactive antioxidant program.  \n5. **Extracellular matrix remodeling**: Laminin interactions (ITGA2, ITGB4, LAMA2) suggest cisplatin may alter cell–matrix adhesion, impacting migration/invasion.  \n6. **Epigenetic/Transcriptional regulators**: MECP2–NCoR/SMRT pathway loss points to chromatin derepression; perturbed histone deacetylation may affect global transcription in response to damage.\n\nMechanistically, cisplatin’s DNA lesions trigger p53-mediated checkpoints, apoptotic cascades, and cellular stress responses (ER/oxidative), while also perturbing cell adhesion and chromatin regulation. The interplay of these pathways underlies both cytotoxicity and potential resistance (e.g., NRF2-driven survival).",
+  "tool_calls_json": [
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cisplatin_vs_dmso_DEG",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-15/ijms-24-14743-v2_crc_cells_cisplatin_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251215%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251215T215822Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=7d528517084f34a5e6847ec26cda28ced46040a7a82f1803009ffa3bb693309f",
+        "tags": [
+          "user_input",
+          "DEG"
+        ]
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1765836000_00e5bcbe",
+        "n_rows": 50
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1765836000_00e5bcbe",
+        "conditions": [
+          {
+            "column": "pvalue",
+            "op": "<",
+            "value": 0.05
+          }
+        ],
+        "keep_columns": [
+          "Unnamed: 0"
+        ],
+        "name": "cisplatin_sig_genes_pval05"
+      }
+    },
+    {
+      "name": "csv_select",
+      "args": {
+        "csv_id": "1765836043_6577a716",
+        "columns": [
+          "Unnamed: 0"
+        ],
+        "rename": null,
+        "distinct": true,
+        "sort_by": null,
+        "name": "cisplatin_sig_genelist"
+      }
+    },
+    {
+      "name": "csv_join",
+      "args": {
+        "left_csv_id": "1765836094_ebb279d5",
+        "right_csv_id": "1765836000_00e5bcbe",
+        "on": "Unnamed: 0",
+        "how": "inner",
+        "select": {
+          "left": [
+            "Unnamed: 0"
+          ],
+          "right": [
+            "log2FoldChange"
+          ]
+        },
+        "suffixes": [
+          "",
+          ""
+        ],
+        "name": "sig_genes_with_fc"
+      }
+    },
+    {
+      "name": "ora_pipe",
+      "args": {
+        "csv_id": "1765836094_ebb279d5",
+        "gene_col": "Unnamed: 0",
+        "gene_sets": [
+          "Reactome_Pathways_2024"
+        ],
+        "p_value_threshold": 0.05
+      }
+    },
+    {
+      "name": "gsea_pipe",
+      "args": {
+        "csv_id": "1765836000_00e5bcbe",
+        "hit_col": "Unnamed: 0",
+        "corr_col": "log2FoldChange",
+        "gene_sets": [
+          "Reactome_Pathways_2024"
+        ],
+        "min_size": 5,
+        "max_size": 200,
+        "p_value_threshold": 0.05,
+        "fdr_threshold": 0.25
+      }
+    }
+  ],
+  "tool_events_json": [
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1765836000_00e5bcbe",
+        "name": "cisplatin_vs_dmso_DEG.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cisplatin_vs_dmso_DEG.csv"
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cisplatin_vs_dmso_DEG.csv",
+        "columns": [
+          "Unnamed: 0",
+          "baseMean",
+          "log2FoldChange",
+          "lfcSE",
+          "stat",
+          "pvalue",
+          "padj",
+          "comparison"
+        ],
+        "rows": [
+          {
+            "Unnamed: 0": "ENSG00000227232",
+            "baseMean": 450.682772833157,
+            "log2FoldChange": -0.000616023466175,
+            "lfcSE": 0.106234181000541,
+            "stat": -0.0057987312593099,
+            "pvalue": 0.995373307784939,
+            "padj": 0.998555069027487,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000238009",
+            "baseMean": 10.1341459712791,
+            "log2FoldChange": 0.303995510840732,
+            "lfcSE": 0.669490733521145,
+            "stat": 0.45406978113332,
+            "pvalue": 0.649778602518962,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000237683",
+            "baseMean": 906.404261268454,
+            "log2FoldChange": 0.0423425979956737,
+            "lfcSE": 0.0866073218623112,
+            "stat": 0.48890321378359,
+            "pvalue": 0.624910220330172,
+            "padj": 0.860013596965413,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000268903",
+            "baseMean": 5.01534345999193,
+            "log2FoldChange": -0.133045060056648,
+            "lfcSE": 0.870742219018012,
+            "stat": -0.152795003102859,
+            "pvalue": 0.878559938410708,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000239906",
+            "baseMean": 11.3813919935083,
+            "log2FoldChange": 0.795683234969325,
+            "lfcSE": 0.550911931022091,
+            "stat": 1.44430205657938,
+            "pvalue": 0.148654027544441,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000241860",
+            "baseMean": 89.9490925013673,
+            "log2FoldChange": -0.0010130904892556,
+            "lfcSE": 0.218390335721886,
+            "stat": -0.0046388979892671,
+            "pvalue": 0.996298708190143,
+            "padj": 0.998963598114717,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000222623",
+            "baseMean": 2.46323182003426,
+            "log2FoldChange": -0.98395980902576,
+            "lfcSE": 1.24859051254647,
+            "stat": -0.788056451765752,
+            "pvalue": 0.430663686295442,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000237094",
+            "baseMean": 8.4013389235416,
+            "log2FoldChange": -0.714882163462746,
+            "lfcSE": 0.704014550396716,
+            "stat": -1.01543663133085,
+            "pvalue": 0.309897738949562,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000225972",
+            "baseMean": 66.6737554612328,
+            "log2FoldChange": 0.13858514438693,
+            "lfcSE": 0.508070565527112,
+            "stat": 0.272767512605559,
+            "pvalue": 0.785031934062644,
+            "padj": 0.929788129732788,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000225630",
+            "baseMean": 6710.67111515426,
+            "log2FoldChange": 0.0795769606667817,
+            "lfcSE": 0.0470577464152445,
+            "stat": 1.6910491200446,
+            "pvalue": 0.0908274215817679,
+            "padj": 0.358396507089461,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000237973",
+            "baseMean": 2242.78025223381,
+            "log2FoldChange": -0.0856586862933603,
+            "lfcSE": 0.294490428474088,
+            "stat": -0.29087086713549,
+            "pvalue": 0.771150083072273,
+            "padj": 0.923150037351222,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000229344",
+            "baseMean": 277.441471929116,
+            "log2FoldChange": -0.0981805830237723,
+            "lfcSE": 0.424126423866737,
+            "stat": -0.231488955884109,
+            "pvalue": 0.816934964387958,
+            "padj": 0.939130484861675,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000248527",
+            "baseMean": 31121.5733754842,
+            "log2FoldChange": 0.0949166957311434,
+            "lfcSE": 0.0442819387924061,
+            "stat": 2.1434629629952,
+            "pvalue": 0.0320759419997452,
+            "padj": 0.199937569185479,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000198744",
+            "baseMean": 96.814189456597,
+            "log2FoldChange": -0.450625516858971,
+            "lfcSE": 0.386989753364959,
+            "stat": -1.16443785123684,
+            "pvalue": 0.244246615685919,
+            "padj": 0.579437043549836,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000224956",
+            "baseMean": 88.880189634189,
+            "log2FoldChange": 0.123192244370058,
+            "lfcSE": 0.224876298820656,
+            "stat": 0.547822269470499,
+            "pvalue": 0.583813945886322,
+            "padj": 0.84100675988064,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000235373",
+            "baseMean": 39.9099139822512,
+            "log2FoldChange": 1.05660063933205,
+            "lfcSE": 0.37368196449428,
+            "stat": 2.82753983260068,
+            "pvalue": 0.0046907179431547,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000240618",
+            "baseMean": 17.4174743100916,
+            "log2FoldChange": -0.916164503372775,
+            "lfcSE": 0.532950205531357,
+            "stat": -1.71904334375731,
+            "pvalue": 0.0856064798941236,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000228327",
+            "baseMean": 112.346231813555,
+            "log2FoldChange": 0.01982216626317,
+            "lfcSE": 0.18816530506133,
+            "stat": 0.105344427107373,
+            "pvalue": 0.916102511335862,
+            "padj": 0.97256413510271,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000237491",
+            "baseMean": 34.418113548127,
+            "log2FoldChange": -0.143878498340835,
+            "lfcSE": 0.336970705330764,
+            "stat": -0.426976280325634,
+            "pvalue": 0.669396604312183,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000230092",
+            "baseMean": 9.30331352634158,
+            "log2FoldChange": -0.279602430655385,
+            "lfcSE": 0.611891746058418,
+            "stat": -0.456947544163621,
+            "pvalue": 0.64770874956139,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000240453",
+            "baseMean": 4.29665906117524,
+            "log2FoldChange": 1.55917677533252,
+            "lfcSE": 1.02637719336232,
+            "stat": 1.51910699635168,
+            "pvalue": 0.128735565957362,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000225880",
+            "baseMean": 20.0743420733154,
+            "log2FoldChange": 0.209999955733346,
+            "lfcSE": 0.44978401556367,
+            "stat": 0.466890659665114,
+            "pvalue": 0.640578108214542,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000228794",
+            "baseMean": 377.397611156939,
+            "log2FoldChange": -0.0112981465761297,
+            "lfcSE": 0.10149366116376,
+            "stat": -0.111318740959596,
+            "pvalue": 0.911363594630802,
+            "padj": 0.971112988740449,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000272438",
+            "baseMean": 12.4072095395754,
+            "log2FoldChange": -0.187917800157305,
+            "lfcSE": 0.630630296024251,
+            "stat": -0.297984098356857,
+            "pvalue": 0.765715300293548,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000230699",
+            "baseMean": 51.1876133586149,
+            "log2FoldChange": -0.24936711754767,
+            "lfcSE": 0.340337525854761,
+            "stat": -0.732705325166191,
+            "pvalue": 0.463738175373249,
+            "padj": 0.768625236632523,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000223764",
+            "baseMean": 65.2810897009926,
+            "log2FoldChange": 0.485109330962192,
+            "lfcSE": 0.266613149269088,
+            "stat": 1.81952515204934,
+            "pvalue": 0.0688313491002755,
+            "padj": 0.309206489011878,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000187634",
+            "baseMean": 210.09486176466,
+            "log2FoldChange": -0.15454395864366,
+            "lfcSE": 0.145442899054616,
+            "stat": -1.0625747949759,
+            "pvalue": 0.287974822339747,
+            "padj": 0.628736487214833,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000188976",
+            "baseMean": 6719.92599625125,
+            "log2FoldChange": -0.0726853792676885,
+            "lfcSE": 0.0508190068832259,
+            "stat": -1.43027941169153,
+            "pvalue": 0.152636841395014,
+            "padj": 0.459476728669577,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000187961",
+            "baseMean": 2209.71203950267,
+            "log2FoldChange": 0.0880522459988105,
+            "lfcSE": 0.0649138630571479,
+            "stat": 1.35644748058349,
+            "pvalue": 0.174956834908339,
+            "padj": 0.494770009867569,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000187583",
+            "baseMean": 662.075933413349,
+            "log2FoldChange": 0.255057889330919,
+            "lfcSE": 0.0932362985460214,
+            "stat": 2.73560719707274,
+            "pvalue": 0.0062265302251379,
+            "padj": 0.0703389938397054,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000187642",
+            "baseMean": 4.97527772054848,
+            "log2FoldChange": 0.135543768237168,
+            "lfcSE": 0.904612813439343,
+            "stat": 0.149836224098827,
+            "pvalue": 0.880893829261918,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000272512",
+            "baseMean": 168.939358448929,
+            "log2FoldChange": -0.126374238377151,
+            "lfcSE": 0.182255796518662,
+            "stat": -0.693389405391071,
+            "pvalue": 0.488065209200424,
+            "padj": 0.785772533537567,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000188290",
+            "baseMean": 1475.57727420851,
+            "log2FoldChange": 0.0129195444263459,
+            "lfcSE": 0.155719980606956,
+            "stat": 0.0829665170518828,
+            "pvalue": 0.93387816331617,
+            "padj": 0.978664547668389,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000187608",
+            "baseMean": 2073.18910323942,
+            "log2FoldChange": 0.211836889458367,
+            "lfcSE": 0.129744881210955,
+            "stat": 1.63271866667276,
+            "pvalue": 0.102528179650715,
+            "padj": 0.379697525901867,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000188157",
+            "baseMean": 8606.94835150892,
+            "log2FoldChange": 0.0839998201491214,
+            "lfcSE": 0.0503596227094948,
+            "stat": 1.66799939375407,
+            "pvalue": 0.095315847130289,
+            "padj": 0.366568069827087,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000217801",
+            "baseMean": 538.006112601217,
+            "log2FoldChange": -0.022306328615457,
+            "lfcSE": 0.0923182952572075,
+            "stat": -0.241624139108174,
+            "pvalue": 0.809071415910518,
+            "padj": 0.936268642485869,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000273443",
+            "baseMean": 18.9584092715732,
+            "log2FoldChange": -0.342922177474076,
+            "lfcSE": 0.496622100670527,
+            "stat": -0.690509296728983,
+            "pvalue": 0.489873965602253,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000237330",
+            "baseMean": 351.173422479364,
+            "log2FoldChange": -0.198318979315991,
+            "lfcSE": 0.113821833419837,
+            "stat": -1.74236324751932,
+            "pvalue": 0.0814449026663784,
+            "padj": 0.338475189781738,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000131591",
+            "baseMean": 518.489976777263,
+            "log2FoldChange": 0.0006476275553746,
+            "lfcSE": 0.114709238880327,
+            "stat": 0.0056458186079531,
+            "pvalue": 0.995495312430987,
+            "padj": 0.998603229112924,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000207730",
+            "baseMean": 11.7162266061594,
+            "log2FoldChange": -1.60103579455834,
+            "lfcSE": 0.576095829668963,
+            "stat": -2.77911366842966,
+            "pvalue": 0.0054507447766948,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000207607",
+            "baseMean": 9.42809436094319,
+            "log2FoldChange": -0.607198811581408,
+            "lfcSE": 0.648430926645583,
+            "stat": -0.936412479155684,
+            "pvalue": 0.349060855252327,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000198976",
+            "baseMean": 21.817489544864,
+            "log2FoldChange": -0.474548218807427,
+            "lfcSE": 0.404011059888236,
+            "stat": -1.17459214838996,
+            "pvalue": 0.240157926032104,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000272141",
+            "baseMean": 204.204360181075,
+            "log2FoldChange": -0.110878155067156,
+            "lfcSE": 0.141790394025366,
+            "stat": -0.781986366772633,
+            "pvalue": 0.434222585763362,
+            "padj": 0.750202764675019,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000162571",
+            "baseMean": 8.42173503019046,
+            "log2FoldChange": -0.176732057660496,
+            "lfcSE": 0.672011658389197,
+            "stat": -0.262989570871613,
+            "pvalue": 0.792558617500116,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000186891",
+            "baseMean": 813.386067000666,
+            "log2FoldChange": -0.0924485490101192,
+            "lfcSE": 0.0818144014665636,
+            "stat": -1.12997892000593,
+            "pvalue": 0.25848510708619,
+            "padj": 0.595988358609046,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000186827",
+            "baseMean": 4.62107703088891,
+            "log2FoldChange": 0.466025282135186,
+            "lfcSE": 0.997839174604271,
+            "stat": 0.467034462061489,
+            "pvalue": 0.64047522219801,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000078808",
+            "baseMean": 4023.6034433591,
+            "log2FoldChange": -0.0566421295976189,
+            "lfcSE": 0.0520279169964614,
+            "stat": -1.08868724460891,
+            "pvalue": 0.276291828582706,
+            "padj": 0.616188766604465,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000176022",
+            "baseMean": 430.887715749617,
+            "log2FoldChange": 0.125500019251861,
+            "lfcSE": 0.133985409202876,
+            "stat": 0.936669298534089,
+            "pvalue": 0.348928693408807,
+            "padj": 0.687013819310163,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000184163",
+            "baseMean": 75.4419027690697,
+            "log2FoldChange": -0.0383166672847159,
+            "lfcSE": 0.222745037360133,
+            "stat": -0.172020296114456,
+            "pvalue": 0.863421572847888,
+            "padj": 0.955809464037701,
+            "comparison": "cisplatin_vs_dmso"
+          },
+          {
+            "Unnamed: 0": "ENSG00000260179",
+            "baseMean": 19.6889411705023,
+            "log2FoldChange": 0.128257277393849,
+            "lfcSE": 0.483165574183356,
+            "stat": 0.265452019446189,
+            "pvalue": 0.790661267248357,
+            "padj": NaN,
+            "comparison": "cisplatin_vs_dmso"
+          }
+        ],
+        "total_rows": 20130
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "Unnamed: 0"
+        ],
+        "rows": "[{\"Unnamed: 0\":\"ENSG00000248527\"},{\"Unnamed: 0\":\"ENSG00000235373\"},{\"Unnamed: 0\":\"ENSG00000187583\"},{\"Unnamed: 0\":\"ENSG00000207730\"},{\"Unnamed: 0\":\"ENSG00000162572\"},{\"Unnamed: 0\":\"ENSG00000131584\"},{\"Unnamed: 0\":\"ENSG00000160072\"},{\"Unnamed: 0\":\"ENSG00000197530\"},{\"Unnamed: 0\":\"ENSG00000078369\"},{\"Unnamed: 0\":\"ENSG00000116213\"},{\"Unnamed: 0\":\"ENSG00000116254\"},{\"Unnamed: 0\":\"ENSG00000158292\"},{\"Unnamed: 0\":\"ENSG00000069812\"},{\"Unnamed: 0\":\"ENSG00000171680\"},{\"Unnamed: 0\":\"ENSG00000116273\"},{\"Unnamed: 0\":\"ENSG00000162426\"},{\"Unnamed: 0\":\"ENSG00000074800\"},{\"Unnamed: 0\":\"ENSG00000228526\"},{\"Unnamed: 0\":\"ENSG00000234546\"},{\"Unnamed: 0\":\"ENSG00000049239\"}]",
+        "total_rows": 2898,
+        "storage_entry": {
+          "id": "1765836043_6577a716",
+          "name": "cisplatin_sig_genes_pval05_aa5929688a.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cisplatin_sig_genes_pval05_aa5929688a.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_select",
+      "payload": {
+        "columns": [
+          "Unnamed: 0"
+        ],
+        "rows": "[{\"Unnamed: 0\":\"ENSG00000248527\"},{\"Unnamed: 0\":\"ENSG00000235373\"},{\"Unnamed: 0\":\"ENSG00000187583\"},{\"Unnamed: 0\":\"ENSG00000207730\"},{\"Unnamed: 0\":\"ENSG00000162572\"},{\"Unnamed: 0\":\"ENSG00000131584\"},{\"Unnamed: 0\":\"ENSG00000160072\"},{\"Unnamed: 0\":\"ENSG00000197530\"},{\"Unnamed: 0\":\"ENSG00000078369\"},{\"Unnamed: 0\":\"ENSG00000116213\"},{\"Unnamed: 0\":\"ENSG00000116254\"},{\"Unnamed: 0\":\"ENSG00000158292\"},{\"Unnamed: 0\":\"ENSG00000069812\"},{\"Unnamed: 0\":\"ENSG00000171680\"},{\"Unnamed: 0\":\"ENSG00000116273\"},{\"Unnamed: 0\":\"ENSG00000162426\"},{\"Unnamed: 0\":\"ENSG00000074800\"},{\"Unnamed: 0\":\"ENSG00000228526\"},{\"Unnamed: 0\":\"ENSG00000234546\"},{\"Unnamed: 0\":\"ENSG00000049239\"}]",
+        "total_rows": 2898,
+        "storage_entry": {
+          "id": "1765836094_ebb279d5",
+          "name": "cisplatin_sig_genelist_a0d63b1ac3.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cisplatin_sig_genelist_a0d63b1ac3.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_join",
+      "payload": {
+        "columns": [
+          "Unnamed: 0",
+          "log2FoldChange"
+        ],
+        "rows": "[{\"Unnamed: 0\":\"ENSG00000248527\",\"log2FoldChange\":0.0949166957},{\"Unnamed: 0\":\"ENSG00000235373\",\"log2FoldChange\":1.0566006393},{\"Unnamed: 0\":\"ENSG00000187583\",\"log2FoldChange\":0.2550578893},{\"Unnamed: 0\":\"ENSG00000207730\",\"log2FoldChange\":-1.6010357946},{\"Unnamed: 0\":\"ENSG00000162572\",\"log2FoldChange\":0.3856457506},{\"Unnamed: 0\":\"ENSG00000131584\",\"log2FoldChange\":0.2589078164},{\"Unnamed: 0\":\"ENSG00000160072\",\"log2FoldChange\":0.1543257},{\"Unnamed: 0\":\"ENSG00000197530\",\"log2FoldChange\":0.161927544},{\"Unnamed: 0\":\"ENSG00000078369\",\"log2FoldChange\":-0.1091145288},{\"Unnamed: 0\":\"ENSG00000116213\",\"log2FoldChange\":0.2626517698},{\"Unnamed: 0\":\"ENSG00000116254\",\"log2FoldChange\":0.5522318357},{\"Unnamed: 0\":\"ENSG00000158292\",\"log2FoldChange\":0.4561497443},{\"Unnamed: 0\":\"ENSG00000069812\",\"log2FoldChange\":1.0569306116},{\"Unnamed: 0\":\"ENSG00000171680\",\"log2FoldChange\":0.1246110475},{\"Unnamed: 0\":\"ENSG00000116273\",\"log2FoldChange\":-0.1710316518},{\"Unnamed: 0\":\"ENSG00000162426\",\"log2FoldChange\":0.2797782814},{\"Unnamed: 0\":\"ENSG00000074800\",\"log2FoldChange\":-0.2732585833},{\"Unnamed: 0\":\"ENSG00000228526\",\"log2FoldChange\":2.3147656581},{\"Unnamed: 0\":\"ENSG00000234546\",\"log2FoldChange\":0.8779587241},{\"Unnamed: 0\":\"ENSG00000049239\",\"log2FoldChange\":-0.3313651593}]",
+        "total_rows": 2898,
+        "storage_entry": {
+          "id": "1765836204_389cfc92",
+          "name": "sig_genes_with_fc_d4a27b28c9.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/sig_genes_with_fc_d4a27b28c9.csv"
+        }
+      }
+    },
+    {
+      "tool": "ora_pipe",
+      "payload": {
+        "ora_results": [
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Loss of MECP2 Binding Ability to the NCoR SMRT Complex",
+            "Overlap": "6/7",
+            "P-value": 4.040280496637474e-05,
+            "Adjusted P-value": 0.0022683714259085,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 37.92456975466862,
+            "Combined Score": 383.6681326550521,
+            "Genes": "MECP2;NCOR2;HDAC3;NCOR1;TBL1XR1;TBL1X"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "TP53 Regulates Transcription of Cell Cycle Genes",
+            "Overlap": "27/49",
+            "P-value": 9.753974495106975e-12,
+            "Adjusted P-value": 1.8474027693732612e-08,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 7.80790003354579,
+            "Combined Score": 197.9563932190294,
+            "Genes": "BTG2;CDKN1A;CDKN1B;PCNA;PCBP4;EP300;TNKS1BP1;SFN;ZNF385A;E2F7;PLK3;NPM1;CNOT6L;PRMT1;GADD45A;PLK2;CDC25C;CNOT4;TFDP1;RGCC;CCNE2;CCNE1;CNOT1;CARM1;CNOT2;BAX;CNOT8"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "ATF6 (ATF6-alpha) Activates Chaperone Genes",
+            "Overlap": "7/10",
+            "P-value": 7.321344950061385e-05,
+            "Adjusted P-value": 0.00374773711768,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 14.752136752136751,
+            "Combined Score": 140.47178484318022,
+            "Genes": "XBP1;HSPA5;NFYA;DDIT3;CALR;ATF6;ATF4"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "TP53 Regulates Transcription of Additional Cell Cycle Genes With Uncertain Roles in the P53 Pathway",
+            "Overlap": "12/21",
+            "P-value": 3.717894820491759e-06,
+            "Adjusted P-value": 0.0003061605560874518,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 8.442324159021407,
+            "Combined Score": 105.54891642477118,
+            "Genes": "CNOT4;PLK3;BTG2;NPM1;CNOT6L;RGCC;CNOT1;PLK2;CNOT2;TNKS1BP1;CDC25C;CNOT8"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Aberrant Regulation of Mitotic G1 S Transition in Cancer Due to RB1 Defects",
+            "Overlap": "10/17",
+            "P-value": 1.754330727716776e-05,
+            "Adjusted P-value": 0.0011457594476881,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 9.03976111896904,
+            "Combined Score": 98.9929598664456,
+            "Genes": "CDKN1C;RB1;CDKN1A;CCND3;CDKN1B;TFDP1;CCND1;CCNE2;CCNE1;E2F3"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Defective Binding of RB1 Mutants to E2F1,(E2F2, E2F3)",
+            "Overlap": "10/17",
+            "P-value": 1.754330727716776e-05,
+            "Adjusted P-value": 0.0011457594476881,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 9.03976111896904,
+            "Combined Score": 98.9929598664456,
+            "Genes": "CDKN1C;RB1;CDKN1A;CCND3;CDKN1B;TFDP1;CCND1;CCNE2;CCNE1;E2F3"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "TP53 Regulates Transcription of Genes Involved in G2 Cell Cycle Arrest",
+            "Overlap": "10/18",
+            "P-value": 3.4618776648605975e-05,
+            "Adjusted P-value": 0.0020489988428893,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 7.9093325999266595,
+            "Combined Score": 81.23765952957949,
+            "Genes": "PCNA;TFDP1;GADD45A;PRMT1;CARM1;BAX;EP300;SFN;CDC25C;ZNF385A"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "ATF6 (ATF6-alpha) Activates Chaperones",
+            "Overlap": "7/12",
+            "P-value": 0.0003754188953153457,
+            "Adjusted P-value": 0.0114684417375365,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 8.85025641025641,
+            "Combined Score": 69.8061151238727,
+            "Genes": "XBP1;HSPA5;NFYA;DDIT3;CALR;ATF6;ATF4"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "TRAIL Signaling",
+            "Overlap": "5/8",
+            "P-value": 0.0018670218109342,
+            "Adjusted P-value": 0.0346680324500936,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 10.529526598340654,
+            "Combined Score": 66.16134043244976,
+            "Genes": "CASP10;TNFRSF10B;TNFRSF10A;CFLAR;TNFRSF10D"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Regulation of NFE2L2 Gene Expression",
+            "Overlap": "5/8",
+            "P-value": 0.0018670218109342,
+            "Adjusted P-value": 0.0346680324500936,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 10.529526598340654,
+            "Combined Score": 66.16134043244976,
+            "Genes": "NOTCH1;MYC;EP300;NFKB1;RELA"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Laminin Interactions",
+            "Overlap": "14/30",
+            "P-value": 1.3105597652393875e-05,
+            "Adjusted P-value": 0.0009193334056901482,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 5.542095115681234,
+            "Combined Score": 62.306844267459304,
+            "Genes": "LAMA5;LAMA2;ITGB4;LAMC3;ITGA3;LAMA4;ITGA2;LAMA3;LAMB1;LAMC1;COL4A3;COL4A6;COL4A5;ITGAV"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Unfolded Protein Response (UPR)",
+            "Overlap": "34/95",
+            "P-value": 4.6773309068649745e-08,
+            "Adjusted P-value": 7.3780597295546275e-06,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 3.547169811320755,
+            "Combined Score": 59.868965769119896,
+            "Genes": "CUL7;SHC1;CEBPG;CXXC1;HERPUD1;EXOSC5;SERP1;EXOSC4;CREB3L2;LMNA;DNAJB9;SSR1;EXOSC2;EXOSC1;XBP1;HSPA5;NFYA;WFS1;EDEM1;GFPT1;SYVN1;ASNS;PDIA6;ERN1;CTDSP2;DDIT3;CREBRF;KDELR3;CALR;TLN1;ATF6;ATF3;DCP2;ATF4"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Response of EIF2AK1 (HRI) to Heme Deficiency",
+            "Overlap": "8/15",
+            "P-value": 0.00031886424592496315,
+            "Adjusted P-value": 0.0104125669272737,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 7.226508925299691,
+            "Combined Score": 58.17878137191634,
+            "Genes": "EIF2AK1;DDIT3;CEBPG;ASNS;TRIB3;ATF5;ATF3;ATF4"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Depolymerization of the Nuclear Lamina",
+            "Overlap": "8/15",
+            "P-value": 0.00031886424592496315,
+            "Adjusted P-value": 0.0104125669272737,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 7.226508925299691,
+            "Combined Score": 58.17878137191634,
+            "Genes": "CTDNEP1;LMNA;PRKCA;LEMD3;LPIN1;LPIN2;LMNB1;TMPO"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "ATF4 Activates Genes in Response to Endoplasmic Reticulum Stress",
+            "Overlap": "13/28",
+            "P-value": 2.866432912847968e-05,
+            "Adjusted P-value": 0.0018096746456446,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 5.487616250611845,
+            "Combined Score": 57.39968177762415,
+            "Genes": "NFYA;CEBPG;ASNS;HERPUD1;EXOSC5;EXOSC4;DDIT3;EXOSC2;ATF6;EXOSC1;ATF3;DCP2;ATF4"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Loss of Function of MECP2 in Rett Syndrome",
+            "Overlap": "7/13",
+            "P-value": 0.0007172999666378875,
+            "Adjusted P-value": 0.0174175145745148,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 7.374786324786324,
+            "Combined Score": 53.393574242841325,
+            "Genes": "MECP2;NCOR2;HDAC3;NCOR1;BDNF;TBL1XR1;TBL1X"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Disorders of Nervous System Development",
+            "Overlap": "7/13",
+            "P-value": 0.0007172999666378875,
+            "Adjusted P-value": 0.0174175145745148,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 7.374786324786324,
+            "Combined Score": 53.393574242841325,
+            "Genes": "MECP2;NCOR2;HDAC3;NCOR1;BDNF;TBL1XR1;TBL1X"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Disorders of Developmental Biology",
+            "Overlap": "7/13",
+            "P-value": 0.0007172999666378875,
+            "Adjusted P-value": 0.0174175145745148,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 7.374786324786324,
+            "Combined Score": 53.393574242841325,
+            "Genes": "MECP2;NCOR2;HDAC3;NCOR1;BDNF;TBL1XR1;TBL1X"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Pervasive Developmental Disorders",
+            "Overlap": "7/13",
+            "P-value": 0.0007172999666378875,
+            "Adjusted P-value": 0.0174175145745148,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 7.374786324786324,
+            "Combined Score": 53.393574242841325,
+            "Genes": "MECP2;NCOR2;HDAC3;NCOR1;BDNF;TBL1XR1;TBL1X"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Transcriptional Regulation by TP53",
+            "Overlap": "95/362",
+            "P-value": 1.2627167917561586e-10,
+            "Adjusted P-value": 7.971952011953883e-08,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 2.2888970165037836,
+            "Combined Score": 52.16988059749012,
+            "Genes": "PRR5;YWHAE;ATF2;GPI;BTG2;CDKN1A;CDKN1B;EHMT2;PRKAG2;PRDM1;TRIAP1;COX6A1;GLS;BBC3;PIDD1;ING2;CASP10;SESN1;PIP4K2A;TNKS1BP1;EP300;NBN;ZNF385A;BNIP3L;PRKAB2;CNOT6L;CSNK2A1;PRMT1;IGFBP3;CSNK2A2;TSC1;CDC25C;GTF2F2;DDB2;TFDP1;CCNE2;RRM2B;RRAGB;CCNE1;FANCD2;KAT6A;MT-CO2;MT-CO3;SGK1;PCNA;MAPKAP1;NDRG1;PRDX2;UBB;RBBP4;PCBP4;PERP;POLR2C;TP53INP1;PMAIP1;SFN;RICTOR;BRD7;MTA2;RFFL;E2F7;POLR2K;BANP;MBD3;PLK3;NPM1;TIGAR;GADD45A;TAF13;PLK2;TNFRSF10C;TNFRSF10B;TNFRSF10A;SSRP1;MTOR;HIPK2;TNFRSF10D;CNOT4;MAPK11;RGCC;TP53I3;CNOT1;CNOT2;CARM1;CCNG1;MDM2;FAS;TCEA1;CYCS;BAX;CNOT8;ATR;RAD9A;TAF1;TNRC6B"
+          }
+        ],
+        "ora_result_metadata": {
+          "id": "1765836277_48e9957b",
+          "name": "ora_results_20251215_170426.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20251215_170426.csv",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-15/ora_results_20251215_170426.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251215%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251215T220437Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=3d3f44eff47d24aba2df924bcc4bc9464a6b7724862dd963374160209aedcc39"
+        }
+      }
+    },
+    {
+      "tool": "gsea_pipe",
+      "payload": {
+        "counts_by_database": {
+          "Reactome_Pathways_2024": {
+            "up": 52,
+            "down": 27,
+            "total": 79
+          }
+        },
+        "top_high_nes": {
+          "Reactome_Pathways_2024": [
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Response to Elevated Platelet Cytosolic Ca2+",
+              "NES": 6.3298554458421545,
+              "Size": 101,
+              "ES": 0.42098952539879864,
+              "NOS p-val": 2.4539098225865227e-10,
+              "FDR q-val": 4.5544566307205864e-07,
+              "Lead_genes": [
+                "ORM2",
+                "CD109",
+                "THBS1",
+                "TGFB2",
+                "MMRN1",
+                "CLU",
+                "EGF",
+                "ITGA2B",
+                "FERMT3",
+                "FGG",
+                "SPARC",
+                "PRKCG",
+                "VWF",
+                "SERPINE1",
+                "TIMP3",
+                "F5",
+                "AHSG",
+                "SCG3"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Platelet Degranulation",
+              "NES": 5.333082609026972,
+              "Size": 97,
+              "ES": 0.4270405513822868,
+              "NOS p-val": 9.655935628849477e-08,
+              "FDR q-val": 8.960708263572315e-05,
+              "Lead_genes": [
+                "ORM2",
+                "CD109",
+                "THBS1",
+                "TGFB2",
+                "MMRN1",
+                "CLU",
+                "EGF",
+                "ITGA2B",
+                "FERMT3",
+                "FGG",
+                "SPARC",
+                "VWF",
+                "SERPINE1",
+                "TIMP3",
+                "F5",
+                "AHSG",
+                "SCG3"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Cell Surface Interactions at the Vascular Wall",
+              "NES": 5.178527405895243,
+              "Size": 89,
+              "ES": 0.5313783767789554,
+              "NOS p-val": 2.2364422380682925e-07,
+              "FDR q-val": 0.00013836122646182503,
+              "Lead_genes": [
+                "CD74",
+                "ITGAM",
+                "SELPLG",
+                "SDC1",
+                "CEACAM1",
+                "SLC7A10",
+                "SPN",
+                "VPREB3",
+                "ANGPT2",
+                "GP6",
+                "SLC16A8",
+                "SLC7A6",
+                "FYN",
+                "THBD",
+                "IGLV1-51",
+                "SLC7A7",
+                "INPP5D",
+                "LCK"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "L1CAM Interactions",
+              "NES": 5.011739667507329,
+              "Size": 98,
+              "ES": 0.3928823140293781,
+              "NOS p-val": 5.394014677140291e-07,
+              "FDR q-val": 0.0002502822810193095,
+              "Lead_genes": [
+                "NRCAM",
+                "L1CAM",
+                "NRP2",
+                "ITGA2B",
+                "TUBB4A",
+                "SCN4A",
+                "TUBAL3",
+                "TUBB6",
+                "LAMB1",
+                "RPS6KA1",
+                "ITGA10",
+                "NFASC",
+                "KCNQ3",
+                "TUBB8B",
+                "ITGA2",
+                "ANK1",
+                "ITGA9",
+                "NCAN",
+                "TUBA1A",
+                "ITGA1",
+                "DLG4",
+                "SPTBN5",
+                "SCN3B"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "HDR Through Homologous Recombination (HRR) or Single Strand Annealing (SSA)",
+              "NES": 4.806140241503072,
+              "Size": 104,
+              "ES": 0.335463131063036,
+              "NOS p-val": 1.538719830884716e-06,
+              "FDR q-val": 0.0005423782575254185,
+              "Lead_genes": [
+                "PCNA",
+                "XRCC3",
+                "RAD51C",
+                "H2BC12",
+                "RAD51",
+                "H2BC4",
+                "H2BC5",
+                "H2BC12L",
+                "ATR",
+                "H2BC11",
+                "RMI2",
+                "SLX1A",
+                "EME2",
+                "CLSPN",
+                "BLM",
+                "RAD9B",
+                "POLH",
+                "ERCC4",
+                "UBB",
+                "H2BC26",
+                "H2BC21"
+              ]
+            }
+          ]
+        },
+        "top_low_nes": {
+          "Reactome_Pathways_2024": [
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "PI3K AKT Signaling in Cancer",
+              "NES": 2.0062014331449065,
+              "Size": 85,
+              "ES": 0.3403998922397397,
+              "NOS p-val": 0.04483476103937711,
+              "FDR q-val": 1.0,
+              "Lead_genes": [
+                "FLT3",
+                "FGF2",
+                "TGFA",
+                "MDM2",
+                "CDKN1A",
+                "PIK3R3",
+                "PIK3AP1",
+                "EGF",
+                "BTC",
+                "NRG1",
+                "LCK",
+                "EPGN",
+                "FYN",
+                "GAB2",
+                "NTF4",
+                "NRG2"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "PRC2 Methylates Histones and DNA",
+              "NES": 1.9909377707209384,
+              "Size": 26,
+              "ES": 0.6746612479569725,
+              "NOS p-val": 0.0464877290815755,
+              "FDR q-val": 1.0,
+              "Lead_genes": [
+                "H2BC5",
+                "H2BC12",
+                "H2BC4",
+                "H2BC11",
+                "H2BC26",
+                "H2AC6",
+                "DNMT3A",
+                "H2BC12L",
+                "H2AC20"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Laminin Interactions",
+              "NES": 1.988293370117192,
+              "Size": 26,
+              "ES": 0.6742271249749678,
+              "NOS p-val": 0.04677925361184965,
+              "FDR q-val": 1.0,
+              "Lead_genes": [
+                "COL4A6",
+                "LAMA2",
+                "ITGA1",
+                "LAMA4",
+                "ITGA2",
+                "LAMC3",
+                "LAMA3",
+                "NID1",
+                "COL4A5"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "MITF-M-dependent Gene Expression",
+              "NES": 1.9658515290983543,
+              "Size": 83,
+              "ES": 0.3519320968951429,
+              "NOS p-val": 0.049315763482525865,
+              "FDR q-val": 1.0,
+              "Lead_genes": [
+                "CEACAM1",
+                "CDKN1A",
+                "GPR143",
+                "SYTL2",
+                "DCT"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Toll Like Receptor 4 (TLR4) Cascade",
+              "NES": -1.9628558386476358,
+              "Size": 124,
+              "ES": -0.29158712764255995,
+              "NOS p-val": 0.04966292739444378,
+              "FDR q-val": 1.0,
+              "Lead_genes": [
+                "SARM1",
+                "MAP3K8",
+                "TRAF6",
+                "NOD2",
+                "MAPK3",
+                "NOD1",
+                "CREB1",
+                "DNM3",
+                "MAP2K6",
+                "AGER",
+                "CD36",
+                "SIGIRR",
+                "TAB1",
+                "MAPK7",
+                "MAPK10",
+                "DNM1",
+                "SFTPA2",
+                "TICAM2",
+                "NFKB1",
+                "IRAK2",
+                "ATF2",
+                "ALPK1",
+                "MEF2C",
+                "RIPK2",
+                "RELA"
+              ]
+            }
+          ]
+        },
+        "gsea_result_metadata": {
+          "id": "1765836401_24740452",
+          "name": "gsea_results_20251215_170621.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20251215_170621.csv",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-15/gsea_results_20251215_170621.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251215%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251215T220642Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=9353878c687aec2836a1a6ea361ca59529f29743f0e2c8963d7242f7732ae4d8"
+        },
+        "gsea_plot_metadata": {
+          "id": "1765836402_0d2b96ba",
+          "name": "gsea_results_20251215_170621.png",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20251215_170621.png",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-15/gsea_results_20251215_170621.png?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251215%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251215T220643Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=1a7271270d0a1d129658fc2a0bff7cb9815d1b74d686e4ac6af2a88c084cfa00"
+        }
+      }
+    }
+  ],
+  "uploaded_files": [
+    {
+      "name": "ijms-24-14743-v2_crc_cells_cisplatin_vs_dmso_DEG.csv",
+      "type": "csv",
+      "preview": ",baseMean,log2FoldChange,lfcSE,stat,pvalue,padj,comparison\nENSG00000227232,450.682772833157,-0.000616023466175029,0.106234181000541,-0.00579873125930992,0.995373307784939,0.998555069027487,cisplatin_vs_dmso\nENSG00000238009,10.1341459712791,0.303995510840732,0.669490733521145,0.45406978113332,0.649778602518962,,cisplatin_vs_dmso",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-15/ijms-24-14743-v2_crc_cells_cisplatin_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251215%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251215T215822Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=7d528517084f34a5e6847ec26cda28ced46040a7a82f1803009ffa3bb693309f",
+      "s3_key": "uploads/2025-12-15/ijms-24-14743-v2_crc_cells_cisplatin_vs_dmso_DEG.csv"
+    }
+  ]
+}

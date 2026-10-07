@@ -1,0 +1,138 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0124__Baseline__task_10",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "10",
+      "run_date": "2026-01-22 05:43:58",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "PIIS1535610825000789-baseline_Nivo_Rela.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/PIIS1535610825000789-baseline_Nivo_Rela.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T104358Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=e7c242dcb92958fde4a1dd83acb74c9e4617baac46411d61489e2ab0b24b2ef2",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "PIIS1535610825000789-baseline_Nivo_Ipi.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/PIIS1535610825000789-baseline_Nivo_Ipi.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T104358Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=0a19d26bb8bea4aca266994ff95094e325f8a46ccbac66bfef18968f48ce83e5",
+      "id": "upload:1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/PIIS1535610825000789-baseline_Nivo_Rela.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T104358Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=e7c242dcb92958fde4a1dd83acb74c9e4617baac46411d61489e2ab0b24b2ef2\", \"name\": \"baseline_Nivo_Rela\", \"tags\": [\"user_input\", \"Nivo+Rela\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "baseline_Nivo_Rela.csv",
+      "path": "/app/output/user_csvs/baseline_Nivo_Rela.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769078662_bd7e2dcb"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 1,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/PIIS1535610825000789-baseline_Nivo_Ipi.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T104358Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=0a19d26bb8bea4aca266994ff95094e325f8a46ccbac66bfef18968f48ce83e5\", \"name\": \"baseline_Nivo_Ipi\", \"tags\": [\"user_input\", \"Nivo+Ipi\"]}",
+      "error": "",
+      "id": "step1_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "baseline_Nivo_Ipi.csv",
+      "path": "/app/output/user_csvs/baseline_Nivo_Ipi.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769078671_15e4547c"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 2,
+      "args": "{\"id\": \"1769078662_bd7e2dcb\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step2_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 3,
+      "args": "{\"id\": \"1769078671_15e4547c\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step3_csv_read"
+    },
+    {
+      "type": "report",
+      "length": 4385,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769078662_bd7e2dcb",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769078671_15e4547c",
+      "target": "step1_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_read",
+      "target": "1769078662_bd7e2dcb"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_read",
+      "target": "1769078671_15e4547c"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

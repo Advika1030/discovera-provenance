@@ -1,0 +1,251 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_o4_mini_1214__Discovera__task_3.3",
+      "model": "o4-mini",
+      "mode": "Discovera",
+      "task_id": "3.3",
+      "run_date": "2025-12-14 12:12:32",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T171232Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=2c3b6e84c58b96b6f5e2295af362287e471f4389923d12082cfe32815f6745c7",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T171232Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=2c3b6e84c58b96b6f5e2295af362287e471f4389923d12082cfe32815f6745c7\", \"name\": \"ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1765732402_cbcb6b16"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1765732402_cbcb6b16\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1765732402_cbcb6b16\", \"keep_columns\": [\"Unnamed: 0\"], \"name\": \"serum_starv_sig_genes\"}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "serum_starv_sig_genes_6cda70d6f5.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/serum_starv_sig_genes_6cda70d6f5.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765732423_5234e6b9"
+    },
+    {
+      "type": "tool_step",
+      "tool": "ora_pipe",
+      "step_index": 3,
+      "args": "{\"csv_id\": \"1765732423_5234e6b9\", \"gene_col\": \"Unnamed: 0\", \"gene_sets\": [\"Reactome_Pathways_2024\"], \"p_value_threshold\": 0.05}",
+      "error": "",
+      "id": "step3_ora_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "ora_results_20251214_121357.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20251214_121357.csv",
+      "source_key": "ora_result_metadata",
+      "is_plot": false,
+      "id": "1765732458_b2856a1f"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 4,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"log2FoldChange\", \"op\": \">\", \"value\": 0}], \"csv_id\": \"1765732402_cbcb6b16\", \"keep_columns\": [\"Unnamed: 0\"], \"name\": \"serum_starv_up_sig\"}",
+      "error": "",
+      "id": "step4_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "serum_starv_up_sig_42d0a141aa.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/serum_starv_up_sig_42d0a141aa.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765732490_5bfc335c"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 5,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"log2FoldChange\", \"op\": \"<\", \"value\": 0}], \"csv_id\": \"1765732402_cbcb6b16\", \"keep_columns\": [\"Unnamed: 0\"], \"name\": \"serum_starv_down_sig\"}",
+      "error": "",
+      "id": "step5_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "serum_starv_down_sig_b366375d52.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/serum_starv_down_sig_b366375d52.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765732493_51df4c6d"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gene_info",
+      "step_index": 6,
+      "args": "{\"gene_list\": [\"HMGCR\", \"SREBF1\", \"CYP51A1\", \"CDC25C\", \"TP53\", \"PLK3\", \"FASN\"]}",
+      "error": "",
+      "id": "step6_gene_info"
+    },
+    {
+      "type": "tool_step",
+      "tool": "ora_pipe",
+      "step_index": 7,
+      "args": "{\"csv_id\": \"1765732490_5bfc335c\", \"gene_col\": \"Unnamed: 0\", \"gene_sets\": [\"Reactome_Pathways_2024\"], \"p_value_threshold\": 0.05}",
+      "error": "",
+      "id": "step7_ora_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "ora_results_20251214_121528.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20251214_121528.csv",
+      "source_key": "ora_result_metadata",
+      "is_plot": false,
+      "id": "1765732538_de981ea0"
+    },
+    {
+      "type": "report",
+      "length": 4739,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765732402_cbcb6b16",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1765732402_cbcb6b16"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1765732402_cbcb6b16"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765732423_5234e6b9",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_ora_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_ora_pipe",
+      "target": "1765732423_5234e6b9"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765732458_b2856a1f",
+      "target": "step3_ora_pipe"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_filter",
+      "target": "1765732402_cbcb6b16"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765732490_5bfc335c",
+      "target": "step4_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step5_csv_filter",
+      "target": "1765732402_cbcb6b16"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765732493_51df4c6d",
+      "target": "step5_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step6_gene_info",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step7_ora_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step7_ora_pipe",
+      "target": "1765732490_5bfc335c"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765732538_de981ea0",
+      "target": "step7_ora_pipe"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

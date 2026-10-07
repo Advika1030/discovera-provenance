@@ -1,0 +1,138 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0124__Discovera__task_2.3",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Discovera",
+      "task_id": "2.3",
+      "run_date": "2026-01-21 14:36:52",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "jciinsight-8-167744.sdt1-26_Table-S12-Blood-DEG-BixBench.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/jciinsight-8-167744sdt1-26_Table-S12-Blood-DEG-BixBench.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T193652Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=17dd992eb6b9c0730eb8c34a29f16c3642d854531398045983a254f37a32e122",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "jciinsight-8-167744-s107-DNAm_Blood_cleaned.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/jciinsight-8-167744-s107-DNAm_Blood_cleaned.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T193652Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=ca6ff339c063992352e9926f0a442325f5a953e529cb0fb6136bde39e73e4770",
+      "id": "upload:1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/jciinsight-8-167744sdt1-26_Table-S12-Blood-DEG-BixBench.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T193652Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=17dd992eb6b9c0730eb8c34a29f16c3642d854531398045983a254f37a32e122\", \"name\": \"BOS_Blood_DEG\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "BOS_Blood_DEG.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/BOS_Blood_DEG.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769024227_dbe07d11"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 1,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/jciinsight-8-167744-s107-DNAm_Blood_cleaned.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T193652Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=ca6ff339c063992352e9926f0a442325f5a953e529cb0fb6136bde39e73e4770\", \"name\": \"BOS_Blood_DNAm\"}",
+      "error": "",
+      "id": "step1_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "BOS_Blood_DNAm.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/BOS_Blood_DNAm.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769024242_ecd9d87f"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 2,
+      "args": "{\"id\": \"1769024227_dbe07d11\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step2_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 3,
+      "args": "{\"id\": \"1769024242_ecd9d87f\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step3_csv_read"
+    },
+    {
+      "type": "report",
+      "length": 5289,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769024227_dbe07d11",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769024242_ecd9d87f",
+      "target": "step1_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_read",
+      "target": "1769024227_dbe07d11"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_read",
+      "target": "1769024242_ecd9d87f"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

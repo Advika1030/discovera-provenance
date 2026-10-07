@@ -1,0 +1,108 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0122__Baseline__task_5.2",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "5.2",
+      "run_date": "2026-01-21 22:57:07",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-Hyp_vs_Norm.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-Hyp_vs_Norm.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035705Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=5302e747c982779efabc5b3d7fe390973fda6b3df0c1552da6e47ee153056ecf",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-HypZot_vs_HypVeh.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-HypZot_vs_HypVeh.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035706Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=ee6d4aa3bf80ea2f6decfdad664e0c2c408d03a24a3034e6a5861e04dc51497a",
+      "id": "upload:1"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-NormZot_vs_NormVeh.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-NormZot_vs_NormVeh.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035707Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=12a7cd15392917c02849a2a1dfdf4928b2485c631aae00e0324aed5a44f529ad",
+      "id": "upload:2"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS6-HypZot_vs_HypVeh.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035706Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=ee6d4aa3bf80ea2f6decfdad664e0c2c408d03a24a3034e6a5861e04dc51497a\", \"name\": \"HypZot_vs_HypVeh\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "HypZot_vs_HypVeh.csv",
+      "path": "/app/output/user_csvs/HypZot_vs_HypVeh.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769054244_e041b71a"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"gene_name\", \"op\": \"==\", \"value\": \"HIF1A\"}], \"csv_id\": \"1769054244_e041b71a\"}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769054244_e041b71a.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769054244_e041b71a.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769054253_a24cd458"
+    },
+    {
+      "type": "report",
+      "length": 1970,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054244_e041b71a",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769054244_e041b71a"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054253_a24cd458",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0122__Baseline__task_7.2",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "7.2",
+      "run_date": "2026-01-21 23:00:15",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Ahmad_2025_Cancer_Cell_TableS3.xlsx - Elp1HETvsWT;Ptch1gRNA_RNA_GSEA.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Ahmad_2025_Cancer_Cell_TableS3xlsx-Elp1HETvsWTPtch1gRNA_RNA_GSEA.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T040015Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=9ea34183918573a359b1f9543d3b0021233d2e66f36df4fa4e85a0ffd2531353",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Ahmad_2025_Cancer_Cell_TableS3xlsx-Elp1HETvsWTPtch1gRNA_RNA_GSEA.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T040015Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=9ea34183918573a359b1f9543d3b0021233d2e66f36df4fa4e85a0ffd2531353\", \"name\": \"Ahmad_2025_Cancer_Cell_TableS3\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Ahmad_2025_Cancer_Cell_TableS3.csv",
+      "path": "/app/output/user_csvs/Ahmad_2025_Cancer_Cell_TableS3.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769054429_78f20e1f"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"enrichmentScore\", \"op\": \">\", \"value\": 0}], \"csv_id\": \"1769054429_78f20e1f\", \"name\": \"upregulated_pathways\"}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769054429_78f20e1f.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769054429_78f20e1f.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769054446_72c4c2ad"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"enrichmentScore\", \"op\": \"<\", \"value\": 0}], \"csv_id\": \"1769054429_78f20e1f\", \"name\": \"downregulated_pathways\"}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769054429_78f20e1f.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769054429_78f20e1f.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769054457_72c4c2ad"
+    },
+    {
+      "type": "report",
+      "length": 5277,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054429_78f20e1f",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769054429_78f20e1f"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054446_72c4c2ad",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1769054429_78f20e1f"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054457_72c4c2ad",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

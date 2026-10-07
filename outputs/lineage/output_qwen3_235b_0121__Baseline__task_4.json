@@ -1,0 +1,176 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0121__Baseline__task_4",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "4",
+      "run_date": "2026-01-21 22:02:47",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "PMC11780929-count.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/PMC11780929-count.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T030247Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=d2febb7efaac75f8b13c4409f84f0087b515fe87efca356c16dbaab40b7c3347",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/PMC11780929-count.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T030247Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=d2febb7efaac75f8b13c4409f84f0087b515fe87efca356c16dbaab40b7c3347\", \"metadata\": {\"assay\": \"RNASeq\", \"cell_type\": \"peritoneal macrophages\", \"condition\": \"E. coli sepsis model\", \"source\": \"Peritoneal macrophages from UBE2M-KO vs control mice post-LPS stimulation\"}, \"name\": \"PMC11780929-count\", \"tags\": [\"user_input\", \"RNASeq\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "PMC11780929-count.csv",
+      "path": "/app/output/user_csvs/PMC11780929-count.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769050987_2a464716"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1769050987_2a464716\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_aggregate",
+      "step_index": 2,
+      "args": "{\"aggregations\": {\"avg_KL\": {\"cols\": [\"KL1\", \"KL2\", \"KL3\"], \"func\": \"mean\"}, \"avg_WL\": {\"cols\": [\"WL1\", \"WL2\", \"WL3\"], \"func\": \"mean\"}}, \"csv_id\": \"1769050987_2a464716\"}",
+      "error": "",
+      "id": "step2_csv_aggregate"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_aggregate_1769050987_2a464716_avg_KL_avg_WL.csv",
+      "path": "/app/output/user_csvs/csv_aggregate_1769050987_2a464716_avg_KL_avg_WL.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769051013_0831cab4"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 3,
+      "args": "{\"conditions\": [{\"column\": \"avg_KL\", \"op\": \">\", \"value\": 100}, {\"column\": \"avg_WL\", \"op\": \">\", \"value\": 100}], \"csv_id\": \"1769051013_0831cab4\", \"name\": \"high_expression_genes\"}",
+      "error": "",
+      "id": "step3_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769051013_0831cab4.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769051013_0831cab4.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769051030_f582e4aa"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_aggregate",
+      "step_index": 4,
+      "args": "{\"aggregations\": {\"log2FC\": {\"cols\": [\"avg_KL\", \"avg_WL\"], \"func\": \"mean\"}}, \"csv_id\": \"1769051030_f582e4aa\"}",
+      "error": "",
+      "id": "step4_csv_aggregate"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_aggregate_1769051030_f582e4aa_log2FC.csv",
+      "path": "/app/output/user_csvs/csv_aggregate_1769051030_f582e4aa_log2FC.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769051040_bdd0feac"
+    },
+    {
+      "type": "report",
+      "length": 3032,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769050987_2a464716",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1769050987_2a464716"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_aggregate",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_aggregate",
+      "target": "1769050987_2a464716"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769051013_0831cab4",
+      "target": "step2_csv_aggregate"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_filter",
+      "target": "1769051013_0831cab4"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769051030_f582e4aa",
+      "target": "step3_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_aggregate",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_aggregate",
+      "target": "1769051030_f582e4aa"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769051040_bdd0feac",
+      "target": "step4_csv_aggregate"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

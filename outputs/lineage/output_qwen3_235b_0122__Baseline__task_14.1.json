@@ -1,0 +1,176 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0122__Baseline__task_14.1",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "14.1",
+      "run_date": "2026-01-21 23:22:23",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "41598_2024_75947_MOESM1_ESM-S1.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/41598_2024_75947_MOESM1_ESM-S1.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T042223Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=2b4b0388beb5a4515ec370a709e2770f76daee18831a22463a366c556abc999d",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/41598_2024_75947_MOESM1_ESM-S1.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T042223Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=2b4b0388beb5a4515ec370a709e2770f76daee18831a22463a366c556abc999d\", \"metadata\": {\"description\": \"Reactome pathway enrichment results for CD organoid comparisons\", \"source\": \"41598_2024_75947_MOESM1_ESM-S1.csv\"}, \"name\": \"Reactome_Pathway_Enrichment\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Reactome_Pathway_Enrichment.csv",
+      "path": "/app/output/user_csvs/Reactome_Pathway_Enrichment.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769055781_f985a635"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1769055781_f985a635\", \"n_rows\": 100}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"Comparison within Organoid Phenotypes\", \"op\": \"in\", \"value\": [\"PIFvsPNI\", \"PIFvsCtrl\"]}, {\"column\": \"Direction between Organoid Phenotypes\", \"op\": \"==\", \"value\": \"DOWN\"}], \"csv_id\": \"1769055781_f985a635\", \"sort_by\": [\"-GeneCount/direction\"]}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769055781_f985a635.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769055781_f985a635.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769055812_1bf5f428"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 3,
+      "args": "{\"conditions\": [{\"column\": \"Comparison within Organoid Phenotypes\", \"op\": \"in\", \"value\": [\"PIFvsPNI\", \"PIFvsCtrl\"]}, {\"column\": \"Direction between Organoid Phenotypes\", \"op\": \"==\", \"value\": \"DOWN\"}], \"csv_id\": \"1769055781_f985a635\", \"distinct\": true, \"sort_by\": [\"-GeneCount/direction\"]}",
+      "error": "",
+      "id": "step3_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769055781_f985a635.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769055781_f985a635.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769055825_1bf5f428"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 4,
+      "args": "{\"columns\": [\"Supplemental Table 1: Significant Reactome Pathways Obtained from Differentially Expressed Genes from Organoid Cells.\", \"Unnamed: 1\", \"Unnamed: 2\", \"Unnamed: 3\", \"Unnamed: 4\"], \"csv_id\": \"1769055781_f985a635\", \"rename\": {\"Supplemental Table 1: Significant Reactome Pathways Obtained from Differentially Expressed Genes from Organoid Cells.\": \"Pathway\", \"Unnamed: 1\": \"GeneList\", \"Unnamed: 2\": \"GeneCount\", \"Unnamed: 3\": \"Direction\", \"Unnamed: 4\": \"Comparison\"}}",
+      "error": "",
+      "id": "step4_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769055781_f985a635.csv",
+      "path": "/app/output/user_csvs/csv_select_1769055781_f985a635.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769055855_9a92ac51"
+    },
+    {
+      "type": "report",
+      "length": 3537,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769055781_f985a635",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1769055781_f985a635"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1769055781_f985a635"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769055812_1bf5f428",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_filter",
+      "target": "1769055781_f985a635"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769055825_1bf5f428",
+      "target": "step3_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_select",
+      "target": "1769055781_f985a635"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769055855_9a92ac51",
+      "target": "step4_csv_select"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

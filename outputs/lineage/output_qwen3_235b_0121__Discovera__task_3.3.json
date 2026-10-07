@@ -1,0 +1,460 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0121__Discovera__task_3.3",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Discovera",
+      "task_id": "3.3",
+      "run_date": "2026-01-20 21:24:42",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-20/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T022442Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=57da948804bda26b83dd455f5b62a5f8872c0faaf44df08f8db8b2f50237c4a0",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-20/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T022442Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=57da948804bda26b83dd455f5b62a5f8872c0faaf44df08f8db8b2f50237c4a0\", \"name\": \"ISS_vs_DMSO_DEG\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "ISS_vs_DMSO_DEG.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/ISS_vs_DMSO_DEG.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1768962325_3e8c82c6"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"log2FoldChange\", \"op\": \">\", \"value\": 1}], \"csv_id\": \"1768962325_3e8c82c6\", \"keep_columns\": [\"\", \"log2FoldChange\", \"padj\"]}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1768962325_3e8c82c6_e1ff93fd8d.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_filter_1768962325_3e8c82c6_e1ff93fd8d.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1768962348_dae2d806"
+    },
+    {
+      "type": "tool_step",
+      "tool": "ora_pipe",
+      "step_index": 2,
+      "args": "{\"csv_id\": \"1768962348_dae2d806\", \"gene_col\": \"\", \"gene_sets\": [\"Reactome_Pathways_2024\"], \"p_value_threshold\": 0.05}",
+      "error": "{\"tool\": \"ora_pipe\", \"type\": \"ValueError\", \"message\": \"Column 'gene' not found in CSV\", \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera_fastmcp/server.py\\\", line 1561, in ora_pipe\\n    raise ValueError(f\\\"Column '{gene_col}' not found in CSV\\\")\\nValueError: Column 'gene' not found in CSV\\n\"}",
+      "id": "step2_ora_pipe"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 3,
+      "args": "{\"columns\": [\"\", \"log2FoldChange\", \"padj\"], \"csv_id\": \"1768962325_3e8c82c6\"}",
+      "error": "",
+      "id": "step3_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1768962325_3e8c82c6_ce5cb9a49c.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_select_1768962325_3e8c82c6_ce5cb9a49c.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1768962393_2aa81a3d"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 4,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"log2FoldChange\", \"op\": \">\", \"value\": 1}], \"csv_id\": \"1768962325_3e8c82c6\", \"keep_columns\": [\"\", \"log2FoldChange\", \"padj\"]}",
+      "error": "",
+      "id": "step4_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1768962325_3e8c82c6_e1ff93fd8d.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_filter_1768962325_3e8c82c6_e1ff93fd8d.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1768962402_dae2d806"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 5,
+      "args": "{\"columns\": [\"\", \"log2FoldChange\", \"padj\"], \"csv_id\": \"1768962325_3e8c82c6\", \"rename\": {\"\": \"gene\"}}",
+      "error": "",
+      "id": "step5_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1768962325_3e8c82c6_9f1bf41e59.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_select_1768962325_3e8c82c6_9f1bf41e59.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1768962424_7593c3a9"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 6,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"log2FoldChange\", \"op\": \">\", \"value\": 1}], \"csv_id\": \"1768962424_7593c3a9\", \"keep_columns\": [\"gene\", \"log2FoldChange\", \"padj\"], \"name\": \"upregulated_genes\"}",
+      "error": "",
+      "id": "step6_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "upregulated_genes_c776f5737f.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/upregulated_genes_c776f5737f.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1768962436_9d35f5fe"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 7,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"log2FoldChange\", \"op\": \">\", \"value\": 1}], \"csv_id\": \"1768962424_7593c3a9\", \"keep_columns\": [\"gene\", \"log2FoldChange\", \"padj\"], \"name\": \"upregulated_genes\"}",
+      "error": "",
+      "id": "step7_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "upregulated_genes_c776f5737f.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/upregulated_genes_c776f5737f.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1768962446_9d35f5fe"
+    },
+    {
+      "type": "tool_step",
+      "tool": "ora_pipe",
+      "step_index": 8,
+      "args": "{\"csv_id\": \"1768962446_9d35f5fe\", \"gene_col\": \"gene\", \"gene_sets\": [\"Reactome_Pathways_2024\"], \"p_value_threshold\": 0.05}",
+      "error": "{\"tool\": \"ora_pipe\", \"type\": \"ValueError\", \"message\": \"Column 'gene' not found in CSV\", \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera_fastmcp/server.py\\\", line 1561, in ora_pipe\\n    raise ValueError(f\\\"Column '{gene_col}' not found in CSV\\\")\\nValueError: Column 'gene' not found in CSV\\n\"}",
+      "id": "step8_ora_pipe"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 9,
+      "args": "{\"csv_id\": \"1768962446_9d35f5fe\", \"n_rows\": 5}",
+      "error": "",
+      "id": "step9_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 10,
+      "args": "{\"csv_id\": \"1768962446_9d35f5fe\", \"n_rows\": 5}",
+      "error": "",
+      "id": "step10_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 11,
+      "args": "{\"columns\": [\"\", \"log2FoldChange\", \"padj\"], \"csv_id\": \"1768962325_3e8c82c6\", \"rename\": {\"\": \"gene\"}}",
+      "error": "",
+      "id": "step11_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1768962325_3e8c82c6_9f1bf41e59.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_select_1768962325_3e8c82c6_9f1bf41e59.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1768962492_7593c3a9"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 12,
+      "args": "{\"columns\": [\"Unnamed: 0\", \"log2FoldChange\", \"padj\"], \"csv_id\": \"1768962325_3e8c82c6\", \"rename\": {\"Unnamed: 0\": \"gene\"}}",
+      "error": "",
+      "id": "step12_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1768962325_3e8c82c6_c2f92f38c0.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_select_1768962325_3e8c82c6_c2f92f38c0.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1768962516_ea98d727"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 13,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"log2FoldChange\", \"op\": \">\", \"value\": 1}], \"csv_id\": \"1768962516_ea98d727\", \"keep_columns\": [\"gene\", \"log2FoldChange\", \"padj\"], \"name\": \"upregulated_genes\"}",
+      "error": "",
+      "id": "step13_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "upregulated_genes_c776f5737f.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/upregulated_genes_c776f5737f.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1768962532_9d35f5fe"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gene_info",
+      "step_index": 14,
+      "args": "{\"gene_list\": [\"ENSG00000223764\", \"ENSG00000187634\", \"ENSG00000187608\", \"ENSG00000142619\", \"ENSG00000117318\", \"ENSG00000126709\", \"ENSG00000198520\", \"ENSG00000152763\", \"ENSG00000162620\", \"ENSG00000142871\", \"ENSG00000162645\", \"ENSG00000239903\", \"ENSG00000271380\", \"ENSG00000188404\", \"ENSG00000073756\", \"ENSG00000163545\", \"ENSG00000082497\", \"ENSG00000231057\", \"ENSG00000162772\", \"ENSG00000225265\"]}",
+      "error": "",
+      "id": "step14_gene_info"
+    },
+    {
+      "type": "tool_step",
+      "tool": "ora_pipe",
+      "step_index": 15,
+      "args": "{\"csv_id\": \"1768962532_9d35f5fe\", \"gene_col\": \"gene\", \"gene_sets\": [\"Reactome_Pathways_2024\"], \"p_value_threshold\": 0.05}",
+      "error": "",
+      "id": "step15_ora_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "ora_results_20260120_212932.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20260120_212932.csv",
+      "source_key": "ora_result_metadata",
+      "is_plot": false,
+      "id": "1768962575_43852dfb"
+    },
+    {
+      "type": "report",
+      "length": 4628,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768962325_3e8c82c6",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1768962325_3e8c82c6"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768962348_dae2d806",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_ora_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_ora_pipe",
+      "target": "1768962348_dae2d806"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_select",
+      "target": "1768962325_3e8c82c6"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768962393_2aa81a3d",
+      "target": "step3_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_filter",
+      "target": "1768962325_3e8c82c6"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768962402_dae2d806",
+      "target": "step4_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step5_csv_select",
+      "target": "1768962325_3e8c82c6"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768962424_7593c3a9",
+      "target": "step5_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step6_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step6_csv_filter",
+      "target": "1768962424_7593c3a9"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768962436_9d35f5fe",
+      "target": "step6_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step7_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step7_csv_filter",
+      "target": "1768962424_7593c3a9"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768962446_9d35f5fe",
+      "target": "step7_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step8_ora_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step8_ora_pipe",
+      "target": "1768962446_9d35f5fe"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step9_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step9_csv_read",
+      "target": "1768962446_9d35f5fe"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step10_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step10_csv_read",
+      "target": "1768962446_9d35f5fe"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step11_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step11_csv_select",
+      "target": "1768962325_3e8c82c6"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768962492_7593c3a9",
+      "target": "step11_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step12_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step12_csv_select",
+      "target": "1768962325_3e8c82c6"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768962516_ea98d727",
+      "target": "step12_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step13_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step13_csv_filter",
+      "target": "1768962516_ea98d727"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768962532_9d35f5fe",
+      "target": "step13_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step14_gene_info",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step15_ora_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step15_ora_pipe",
+      "target": "1768962532_9d35f5fe"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768962575_43852dfb",
+      "target": "step15_ora_pipe"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

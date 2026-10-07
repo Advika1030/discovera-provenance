@@ -1,0 +1,1215 @@
+{
+  "ID": "11.1",
+  "Context/Background": "Tumor-infiltrating B cells play a significant role in tumor development, progression, and prognosis, yet a comprehensive classification system is lacking. To address this gap, we present a pan-cancer single-cell RNA sequencing (scRNA-seq) atlas of tumor-infiltrating B and plasma cells across a large sample cohort. \n\nWe isolated B cells and plasma cells from 15 studies spanning 7 cancer types as data sources. After applying batch correction and integrating the data, we removed low-quality cells and determined the optimal number of clusters. Using standard Seurat methods for integration, clustering, and differential expression analysis, we confirmed the absence of batch effects, with no study- or cancer type-specific clusters. \n\nWe employed a graph-based clustering method to identify TIL-Bs with recurring phenotypes, uncovering a total of 10 clusters. Step one of cluster annotation used canonical markers like CD19 and MS4A1 (CD20), which are prevalent throughout B cell development but decline in plasma cells. Markers such as CD38, JCHAIN, and SDC1 (CD138) are prominent in plasma cells, but less so in earlier stages. This revealed four B cell clusters, two intermediate clusters with proliferative and germinal center (GC) features, and four plasma cell clusters. ",
+  "Prompt": "Based on upregulated pathways and differentially expressed markers in each cluster, assign functional phenotypes to each of the 4 B-cell clusters (clusters 1-4).  Provide a discussion of the reasoning behind cluster assignments, highlighting important genes and pathways where relevant. ",
+  "mode": "Discovera",
+  "llm_provider": "openai",
+  "llm_model": "o4-mini",
+  "run_date": "2025-12-16 21:07:10",
+  "elapsed_seconds": 306.58,
+  "status": "ok",
+  "error": null,
+  "output_text": "**Functional Phenotype Assignments for Tumor-Infiltrating B-Cell Clusters**  \nBased on the top differentially expressed genes and ORA-enriched pathways (MSigDB_Hallmark_2020, KEGG_2021_Human) in each cluster, we propose the following functional phenotypes:\n\n1. **Cluster 1: Transitional/Naïve Follicular B Cells**  \n   – Key markers: high TCL1A, FCMR (Fc µR), FCER2 (CD23), CD72, and MHC II genes (HLA-DRB1/DRB5, HLA-DPB1)  \n   – Enriched pathways (ORA): “Myc Targets V1” (NES↑, 9/200 genes), antigen processing and presentation (HLA-DR/DP/A), Th1/Th2 differentiation  \n   – Interpretation: TCL1A and FCER2 define immature/transitional B cells poised for follicular entry; robust MHC II and Myc‐driven biosynthetic programs support antigen uptake and presentation in naïve/follicular compartments.\n\n2. **Cluster 2: Quiescent/Resting Naïve B Cells**  \n   – Key markers: LY86 (MD-1), BLK (B-lymphoid tyrosine kinase), LTB (lymphotoxin-β)  \n   – Enriched pathways (ORA): Allograft rejection, IL-6/JAK/STAT3 signaling, NF-κB signaling (driven largely by LTB)  \n   – Interpretation: Modest upregulation (log₂FC ≈ 0.3) of BLK and LY86 with LTB suggests a resting, homeostatic naïve B subset that has not yet engaged full activation or antigen presentation programs.\n\n3. **Cluster 3: Interferon-Activated/Inﬂammatory B Cells**  \n   – Key markers: DUSP4, CD82, CD86, ISG15, IFI44L, IFITM1, GBP4 and MHC II (HLA-DPA1/DPB1)  \n   – Enriched signatures (top DE genes): strong type I IFN response (multiple ISGs) and costimulatory molecules  \n   – Interpretation: A robust interferon-stimulated gene program and upregulation of CD86 point to an antiviral/inflammatory activation state—likely extrafollicular B cells responding to cytokine cues within the tumor microenvironment.\n\n4. **Cluster 4: Early Activated/Germinal-Center-Homing B Cells**  \n   – Key markers: CD69, CCR7, CXCR5, CD83, IRF8, BTG1, JUNB, FOXP1  \n   – Enriched functions (DE genes): NF-κB pathway effectors (REL, NFKBID), chemokine receptors for T-cell zone and follicle entry, immediate-early activation markers  \n   – Interpretation: High CD69 and chemokine receptors CCR7/CXCR5 indicate recent BCR engagement and directed migration toward T-cell/B-cell border or germinal center; CD83 and IRF8 further hallmark pre-GC activation.\n\n**Summary of Reasoning**  \n– Clusters 1 and 2 both express canonical naïve B-cell markers (TCL1A, BLK), but Cluster 1 co-upregulates antigen-presentation machinery and Myc targets, marking a transitional/follicular phenotype primed for activation.  \n– Cluster 2’s very modest fold-changes and absence of costimulatory or IFN genes define a quiescent/resting naïve pool.  \n– Cluster 3 uniquely harbors a strong type I interferon signature (ISG15, IFI44L, IFITM1) and CD86, consistent with an inflammatory/antiviral activation state.  \n– Cluster 4 combines early activation markers (CD69, CD83, JUNB) with follicle-homing receptors (CCR7, CXCR5) and NF-κB effectors, indicative of B cells newly activated and migrating into germinal centers.",
+  "tool_calls_json": [
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cluster1_Bcells",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-16/1-s20-S1535610824003593-mmc2-cluster1Bcells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251217%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251217T020710Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=7d96d322aa3f87a4b8f78e053e9e69b2670291fd89148654e0faf43250d90435"
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1765937406_6df55544",
+        "n_rows": 20
+      }
+    },
+    {
+      "name": "ora_pipe",
+      "args": {
+        "csv_id": "1765937406_6df55544",
+        "gene_col": "gene"
+      }
+    },
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cluster2_Bcells",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-16/1-s20-S1535610824003593-mmc2-cluster2Bcells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251217%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251217T020710Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8ddd3751917a731da9d789274a1806313bc0a68c694e557724ddcdba227b9231"
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1765937458_f32c45ec",
+        "n_rows": 20
+      }
+    },
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cluster3_Bcells",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-16/1-s20-S1535610824003593-mmc2-cluster3Bcells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251217%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251217T020710Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8edf262748b3470d6dd2992a465ba273cc0f00419c0ce48a9d4a57ee387d5192"
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1765937475_94b47fe5",
+        "n_rows": 20
+      }
+    },
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cluster4_Bcells",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-16/1-s20-S1535610824003593-mmc2-cluster4Bcells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251217%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251217T020709Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=6194e13a27dd37d0ad676d0e8ac01744769b623b7bf8912d99434493d42a9d3c"
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1765937483_41f25420",
+        "n_rows": 20
+      }
+    },
+    {
+      "name": "ora_pipe",
+      "args": {
+        "csv_id": "1765937458_f32c45ec",
+        "gene_col": "gene"
+      }
+    }
+  ],
+  "tool_events_json": [
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1765937406_6df55544",
+        "name": "cluster1_Bcells.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster1_Bcells.csv"
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster1_Bcells.csv",
+        "columns": [
+          "Unnamed: 0",
+          "gene",
+          "p_val",
+          "avg_log2FC",
+          "pct.1",
+          "pct.2",
+          "p_val_adj",
+          "cluster_number"
+        ],
+        "rows": [
+          {
+            "Unnamed: 0": 1594,
+            "gene": "SNX9",
+            "p_val": 0.0,
+            "avg_log2FC": 2.42915284,
+            "pct.1": 0.261,
+            "pct.2": 0.125,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1595,
+            "gene": "TMEM2301",
+            "p_val": 0.0,
+            "avg_log2FC": 1.783178887,
+            "pct.1": 0.192,
+            "pct.2": 0.334,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1596,
+            "gene": "RER11",
+            "p_val": 0.0,
+            "avg_log2FC": 1.674104527,
+            "pct.1": 0.123,
+            "pct.2": 0.28,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1597,
+            "gene": "GPR1831",
+            "p_val": 0.0,
+            "avg_log2FC": 1.524450005,
+            "pct.1": 0.204,
+            "pct.2": 0.35,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1598,
+            "gene": "CXCR41",
+            "p_val": 0.0,
+            "avg_log2FC": 1.47583912,
+            "pct.1": 0.908,
+            "pct.2": 0.696,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1599,
+            "gene": "FOXP11",
+            "p_val": 0.0,
+            "avg_log2FC": 1.38480512,
+            "pct.1": 0.416,
+            "pct.2": 0.215,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1600,
+            "gene": "FCMR1",
+            "p_val": 0.0,
+            "avg_log2FC": 1.359883423,
+            "pct.1": 0.533,
+            "pct.2": 0.278,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1601,
+            "gene": "EIF2S21",
+            "p_val": 0.0,
+            "avg_log2FC": 1.329304151,
+            "pct.1": 0.214,
+            "pct.2": 0.395,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1602,
+            "gene": "TCL1A",
+            "p_val": 0.0,
+            "avg_log2FC": 1.249887993,
+            "pct.1": 0.537,
+            "pct.2": 0.118,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1603,
+            "gene": "CD831",
+            "p_val": 0.0,
+            "avg_log2FC": 1.215924155,
+            "pct.1": 0.661,
+            "pct.2": 0.411,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1604,
+            "gene": "HLA-DRB5",
+            "p_val": 0.0,
+            "avg_log2FC": 1.144632204,
+            "pct.1": 0.603,
+            "pct.2": 0.348,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1605,
+            "gene": "FCER2",
+            "p_val": 0.0,
+            "avg_log2FC": 1.091392966,
+            "pct.1": 0.47,
+            "pct.2": 0.105,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1606,
+            "gene": "SELT1",
+            "p_val": 0.0,
+            "avg_log2FC": 1.083664937,
+            "pct.1": 0.14,
+            "pct.2": 0.296,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1607,
+            "gene": "ARF11",
+            "p_val": 0.0,
+            "avg_log2FC": 1.062007784,
+            "pct.1": 0.36,
+            "pct.2": 0.495,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1608,
+            "gene": "GSTK11",
+            "p_val": 0.0,
+            "avg_log2FC": 1.015114975,
+            "pct.1": 0.207,
+            "pct.2": 0.378,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1609,
+            "gene": "CD72",
+            "p_val": 0.0,
+            "avg_log2FC": 0.999039988,
+            "pct.1": 0.345,
+            "pct.2": 0.111,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1610,
+            "gene": "SSR21",
+            "p_val": 0.0,
+            "avg_log2FC": 0.943434056,
+            "pct.1": 0.394,
+            "pct.2": 0.581,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1611,
+            "gene": "RPS19BP11",
+            "p_val": 0.0,
+            "avg_log2FC": 0.942515546,
+            "pct.1": 0.154,
+            "pct.2": 0.335,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1612,
+            "gene": "HLA-DPB1",
+            "p_val": 0.0,
+            "avg_log2FC": 0.936020313,
+            "pct.1": 0.947,
+            "pct.2": 0.642,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1613,
+            "gene": "HLA-DRB11",
+            "p_val": 0.0,
+            "avg_log2FC": 0.923262647,
+            "pct.1": 0.953,
+            "pct.2": 0.682,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 1 (B cells)"
+          }
+        ],
+        "total_rows": 113
+      }
+    },
+    {
+      "tool": "ora_pipe",
+      "payload": {
+        "ora_results": [
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "Myc Targets V1",
+            "Overlap": "9/200",
+            "P-value": 5.822667967829364e-09,
+            "Adjusted P-value": 1.3974403122790474e-07,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 18.99337536061545,
+            "Combined Score": 360.14302491616854,
+            "Genes": "XRCC6;RPS6;TCP1;NHP2;HNRNPC;CCT7;PPIA;RAN;CCT4"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Asthma",
+            "Overlap": "3/31",
+            "P-value": 9.819761440815269e-05,
+            "Adjusted P-value": 0.0023383056990822,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 38.79350649350649,
+            "Combined Score": 358.00698556985964,
+            "Genes": "HLA-DRB5;HLA-DPB1;HLA-DPA1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Allograft rejection",
+            "Overlap": "3/38",
+            "P-value": 0.00018165686014360845,
+            "Adjusted P-value": 0.0023383056990822,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 31.023896103896103,
+            "Combined Score": 267.220948549951,
+            "Genes": "HLA-DRB5;HLA-DPB1;HLA-DPA1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Inflammatory bowel disease",
+            "Overlap": "4/65",
+            "P-value": 3.777857156268427e-05,
+            "Adjusted P-value": 0.0015111428625073,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 24.14207650273224,
+            "Combined Score": 245.85731835694423,
+            "Genes": "HLA-DRB5;IL4R;HLA-DPB1;HLA-DPA1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Graft-versus-host disease",
+            "Overlap": "3/42",
+            "P-value": 0.00024517941428003225,
+            "Adjusted P-value": 0.0023383056990822,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 27.836363636363636,
+            "Combined Score": 231.41817450977703,
+            "Genes": "HLA-DRB5;HLA-DPB1;HLA-DPA1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Hematopoietic cell lineage",
+            "Overlap": "5/99",
+            "P-value": 9.98961796116258e-06,
+            "Adjusted P-value": 0.0007991694368930065,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 19.919710959454033,
+            "Combined Score": 229.35483902406472,
+            "Genes": "FCER2;HLA-DRB5;IL4R;HLA-DPB1;HLA-DPA1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Type I diabetes mellitus",
+            "Overlap": "3/43",
+            "P-value": 0.00026302643187754954,
+            "Adjusted P-value": 0.0023383056990822,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 27.13909090909091,
+            "Combined Score": 223.71447476882256,
+            "Genes": "HLA-DRB5;HLA-DPB1;HLA-DPA1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Intestinal immune network for IgA production",
+            "Overlap": "3/48",
+            "P-value": 0.0003648636559901952,
+            "Adjusted P-value": 0.0029189092479215,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 24.117575757575757,
+            "Combined Score": 190.9144118128392,
+            "Genes": "HLA-DRB5;HLA-DPB1;HLA-DPA1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Autoimmune thyroid disease",
+            "Overlap": "3/53",
+            "P-value": 0.0004891263826698153,
+            "Adjusted P-value": 0.0035572827830532,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 21.700363636363637,
+            "Combined Score": 165.4194773782111,
+            "Genes": "HLA-DRB5;HLA-DPB1;HLA-DPA1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Th1 and Th2 cell differentiation",
+            "Overlap": "4/92",
+            "P-value": 0.00014710305132675474,
+            "Adjusted P-value": 0.0023383056990822,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 16.71212121212121,
+            "Combined Score": 147.47406117660728,
+            "Genes": "HLA-DRB5;IL4R;HLA-DPB1;HLA-DPA1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Viral myocarditis",
+            "Overlap": "3/60",
+            "P-value": 0.0007043034961833321,
+            "Adjusted P-value": 0.0046953566412222,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 19.028708133971293,
+            "Combined Score": 138.11609493427952,
+            "Genes": "HLA-DRB5;HLA-DPB1;HLA-DPA1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Th17 cell differentiation",
+            "Overlap": "4/107",
+            "P-value": 0.00026305939114675583,
+            "Adjusted P-value": 0.0023383056990822,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 14.26752966558792,
+            "Combined Score": 117.6091122194568,
+            "Genes": "HLA-DRB5;IL4R;HLA-DPB1;HLA-DPA1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Non-homologous end-joining",
+            "Overlap": "1/13",
+            "P-value": 0.0370616648121668,
+            "Adjusted P-value": 0.1140358917297442,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 29.137426900584796,
+            "Combined Score": 96.0128372683442,
+            "Genes": "XRCC6"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Leishmaniasis",
+            "Overlap": "3/77",
+            "P-value": 0.0014539536412038,
+            "Adjusted P-value": 0.0086229499854806,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 14.644717444717443,
+            "Combined Score": 95.6808042756761,
+            "Genes": "HLA-DRB5;HLA-DPB1;HLA-DPA1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Antigen processing and presentation",
+            "Overlap": "3/78",
+            "P-value": 0.0015090162474591,
+            "Adjusted P-value": 0.0086229499854806,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 14.448727272727274,
+            "Combined Score": 93.8632284357522,
+            "Genes": "HLA-DRB5;HLA-DPB1;HLA-DPA1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "RNA transport",
+            "Overlap": "5/186",
+            "P-value": 0.0002026151731149868,
+            "Adjusted P-value": 0.0023383056990822,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 10.29969769623684,
+            "Combined Score": 87.59071054054938,
+            "Genes": "EIF4A2;UBE2I;EIF2S3;EIF1B;RAN"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Rheumatoid arthritis",
+            "Overlap": "3/93",
+            "P-value": 0.0024961375402159,
+            "Adjusted P-value": 0.0131734670865022,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 12.031515151515151,
+            "Combined Score": 72.10499934993288,
+            "Genes": "HLA-DRB5;HLA-DPB1;HLA-DPA1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Staphylococcus aureus infection",
+            "Overlap": "3/95",
+            "P-value": 0.0026516356411281,
+            "Adjusted P-value": 0.0131734670865022,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 11.768774703557312,
+            "Combined Score": 69.81918102893114,
+            "Genes": "HLA-DRB5;HLA-DPB1;HLA-DPA1"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "Androgen Response",
+            "Overlap": "3/100",
+            "P-value": 0.0030661973063982,
+            "Adjusted P-value": 0.0345870679261761,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 11.159325210871602,
+            "Combined Score": 64.58255414819172,
+            "Genes": "XRCC6;UBE2I;ARID5B"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Toxoplasmosis",
+            "Overlap": "3/112",
+            "P-value": 0.0042172048757418,
+            "Adjusted P-value": 0.0168688195029672,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 9.924770642201835,
+            "Combined Score": 54.27442925480958,
+            "Genes": "HLA-DRB5;HLA-DPB1;HLA-DPA1"
+          }
+        ],
+        "ora_result_metadata": {
+          "id": "1765937429_cd1f4551",
+          "name": "ora_results_20251216_211025.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20251216_211025.csv",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-16/ora_results_20251216_211025.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251217%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251217T021030Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=499c732ce039c8195958e0d609713ecc4365a4fc8c52355d7698d731cee10c7d"
+        }
+      }
+    },
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1765937458_f32c45ec",
+        "name": "cluster2_Bcells.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster2_Bcells.csv"
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster2_Bcells.csv",
+        "columns": [
+          "Unnamed: 0",
+          "gene",
+          "p_val",
+          "avg_log2FC",
+          "pct.1",
+          "pct.2",
+          "p_val_adj",
+          "cluster_number"
+        ],
+        "rows": [
+          {
+            "Unnamed: 0": 0,
+            "gene": "LY86",
+            "p_val": 0.0,
+            "avg_log2FC": 0.350630459,
+            "pct.1": 0.338,
+            "pct.2": 0.202,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 2 (B cells)"
+          },
+          {
+            "Unnamed: 0": 1,
+            "gene": "BLK",
+            "p_val": 0.0,
+            "avg_log2FC": 0.282710944,
+            "pct.1": 0.33,
+            "pct.2": 0.211,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 2 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2,
+            "gene": "LTB",
+            "p_val": 0.0,
+            "avg_log2FC": 0.26923583,
+            "pct.1": 0.682,
+            "pct.2": 0.45,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 2 (B cells)"
+          },
+          {
+            "Unnamed: 0": 3,
+            "gene": "MARCHF1",
+            "p_val": 0.0,
+            "avg_log2FC": 0.252485586,
+            "pct.1": 0.313,
+            "pct.2": 0.182,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 2 (B cells)"
+          }
+        ],
+        "total_rows": 4
+      }
+    },
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1765937475_94b47fe5",
+        "name": "cluster3_Bcells.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster3_Bcells.csv"
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster3_Bcells.csv",
+        "columns": [
+          "Unnamed: 0",
+          "gene",
+          "p_val",
+          "avg_log2FC",
+          "pct.1",
+          "pct.2",
+          "p_val_adj",
+          "cluster_number"
+        ],
+        "rows": [
+          {
+            "Unnamed: 0": 2501,
+            "gene": "DUSP4",
+            "p_val": 0.0,
+            "avg_log2FC": 2.580258848,
+            "pct.1": 0.421,
+            "pct.2": 0.094,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2502,
+            "gene": "CD821",
+            "p_val": 0.0,
+            "avg_log2FC": 2.249719205,
+            "pct.1": 0.448,
+            "pct.2": 0.227,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2503,
+            "gene": "CD86",
+            "p_val": 0.0,
+            "avg_log2FC": 2.182019549,
+            "pct.1": 0.255,
+            "pct.2": 0.088,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2504,
+            "gene": "ISG152",
+            "p_val": 0.0,
+            "avg_log2FC": 2.099743028,
+            "pct.1": 0.642,
+            "pct.2": 0.261,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2505,
+            "gene": "IFI44L",
+            "p_val": 0.0,
+            "avg_log2FC": 2.048102069,
+            "pct.1": 0.469,
+            "pct.2": 0.086,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2506,
+            "gene": "CAPG1",
+            "p_val": 0.0,
+            "avg_log2FC": 1.990521143,
+            "pct.1": 0.488,
+            "pct.2": 0.2,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2507,
+            "gene": "HLA-DPB11",
+            "p_val": 0.0,
+            "avg_log2FC": 1.982650961,
+            "pct.1": 0.936,
+            "pct.2": 0.664,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2508,
+            "gene": "ACP5",
+            "p_val": 0.0,
+            "avg_log2FC": 1.951614363,
+            "pct.1": 0.428,
+            "pct.2": 0.173,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2509,
+            "gene": "COTL11",
+            "p_val": 0.0,
+            "avg_log2FC": 1.893579886,
+            "pct.1": 0.683,
+            "pct.2": 0.369,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2510,
+            "gene": "IFITM12",
+            "p_val": 0.0,
+            "avg_log2FC": 1.857291994,
+            "pct.1": 0.556,
+            "pct.2": 0.269,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2511,
+            "gene": "HLA-DPA11",
+            "p_val": 0.0,
+            "avg_log2FC": 1.823197037,
+            "pct.1": 0.946,
+            "pct.2": 0.727,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2512,
+            "gene": "SPIB1",
+            "p_val": 0.0,
+            "avg_log2FC": 1.7754152,
+            "pct.1": 0.421,
+            "pct.2": 0.198,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2513,
+            "gene": "GBP4",
+            "p_val": 0.0,
+            "avg_log2FC": 1.757553057,
+            "pct.1": 0.264,
+            "pct.2": 0.07,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2514,
+            "gene": "RGS23",
+            "p_val": 0.0,
+            "avg_log2FC": 1.72045721,
+            "pct.1": 0.507,
+            "pct.2": 0.32,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2515,
+            "gene": "ARPC1B",
+            "p_val": 0.0,
+            "avg_log2FC": 1.712796058,
+            "pct.1": 0.679,
+            "pct.2": 0.416,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2516,
+            "gene": "MS4A11",
+            "p_val": 0.0,
+            "avg_log2FC": 1.705450566,
+            "pct.1": 0.859,
+            "pct.2": 0.538,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2517,
+            "gene": "BCL2A11",
+            "p_val": 0.0,
+            "avg_log2FC": 1.690257265,
+            "pct.1": 0.431,
+            "pct.2": 0.193,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2518,
+            "gene": "XAF1",
+            "p_val": 0.0,
+            "avg_log2FC": 1.682219789,
+            "pct.1": 0.455,
+            "pct.2": 0.132,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2519,
+            "gene": "RILPL21",
+            "p_val": 0.0,
+            "avg_log2FC": 1.671970594,
+            "pct.1": 0.323,
+            "pct.2": 0.163,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          },
+          {
+            "Unnamed: 0": 2520,
+            "gene": "OAS1",
+            "p_val": 0.0,
+            "avg_log2FC": 1.642865408,
+            "pct.1": 0.369,
+            "pct.2": 0.123,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 3 (B cells)"
+          }
+        ],
+        "total_rows": 558
+      }
+    },
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1765937483_41f25420",
+        "name": "cluster4_Bcells.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster4_Bcells.csv"
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster4_Bcells.csv",
+        "columns": [
+          "Unnamed: 0",
+          "gene",
+          "p_val",
+          "avg_log2FC",
+          "pct.1",
+          "pct.2",
+          "p_val_adj",
+          "cluster_number"
+        ],
+        "rows": [
+          {
+            "Unnamed: 0": 4,
+            "gene": "CD69",
+            "p_val": 0.0,
+            "avg_log2FC": 2.334320543,
+            "pct.1": 0.795,
+            "pct.2": 0.346,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 5,
+            "gene": "CCR7",
+            "p_val": 0.0,
+            "avg_log2FC": 1.762918674,
+            "pct.1": 0.434,
+            "pct.2": 0.214,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 6,
+            "gene": "SLC2A3",
+            "p_val": 0.0,
+            "avg_log2FC": 1.460763052,
+            "pct.1": 0.52,
+            "pct.2": 0.278,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 7,
+            "gene": "REL",
+            "p_val": 0.0,
+            "avg_log2FC": 1.40847428,
+            "pct.1": 0.586,
+            "pct.2": 0.352,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 8,
+            "gene": "NR4A2",
+            "p_val": 0.0,
+            "avg_log2FC": 1.345083745,
+            "pct.1": 0.662,
+            "pct.2": 0.3,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 9,
+            "gene": "CHMP1B",
+            "p_val": 0.0,
+            "avg_log2FC": 1.30165984,
+            "pct.1": 0.343,
+            "pct.2": 0.175,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 10,
+            "gene": "CD83",
+            "p_val": 0.0,
+            "avg_log2FC": 1.293664809,
+            "pct.1": 0.733,
+            "pct.2": 0.38,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 11,
+            "gene": "NFKBID",
+            "p_val": 0.0,
+            "avg_log2FC": 1.229278019,
+            "pct.1": 0.35,
+            "pct.2": 0.156,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 12,
+            "gene": "TUBA1A",
+            "p_val": 0.0,
+            "avg_log2FC": 1.086642552,
+            "pct.1": 0.418,
+            "pct.2": 0.246,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 13,
+            "gene": "BCL2A1",
+            "p_val": 0.0,
+            "avg_log2FC": 1.007317204,
+            "pct.1": 0.323,
+            "pct.2": 0.183,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 14,
+            "gene": "CXCR5",
+            "p_val": 0.0,
+            "avg_log2FC": 0.983965962,
+            "pct.1": 0.251,
+            "pct.2": 0.137,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 15,
+            "gene": "HLA-DRA",
+            "p_val": 0.0,
+            "avg_log2FC": 0.861736886,
+            "pct.1": 0.96,
+            "pct.2": 0.716,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 16,
+            "gene": "LY9",
+            "p_val": 0.0,
+            "avg_log2FC": 0.816881526,
+            "pct.1": 0.467,
+            "pct.2": 0.288,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 17,
+            "gene": "BTG1",
+            "p_val": 0.0,
+            "avg_log2FC": 0.801497458,
+            "pct.1": 0.958,
+            "pct.2": 0.804,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 18,
+            "gene": "FOXP1",
+            "p_val": 0.0,
+            "avg_log2FC": 0.800108146,
+            "pct.1": 0.349,
+            "pct.2": 0.218,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 19,
+            "gene": "JUNB",
+            "p_val": 0.0,
+            "avg_log2FC": 0.792640756,
+            "pct.1": 0.882,
+            "pct.2": 0.647,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 20,
+            "gene": "KDM6B",
+            "p_val": 0.0,
+            "avg_log2FC": 0.778452435,
+            "pct.1": 0.382,
+            "pct.2": 0.188,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 21,
+            "gene": "DUSP2",
+            "p_val": 0.0,
+            "avg_log2FC": 0.754597523,
+            "pct.1": 0.463,
+            "pct.2": 0.248,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 22,
+            "gene": "IRF8",
+            "p_val": 0.0,
+            "avg_log2FC": 0.72314966,
+            "pct.1": 0.434,
+            "pct.2": 0.277,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          },
+          {
+            "Unnamed: 0": 23,
+            "gene": "RILPL2",
+            "p_val": 0.0,
+            "avg_log2FC": 0.686710445,
+            "pct.1": 0.272,
+            "pct.2": 0.152,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 4 (B cells)"
+          }
+        ],
+        "total_rows": 151
+      }
+    },
+    {
+      "tool": "ora_pipe",
+      "payload": {
+        "ora_results": [
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "Allograft Rejection",
+            "Overlap": "2/200",
+            "P-value": 0.0005891616340571885,
+            "Adjusted P-value": 0.0023566465362287,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 99.989898989899,
+            "Combined Score": 743.6058797881194,
+            "Genes": "LY86;LTB"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "IL-6/JAK/STAT3 Signaling",
+            "Overlap": "1/87",
+            "P-value": 0.0172879423680492,
+            "Adjusted P-value": 0.0345758847360985,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 77.17054263565892,
+            "Combined Score": 313.13846019005365,
+            "Genes": "LTB"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Rheumatoid arthritis",
+            "Overlap": "1/93",
+            "P-value": 0.0184718977345189,
+            "Adjusted P-value": 0.0309595562476081,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 72.1159420289855,
+            "Combined Score": 287.8511246681871,
+            "Genes": "LTB"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "NF-kappa B signaling pathway",
+            "Overlap": "1/104",
+            "P-value": 0.020639704165072,
+            "Adjusted P-value": 0.0309595562476081,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 64.37864077669903,
+            "Combined Score": 249.82380515639144,
+            "Genes": "LTB"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "IL-2/STAT5 Signaling",
+            "Overlap": "1/199",
+            "P-value": 0.0392126019683506,
+            "Adjusted P-value": 0.0394066901050093,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 33.32996632996633,
+            "Combined Score": 107.94766526273892,
+            "Genes": "LTB"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "Interferon Gamma Response",
+            "Overlap": "1/200",
+            "P-value": 0.0394066901050093,
+            "Adjusted P-value": 0.0394066901050093,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 33.1608040201005,
+            "Combined Score": 107.23606056102832,
+            "Genes": "MARCHF1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Cytokine-cytokine receptor interaction",
+            "Overlap": "1/295",
+            "P-value": 0.0577113964322957,
+            "Adjusted P-value": 0.0577113964322957,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 22.337868480725625,
+            "Combined Score": 63.7143159639505,
+            "Genes": "LTB"
+          }
+        ],
+        "ora_result_metadata": {
+          "id": "1765937502_57ec8145",
+          "name": "ora_results_20251216_211140.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20251216_211140.csv",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-16/ora_results_20251216_211140.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251217%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251217T021143Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=055221e1da7d1dba1bddec2f69b780ee48396a4563f93a631c5e19b14e1e465f"
+        }
+      }
+    }
+  ],
+  "uploaded_files": [
+    {
+      "name": "1-s2.0-S1535610824003593-mmc2-cluster 4 (B cells).csv",
+      "type": "csv",
+      "preview": ",gene,p_val,avg_log2FC,pct.1,pct.2,p_val_adj,cluster_number\n4,CD69,0.0,2.334320543,0.795,0.346,0.0,cluster 4 (B cells)\n5,CCR7,0.0,1.762918674,0.434,0.214,0.0,cluster 4 (B cells)",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-16/1-s20-S1535610824003593-mmc2-cluster4Bcells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251217%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251217T020709Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=6194e13a27dd37d0ad676d0e8ac01744769b623b7bf8912d99434493d42a9d3c",
+      "s3_key": "uploads/2025-12-16/1-s20-S1535610824003593-mmc2-cluster4Bcells.csv"
+    },
+    {
+      "name": "1-s2.0-S1535610824003593-mmc2-cluster 3 (B cells).csv",
+      "type": "csv",
+      "preview": ",gene,p_val,avg_log2FC,pct.1,pct.2,p_val_adj,cluster_number\n2501,DUSP4,0.0,2.580258848,0.421,0.094,0.0,cluster 3 (B cells)\n2502,CD821,0.0,2.249719205,0.448,0.227,0.0,cluster 3 (B cells)",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-16/1-s20-S1535610824003593-mmc2-cluster3Bcells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251217%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251217T020710Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8edf262748b3470d6dd2992a465ba273cc0f00419c0ce48a9d4a57ee387d5192",
+      "s3_key": "uploads/2025-12-16/1-s20-S1535610824003593-mmc2-cluster3Bcells.csv"
+    },
+    {
+      "name": "1-s2.0-S1535610824003593-mmc2-cluster 2 (B cells).csv",
+      "type": "csv",
+      "preview": ",gene,p_val,avg_log2FC,pct.1,pct.2,p_val_adj,cluster_number\n0,LY86,0.0,0.350630459,0.338,0.202,0.0,cluster 2 (B cells)\n1,BLK,0.0,0.282710944,0.33,0.211,0.0,cluster 2 (B cells)",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-16/1-s20-S1535610824003593-mmc2-cluster2Bcells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251217%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251217T020710Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8ddd3751917a731da9d789274a1806313bc0a68c694e557724ddcdba227b9231",
+      "s3_key": "uploads/2025-12-16/1-s20-S1535610824003593-mmc2-cluster2Bcells.csv"
+    },
+    {
+      "name": "1-s2.0-S1535610824003593-mmc2-cluster 1 (B cells).csv",
+      "type": "csv",
+      "preview": ",gene,p_val,avg_log2FC,pct.1,pct.2,p_val_adj,cluster_number\n1594,SNX9,0.0,2.42915284,0.261,0.125,0.0,cluster 1 (B cells)\n1595,TMEM2301,0.0,1.783178887,0.192,0.334,0.0,cluster 1 (B cells)",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-16/1-s20-S1535610824003593-mmc2-cluster1Bcells.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251217%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251217T020710Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=7d96d322aa3f87a4b8f78e053e9e69b2670291fd89148654e0faf43250d90435",
+      "s3_key": "uploads/2025-12-16/1-s20-S1535610824003593-mmc2-cluster1Bcells.csv"
+    }
+  ]
+}

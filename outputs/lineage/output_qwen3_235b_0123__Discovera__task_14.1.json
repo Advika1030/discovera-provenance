@@ -1,0 +1,186 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0123__Discovera__task_14.1",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Discovera",
+      "task_id": "14.1",
+      "run_date": "2026-01-21 17:39:44",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "41598_2024_75947_MOESM1_ESM-S1.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/41598_2024_75947_MOESM1_ESM-S1.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T223944Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=07fa48fc3795d8e5a909aeaab533a6bbc12e7199d824923538dfa35eb2ef8121",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/41598_2024_75947_MOESM1_ESM-S1.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T223944Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=07fa48fc3795d8e5a909aeaab533a6bbc12e7199d824923538dfa35eb2ef8121\", \"name\": \"reactome_pathways\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "reactome_pathways.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/reactome_pathways.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769035205_c2ac2c04"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1769035205_c2ac2c04\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 2,
+      "args": "{\"columns\": [\"Reactome Pathway ID\", \"GeneList\", \"GeneCount/direction\", \"Direction between Organoid Phenotypes\", \"Comparison within Organoid Phenotypes\"], \"csv_id\": \"1769035205_c2ac2c04\", \"rename\": {\"Comparison within Organoid Phenotypes\": \"Comparison\", \"Direction between Organoid Phenotypes\": \"Direction\", \"GeneCount/direction\": \"GeneCount\", \"Reactome Pathway ID\": \"Pathway\"}}",
+      "error": "",
+      "id": "step2_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769035205_c2ac2c04_dc1c6359d5.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_select_1769035205_c2ac2c04_dc1c6359d5.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769035232_e07f8497"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 3,
+      "args": "{\"id\": \"1769035232_e07f8497\", \"n_rows\": 10}",
+      "error": "",
+      "id": "step3_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "storage_get",
+      "step_index": 4,
+      "args": "{\"id\": \"1769035232_e07f8497\", \"with_content\": true}",
+      "error": "",
+      "id": "step4_storage_get"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 5,
+      "args": "{\"columns\": [\"Supplemental Table 1: Significant Reactome Pathways Obtained from Differentially Expressed Genes from Organoid Cells.\", \"Unnamed: 1\", \"Unnamed: 2\", \"Unnamed: 3\", \"Unnamed: 4\"], \"csv_id\": \"1769035205_c2ac2c04\", \"rename\": {\"Supplemental Table 1: Significant Reactome Pathways Obtained from Differentially Expressed Genes from Organoid Cells.\": \"Pathway\", \"Unnamed: 1\": \"GeneList\", \"Unnamed: 2\": \"GeneCount\", \"Unnamed: 3\": \"Direction\", \"Unnamed: 4\": \"Comparison\"}}",
+      "error": "",
+      "id": "step5_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769035205_c2ac2c04_b8e21370a6.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_select_1769035205_c2ac2c04_b8e21370a6.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769035266_4d18ce36"
+    },
+    {
+      "type": "report",
+      "length": 5489,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769035205_c2ac2c04",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1769035205_c2ac2c04"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_select",
+      "target": "1769035205_c2ac2c04"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769035232_e07f8497",
+      "target": "step2_csv_select"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769035232_e07f8497",
+      "target": "step4_storage_get"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_read",
+      "target": "1769035232_e07f8497"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_storage_get",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_storage_get",
+      "target": "1769035232_e07f8497"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step5_csv_select",
+      "target": "1769035205_c2ac2c04"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769035266_4d18ce36",
+      "target": "step5_csv_select"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

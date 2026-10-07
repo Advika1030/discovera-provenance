@@ -1,0 +1,127 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0121__Baseline__task_3.1",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "3.1",
+      "run_date": "2026-01-21 21:55:41",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "ijms-24-14743-v2_crc_cells_cisplatin_vs_dmso_DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_cisplatin_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T025541Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=f90cf85627e55a0c443f3af651ec87bbf81945582fa3b45267c0379f27adc0d9",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_cisplatin_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T025541Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=f90cf85627e55a0c443f3af651ec87bbf81945582fa3b45267c0379f27adc0d9\", \"metadata\": {\"description\": \"Differential expression analysis of Cisplatin vs DMSO in colorectal cancer cells\", \"source\": \"ijms-24-14743-v2_crc_cells_cisplatin_vs_dmso_DEG.csv\"}, \"name\": \"cisplatin_vs_dmso_DEG\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "cisplatin_vs_dmso_DEG.csv",
+      "path": "/app/output/user_csvs/cisplatin_vs_dmso_DEG.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769050576_40f8af1f"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"log2FoldChange\", \"op\": \">\", \"value\": 1}], \"csv_id\": \"1769050576_40f8af1f\", \"name\": \"cisplatin_vs_dmso_upregulated\"}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769050576_40f8af1f.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769050576_40f8af1f.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769050593_ae7b1a45"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"log2FoldChange\", \"op\": \"<\", \"value\": -1}], \"csv_id\": \"1769050576_40f8af1f\", \"name\": \"cisplatin_vs_dmso_downregulated\"}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769050576_40f8af1f.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769050576_40f8af1f.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769050617_ae7b1a45"
+    },
+    {
+      "type": "report",
+      "length": 3346,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769050576_40f8af1f",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769050576_40f8af1f"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769050593_ae7b1a45",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1769050576_40f8af1f"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769050617_ae7b1a45",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

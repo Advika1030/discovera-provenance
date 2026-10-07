@@ -1,0 +1,226 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0124__Discovera__task_6",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Discovera",
+      "task_id": "6",
+      "run_date": "2026-01-21 15:21:27",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Teng_2025_Cancer_Cell_TableS3-shRNA1_DE_sig.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Teng_2025_Cancer_Cell_TableS3-shRNA1_DE_sig.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T202127Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=bfe4c76a5dfc859655d268bc7dd541c2ba0e7ee8d4d845ff005f9c80c2cf71a6",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Teng_2025_Cancer_Cell_TableS3-shRNA2_DE_sig.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Teng_2025_Cancer_Cell_TableS3-shRNA2_DE_sig.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T202127Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=76086c2b72ba2c62fc3195322ed2679dadef96bab11699c6d792eddeaf242e41",
+      "id": "upload:1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Teng_2025_Cancer_Cell_TableS3-shRNA1_DE_sig.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T202127Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=bfe4c76a5dfc859655d268bc7dd541c2ba0e7ee8d4d845ff005f9c80c2cf71a6\", \"name\": \"Teng_2025_Cancer_Cell_TableS3-shRNA1_DE_sig\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Teng_2025_Cancer_Cell_TableS3-shRNA1_DE_sig.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Teng_2025_Cancer_Cell_TableS3-shRNA1_DE_sig.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769026913_58690507"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 1,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Teng_2025_Cancer_Cell_TableS3-shRNA2_DE_sig.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T202127Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=76086c2b72ba2c62fc3195322ed2679dadef96bab11699c6d792eddeaf242e41\", \"name\": \"Teng_2025_Cancer_Cell_TableS3-shRNA2_DE_sig\"}",
+      "error": "",
+      "id": "step1_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Teng_2025_Cancer_Cell_TableS3-shRNA2_DE_sig.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Teng_2025_Cancer_Cell_TableS3-shRNA2_DE_sig.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769026932_ab58da07"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 2,
+      "args": "{\"id\": \"1769026913_58690507\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step2_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 3,
+      "args": "{\"id\": \"1769026932_ab58da07\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step3_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gsea_pipe",
+      "step_index": 4,
+      "args": "{\"corr_col\": \"log2FoldChange\", \"csv_id\": \"1769026913_58690507\", \"gene_sets\": [\"KEGG_2016\", \"GO_Biological_Process_2023\", \"Reactome_Pathways_2024\", \"MSigDB_Hallmark_2020\"], \"hit_col\": \"gene\"}",
+      "error": "",
+      "id": "step4_gsea_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "gsea_results_20260121_152310.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20260121_152310.csv",
+      "source_key": "gsea_result_metadata",
+      "is_plot": false,
+      "id": "1769027004_6303a271"
+    },
+    {
+      "type": "data_table",
+      "name": "gsea_results_20260121_152310.png",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20260121_152310.png",
+      "source_key": "gsea_plot_metadata",
+      "is_plot": true,
+      "id": "1769027005_79831c6d"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gsea_pipe",
+      "step_index": 5,
+      "args": "{\"corr_col\": \"log2FoldChange\", \"csv_id\": \"1769026932_ab58da07\", \"gene_sets\": [\"KEGG_2016\", \"GO_Biological_Process_2023\", \"Reactome_Pathways_2024\", \"MSigDB_Hallmark_2020\"], \"hit_col\": \"gene\"}",
+      "error": "",
+      "id": "step5_gsea_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "gsea_results_20260121_152351.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20260121_152351.csv",
+      "source_key": "gsea_result_metadata",
+      "is_plot": false,
+      "id": "1769027042_832776ca"
+    },
+    {
+      "type": "data_table",
+      "name": "gsea_results_20260121_152351.png",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20260121_152351.png",
+      "source_key": "gsea_plot_metadata",
+      "is_plot": true,
+      "id": "1769027043_3c1639ae"
+    },
+    {
+      "type": "report",
+      "length": 4469,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769026913_58690507",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769026932_ab58da07",
+      "target": "step1_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_read",
+      "target": "1769026913_58690507"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_read",
+      "target": "1769026932_ab58da07"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_gsea_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_gsea_pipe",
+      "target": "1769026913_58690507"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769027004_6303a271",
+      "target": "step4_gsea_pipe"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769027005_79831c6d",
+      "target": "step4_gsea_pipe"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_gsea_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step5_gsea_pipe",
+      "target": "1769026932_ab58da07"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769027042_832776ca",
+      "target": "step5_gsea_pipe"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769027043_3c1639ae",
+      "target": "step5_gsea_pipe"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

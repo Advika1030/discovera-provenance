@@ -1,0 +1,339 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0123__Baseline__task_9.3",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "9.3",
+      "run_date": "2026-01-21 23:53:39",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Wang_2025_Cancer_Cell_TableS2A.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Wang_2025_Cancer_Cell_TableS2A.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T045339Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=d0aeb7f3a31a39a37f425fa3cfa8aedafb59de3d86fe9c96fd7aa4c5f035ca02",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Wang_2025_Cancer_Cell_TableS3I.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Wang_2025_Cancer_Cell_TableS3I.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T045339Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=9d17080e97515e659c681ea724e20fe21a3ab97358da3aa0f89836124fef6ccd",
+      "id": "upload:1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Wang_2025_Cancer_Cell_TableS2A.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T045339Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=d0aeb7f3a31a39a37f425fa3cfa8aedafb59de3d86fe9c96fd7aa4c5f035ca02\", \"name\": \"Wang_2025_Cancer_Cell_TableS2A\", \"tags\": [\"user_input\", \"proteome\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Wang_2025_Cancer_Cell_TableS2A.csv",
+      "path": "/app/output/user_csvs/Wang_2025_Cancer_Cell_TableS2A.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769057643_38928ca7"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 1,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Wang_2025_Cancer_Cell_TableS3I.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T045339Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=9d17080e97515e659c681ea724e20fe21a3ab97358da3aa0f89836124fef6ccd\", \"name\": \"Wang_2025_Cancer_Cell_TableS3I\", \"tags\": [\"user_input\", \"glycoproteome\"]}",
+      "error": "",
+      "id": "step1_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Wang_2025_Cancer_Cell_TableS3I.csv",
+      "path": "/app/output/user_csvs/Wang_2025_Cancer_Cell_TableS3I.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769057669_e92eb7c7"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"FDR\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769057643_38928ca7\", \"name\": \"proteome_sig\"}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769057643_38928ca7.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769057643_38928ca7.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769057686_f0cbaae9"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 3,
+      "args": "{\"conditions\": [{\"column\": \"FDR\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769057669_e92eb7c7\", \"name\": \"glycoproteome_sig\"}",
+      "error": "",
+      "id": "step3_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769057669_e92eb7c7.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769057669_e92eb7c7.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769057707_fffb67c3"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_join",
+      "step_index": 4,
+      "args": "{\"how\": \"left\", \"left_csv_id\": \"1769057707_fffb67c3\", \"name\": \"joined_glyco_proteome\", \"on\": \"Gene\", \"right_csv_id\": \"1769057686_f0cbaae9\", \"select\": {\"left\": [\"Protein\", \"Glycopeptide\", \"Glycosite\", \"log2FC\", \"FDR\", \"Up/Down\"], \"right\": [\"Gene\"]}, \"suffixes\": [\"_glyco\", \"_proteome\"]}",
+      "error": "",
+      "id": "step4_csv_join"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 5,
+      "args": "{\"csv_id\": \"1769057707_fffb67c3\", \"name\": \"glycoproteome_renamed\", \"rename\": {\"Protein\": \"Gene\"}}",
+      "error": "",
+      "id": "step5_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769057707_fffb67c3.csv",
+      "path": "/app/output/user_csvs/csv_select_1769057707_fffb67c3.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769058208_831e1a1f"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_join",
+      "step_index": 6,
+      "args": "{\"how\": \"left\", \"left_csv_id\": \"1769058208_831e1a1f\", \"name\": \"joined_glyco_proteome\", \"on\": \"Gene\", \"right_csv_id\": \"1769057686_f0cbaae9\", \"select\": {\"left\": [\"Gene\", \"Glycopeptide\", \"Glycosite\", \"log2FC_glyco\", \"FDR_glyco\", \"Up/Down_glyco\"], \"right\": [\"log2 FC_proteome\", \"FDR_proteome\", \"Up/Down_proteome\"]}, \"suffixes\": [\"_glyco\", \"_proteome\"]}",
+      "error": "",
+      "id": "step6_csv_join"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_join_1769058208_831e1a1f_1769057686_f0cbaae9_Gene.csv",
+      "path": "/app/output/user_csvs/csv_join_1769058208_831e1a1f_1769057686_f0cbaae9_Gene.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769058224_859856fc"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 7,
+      "args": "{\"id\": \"1769058224_859856fc\"}",
+      "error": "",
+      "id": "step7_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 8,
+      "args": "{\"conditions\": [{\"column\": \"FDR_proteome\", \"op\": \">=\", \"value\": 0.05}], \"csv_id\": \"1769058224_859856fc\", \"name\": \"glyco_only\"}",
+      "error": "",
+      "id": "step8_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769058224_859856fc.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769058224_859856fc.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769058255_0b432a14"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_join",
+      "step_index": 9,
+      "args": "{\"how\": \"left\", \"left_csv_id\": \"1769058208_831e1a1f\", \"name\": \"joined_glyco_proteome_corrected\", \"on\": \"Gene\", \"right_csv_id\": \"1769057686_f0cbaae9\", \"select\": {\"left\": [\"Gene\", \"Glycopeptide\", \"Glycosite\", \"log2FC\", \"FDR\", \"Up/Down\"], \"right\": [\"log2 FC\", \"FDR\", \"Up/Down\"]}, \"suffixes\": [\"_glyco\", \"_proteome\"]}",
+      "error": "",
+      "id": "step9_csv_join"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_join_1769058208_831e1a1f_1769057686_f0cbaae9_Gene.csv",
+      "path": "/app/output/user_csvs/csv_join_1769058208_831e1a1f_1769057686_f0cbaae9_Gene.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769058263_859856fc"
+    },
+    {
+      "type": "report",
+      "length": 3541,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769057643_38928ca7",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769057669_e92eb7c7",
+      "target": "step1_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1769057643_38928ca7"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769057686_f0cbaae9",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_filter",
+      "target": "1769057669_e92eb7c7"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769057707_fffb67c3",
+      "target": "step3_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_join",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_join",
+      "target": "1769057707_fffb67c3"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_join",
+      "target": "1769057686_f0cbaae9"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step5_csv_select",
+      "target": "1769057707_fffb67c3"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769058208_831e1a1f",
+      "target": "step5_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step6_csv_join",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step6_csv_join",
+      "target": "1769058208_831e1a1f"
+    },
+    {
+      "relation": "used",
+      "source": "step6_csv_join",
+      "target": "1769057686_f0cbaae9"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769058224_859856fc",
+      "target": "step6_csv_join"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step7_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step7_csv_read",
+      "target": "1769058224_859856fc"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step8_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step8_csv_filter",
+      "target": "1769058224_859856fc"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769058255_0b432a14",
+      "target": "step8_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step9_csv_join",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step9_csv_join",
+      "target": "1769058208_831e1a1f"
+    },
+    {
+      "relation": "used",
+      "source": "step9_csv_join",
+      "target": "1769057686_f0cbaae9"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769058263_859856fc",
+      "target": "step9_csv_join"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

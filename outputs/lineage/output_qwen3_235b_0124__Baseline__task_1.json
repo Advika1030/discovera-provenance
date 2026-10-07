@@ -1,0 +1,105 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0124__Baseline__task_1",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "1",
+      "run_date": "2026-01-22 01:07:32",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "NIHMS1921121-supplement-7-CTNNB1 Hotspot vs WT - Protein.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/NIHMS1921121-supplement-7-CTNNB1HotspotvsWT-Protein.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T060732Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=f57e026979dd655771fb683efb1485995fdec0a3f56ab6e7ae8e89b3ed0b00e6",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 0,
+      "args": "{\"id\": \"NIHMS1921121-supplement-7-CTNNB1 Hotspot vs WT - Protein.csv\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step0_csv_read"
+    },
+    {
+      "type": "missing_reference",
+      "id": "missing:NIHMS1921121-supplement-7-CTNNB1 Hotspot vs WT - Protein.csv"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 1,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/NIHMS1921121-supplement-7-CTNNB1HotspotvsWT-Protein.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T060732Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=f57e026979dd655771fb683efb1485995fdec0a3f56ab6e7ae8e89b3ed0b00e6\", \"metadata\": {\"description\": \"Differential protein analysis of CTNNB1 Hotspot vs WT tumors in EC cohort CNV-L subgroup\", \"source\": \"NIHMS1921121 Supplement 7\"}, \"name\": \"CTNNB1_Hotspot_vs_WT_Protein\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step1_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "CTNNB1_Hotspot_vs_WT_Protein.csv",
+      "path": "/app/output/user_csvs/CTNNB1_Hotspot_vs_WT_Protein.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769062080_2663b50d"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 2,
+      "args": "{\"id\": \"1769062080_2663b50d\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step2_csv_read"
+    },
+    {
+      "type": "report",
+      "length": 3836,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_read",
+      "target": "missing:NIHMS1921121-supplement-7-CTNNB1 Hotspot vs WT - Protein.csv"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769062080_2663b50d",
+      "target": "step1_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_read",
+      "target": "1769062080_2663b50d"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

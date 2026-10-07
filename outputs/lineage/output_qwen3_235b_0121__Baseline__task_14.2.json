@@ -1,0 +1,114 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0121__Baseline__task_14.2",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "14.2",
+      "run_date": "2026-01-21 22:35:14",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "41598_2024_75947_MOESM1_ESM-S2.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/41598_2024_75947_MOESM1_ESM-S2.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T033514Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=6f6fe3b5183c49fc29403cf961821bd0a8472b879acca1fdfd849e0d1c648d7f",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/41598_2024_75947_MOESM1_ESM-S2.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T033514Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=6f6fe3b5183c49fc29403cf961821bd0a8472b879acca1fdfd849e0d1c648d7f\", \"name\": \"41598_2024_75947_MOESM1_ESM-S2.csv\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "41598_2024_75947_MOESM1_ESM-S2.csv.csv",
+      "path": "/app/output/user_csvs/41598_2024_75947_MOESM1_ESM-S2.csv.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769052928_8b41dc54"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1769052928_8b41dc54\"}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"Comparison within Mucosal Epithelial Phenotypes\", \"op\": \"in\", \"value\": [\"PIFvsCtrl\", \"PIFvsPNI\"]}], \"csv_id\": \"1769052928_8b41dc54\"}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769052928_8b41dc54.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769052928_8b41dc54.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769052948_7e972398"
+    },
+    {
+      "type": "report",
+      "length": 398,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769052928_8b41dc54",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1769052928_8b41dc54"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1769052928_8b41dc54"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769052948_7e972398",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

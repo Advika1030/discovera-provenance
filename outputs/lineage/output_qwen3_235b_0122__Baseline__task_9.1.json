@@ -1,0 +1,127 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0122__Baseline__task_9.1",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "9.1",
+      "run_date": "2026-01-21 23:03:24",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Wang_2025_Cancer_Cell_TableS2A.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Wang_2025_Cancer_Cell_TableS2A.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T040324Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=7642c1c4574b2c70703b0085a467ba2e7623f817af3e31e7a7c35a74d51d7697",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Wang_2025_Cancer_Cell_TableS2A.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T040324Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=7642c1c4574b2c70703b0085a467ba2e7623f817af3e31e7a7c35a74d51d7697\", \"metadata\": {\"description\": \"Differential expression analysis between IPMN and ND samples\", \"source\": \"Wang et al., Cancer Cell 2025\"}, \"name\": \"Wang_2025_Cancer_Cell_TableS2A\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Wang_2025_Cancer_Cell_TableS2A.csv",
+      "path": "/app/output/user_csvs/Wang_2025_Cancer_Cell_TableS2A.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769054629_38928ca7"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"FDR\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769054629_38928ca7\", \"name\": \"IPMN_vs_ND_significant\", \"sort_by\": [\"-log2 FC\", \"FDR\"]}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769054629_38928ca7.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769054629_38928ca7.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769054648_8dbea583"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 2,
+      "args": "{\"columns\": [\"Gene\", \"log2 FC\", \"Up/Down\"], \"csv_id\": \"1769054648_8dbea583\", \"name\": \"IPMN_significant_genes\"}",
+      "error": "",
+      "id": "step2_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769054648_8dbea583.csv",
+      "path": "/app/output/user_csvs/csv_select_1769054648_8dbea583.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769054654_9186fd9d"
+    },
+    {
+      "type": "report",
+      "length": 897,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054629_38928ca7",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769054629_38928ca7"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054648_8dbea583",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_select",
+      "target": "1769054648_8dbea583"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054654_9186fd9d",
+      "target": "step2_csv_select"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

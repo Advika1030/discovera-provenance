@@ -1,0 +1,72 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0122__Baseline__task_13",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "13",
+      "run_date": "2026-01-21 23:17:10",
+      "id": "agent_run"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_text\": \"gene_symbol,regulation\\nTFB2M,up\\nXPO5,up\\nMSH6,up\\nRFC4,up\\nPPM1G,up\\nCAD,up\\nLRPPRC,up\\nSLIRP,up\\nPDCD11,up\\nNKRF,up\\nSLC4A1AP,up\\nESF1,up\\nDDX52,up\\nTBL3,up\\nBYSL,up\\nSELENBP1,down\\nVPS13C,down\", \"metadata\": {\"description\": \"17 differentially expressed proteins in ORF1p-high tumors (15 up, 2 down)\", \"source\": \"User-provided ORF1p-high tumor proteomic signature\"}, \"name\": \"orf1p_signature_proteins\", \"tags\": [\"user_input\", \"orf1p_signature\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "orf1p_signature_proteins.csv",
+      "path": "/app/output/user_csvs/orf1p_signature_proteins.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769055483_2c625c83"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1769055483_2c625c83\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "report",
+      "length": 3876,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769055483_2c625c83",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1769055483_2c625c83"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

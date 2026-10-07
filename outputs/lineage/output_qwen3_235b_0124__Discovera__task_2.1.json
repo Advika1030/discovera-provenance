@@ -1,0 +1,298 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0124__Discovera__task_2.1",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Discovera",
+      "task_id": "2.1",
+      "run_date": "2026-01-21 14:33:53",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "jciinsight-8-167744.sdt1-26_Table-S11-Fibro-DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/jciinsight-8-167744sdt1-26_Table-S11-Fibro-DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T193352Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=11882bf2f3bbff218f82a3c22b7769f0457b134217238769de040ba4d26c2742",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "jciinsight-8-167744.sdt1-26_Table-S12-Blood-DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/jciinsight-8-167744sdt1-26_Table-S12-Blood-DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T193353Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=ffcc16f5f1de6fa8abd2c6d546341a387fc5aea8464e3abf1432d8153b2b64d6",
+      "id": "upload:1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/jciinsight-8-167744sdt1-26_Table-S11-Fibro-DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T193352Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=11882bf2f3bbff218f82a3c22b7769f0457b134217238769de040ba4d26c2742\", \"name\": \"fibroblast_deg\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "fibroblast_deg.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/fibroblast_deg.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769024055_5183558c"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 1,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/jciinsight-8-167744sdt1-26_Table-S12-Blood-DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T193353Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=ffcc16f5f1de6fa8abd2c6d546341a387fc5aea8464e3abf1432d8153b2b64d6\", \"name\": \"blood_deg\"}",
+      "error": "",
+      "id": "step1_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "blood_deg.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/blood_deg.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769024069_3a3654aa"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 2,
+      "args": "{\"id\": \"1769024055_5183558c\", \"n_rows\": 5}",
+      "error": "",
+      "id": "step2_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 3,
+      "args": "{\"id\": \"1769024069_3a3654aa\", \"n_rows\": 5}",
+      "error": "",
+      "id": "step3_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 4,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"log2FoldChange\", \"op\": \">\", \"value\": 1}], \"csv_id\": \"1769024055_5183558c\", \"keep_columns\": [\"gene_name\", \"log2FoldChange\", \"padj\"], \"name\": \"fibro_up\"}",
+      "error": "",
+      "id": "step4_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "fibro_up_8a2fe9a73e.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/fibro_up_8a2fe9a73e.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769024100_df7a70de"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 5,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"log2FoldChange\", \"op\": \">\", \"value\": 1}], \"csv_id\": \"1769024069_3a3654aa\", \"keep_columns\": [\"gene_name\", \"log2FoldChange\", \"padj\"], \"name\": \"blood_up\"}",
+      "error": "",
+      "id": "step5_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "blood_up_8a2fe9a73e.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/blood_up_8a2fe9a73e.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769024113_14813af8"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_join",
+      "step_index": 6,
+      "args": "{\"how\": \"inner\", \"left_csv_id\": \"1769024100_df7a70de\", \"name\": \"common_up\", \"on\": \"gene_name\", \"right_csv_id\": \"1769024113_14813af8\"}",
+      "error": "",
+      "id": "step6_csv_join"
+    },
+    {
+      "type": "data_table",
+      "name": "common_up_3981700441.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/common_up_3981700441.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769024135_f41922ac"
+    },
+    {
+      "type": "tool_step",
+      "tool": "ora_pipe",
+      "step_index": 7,
+      "args": "{\"csv_id\": \"1769024100_df7a70de\", \"gene_col\": \"gene_name\", \"gene_sets\": [\"MSigDB_Hallmark_2020\", \"KEGG_2021_Human\"]}",
+      "error": "",
+      "id": "step7_ora_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "ora_results_20260121_143604.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20260121_143604.csv",
+      "source_key": "ora_result_metadata",
+      "is_plot": false,
+      "id": "1769024167_5e140197"
+    },
+    {
+      "type": "tool_step",
+      "tool": "ora_pipe",
+      "step_index": 8,
+      "args": "{\"csv_id\": \"1769024113_14813af8\", \"gene_col\": \"gene_name\", \"gene_sets\": [\"MSigDB_Hallmark_2020\", \"KEGG_2021_Human\"]}",
+      "error": "",
+      "id": "step8_ora_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "ora_results_20260121_143619.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20260121_143619.csv",
+      "source_key": "ora_result_metadata",
+      "is_plot": false,
+      "id": "1769024182_1193da08"
+    },
+    {
+      "type": "report",
+      "length": 3180,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769024055_5183558c",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769024069_3a3654aa",
+      "target": "step1_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_read",
+      "target": "1769024055_5183558c"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_read",
+      "target": "1769024069_3a3654aa"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_filter",
+      "target": "1769024055_5183558c"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769024100_df7a70de",
+      "target": "step4_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step5_csv_filter",
+      "target": "1769024069_3a3654aa"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769024113_14813af8",
+      "target": "step5_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step6_csv_join",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step6_csv_join",
+      "target": "1769024100_df7a70de"
+    },
+    {
+      "relation": "used",
+      "source": "step6_csv_join",
+      "target": "1769024113_14813af8"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769024135_f41922ac",
+      "target": "step6_csv_join"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step7_ora_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step7_ora_pipe",
+      "target": "1769024100_df7a70de"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769024167_5e140197",
+      "target": "step7_ora_pipe"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step8_ora_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step8_ora_pipe",
+      "target": "1769024113_14813af8"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769024182_1193da08",
+      "target": "step8_ora_pipe"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

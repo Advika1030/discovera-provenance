@@ -1,0 +1,176 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0122__Baseline__task_8",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "8",
+      "run_date": "2026-01-21 23:01:45",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Garner_2025_Cancer_Cell_TableS1-ClusterMembership.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Garner_2025_Cancer_Cell_TableS1-ClusterMembership.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T040145Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=9c743e76827332416b4aa29d4791bcd155b6f0617db50f7e340172adc64867a8",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Garner_2025_Cancer_Cell_TableS1-ClusterMembership.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T040145Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=9c743e76827332416b4aa29d4791bcd155b6f0617db50f7e340172adc64867a8\", \"metadata\": {\"description\": \"Cluster membership of differentially expressed genes in KEP vs WT mice across neutrophil pseudotime trajectory\", \"source\": \"Garner et al. 2025 Cancer Cell\"}, \"name\": \"Garner_2025_Cancer_Cell_TableS1-ClusterMembership\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Garner_2025_Cancer_Cell_TableS1-ClusterMembership.csv",
+      "path": "/app/output/user_csvs/Garner_2025_Cancer_Cell_TableS1-ClusterMembership.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769054517_18ca1548"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1769054517_18ca1548\"}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"cluster\", \"op\": \"contains\", \"value\": \"Early\"}], \"csv_id\": \"1769054517_18ca1548\", \"name\": \"early_genes\"}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769054517_18ca1548.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769054517_18ca1548.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769054544_b138144c"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 3,
+      "args": "{\"conditions\": [{\"column\": \"cluster\", \"op\": \"contains\", \"value\": \"Middle\"}], \"csv_id\": \"1769054517_18ca1548\", \"name\": \"middle_genes\"}",
+      "error": "",
+      "id": "step3_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769054517_18ca1548.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769054517_18ca1548.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769054564_b138144c"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 4,
+      "args": "{\"conditions\": [{\"column\": \"cluster\", \"op\": \"contains\", \"value\": \"Late\"}], \"csv_id\": \"1769054517_18ca1548\", \"name\": \"late_genes\"}",
+      "error": "",
+      "id": "step4_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769054517_18ca1548.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769054517_18ca1548.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769054575_b138144c"
+    },
+    {
+      "type": "report",
+      "length": 4503,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054517_18ca1548",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1769054517_18ca1548"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1769054517_18ca1548"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054544_b138144c",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_filter",
+      "target": "1769054517_18ca1548"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054564_b138144c",
+      "target": "step3_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_filter",
+      "target": "1769054517_18ca1548"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054575_b138144c",
+      "target": "step4_csv_filter"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

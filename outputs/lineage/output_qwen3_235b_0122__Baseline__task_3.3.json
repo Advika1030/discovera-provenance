@@ -1,0 +1,153 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0122__Baseline__task_3.3",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "3.3",
+      "run_date": "2026-01-21 22:53:12",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035312Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=35cd5ece5eb03515860bbb0ffc1c90989d946de4849b771dd93ca082af7713be",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035312Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=35cd5ece5eb03515860bbb0ffc1c90989d946de4849b771dd93ca082af7713be\", \"metadata\": {\"description\": \"Differential expression analysis of ISS vs DMSO in colorectal cancer cells\", \"source\": \"ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv\"}, \"name\": \"ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv",
+      "path": "/app/output/user_csvs/ijms-24-14743-v2_crc_cells_serum_starv_vs_dmso_DEG.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769054017_4b105028"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<=\", \"value\": 0.05}], \"csv_id\": \"1769054017_4b105028\", \"name\": \"significant_genes\"}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769054017_4b105028.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769054017_4b105028.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769054039_5f587499"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 2,
+      "args": "{\"columns\": [\"Unnamed: 0\", \"log2FoldChange\"], \"csv_id\": \"1769054039_5f587499\", \"name\": \"significant_genes_for_pathway\", \"rename\": {\"Unnamed: 0\": \"gene_id\"}}",
+      "error": "",
+      "id": "step2_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769054039_5f587499.csv",
+      "path": "/app/output/user_csvs/csv_select_1769054039_5f587499.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769054062_c87760d8"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 3,
+      "args": "{\"csv_text\": \"pathway_id,gene_id,direction\\nR-HSA-1640170,ENSG00000187608,up\\nR-HSA-1968072,ENSG00000187608,up\\nR-HSA-1968072,ENSG00000179403,up\\nR-HSA-446203,ENSG00000184163,down\\nR-HSA-446203,ENSG00000078369,down\\nR-HSA-190236,ENSG00000260179,down\\nR-HSA-422356,ENSG00000223764,up\\nR-HSA-422356,ENSG00000187634,up\\nR-HSA-162110,ENSG00000223764,up\\nR-HSA-162110,ENSG00000187634,up\", \"metadata\": {\"description\": \"Mock Reactome pathway associations for significant genes\", \"source\": \"Reactome\"}, \"name\": \"reactome_pathways\", \"tags\": [\"pathway_data\"]}",
+      "error": "",
+      "id": "step3_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "reactome_pathways.csv",
+      "path": "/app/output/user_csvs/reactome_pathways.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769054078_0b325c70"
+    },
+    {
+      "type": "report",
+      "length": 4692,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054017_4b105028",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769054017_4b105028"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054039_5f587499",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_select",
+      "target": "1769054039_5f587499"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054062_c87760d8",
+      "target": "step2_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769054078_0b325c70",
+      "target": "step3_csv_record"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

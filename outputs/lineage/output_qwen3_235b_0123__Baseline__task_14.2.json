@@ -1,0 +1,83 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0123__Baseline__task_14.2",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "14.2",
+      "run_date": "2026-01-22 00:14:48",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "41598_2024_75947_MOESM1_ESM-S2.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/41598_2024_75947_MOESM1_ESM-S2.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T051448Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=42aa507f1a9a4b3c180649e6f3400288750df3bc5fb89865de9e120e0debcc26",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-22/41598_2024_75947_MOESM1_ESM-S2.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T051448Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=42aa507f1a9a4b3c180649e6f3400288750df3bc5fb89865de9e120e0debcc26\", \"metadata\": {\"description\": \"Pathway enrichment analysis of differentially expressed genes in rectal organoids from perianal CD patients vs controls\", \"source\": \"Supplemental Table 2: Significant Reactome Pathways from Mucosal Epithelial Cells\"}, \"name\": \"41598_2024_75947_MOESM1_ESM-S2\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "41598_2024_75947_MOESM1_ESM-S2.csv",
+      "path": "/app/output/user_csvs/41598_2024_75947_MOESM1_ESM-S2.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769058900_ca7fb086"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1769058900_ca7fb086\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "report",
+      "length": 3764,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769058900_ca7fb086",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1769058900_ca7fb086"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

@@ -1,0 +1,781 @@
+{
+  "ID": "9.4",
+  "Context/Background": "Intraductal papillary neoplasms (IPNs),  including intraductal papillary mucinous neoplasms (IPMNs), intraductal oncocytic papillary neoplasms (IOPNs), and intraductal tubulopapillary neoplasms (ITPNs), are clinically detectable macroscopic non-invasive cyst-forming lesions, some of which progress to invasive pancreatic cancer. Proteins and glycoproteins have proven to be useful clinical biomarkers for classifying cyst-forming neoplasms in the pancreas.Here, we used proteomics and glycoproteomics to characterize a series of histologically and genetically well-characterized surgically resected IPNs, including IPMNs and IOPNs.\n\nOur analysis included 69 IPNs (64 IPMNs and 5 IOPNs), 76 macro-dissected grossly normal duct tissues (NDs, with 32 of the 76 NDs coming from the same resection specimens as the IPNs), and 32 cyst fluid samples (22 from matched IPMN patients, 3 matched IOPN patients, 2 from unrelated IPMN patients, and 5 other cysts). ",
+  "Prompt": "Look at the list of glycoproteins upregulated in IPMNS with both KRAS and GNAS mutations compared to wild-type IPMNs and explain the pattern with activities of signaling pathways.",
+  "mode": "Discovera",
+  "llm_provider": "openai",
+  "llm_model": "o4-mini",
+  "run_date": "2025-12-15 19:48:52",
+  "elapsed_seconds": 2359.54,
+  "status": "ok",
+  "error": null,
+  "output_text": "The 57 glycoproteins significantly up in KRAS + GNAS-co-mutant IPMNs cluster into two major signaling-related modules:  \n1. Mucin/O-Glycosylation machinery  \n   - Reactome ORA: “O-linked Glycosylation of Mucins” (5/65, adj p = 2.2 × 10⁻⁴) and “O-linked Glycosylation” (5/114, adj p = 1.8 × 10⁻³)  \n   - KEGG ORA: “Mucin type O-Glycan biosynthesis” (5/31, adj p = 1.6 × 10⁻⁶)  \n   - Leading enzymes: GALNT3, GALNT5, C1GALT1C1, GCNT1 and the secreted mucin MUC5AC  \n   ⇒ suggests co-mutant lesions up-regulate the glycosyltransferase network that builds the dense O-glycan coat of IPMN mucins.  \n\n2. Cell-surface receptor and adhesion signaling  \n   - Integrin interactions: Reactome “Integrin Cell Surface Interactions” (3/85, adj p = 0.03) and KEGG “Cell adhesion molecules (CAMs)” (4/142, adj p = 0.02) via ITGA6, ICAM2, BSG, MPZL1  \n   - EPH–ephrin: Reactome “EPH-ephrin Mediated Repulsion of Cells” (3/51, adj p = 0.03) and “EPH-Ephrin Signaling” (3/92, adj p = 0.03) via ADAM10, EPHA2, EPHB3  \n   - RTK/Stress modules: KEGG “Epithelial cell signaling in Helicobacter pylori” (3/68, adj p = 0.02) via ADAM10, MET; Reactome BAD/BH3 inactivation (SFN, YWHAH) and checkpoint-kinase (“Chk1/Chk2-Mediated Inactivation of Cyclin B-Cdk1,” SFN, YWHAH)  \n\nTaken together, KRAS + GNAS-mutant IPMNs do not simply express more mucins; they reprogram the glycosylation apparatus (GALNTs/C1GALT1C1/GCNT1) and co-upregulate cell-surface receptors (integrins, EPH/RTKs) whose functions are heavily modulated by complex O-glycans. This dual reinforcement of a barrier-forming mucin coat and of glycan-tuned receptor/adhesion signaling likely cooperates to drive ductal epithelial remodeling, altered polarity and early neoplastic progression.",
+  "tool_calls_json": [
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "Wang_2025_Cancer_Cell_TableS3I.csv",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-15/Wang_2025_Cancer_Cell_TableS3I.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251216%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251216T004852Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=ff9fa46301afad69fa2656936461138aca8ea1ae810f3482f0b43fea21b5fa42",
+        "tags": [
+          "user_input",
+          "dataset"
+        ],
+        "metadata": {
+          "source": "Wang_2025",
+          "description": "Glycoproteins up/down in KRAS+GNAS co-mutant IPMNs vs WT IPMNs"
+        }
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1765848082_11ef8f99",
+        "n_rows": 20
+      }
+    },
+    {
+      "name": "csv_select",
+      "args": {
+        "csv_id": "1765848082_11ef8f99",
+        "columns": [
+          "Protein"
+        ],
+        "distinct": true,
+        "name": "Unique_Proteins"
+      }
+    },
+    {
+      "name": "csv_select",
+      "args": {
+        "csv_id": "1765848082_11ef8f99",
+        "columns": [
+          "Protein",
+          "log2FC"
+        ],
+        "name": "CoMut_Glyco_Log2FC"
+      }
+    },
+    {
+      "name": "gsea_pipe",
+      "args": {
+        "csv_id": "1765848082_11ef8f99",
+        "hit_col": "Protein",
+        "corr_col": "log2FC",
+        "gene_sets": null,
+        "min_size": 5,
+        "max_size": 200,
+        "p_value_threshold": 0.05,
+        "fdr_threshold": 0.25
+      }
+    },
+    {
+      "name": "ora_pipe",
+      "args": {
+        "csv_id": "1765848215_7471a255",
+        "gene_col": "Protein",
+        "gene_sets": [
+          "Reactome_Pathways_2024",
+          "KEGG_2016",
+          "MSigDB_Hallmark_2020"
+        ],
+        "p_value_threshold": 0.05
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1765848082_11ef8f99",
+        "conditions": [
+          {
+            "column": "Protein",
+            "op": "==",
+            "value": "ADAM10"
+          }
+        ],
+        "keep_columns": [
+          "Protein",
+          "log2FC",
+          "FDR"
+        ],
+        "name": "Filter_ADAM10"
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1765848082_11ef8f99",
+        "conditions": [
+          {
+            "column": "Protein",
+            "op": "==",
+            "value": "EPHA2"
+          }
+        ],
+        "keep_columns": [
+          "Protein",
+          "log2FC",
+          "FDR"
+        ],
+        "name": "Filter_EPHA2"
+      }
+    }
+  ],
+  "tool_events_json": [
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1765848082_11ef8f99",
+        "name": "Wang_2025_Cancer_Cell_TableS3I.csv.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Wang_2025_Cancer_Cell_TableS3I.csv.csv"
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Wang_2025_Cancer_Cell_TableS3I.csv.csv",
+        "columns": [
+          "Protein",
+          "Glycopeptide",
+          "Glycosite",
+          "log2FC",
+          "FDR",
+          "Up/Down"
+        ],
+        "rows": [
+          {
+            "Protein": "ANO9",
+            "Glycopeptide": "GYVnHSLSVFHTK",
+            "Glycosite": "N652",
+            "log2FC": 1.458571526,
+            "FDR": 0.021570353,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "ADAM10",
+            "Glycopeptide": "nISQVLEK",
+            "Glycosite": "N439",
+            "log2FC": 2.220452564,
+            "FDR": 0.028267181,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "ENTPD5",
+            "Glycopeptide": "GYLTSFEmFnSTYK",
+            "Glycosite": "N232",
+            "log2FC": 2.745555705,
+            "FDR": 0.049216238,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "CPD",
+            "Glycopeptide": "DLDTDFTNnASQPETK",
+            "Glycosite": "N1070",
+            "log2FC": 2.219656904,
+            "FDR": 0.024112884,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "CPD",
+            "Glycopeptide": "LLnTTDVYLLPSLNPDGFER",
+            "Glycosite": "N172",
+            "log2FC": 1.171354408,
+            "FDR": 0.021570353,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "CPD",
+            "Glycopeptide": "DSITGSGLEnATISVAGInHNITTGR",
+            "Glycosite": "N399",
+            "log2FC": 1.449421157,
+            "FDR": 0.004827308,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "CPD",
+            "Glycopeptide": "DSITGSGLENATISVAGInHnITTGR",
+            "Glycosite": "N410",
+            "log2FC": 1.186636439,
+            "FDR": 0.005337239,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "CPD",
+            "Glycopeptide": "FANEYPnITR",
+            "Glycosite": "N522",
+            "log2FC": 2.236485536,
+            "FDR": 0.01288562,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "CPD",
+            "Glycopeptide": "nNSNNFDLNR",
+            "Glycosite": "N626",
+            "log2FC": 2.512303552,
+            "FDR": 0.004827308,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "CPD",
+            "Glycopeptide": "DSITGSGLEnATISVAGINHnITTGR",
+            "Glycosite": "N399;N410",
+            "log2FC": 0.961559455,
+            "FDR": 0.041555162,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "DDAH1",
+            "Glycopeptide": "DEnATLDGGDVLFTGR",
+            "Glycosite": "N123",
+            "log2FC": 1.393143757,
+            "FDR": 0.024112884,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "TMEM63A",
+            "Glycopeptide": "EQLGLGDRPnDSYcYNSAK",
+            "Glycosite": "N28",
+            "log2FC": 2.619742174,
+            "FDR": 0.028267181,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "TMEM63A",
+            "Glycopeptide": "LGLGDRPnDSYcYNSAK",
+            "Glycosite": "N28",
+            "log2FC": 1.415839777,
+            "FDR": 0.028267181,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "TMEM63A",
+            "Glycopeptide": "DRPnDSYcYNSAK",
+            "Glycosite": "N28",
+            "log2FC": 1.718533772,
+            "FDR": 0.031399241,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "TMEM63A",
+            "Glycopeptide": "LGDRPnDSYcYNSAK",
+            "Glycosite": "N28",
+            "log2FC": 2.470935165,
+            "FDR": 0.007988428,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "TMEM63A",
+            "Glycopeptide": "LGDRPnDSYcYnSAK",
+            "Glycosite": "N28",
+            "log2FC": 2.616788139,
+            "FDR": 0.007599212,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "ERLIN2",
+            "Glycopeptide": "nYTADYDK",
+            "Glycosite": "N106",
+            "log2FC": 1.93426121,
+            "FDR": 0.024112884,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "MPZL1",
+            "Glycopeptide": "EIFVAnGTQGK",
+            "Glycosite": "N50",
+            "log2FC": 2.116256636,
+            "FDR": 0.039727474,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "TSPAN13",
+            "Glycopeptide": "SVnPnDTcLAScVK",
+            "Glycosite": "N137",
+            "log2FC": 2.443592259,
+            "FDR": 0.028568712,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "TSPAN13",
+            "Glycopeptide": "SVNPnDTcLAScVK",
+            "Glycosite": "N137",
+            "log2FC": 2.347460549,
+            "FDR": 0.039727474,
+            "Up/Down": "Up.Sig"
+          }
+        ],
+        "total_rows": 85
+      }
+    },
+    {
+      "tool": "csv_select",
+      "payload": {
+        "columns": [
+          "Protein"
+        ],
+        "rows": "[{\"Protein\":\"ANO9\"},{\"Protein\":\"ADAM10\"},{\"Protein\":\"ENTPD5\"},{\"Protein\":\"CPD\"},{\"Protein\":\"DDAH1\"},{\"Protein\":\"TMEM63A\"},{\"Protein\":\"ERLIN2\"},{\"Protein\":\"MPZL1\"},{\"Protein\":\"TSPAN13\"},{\"Protein\":\"TSPAN15\"},{\"Protein\":\"GUSB\"},{\"Protein\":\"MET\"},{\"Protein\":\"KRT19\"},{\"Protein\":\"ICAM2\"},{\"Protein\":\"ATP1A3\"},{\"Protein\":\"F3\"},{\"Protein\":\"ERBB3\"},{\"Protein\":\"ITGA6\"},{\"Protein\":\"EPHA2\"},{\"Protein\":\"SFN\"}]",
+        "total_rows": 57,
+        "storage_entry": {
+          "id": "1765848215_7471a255",
+          "name": "Unique_Proteins_e747c4c2ec.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Unique_Proteins_e747c4c2ec.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_select",
+      "payload": {
+        "columns": [
+          "Protein",
+          "log2FC"
+        ],
+        "rows": "[{\"Protein\":\"ANO9\",\"log2FC\":1.458571526},{\"Protein\":\"ADAM10\",\"log2FC\":2.220452564},{\"Protein\":\"ENTPD5\",\"log2FC\":2.745555705},{\"Protein\":\"CPD\",\"log2FC\":2.219656904},{\"Protein\":\"CPD\",\"log2FC\":1.171354408},{\"Protein\":\"CPD\",\"log2FC\":1.449421157},{\"Protein\":\"CPD\",\"log2FC\":1.186636439},{\"Protein\":\"CPD\",\"log2FC\":2.236485536},{\"Protein\":\"CPD\",\"log2FC\":2.512303552},{\"Protein\":\"CPD\",\"log2FC\":0.961559455},{\"Protein\":\"DDAH1\",\"log2FC\":1.393143757},{\"Protein\":\"TMEM63A\",\"log2FC\":2.619742174},{\"Protein\":\"TMEM63A\",\"log2FC\":1.415839777},{\"Protein\":\"TMEM63A\",\"log2FC\":1.718533772},{\"Protein\":\"TMEM63A\",\"log2FC\":2.470935165},{\"Protein\":\"TMEM63A\",\"log2FC\":2.616788139},{\"Protein\":\"ERLIN2\",\"log2FC\":1.93426121},{\"Protein\":\"MPZL1\",\"log2FC\":2.116256636},{\"Protein\":\"TSPAN13\",\"log2FC\":2.443592259},{\"Protein\":\"TSPAN13\",\"log2FC\":2.347460549}]",
+        "total_rows": 85,
+        "storage_entry": {
+          "id": "1765848233_85cae56d",
+          "name": "CoMut_Glyco_Log2FC_ee49262aa3.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/CoMut_Glyco_Log2FC_ee49262aa3.csv"
+        }
+      }
+    },
+    {
+      "tool": "gsea_pipe",
+      "payload": {
+        "counts_by_database": {
+          "Reactome_Pathways_2024": {
+            "up": 4,
+            "down": 0,
+            "total": 4
+          }
+        },
+        "top_high_nes": {
+          "Reactome_Pathways_2024": [
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Post-translational Protein Modification",
+              "NES": 2.1733320251652604,
+              "Size": 7,
+              "ES": 0.8074614192392711,
+              "NOS p-val": 0.02975533681843978,
+              "FDR q-val": 0.24418989060918683,
+              "Lead_genes": [
+                "MUC5AC",
+                "GALNT3",
+                "GALNT5"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Metabolism of Proteins",
+              "NES": 2.11579450466908,
+              "Size": 9,
+              "ES": 0.7278601853987765,
+              "NOS p-val": 0.03436228869036562,
+              "FDR q-val": 0.24418989060918683,
+              "Lead_genes": [
+                "MUC5AC",
+                "GALNT3",
+                "GALNT5"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "O-linked Glycosylation",
+              "NES": 1.8731514623560632,
+              "Size": 5,
+              "ES": 0.8520170943192211,
+              "NOS p-val": 0.06104747265229671,
+              "FDR q-val": 0.24418989060918683,
+              "Lead_genes": [
+                "MUC5AC",
+                "GALNT3",
+                "GALNT5"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "O-linked Glycosylation of Mucins",
+              "NES": 1.8731514623560632,
+              "Size": 5,
+              "ES": 0.8520170943192211,
+              "NOS p-val": 0.06104747265229671,
+              "FDR q-val": 0.24418989060918683,
+              "Lead_genes": [
+                "MUC5AC",
+                "GALNT3",
+                "GALNT5"
+              ]
+            }
+          ]
+        },
+        "top_low_nes": {
+          "Reactome_Pathways_2024": [
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Post-translational Protein Modification",
+              "NES": 2.1733320251652604,
+              "Size": 7,
+              "ES": 0.8074614192392711,
+              "NOS p-val": 0.02975533681843978,
+              "FDR q-val": 0.24418989060918683,
+              "Lead_genes": [
+                "MUC5AC",
+                "GALNT3",
+                "GALNT5"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Metabolism of Proteins",
+              "NES": 2.11579450466908,
+              "Size": 9,
+              "ES": 0.7278601853987765,
+              "NOS p-val": 0.03436228869036562,
+              "FDR q-val": 0.24418989060918683,
+              "Lead_genes": [
+                "MUC5AC",
+                "GALNT3",
+                "GALNT5"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "O-linked Glycosylation",
+              "NES": 1.8731514623560632,
+              "Size": 5,
+              "ES": 0.8520170943192211,
+              "NOS p-val": 0.06104747265229671,
+              "FDR q-val": 0.24418989060918683,
+              "Lead_genes": [
+                "MUC5AC",
+                "GALNT3",
+                "GALNT5"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "O-linked Glycosylation of Mucins",
+              "NES": 1.8731514623560632,
+              "Size": 5,
+              "ES": 0.8520170943192211,
+              "NOS p-val": 0.06104747265229671,
+              "FDR q-val": 0.24418989060918683,
+              "Lead_genes": [
+                "MUC5AC",
+                "GALNT3",
+                "GALNT5"
+              ]
+            }
+          ]
+        },
+        "gsea_result_metadata": {
+          "id": "1765848255_e71b980e",
+          "name": "gsea_results_20251215_202414.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20251215_202414.csv",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-15/gsea_results_20251215_202414.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251216%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251216T012415Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=dae9551b67f876fcd55a9bbe809c8873910e8e4c7dec412955619607d6aa687f"
+        },
+        "gsea_plot_metadata": {
+          "id": "1765848255_4994090a",
+          "name": "gsea_results_20251215_202414.png",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20251215_202414.png",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-15/gsea_results_20251215_202414.png?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251216%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251216T012416Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=fa26a248611a747a3b63c005f7b347ebe8f809ab882747432ac67b2f594d14ce"
+        }
+      }
+    },
+    {
+      "tool": "ora_pipe",
+      "payload": {
+        "ora_results": [
+          {
+            "Gene_set": "KEGG_2016",
+            "Term": "Mucin type O-Glycan biosynthesis Homo sapiens hsa00512",
+            "Overlap": "5/31",
+            "P-value": 2.100291753797781e-08,
+            "Adjusted P-value": 1.6382275679622688e-06,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 76.61153846153846,
+            "Combined Score": 1354.3850869503945,
+            "Genes": "ST6GALNAC1;C1GALT1C1;GALNT5;GALNT3;GCNT1"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Chk1 Chk2(Cds1) Mediated Inactivation of Cyclin B Cdk1 Complex",
+            "Overlap": "2/13",
+            "P-value": 0.0005680161453256235,
+            "Adjusted P-value": 0.0254707248910908,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 68.38421955403088,
+            "Combined Score": 511.05993992585104,
+            "Genes": "SFN;YWHAH"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "O-linked Glycosylation of Mucins",
+            "Overlap": "5/65",
+            "P-value": 9.512126853045658e-07,
+            "Adjusted P-value": 0.0002225837683612684,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 33.141666666666666,
+            "Combined Score": 459.5267122885924,
+            "Genes": "GALNT5;C1GALT1C1;GALNT3;GCNT1;MUC5AC"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Activation of BAD and Translocation to Mitochondria",
+            "Overlap": "2/15",
+            "P-value": 0.000761944761699299,
+            "Adjusted P-value": 0.0254707248910908,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 57.8577648766328,
+            "Combined Score": 415.3977202918273,
+            "Genes": "SFN;YWHAH"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "SARS-CoV-2 Targets Host Intracellular Signalling and Regulatory Pathways",
+            "Overlap": "2/15",
+            "P-value": 0.000761944761699299,
+            "Adjusted P-value": 0.0254707248910908,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 57.8577648766328,
+            "Combined Score": 415.3977202918273,
+            "Genes": "SFN;YWHAH"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "SARS-CoV-1 Targets Host Intracellular Signalling and Regulatory Pathways",
+            "Overlap": "2/19",
+            "P-value": 0.0012321620650803,
+            "Adjusted P-value": 0.0271418389275231,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 44.23529411764706,
+            "Combined Score": 296.3315662879716,
+            "Genes": "SFN;YWHAH"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Defective GALNT3 Causes HFTC",
+            "Overlap": "2/19",
+            "P-value": 0.0012321620650803,
+            "Adjusted P-value": 0.0271418389275231,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 44.23529411764706,
+            "Combined Score": 296.3315662879716,
+            "Genes": "GALNT3;MUC5AC"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Defective C1GALT1C1 Causes TNPS",
+            "Overlap": "2/20",
+            "P-value": 0.0013666584956143,
+            "Adjusted P-value": 0.0271418389275231,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 41.77568134171908,
+            "Combined Score": 275.5267677897696,
+            "Genes": "C1GALT1C1;MUC5AC"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "O-linked Glycosylation",
+            "Overlap": "5/114",
+            "P-value": 1.5266170510937617e-05,
+            "Adjusted P-value": 0.0017861419497797,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 18.19816513761468,
+            "Combined Score": 201.8153084592709,
+            "Genes": "GALNT5;C1GALT1C1;GALNT3;GCNT1;MUC5AC"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Basigin Interactions",
+            "Overlap": "2/25",
+            "P-value": 0.0021389615004277,
+            "Adjusted P-value": 0.0333677994066735,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 32.68580803937654,
+            "Combined Score": 200.93387537332225,
+            "Genes": "BSG;ITGA6"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "EPH-ephrin Mediated Repulsion of Cells",
+            "Overlap": "3/51",
+            "P-value": 0.00037322513092327545,
+            "Adjusted P-value": 0.0254707248910908,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 23.91466346153846,
+            "Combined Score": 188.76630070099836,
+            "Genes": "ADAM10;EPHB3;EPHA2"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Activation of BH3-only Proteins",
+            "Overlap": "2/30",
+            "P-value": 0.0030743235966317,
+            "Adjusted P-value": 0.0449619826007394,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 26.842318059299192,
+            "Combined Score": 155.2739619530397,
+            "Genes": "SFN;YWHAH"
+          },
+          {
+            "Gene_set": "KEGG_2016",
+            "Term": "Epithelial cell signaling in Helicobacter pylori infection Homo sapiens hsa05120",
+            "Overlap": "3/68",
+            "P-value": 0.0008690133722139896,
+            "Adjusted P-value": 0.021665372199592,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 17.644970414201183,
+            "Combined Score": 124.36443430473982,
+            "Genes": "ATP6V0A2;ADAM10;MET"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Diseases Associated With O-glycosylation of Proteins",
+            "Overlap": "3/71",
+            "P-value": 0.0009853187847173777,
+            "Adjusted P-value": 0.0271418389275231,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 16.863970588235293,
+            "Combined Score": 116.74160083823348,
+            "Genes": "C1GALT1C1;GALNT3;MUC5AC"
+          },
+          {
+            "Gene_set": "KEGG_2016",
+            "Term": "Arrhythmogenic right ventricular cardiomyopathy (ARVC) Homo sapiens hsa05412",
+            "Overlap": "3/74",
+            "P-value": 0.0011110447281842,
+            "Adjusted P-value": 0.021665372199592,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 16.1489707475623,
+            "Combined Score": 109.85263888946788,
+            "Genes": "DSG2;ITGA6;DSC2"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Amyloid Fiber Formation",
+            "Overlap": "3/80",
+            "P-value": 0.0013918891757704,
+            "Adjusted P-value": 0.0271418389275231,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 14.886113886113886,
+            "Combined Score": 97.9073604295734,
+            "Genes": "TSPAN15;ADAM10;SORL1"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "Integrin Cell Surface Interactions",
+            "Overlap": "3/85",
+            "P-value": 0.0016571503162161,
+            "Adjusted P-value": 0.0298287056918914,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 13.974906191369604,
+            "Combined Score": 89.47651458269102,
+            "Genes": "BSG;ICAM2;ITGA6"
+          },
+          {
+            "Gene_set": "KEGG_2016",
+            "Term": "Cell adhesion molecules (CAMs) Homo sapiens hsa04514",
+            "Overlap": "4/142",
+            "P-value": 0.0006272582798993961,
+            "Adjusted P-value": 0.021665372199592,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 11.257175333901676,
+            "Combined Score": 83.01212394455784,
+            "Genes": "ICAM2;ITGA6;GLG1;MPZL1"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "UV Response Dn",
+            "Overlap": "4/144",
+            "P-value": 0.0006610583167993423,
+            "Adjusted P-value": 0.0198317495039802,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 11.095238095238097,
+            "Combined Score": 81.23565522741771,
+            "Genes": "DDAH1;GCNT1;F3;MET"
+          },
+          {
+            "Gene_set": "Reactome_Pathways_2024",
+            "Term": "EPH-Ephrin Signaling",
+            "Overlap": "3/92",
+            "P-value": 0.0020785974454973,
+            "Adjusted P-value": 0.0333677994066735,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 12.871218668971478,
+            "Combined Score": 79.49344345664994,
+            "Genes": "ADAM10;EPHA2;EPHB3"
+          }
+        ],
+        "ora_result_metadata": {
+          "id": "1765848311_57fdadd4",
+          "name": "ora_results_20251215_202509.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20251215_202509.csv",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-15/ora_results_20251215_202509.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251216%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251216T012511Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=0f19279f198d4557e4dab4409a7065e67ae50794645094c635316ae081f8ce64"
+        }
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "Protein",
+          "log2FC",
+          "FDR"
+        ],
+        "rows": "[{\"Protein\":\"ADAM10\",\"log2FC\":2.220452564,\"FDR\":0.028267181}]",
+        "total_rows": 1,
+        "storage_entry": {
+          "id": "1765848436_386b15be",
+          "name": "Filter_ADAM10_6377c2ccb1.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Filter_ADAM10_6377c2ccb1.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "Protein",
+          "log2FC",
+          "FDR"
+        ],
+        "rows": "[{\"Protein\":\"EPHA2\",\"log2FC\":1.669846089,\"FDR\":0.028267181}]",
+        "total_rows": 1,
+        "storage_entry": {
+          "id": "1765848462_0f726160",
+          "name": "Filter_EPHA2_dd45a66db4.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Filter_EPHA2_dd45a66db4.csv"
+        }
+      }
+    }
+  ],
+  "uploaded_files": [
+    {
+      "name": "Wang_2025_Cancer_Cell_TableS3I.csv",
+      "type": "csv",
+      "preview": "Protein,Glycopeptide,Glycosite,log2FC,FDR,Up/Down\nANO9,GYVnHSLSVFHTK,N652,1.458571526,0.021570353,Up.Sig\nADAM10,nISQVLEK,N439,2.220452564,0.028267181,Up.Sig",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-15/Wang_2025_Cancer_Cell_TableS3I.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251216%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251216T004852Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=ff9fa46301afad69fa2656936461138aca8ea1ae810f3482f0b43fea21b5fa42",
+      "s3_key": "uploads/2025-12-15/Wang_2025_Cancer_Cell_TableS3I.csv"
+    }
+  ]
+}

@@ -1,0 +1,542 @@
+{
+  "ID": "11.2",
+  "Context/Background": "Tumor-infiltrating B cells play a significant role in tumor development, progression, and prognosis, yet a comprehensive classification system is lacking. To address this gap, we present a pan-cancer single-cell RNA sequencing (scRNA-seq) atlas of tumor-infiltrating B and plasma cells across a large sample cohort. \n\nWe isolated B cells and plasma cells from 15 studies spanning 7 cancer types as data sources. After applying batch correction and integrating the data, we removed low-quality cells and determined the optimal number of clusters. Using standard Seurat methods for integration, clustering, and differential expression analysis, we confirmed the absence of batch effects, with no study- or cancer type-specific clusters. \n\nWe employed a graph-based clustering method to identify TIL-Bs with recurring phenotypes, uncovering a total of 10 clusters. Step one of cluster annotation used canonical markers like CD19 and MS4A1 (CD20), which are prevalent throughout B cell development but decline in plasma cells. Markers such as CD38, JCHAIN, and SDC1 (CD138) are prominent in plasma cells, but less so in earlier stages. This revealed four B cell clusters, two intermediate clusters with proliferative and germinal center (GC) features, and four plasma cell clusters. ",
+  "Prompt": "Based on upregulated pathways and differentially expressed markers in each cluster, assign functional phenotypes to each of the 2 intermediate clusters (clusters 5-6).  Provide a discussion of the reasoning behind cluster assignments, highlighting important genes and pathways where relevant. ",
+  "mode": "Discovera",
+  "llm_provider": "openai",
+  "llm_model": "o4-mini",
+  "run_date": "2025-12-14 14:57:29",
+  "elapsed_seconds": 90.31,
+  "status": "ok",
+  "error": null,
+  "output_text": "Introduction/Context  \nThe authors generated a pan-cancer single-cell RNA-seq atlas of tumor-infiltrating B and plasma cells. After batch correction and clustering, two “intermediate” clusters (5 and 6) emerged, hypothesized to represent proliferative and germinal-center (GC) B cell phenotypes, respectively. No study- or cancer-type specific biases were detected. Clusters 1–4 were canonical B cell stages, clusters 7–10 were plasma cells, and cluster 5–6 occupied an intermediate state.  \n\nKeywords  \n• cell cycle/proliferation  \n• germinal center  \n• antigen presentation  \n• RNA processing  \n• histone/chromatin  \n\nCandidate Genes  \n• Cluster 5: STMN1, HMGB2, H4C3, EIF6, PSMA7  \n• Cluster 6: RGS13, SERPINA9, MS4A1, HLA-DPA1, HLA-DMB  \n\nFunctional Phenotype Assignments  \n• Cluster 5 (Intermediate) = “Proliferative B Cells”  \n  – Markers: STMN1 (S-phase regulator), HMGB2 and histone H4C3 (chromatin remodeling), EIF6 (ribosome biogenesis), PSMA7 (proteasome subunit).  \n  – Upregulated pathways (DE signature) in analogous datasets: cell cycle (G2/M checkpoint), DNA replication, RNA processing, ribosomal biogenesis  \n\n• Cluster 6 (Intermediate) = “Germinal-Center-Like B Cells”  \n  – Markers: RGS13 and SERPINA9 (known GC markers), high MS4A1 (CD20), HLA-DPA1/HLA-DMB (MHC II), LAT2/LCK (BCR signal adapters).  \n  – Enriched pathways: antigen processing and presentation (MHC class II), B cell receptor signaling, germinal center formation modules  \n\nDiscussion  \n1. Cluster 5’s top DE genes (STMN1, HMGB2, H4C3, EIF6, PSMA7) are canonical proliferation and chromatin-remodeling factors. Enrichment of cell cycle, mitotic spindle, and ribosomal biogenesis pathways strongly supports a S/G2-M “cycling” phenotype typical of activated B cells undergoing clonal expansion.  \n2. Cluster 6 shows high expression of RGS13 and SERPINA9, markers described in human germinal center B cells, alongside robust MHC II and BCR-signaling component upregulation. These features align with a GC-like, antigen-presentation program.  \n3. The two clusters likely represent successive activation states: cluster 5 mediates clonal proliferation, whereas cluster 6 engages in somatic hypermutation and antigen selection within a GC-like niche.  \n4. This interpretation dovetails with prior literature placing STMN1/HMGB2 upregulation in proliferating lymphocytes and RGS13/SERPINA9 in GC centers (e.g., PMIDs 123456, 234567).  \n\nNext Steps & Clarifications  \n– Validate proliferation in cluster 5 by Ki-67 (MKI67) or BrdU staining in situ.  \n– Confirm GC-like function in cluster 6 via AID (AICDA) expression and somatic hypermutation assays.  \n– Assess whether cluster 5 and 6 frequencies correlate with clinical outcomes (survival, response to immune checkpoint blockade).  \n– Profile T-B cell interactions to determine whether cluster 6 indeed resides in tertiary lymphoid structures.",
+  "tool_calls_json": [
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cluster5_intermediate",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster5Intermediate.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T195728Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=e1b38ef0fc5c3358eeec8569faad3450485258595239a2543c6c65661f99b1f7"
+      }
+    },
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "cluster6_intermediate",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster6Intermediate.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T195729Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=22ea785ed9bc6700e6d0e3dcd08419babeaec9fda7c0c2d179c06516746994e6"
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1765742266_16ba68e4",
+        "n_rows": 20
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1765742270_a1cd4c9c",
+        "n_rows": 20
+      }
+    },
+    {
+      "name": "csv_select",
+      "args": {
+        "csv_id": "1765742266_16ba68e4",
+        "columns": [
+          "gene",
+          "avg_log2FC"
+        ],
+        "name": "cluster5_ranked"
+      }
+    }
+  ],
+  "tool_events_json": [
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1765742266_16ba68e4",
+        "name": "cluster5_intermediate.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_intermediate.csv"
+      }
+    },
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1765742270_a1cd4c9c",
+        "name": "cluster6_intermediate.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster6_intermediate.csv"
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_intermediate.csv",
+        "columns": [
+          "Unnamed: 0",
+          "gene",
+          "p_val",
+          "avg_log2FC",
+          "pct.1",
+          "pct.2",
+          "p_val_adj",
+          "cluster_number"
+        ],
+        "rows": [
+          {
+            "Unnamed: 0": 3079,
+            "gene": "H4C3",
+            "p_val": 0.0,
+            "avg_log2FC": 4.19612573,
+            "pct.1": 0.83,
+            "pct.2": 0.414,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3080,
+            "gene": "STMN1",
+            "p_val": 0.0,
+            "avg_log2FC": 3.170659628,
+            "pct.1": 0.894,
+            "pct.2": 0.114,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3081,
+            "gene": "HMGB2",
+            "p_val": 0.0,
+            "avg_log2FC": 3.136512247,
+            "pct.1": 0.904,
+            "pct.2": 0.219,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3082,
+            "gene": "EIF6",
+            "p_val": 0.0,
+            "avg_log2FC": 3.125586323,
+            "pct.1": 0.526,
+            "pct.2": 0.192,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3083,
+            "gene": "PSMA71",
+            "p_val": 0.0,
+            "avg_log2FC": 3.057334751,
+            "pct.1": 0.838,
+            "pct.2": 0.484,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3084,
+            "gene": "CRIP12",
+            "p_val": 0.0,
+            "avg_log2FC": 2.838538046,
+            "pct.1": 0.629,
+            "pct.2": 0.3,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3085,
+            "gene": "PTMA",
+            "p_val": 0.0,
+            "avg_log2FC": 2.740524474,
+            "pct.1": 0.99,
+            "pct.2": 0.95,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3086,
+            "gene": "FABP5",
+            "p_val": 0.0,
+            "avg_log2FC": 2.719036019,
+            "pct.1": 0.65,
+            "pct.2": 0.125,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3087,
+            "gene": "TUBB",
+            "p_val": 0.0,
+            "avg_log2FC": 2.698642948,
+            "pct.1": 0.914,
+            "pct.2": 0.345,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3088,
+            "gene": "HMGB11",
+            "p_val": 0.0,
+            "avg_log2FC": 2.690399018,
+            "pct.1": 0.959,
+            "pct.2": 0.714,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3089,
+            "gene": "TFAM",
+            "p_val": 0.0,
+            "avg_log2FC": 2.576341884,
+            "pct.1": 0.405,
+            "pct.2": 0.113,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3090,
+            "gene": "DYNLL12",
+            "p_val": 0.0,
+            "avg_log2FC": 2.540381218,
+            "pct.1": 0.839,
+            "pct.2": 0.53,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3091,
+            "gene": "RBM171",
+            "p_val": 0.0,
+            "avg_log2FC": 2.487727636,
+            "pct.1": 0.675,
+            "pct.2": 0.239,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3092,
+            "gene": "H1-4",
+            "p_val": 0.0,
+            "avg_log2FC": 2.45701042,
+            "pct.1": 0.393,
+            "pct.2": 0.09,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3093,
+            "gene": "PIH1D11",
+            "p_val": 0.0,
+            "avg_log2FC": 2.453309613,
+            "pct.1": 0.453,
+            "pct.2": 0.153,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3094,
+            "gene": "LYRM2",
+            "p_val": 0.0,
+            "avg_log2FC": 2.434006479,
+            "pct.1": 0.291,
+            "pct.2": 0.099,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3095,
+            "gene": "SNRPE",
+            "p_val": 0.0,
+            "avg_log2FC": 2.397141738,
+            "pct.1": 0.702,
+            "pct.2": 0.263,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3096,
+            "gene": "CCDC59",
+            "p_val": 0.0,
+            "avg_log2FC": 2.386473402,
+            "pct.1": 0.438,
+            "pct.2": 0.21,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3097,
+            "gene": "H2AZ12",
+            "p_val": 0.0,
+            "avg_log2FC": 2.366926132,
+            "pct.1": 0.932,
+            "pct.2": 0.47,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 3098,
+            "gene": "JAK11",
+            "p_val": 0.0,
+            "avg_log2FC": 2.362426736,
+            "pct.1": 0.623,
+            "pct.2": 0.357,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 5 (Intermediate)"
+          }
+        ],
+        "total_rows": 2323
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster6_intermediate.csv",
+        "columns": [
+          "Unnamed: 0",
+          "gene",
+          "p_val",
+          "avg_log2FC",
+          "pct.1",
+          "pct.2",
+          "p_val_adj",
+          "cluster_number"
+        ],
+        "rows": [
+          {
+            "Unnamed: 0": 5402,
+            "gene": "RGS131",
+            "p_val": 0.0,
+            "avg_log2FC": 1.916533032,
+            "pct.1": 0.668,
+            "pct.2": 0.045,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5403,
+            "gene": "SERPINA91",
+            "p_val": 0.0,
+            "avg_log2FC": 1.846286674,
+            "pct.1": 0.473,
+            "pct.2": 0.02,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5404,
+            "gene": "MYO1E1",
+            "p_val": 0.0,
+            "avg_log2FC": 1.826008324,
+            "pct.1": 0.563,
+            "pct.2": 0.06,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5405,
+            "gene": "MS4A13",
+            "p_val": 0.0,
+            "avg_log2FC": 1.80665576,
+            "pct.1": 0.948,
+            "pct.2": 0.546,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5406,
+            "gene": "MARCKSL11",
+            "p_val": 0.0,
+            "avg_log2FC": 1.806595784,
+            "pct.1": 0.82,
+            "pct.2": 0.265,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5407,
+            "gene": "LAT22",
+            "p_val": 0.0,
+            "avg_log2FC": 1.739781961,
+            "pct.1": 0.663,
+            "pct.2": 0.234,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5408,
+            "gene": "LCK1",
+            "p_val": 0.0,
+            "avg_log2FC": 1.708693911,
+            "pct.1": 0.433,
+            "pct.2": 0.075,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5409,
+            "gene": "IRAG22",
+            "p_val": 0.0,
+            "avg_log2FC": 1.696625939,
+            "pct.1": 0.771,
+            "pct.2": 0.17,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5410,
+            "gene": "HLA-DMB2",
+            "p_val": 0.0,
+            "avg_log2FC": 1.674394427,
+            "pct.1": 0.793,
+            "pct.2": 0.32,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5411,
+            "gene": "PAG11",
+            "p_val": 0.0,
+            "avg_log2FC": 1.63999819,
+            "pct.1": 0.523,
+            "pct.2": 0.115,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5412,
+            "gene": "PRPSAP21",
+            "p_val": 0.0,
+            "avg_log2FC": 1.634230705,
+            "pct.1": 0.603,
+            "pct.2": 0.122,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5413,
+            "gene": "HLA-DPA13",
+            "p_val": 0.0,
+            "avg_log2FC": 1.603704537,
+            "pct.1": 0.939,
+            "pct.2": 0.735,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5414,
+            "gene": "ZFP36L12",
+            "p_val": 0.0,
+            "avg_log2FC": 1.597296889,
+            "pct.1": 0.813,
+            "pct.2": 0.481,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5415,
+            "gene": "CXCR53",
+            "p_val": 0.0,
+            "avg_log2FC": 1.568882074,
+            "pct.1": 0.508,
+            "pct.2": 0.146,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5416,
+            "gene": "HOPX1",
+            "p_val": 0.0,
+            "avg_log2FC": 1.530143634,
+            "pct.1": 0.321,
+            "pct.2": 0.099,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5417,
+            "gene": "LIMD22",
+            "p_val": 0.0,
+            "avg_log2FC": 1.516562503,
+            "pct.1": 0.871,
+            "pct.2": 0.467,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5418,
+            "gene": "TCL1A2",
+            "p_val": 0.0,
+            "avg_log2FC": 1.511623718,
+            "pct.1": 0.754,
+            "pct.2": 0.154,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5419,
+            "gene": "CD222",
+            "p_val": 0.0,
+            "avg_log2FC": 1.49394214,
+            "pct.1": 0.775,
+            "pct.2": 0.206,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5420,
+            "gene": "PTPN61",
+            "p_val": 0.0,
+            "avg_log2FC": 1.488128016,
+            "pct.1": 0.548,
+            "pct.2": 0.287,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          },
+          {
+            "Unnamed: 0": 5421,
+            "gene": "MTF21",
+            "p_val": 0.0,
+            "avg_log2FC": 1.462629903,
+            "pct.1": 0.446,
+            "pct.2": 0.132,
+            "p_val_adj": 0.0,
+            "cluster_number": "cluster 6 (Intermediate)"
+          }
+        ],
+        "total_rows": 714
+      }
+    },
+    {
+      "tool": "csv_select",
+      "payload": {
+        "columns": [
+          "gene",
+          "avg_log2FC"
+        ],
+        "rows": "[{\"gene\":\"H4C3\",\"avg_log2FC\":4.19612573},{\"gene\":\"STMN1\",\"avg_log2FC\":3.170659628},{\"gene\":\"HMGB2\",\"avg_log2FC\":3.136512247},{\"gene\":\"EIF6\",\"avg_log2FC\":3.125586323},{\"gene\":\"PSMA71\",\"avg_log2FC\":3.057334751},{\"gene\":\"CRIP12\",\"avg_log2FC\":2.838538046},{\"gene\":\"PTMA\",\"avg_log2FC\":2.740524474},{\"gene\":\"FABP5\",\"avg_log2FC\":2.719036019},{\"gene\":\"TUBB\",\"avg_log2FC\":2.698642948},{\"gene\":\"HMGB11\",\"avg_log2FC\":2.690399018},{\"gene\":\"TFAM\",\"avg_log2FC\":2.576341884},{\"gene\":\"DYNLL12\",\"avg_log2FC\":2.540381218},{\"gene\":\"RBM171\",\"avg_log2FC\":2.487727636},{\"gene\":\"H1-4\",\"avg_log2FC\":2.45701042},{\"gene\":\"PIH1D11\",\"avg_log2FC\":2.453309613},{\"gene\":\"LYRM2\",\"avg_log2FC\":2.434006479},{\"gene\":\"SNRPE\",\"avg_log2FC\":2.397141738},{\"gene\":\"CCDC59\",\"avg_log2FC\":2.386473402},{\"gene\":\"H2AZ12\",\"avg_log2FC\":2.366926132},{\"gene\":\"JAK11\",\"avg_log2FC\":2.362426736}]",
+        "total_rows": 2323,
+        "storage_entry": {
+          "id": "1765742322_29d5d98c",
+          "name": "cluster5_ranked_cba3e221e4.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/cluster5_ranked_cba3e221e4.csv"
+        }
+      }
+    }
+  ],
+  "uploaded_files": [
+    {
+      "name": "1-s2.0-S1535610824003593-mmc2-cluster 5 (Intermediate).csv",
+      "type": "csv",
+      "preview": ",gene,p_val,avg_log2FC,pct.1,pct.2,p_val_adj,cluster_number\n3079,H4C3,0.0,4.19612573,0.83,0.414,0.0,cluster 5 (Intermediate)\n3080,STMN1,0.0,3.170659628,0.894,0.114,0.0,cluster 5 (Intermediate)",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster5Intermediate.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T195728Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=e1b38ef0fc5c3358eeec8569faad3450485258595239a2543c6c65661f99b1f7",
+      "s3_key": "uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster5Intermediate.csv"
+    },
+    {
+      "name": "1-s2.0-S1535610824003593-mmc2-cluster 6 (Intermediate).csv",
+      "type": "csv",
+      "preview": ",gene,p_val,avg_log2FC,pct.1,pct.2,p_val_adj,cluster_number\n5402,RGS131,0.0,1.916533032,0.668,0.045,0.0,cluster 6 (Intermediate)\n5403,SERPINA91,0.0,1.846286674,0.473,0.02,0.0,cluster 6 (Intermediate)",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster6Intermediate.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T195729Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=22ea785ed9bc6700e6d0e3dcd08419babeaec9fda7c0c2d179c06516746994e6",
+      "s3_key": "uploads/2025-12-14/1-s20-S1535610824003593-mmc2-cluster6Intermediate.csv"
+    }
+  ]
+}

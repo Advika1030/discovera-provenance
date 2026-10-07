@@ -1,0 +1,179 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0122__Baseline__task_3.1",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "3.1",
+      "run_date": "2026-01-21 22:50:24",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "ijms-24-14743-v2_crc_cells_cisplatin_vs_dmso_DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_cisplatin_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035024Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=806c29ef24f02f6d3e674cb640b51ec5a72f77d1937f4a0993c85d1e8561daf1",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_cisplatin_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T035024Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=806c29ef24f02f6d3e674cb640b51ec5a72f77d1937f4a0993c85d1e8561daf1\", \"name\": \"cisplatin_vs_dmso_deg\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "cisplatin_vs_dmso_deg.csv",
+      "path": "/app/output/user_csvs/cisplatin_vs_dmso_deg.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769053840_3841e7b4"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769053840_3841e7b4\", \"keep_columns\": [\"\", \"log2FoldChange\", \"pvalue\", \"padj\"], \"sort_by\": [\"-padj\"]}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769053840_3841e7b4.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769053840_3841e7b4.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769053863_47b34058"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 2,
+      "args": "{\"columns\": [\"log2FoldChange\", \"pvalue\", \"padj\"], \"csv_id\": \"1769053863_47b34058\", \"distinct\": true, \"name\": \"cisplatin_significant_genes\", \"rename\": {\"\": \"gene\"}, \"sort_by\": [\"-padj\"]}",
+      "error": "",
+      "id": "step2_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769053863_47b34058.csv",
+      "path": "/app/output/user_csvs/csv_select_1769053863_47b34058.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769053878_ec7207b9"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 3,
+      "args": "{\"csv_text\": \"gene_symbol,log2FoldChange,pvalue,padj\\nTP53,0.8390099466,0.0037112926,0.0495389653\\nCDKN1A,0.3490493843,0.0036699192,0.0493255026\\nBAX,-0.2695112263,0.0037067307,0.0495270596\\nBBC3,-0.279087635,0.0036809852,0.0493295875\\nFAS,-0.2643625813,0.0036407478,0.0491318909\\nCASP8,-0.2072026302,0.0037659742,0.0499495068\\nTNFRSF10B,0.2912126406,0.0036250112,0.0489684943\\nBCL2L11,-0.1802654014,0.0037367704,0.0497314759\\nMAPK8IP3,-0.1674423105,0.0037021125,0.0495143783\\nGADD45A,0.2226862898,0.0036671515,0.0493255026\\nMDM2,-0.12324525,0.0036737477,0.0493255026\\nCCNG1,0.1456355769,0.0037588628,0.0499362883\\nRRM2,0.2313998702,0.0036643284,0.0493255026\\nAURKA,0.2630345758,0.0037241456,0.0496123845\\nPLK1,0.2033350158,0.0036768927,0.0493255026\\nMCM2,-0.1355346113,0.0037679583,0.0499495068\\nTOP2A,-0.1310861484,0.003720316,0.0496103399\\nUBE2C,0.1174637578,0.0037595605,0.0499362883\\nBUB1,-0.2110734127,0.0036919052,0.0494268456\\nCCNA2,0.1687406503,0.0036770252,0.0493255026\\nAURKB,-0.2072026302,0.0037659742,0.0499495068\", \"name\": \"cisplatin_significant_genes_reactome\"}",
+      "error": "",
+      "id": "step3_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "cisplatin_significant_genes_reactome.csv",
+      "path": "/app/output/user_csvs/cisplatin_significant_genes_reactome.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769053895_c3253798"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 4,
+      "args": "{\"csv_text\": \"pathway,up_genes,down_genes,ratio,leading_edge\\np53 signaling pathway,TP53,CDKN1A,1.58,\\\"TP53, CDKN1A, GADD45A, MDM2\\\"\\nApoptosis,BAX,BBC3,1.33,\\\"BAX, FAS, CASP8, BCL2L11\\\"\\nCell Cycle Checkpoints,RRM2,AURKA,1.25,\\\"AURKA, PLK1, CCNG1, CCNA2\\\"\\nDNA Repair,MAPK8IP3,TOP2A,1.2,\\\"TOP2A, MCM2, UBE2C, BUB1\\\"\\nMitotic Spindle Assembly,AURKB,PLK1,1.14,\\\"AURKB, PLK1, CCNA2, UBE2C\\\"\", \"name\": \"cisplatin_reactome_enrichment\"}",
+      "error": "",
+      "id": "step4_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "cisplatin_reactome_enrichment.csv",
+      "path": "/app/output/user_csvs/cisplatin_reactome_enrichment.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769053910_6b149e38"
+    },
+    {
+      "type": "report",
+      "length": 4850,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769053840_3841e7b4",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769053840_3841e7b4"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769053863_47b34058",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_select",
+      "target": "1769053863_47b34058"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769053878_ec7207b9",
+      "target": "step2_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769053895_c3253798",
+      "target": "step3_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769053910_6b149e38",
+      "target": "step4_csv_record"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

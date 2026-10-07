@@ -1,0 +1,305 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0123__Baseline__task_3.2",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "3.2",
+      "run_date": "2026-01-21 23:36:15",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "ijms-24-14743-v2_crc_cells_cbd_vs_dmso_DEG.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_cbd_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T043615Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=cf855a68daa12fd760c734414c9c5ae9b5d26d80adde6e0c4c3519b7dddce273",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/ijms-24-14743-v2_crc_cells_cbd_vs_dmso_DEG.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T043615Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=cf855a68daa12fd760c734414c9c5ae9b5d26d80adde6e0c4c3519b7dddce273\", \"metadata\": {\"description\": \"Differential expression analysis of CBD vs DMSO in colorectal cancer cells\", \"source\": \"ijms-24-14743-v2_crc_cells_cbd_vs_dmso_DEG.csv\"}, \"name\": \"CBDvsDMSO_DEG\", \"tags\": [\"user_input\", \"dataset\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "CBDvsDMSO_DEG.csv",
+      "path": "/app/output/user_csvs/CBDvsDMSO_DEG.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769056590_920982d3"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"padj\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1769056590_920982d3\", \"name\": \"Significant_DEGs\"}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769056590_920982d3.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769056590_920982d3.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769056618_054ed894"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 2,
+      "args": "{\"csv_id\": \"1769056618_054ed894\", \"name\": \"Significant_DEGs_with_gene_column\", \"rename\": {\"Unnamed: 0\": \"gene\"}}",
+      "error": "",
+      "id": "step2_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769056618_054ed894.csv",
+      "path": "/app/output/user_csvs/csv_select_1769056618_054ed894.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769056633_a285141b"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 3,
+      "args": "{\"id\": \"1769056633_a285141b\", \"n_rows\": 5}",
+      "error": "",
+      "id": "step3_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_aggregate",
+      "step_index": 4,
+      "args": "{\"aggregations\": {\"down_count\": {\"cols\": [\"log2FoldChange < 0\"], \"func\": \"sum\"}, \"up_count\": {\"cols\": [\"log2FoldChange > 0\"], \"func\": \"sum\"}}, \"csv_id\": \"1769056633_a285141b\", \"name\": \"Pathway_Enrichment_Input\"}",
+      "error": "{\"tool\": \"csv_aggregate\", \"type\": \"ValueError\", \"message\": \"Aggregation source column 'log2FoldChange > 0' not found\", \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/app/src/baseline_fastmcp/server.py\\\", line 885, in csv_aggregate\\n    raise ValueError(f\\\"Aggregation source column '{c}' not found\\\")\\nValueError: Aggregation source column 'log2FoldChange > 0' not found\\n\"}",
+      "id": "step4_csv_aggregate"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 5,
+      "args": "{\"conditions\": [{\"column\": \"log2FoldChange\", \"op\": \">\", \"value\": 0}], \"csv_id\": \"1769056633_a285141b\", \"name\": \"Upregulated_DEGs\"}",
+      "error": "",
+      "id": "step5_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769056633_a285141b.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769056633_a285141b.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769056677_6b5e32f0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 6,
+      "args": "{\"conditions\": [{\"column\": \"log2FoldChange\", \"op\": \"<\", \"value\": 0}], \"csv_id\": \"1769056633_a285141b\", \"name\": \"Downregulated_DEGs\"}",
+      "error": "",
+      "id": "step6_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769056633_a285141b.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769056633_a285141b.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769056724_6b5e32f0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_aggregate",
+      "step_index": 7,
+      "args": "{\"aggregations\": {\"down\": {\"cols\": [\"log2FoldChange < 0\"], \"func\": \"sum\"}, \"total\": {\"cols\": [\"gene\"], \"func\": \"count\"}, \"up\": {\"cols\": [\"log2FoldChange > 0\"], \"func\": \"sum\"}}, \"csv_id\": \"1769056633_a285141b\", \"name\": \"Pathway_Enrichment_Stats\"}",
+      "error": "{\"tool\": \"csv_aggregate\", \"type\": \"ValueError\", \"message\": \"Unsupported aggregation func 'count' for 'total'\", \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/app/src/baseline_fastmcp/server.py\\\", line 904, in csv_aggregate\\n    raise ValueError(\\nValueError: Unsupported aggregation func 'count' for 'total'\\n\"}",
+      "id": "step7_csv_aggregate"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 8,
+      "args": "{\"id\": \"1769056677_6b5e32f0\", \"n_rows\": 5}",
+      "error": "",
+      "id": "step8_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 9,
+      "args": "{\"id\": \"1769056677_6b5e32f0\"}",
+      "error": "",
+      "id": "step9_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 10,
+      "args": "{\"csv_text\": \"gene\\nENSG00000176022\\nENSG00000169972\\nENSG00000224051\\nENSG00000107404\\nENSG00000224870\\nENSG00000197785\\nENSG00000160075\\nENSG00000008130\\nENSG00000158286\\nENSG00000116237\\nENSG00000007923\\nENSG00000049246\\nENSG00000188807\\nENSG00000198793\\nENSG00000120942\\nENSG00000162496\\nENSG00000272482\\nENSG00000197312\\nENSG00000116786\\nENSG00000142619\", \"metadata\": {\"description\": \"List of upregulated DEGs (log2FC > 0, padj < 0.05) for pathway analysis\"}, \"name\": \"Upregulated_DEGs_list\", \"tags\": [\"upregulated\", \"gene_list\"]}",
+      "error": "",
+      "id": "step10_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Upregulated_DEGs_list.csv",
+      "path": "/app/output/user_csvs/Upregulated_DEGs_list.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769056806_d6ec8d76"
+    },
+    {
+      "type": "report",
+      "length": 3007,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769056590_920982d3",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769056590_920982d3"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769056618_054ed894",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_select",
+      "target": "1769056618_054ed894"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769056633_a285141b",
+      "target": "step2_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_read",
+      "target": "1769056633_a285141b"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_aggregate",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_aggregate",
+      "target": "1769056633_a285141b"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step5_csv_filter",
+      "target": "1769056633_a285141b"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769056677_6b5e32f0",
+      "target": "step5_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step6_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step6_csv_filter",
+      "target": "1769056633_a285141b"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769056724_6b5e32f0",
+      "target": "step6_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step7_csv_aggregate",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step7_csv_aggregate",
+      "target": "1769056633_a285141b"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step8_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step8_csv_read",
+      "target": "1769056677_6b5e32f0"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step9_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step9_csv_read",
+      "target": "1769056677_6b5e32f0"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step10_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769056806_d6ec8d76",
+      "target": "step10_csv_record"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

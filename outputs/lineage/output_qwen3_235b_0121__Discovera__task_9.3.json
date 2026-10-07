@@ -1,0 +1,355 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0121__Discovera__task_9.3",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Discovera",
+      "task_id": "9.3",
+      "run_date": "2026-01-21 18:45:18",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Wang_2025_Cancer_Cell_TableS2A.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Wang_2025_Cancer_Cell_TableS2A.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T234518Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=0f9951f4fd595451e9d74cd991a8978b3d0f0ae3faf9a030a6430595def8413a",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Wang_2025_Cancer_Cell_TableS3I.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Wang_2025_Cancer_Cell_TableS3I.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T234518Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=f484987381bebe704914cf0e2fbe5ad0b93733f4fc85298893c79384d2e140db",
+      "id": "upload:1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Wang_2025_Cancer_Cell_TableS2A.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T234518Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=0f9951f4fd595451e9d74cd991a8978b3d0f0ae3faf9a030a6430595def8413a\", \"name\": \"Wang_2025_Proteome\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Wang_2025_Proteome.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Wang_2025_Proteome.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769039129_1dcf17ff"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 1,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Wang_2025_Cancer_Cell_TableS3I.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T234518Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=f484987381bebe704914cf0e2fbe5ad0b93733f4fc85298893c79384d2e140db\", \"name\": \"Wang_2025_Glycoproteome\"}",
+      "error": "",
+      "id": "step1_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Wang_2025_Glycoproteome.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Wang_2025_Glycoproteome.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769039148_ccf2c13e"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 2,
+      "args": "{\"id\": \"1769039129_1dcf17ff\", \"n_rows\": 50}",
+      "error": "",
+      "id": "step2_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 3,
+      "args": "{\"id\": \"1769039148_ccf2c13e\", \"n_rows\": 50}",
+      "error": "",
+      "id": "step3_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 4,
+      "args": "{\"conditions\": [{\"column\": \"FDR\", \"op\": \"<=\", \"value\": 0.05}, {\"column\": \"log2 FC\", \"op\": \">=\", \"value\": 1}], \"csv_id\": \"1769039129_1dcf17ff\", \"keep_columns\": [\"Gene\"], \"name\": \"Proteome_UP_DEGs\"}",
+      "error": "",
+      "id": "step4_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "Proteome_UP_DEGs_dbddabe1eb.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Proteome_UP_DEGs_dbddabe1eb.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769039199_1ce0c2d5"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 5,
+      "args": "{\"conditions\": [{\"column\": \"FDR\", \"op\": \"<=\", \"value\": 0.05}, {\"column\": \"log2FC\", \"op\": \">=\", \"value\": 1}], \"csv_id\": \"1769039148_ccf2c13e\", \"keep_columns\": [\"Protein\"], \"name\": \"Glycoproteome_UP_DEPs\"}",
+      "error": "",
+      "id": "step5_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "Glycoproteome_UP_DEPs_410f877425.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Glycoproteome_UP_DEPs_410f877425.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769039231_8bb2a4a4"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 6,
+      "args": "{\"conditions\": [{\"column\": \"FDR\", \"op\": \"<=\", \"value\": 0.05}, {\"column\": \"log2 FC\", \"op\": \"<=\", \"value\": -1}], \"csv_id\": \"1769039129_1dcf17ff\", \"keep_columns\": [\"Gene\"], \"name\": \"Proteome_DOWN_DEGs\"}",
+      "error": "",
+      "id": "step6_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "Proteome_DOWN_DEGs_3f8e5c7d29.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Proteome_DOWN_DEGs_3f8e5c7d29.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769039240_743c5cd6"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 7,
+      "args": "{\"conditions\": [{\"column\": \"FDR\", \"op\": \"<=\", \"value\": 0.05}, {\"column\": \"log2FC\", \"op\": \"<=\", \"value\": -1}], \"csv_id\": \"1769039148_ccf2c13e\", \"keep_columns\": [\"Protein\"], \"name\": \"Glycoproteome_DOWN_DEPs\"}",
+      "error": "",
+      "id": "step7_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "Glycoproteome_DOWN_DEPs_66555ffac7.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Glycoproteome_DOWN_DEPs_66555ffac7.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769039259_11213df9"
+    },
+    {
+      "type": "tool_step",
+      "tool": "ora_pipe",
+      "step_index": 8,
+      "args": "{\"csv_id\": \"1769039231_8bb2a4a4\", \"gene_col\": \"Protein\", \"gene_sets\": [\"MSigDB_Hallmark_2020\", \"KEGG_2021_Human\"]}",
+      "error": "",
+      "id": "step8_ora_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "ora_results_20260121_184757.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20260121_184757.csv",
+      "source_key": "ora_result_metadata",
+      "is_plot": false,
+      "id": "1769039278_9dcb9970"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 9,
+      "args": "{\"conditions\": [{\"column\": \"Protein\", \"op\": \"not_in\", \"value\": \"1769039199_1ce0c2d5:Gene\"}], \"csv_id\": \"1769039231_8bb2a4a4\", \"keep_columns\": [\"Protein\"], \"name\": \"Glycoproteome_UP_Unique\"}",
+      "error": "",
+      "id": "step9_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "Glycoproteome_UP_Unique_7e604d147b.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Glycoproteome_UP_Unique_7e604d147b.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769039287_646154a8"
+    },
+    {
+      "type": "tool_step",
+      "tool": "ora_pipe",
+      "step_index": 10,
+      "args": "{\"csv_id\": \"1769039287_646154a8\", \"gene_col\": \"Protein\", \"gene_sets\": [\"MSigDB_Hallmark_2020\", \"KEGG_2021_Human\"]}",
+      "error": "",
+      "id": "step10_ora_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "ora_results_20260121_184819.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20260121_184819.csv",
+      "source_key": "ora_result_metadata",
+      "is_plot": false,
+      "id": "1769039300_b2cb5f93"
+    },
+    {
+      "type": "report",
+      "length": 3638,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769039129_1dcf17ff",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769039148_ccf2c13e",
+      "target": "step1_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_read",
+      "target": "1769039129_1dcf17ff"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_read",
+      "target": "1769039148_ccf2c13e"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_filter",
+      "target": "1769039129_1dcf17ff"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769039199_1ce0c2d5",
+      "target": "step4_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step5_csv_filter",
+      "target": "1769039148_ccf2c13e"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769039231_8bb2a4a4",
+      "target": "step5_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step6_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step6_csv_filter",
+      "target": "1769039129_1dcf17ff"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769039240_743c5cd6",
+      "target": "step6_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step7_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step7_csv_filter",
+      "target": "1769039148_ccf2c13e"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769039259_11213df9",
+      "target": "step7_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step8_ora_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step8_ora_pipe",
+      "target": "1769039231_8bb2a4a4"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769039278_9dcb9970",
+      "target": "step8_ora_pipe"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step9_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step9_csv_filter",
+      "target": "1769039231_8bb2a4a4"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769039287_646154a8",
+      "target": "step9_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step10_ora_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step10_ora_pipe",
+      "target": "1769039287_646154a8"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769039300_b2cb5f93",
+      "target": "step10_ora_pipe"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

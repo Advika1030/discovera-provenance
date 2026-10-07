@@ -1,0 +1,225 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0120__Baseline__task_14.2",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "14.2",
+      "run_date": "2026-01-21 21:36:34",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "41598_2024_75947_MOESM1_ESM-S2.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/41598_2024_75947_MOESM1_ESM-S2.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T023634Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8ff87378d4aaefbb24ea2d9f81a50bcf19a3f7945158a6962d2e9088cda40d0d",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/41598_2024_75947_MOESM1_ESM-S2.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T023634Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8ff87378d4aaefbb24ea2d9f81a50bcf19a3f7945158a6962d2e9088cda40d0d\", \"metadata\": {\"source\": \"Supplemental Table 2: Significant Reactome Pathways from Differentially Expressed Genes in Mucosal Epithelial Cells\", \"study\": \"41598_2024_75947\"}, \"name\": \"reactome_pathways\", \"tags\": [\"user_input\", \"pathway_enrichment\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "reactome_pathways.csv",
+      "path": "/app/output/user_csvs/reactome_pathways.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769049406_0b325c70"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 1,
+      "args": "{\"conditions\": [{\"column\": \"Comparison within Mucosal Epithelial Phenotypes\", \"op\": \"in\", \"value\": [\"PIFvsCtrl\", \"PIFvsPNI\"]}], \"csv_id\": \"1769049406_0b325c70\", \"name\": \"pif_pathways\", \"sort_by\": [\"-GeneCount/direction\"]}",
+      "error": "",
+      "id": "step1_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769049406_0b325c70.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769049406_0b325c70.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769049415_338b03f3"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 2,
+      "args": "{\"id\": \"1769049406_0b325c70\", \"n_rows\": 5}",
+      "error": "",
+      "id": "step2_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 3,
+      "args": "{\"columns\": [\"Reactome_Pathway_ID\", \"GeneList\", \"GeneCount_direction\", \"Direction\", \"Comparison\"], \"csv_id\": \"1769049406_0b325c70\", \"name\": \"cleaned_pathways\", \"rename\": {\"Supplemental Table 2: Significant Reactome Pathways Obtained from Differentially Expressed Genes from Mucosal Epithelial (Undifferentiated) Cells.\": \"Reactome_Pathway_ID\", \"Unnamed: 1\": \"GeneList\", \"Unnamed: 2\": \"GeneCount_direction\", \"Unnamed: 3\": \"Direction\", \"Unnamed: 4\": \"Comparison\"}}",
+      "error": "",
+      "id": "step3_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_select_1769049406_0b325c70.csv",
+      "path": "/app/output/user_csvs/csv_select_1769049406_0b325c70.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769049428_cbc1af42"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 4,
+      "args": "{\"conditions\": [{\"column\": \"Comparison\", \"op\": \"==\", \"value\": \"PIFvsCtrl\"}, {\"column\": \"Comparison\", \"op\": \"==\", \"value\": \"PIFvsPNI\"}], \"csv_id\": \"1769049428_cbc1af42\", \"name\": \"pif_pathways_final\", \"sort_by\": [\"-GeneCount_direction\"]}",
+      "error": "{\"tool\": \"csv_filter\", \"type\": \"EmptyDataError\", \"message\": \"No columns to parse from file\", \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/app/src/baseline_fastmcp/server.py\\\", line 589, in csv_filter\\n    df = pd.read_csv(csv_abs_path)\\n         ^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/usr/local/lib/python3.11/site-packages/pandas/io/parsers/readers.py\\\", line 1026, in read_csv\\n    return _read(filepath_or_buffer, kwds)\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/usr/local/lib/python3.11/site-packages/pandas/io/parsers/readers.py\\\", line 620, in _read\\n    parser = TextFileReader(filepath_or_buffer, **kwds)\\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/usr/local/lib/python3.11/site-packages/pandas/io/parsers/readers.py\\\", line 1620, in __init__\\n    self._engine = self._make_engine(f, self.engine)\\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/usr/local/lib/python3.11/site-packages/pandas/io/parsers/readers.py\\\", line 1898, in _make_engine\\n    return mapping[engine](f, **self.options)\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/usr/local/lib/python3.11/site-packages/pandas/io/parsers/c_parser_wrapper.py\\\", line 93, in __init__\\n    self._reader = parsers.TextReader(src, **kwds)\\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"parsers.pyx\\\", line 581, in pandas._libs.parsers.TextReader.__cinit__\\npandas.errors.EmptyDataError: No columns to parse from file\\n\"}",
+      "id": "step4_csv_filter"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 5,
+      "args": "{\"conditions\": [{\"column\": \"Comparison within Mucosal Epithelial Phenotypes\", \"op\": \"in\", \"value\": [\"PIFvsCtrl\", \"PIFvsPNI\"]}], \"csv_id\": \"1769049406_0b325c70\", \"name\": \"pif_pathways_corrected\", \"sort_by\": [\"-GeneCount/direction\"]}",
+      "error": "",
+      "id": "step5_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769049406_0b325c70.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769049406_0b325c70.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769049446_338b03f3"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 6,
+      "args": "{\"conditions\": [{\"column\": \"Unnamed: 4\", \"op\": \"in\", \"value\": [\"PIFvsCtrl\", \"PIFvsPNI\"]}], \"csv_id\": \"1769049406_0b325c70\", \"name\": \"pif_pathways_corrected\", \"sort_by\": [\"-GeneCount/direction\"]}",
+      "error": "",
+      "id": "step6_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1769049406_0b325c70.csv",
+      "path": "/app/output/user_csvs/csv_filter_1769049406_0b325c70.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769049460_338b03f3"
+    },
+    {
+      "type": "report",
+      "length": 5111,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769049406_0b325c70",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_filter",
+      "target": "1769049406_0b325c70"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769049415_338b03f3",
+      "target": "step1_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_read",
+      "target": "1769049406_0b325c70"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_select",
+      "target": "1769049406_0b325c70"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769049428_cbc1af42",
+      "target": "step3_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_filter",
+      "target": "1769049428_cbc1af42"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step5_csv_filter",
+      "target": "1769049406_0b325c70"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769049446_338b03f3",
+      "target": "step5_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step6_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step6_csv_filter",
+      "target": "1769049406_0b325c70"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769049460_338b03f3",
+      "target": "step6_csv_filter"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

@@ -1,0 +1,933 @@
+{
+  "ID": "9.4",
+  "Context/Background": "Intraductal papillary neoplasms (IPNs),  including intraductal papillary mucinous neoplasms (IPMNs), intraductal oncocytic papillary neoplasms (IOPNs), and intraductal tubulopapillary neoplasms (ITPNs), are clinically detectable macroscopic non-invasive cyst-forming lesions, some of which progress to invasive pancreatic cancer. Proteins and glycoproteins have proven to be useful clinical biomarkers for classifying cyst-forming neoplasms in the pancreas.Here, we used proteomics and glycoproteomics to characterize a series of histologically and genetically well-characterized surgically resected IPNs, including IPMNs and IOPNs.\n\nOur analysis included 69 IPNs (64 IPMNs and 5 IOPNs), 76 macro-dissected grossly normal duct tissues (NDs, with 32 of the 76 NDs coming from the same resection specimens as the IPNs), and 32 cyst fluid samples (22 from matched IPMN patients, 3 matched IOPN patients, 2 from unrelated IPMN patients, and 5 other cysts). ",
+  "Prompt": "Look at the list of glycoproteins upregulated in IPMNS with both KRAS and GNAS mutations compared to wild-type IPMNs and explain the pattern with activities of signaling pathways.",
+  "mode": "Discovera",
+  "llm_provider": "openai",
+  "llm_model": "o4-mini",
+  "run_date": "2025-12-14 14:38:48",
+  "elapsed_seconds": 212.58,
+  "status": "ok",
+  "error": null,
+  "output_text": "Based on the 85 glycopeptides significantly upregulated in KRAS/GNAS-mutant versus wild-type IPMNs (all “Up.Sig” hits, FDR < 0.05), two broad themes emerge when these proteins are mapped back onto signaling and glycosylation networks:\n\n1.   Glycosylation machinery and mucin-type O-glycan biosynthesis  \n     – Core glycosyltransferases (GALNT3, GCNT1, C1GALT1C1) and the secreted mucin MUC5AC are among the very strongest up-regulated glycoproteins (log₂FC up to ~6).  \n     – ORA (KEGG_2021_Human) places “Mucin type O-glycan biosynthesis” at the top (5/36 genes, odds ratio ~64, adj. p = 4 × 10⁻⁶), and “Other types of O-glycan biosynthesis” also scores highly.  \n     – GSEA (Reactome) likewise flags “Post-translational Protein Modification” and “Metabolism of Proteins” (NES ≈ 2.0–2.3), driven by MUC5AC/GALNT3/GALNT5.\n\n2.   RTK–integrin–adhesion signaling axes  \n     – Multiple receptor tyrosine kinases (MET, ERBB3, EPHA2, EPHB3) and the integrin ITGA6 show elevated glycosylation, suggesting increased surface-receptor stability or clustering.  \n     – Adhesion molecules (DSG2, DSC2, ICAM2, BSG/CD147) and tetraspanins (TSPAN13, TSPAN15) are likewise hyper-glycosylated.  \n     – ORA picks up “Epithelial cell signaling in H. pylori infection” (3/70 genes: ADAM10, MET, ATP6V0A2), “PI3K-Akt signaling” (5/354 genes; ERBB3, ITGA6, MET, EPHA2, YWHAH; adj. p = 4×10⁻²), and “Cell adhesion molecules” (ICAM2, ITGA6, GLG1, MPZL1).\n\nTaken together, KRAS/GNAS double-mutant IPMNs show co-ordinated up-regulation of the glycosylation apparatus and of glycosylated receptors/adhesion proteins that feed into MAPK/ERK, PI3K/Akt, and integrin-driven pathways. This likely amplifies mitogenic and pro-survival signaling (KRAS ↔ RTKs) while reinforcing mucin overproduction and tissue-adhesion remodeling characteristic of progressing mucinous neoplasia.",
+  "tool_calls_json": [
+    {
+      "name": "csv_record",
+      "args": {
+        "name": "Wang_2025_Cancer_Cell_TableS3I.csv",
+        "csv_url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/Wang_2025_Cancer_Cell_TableS3I.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T193848Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=d478d9143d1d379148c1641b2733404d24b7310a21e04ddba3d0877326fc4368",
+        "tags": [
+          "user_input",
+          "dataset"
+        ]
+      }
+    },
+    {
+      "name": "csv_read",
+      "args": {
+        "id": "1765741172_11ef8f99",
+        "n_rows": 50
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1765741172_11ef8f99",
+        "conditions": [
+          {
+            "column": "Protein",
+            "op": "==",
+            "value": "MET"
+          }
+        ],
+        "name": "glyco_MET"
+      }
+    },
+    {
+      "name": "csv_select",
+      "args": {
+        "csv_id": "1765741172_11ef8f99",
+        "columns": [
+          "Protein",
+          "log2FC"
+        ],
+        "distinct": true,
+        "sort_by": [
+          "-log2FC"
+        ],
+        "name": "glyco_distinct_top_log2FC"
+      }
+    },
+    {
+      "name": "csv_filter",
+      "args": {
+        "csv_id": "1765741172_11ef8f99",
+        "conditions": [
+          {
+            "column": "Protein",
+            "op": "==",
+            "value": "ADAM10"
+          }
+        ],
+        "name": "glyco_ADAM10"
+      }
+    },
+    {
+      "name": "ora_pipe",
+      "args": {
+        "csv_id": "1765741172_11ef8f99",
+        "gene_col": "Protein",
+        "p_value_threshold": 0.2
+      }
+    },
+    {
+      "name": "gsea_pipe",
+      "args": {
+        "csv_id": "1765741252_2509b9e2",
+        "hit_col": "Protein",
+        "corr_col": "log2FC",
+        "gene_sets": [
+          "KEGG_2016",
+          "GO_Biological_Process_2023",
+          "Reactome_Pathways_2024",
+          "MSigDB_Hallmark_2020"
+        ],
+        "p_value_threshold": 0.05,
+        "fdr_threshold": 0.05
+      }
+    }
+  ],
+  "tool_events_json": [
+    {
+      "tool": "csv_record",
+      "payload": {
+        "id": "1765741172_11ef8f99",
+        "name": "Wang_2025_Cancer_Cell_TableS3I.csv.csv",
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Wang_2025_Cancer_Cell_TableS3I.csv.csv"
+      }
+    },
+    {
+      "tool": "csv_read",
+      "payload": {
+        "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Wang_2025_Cancer_Cell_TableS3I.csv.csv",
+        "columns": [
+          "Protein",
+          "Glycopeptide",
+          "Glycosite",
+          "log2FC",
+          "FDR",
+          "Up/Down"
+        ],
+        "rows": [
+          {
+            "Protein": "ANO9",
+            "Glycopeptide": "GYVnHSLSVFHTK",
+            "Glycosite": "N652",
+            "log2FC": 1.458571526,
+            "FDR": 0.021570353,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "ADAM10",
+            "Glycopeptide": "nISQVLEK",
+            "Glycosite": "N439",
+            "log2FC": 2.220452564,
+            "FDR": 0.028267181,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "ENTPD5",
+            "Glycopeptide": "GYLTSFEmFnSTYK",
+            "Glycosite": "N232",
+            "log2FC": 2.745555705,
+            "FDR": 0.049216238,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "CPD",
+            "Glycopeptide": "DLDTDFTNnASQPETK",
+            "Glycosite": "N1070",
+            "log2FC": 2.219656904,
+            "FDR": 0.024112884,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "CPD",
+            "Glycopeptide": "LLnTTDVYLLPSLNPDGFER",
+            "Glycosite": "N172",
+            "log2FC": 1.171354408,
+            "FDR": 0.021570353,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "CPD",
+            "Glycopeptide": "DSITGSGLEnATISVAGInHNITTGR",
+            "Glycosite": "N399",
+            "log2FC": 1.449421157,
+            "FDR": 0.004827308,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "CPD",
+            "Glycopeptide": "DSITGSGLENATISVAGInHnITTGR",
+            "Glycosite": "N410",
+            "log2FC": 1.186636439,
+            "FDR": 0.005337239,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "CPD",
+            "Glycopeptide": "FANEYPnITR",
+            "Glycosite": "N522",
+            "log2FC": 2.236485536,
+            "FDR": 0.01288562,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "CPD",
+            "Glycopeptide": "nNSNNFDLNR",
+            "Glycosite": "N626",
+            "log2FC": 2.512303552,
+            "FDR": 0.004827308,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "CPD",
+            "Glycopeptide": "DSITGSGLEnATISVAGINHnITTGR",
+            "Glycosite": "N399;N410",
+            "log2FC": 0.961559455,
+            "FDR": 0.041555162,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "DDAH1",
+            "Glycopeptide": "DEnATLDGGDVLFTGR",
+            "Glycosite": "N123",
+            "log2FC": 1.393143757,
+            "FDR": 0.024112884,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "TMEM63A",
+            "Glycopeptide": "EQLGLGDRPnDSYcYNSAK",
+            "Glycosite": "N28",
+            "log2FC": 2.619742174,
+            "FDR": 0.028267181,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "TMEM63A",
+            "Glycopeptide": "LGLGDRPnDSYcYNSAK",
+            "Glycosite": "N28",
+            "log2FC": 1.415839777,
+            "FDR": 0.028267181,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "TMEM63A",
+            "Glycopeptide": "DRPnDSYcYNSAK",
+            "Glycosite": "N28",
+            "log2FC": 1.718533772,
+            "FDR": 0.031399241,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "TMEM63A",
+            "Glycopeptide": "LGDRPnDSYcYNSAK",
+            "Glycosite": "N28",
+            "log2FC": 2.470935165,
+            "FDR": 0.007988428,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "TMEM63A",
+            "Glycopeptide": "LGDRPnDSYcYnSAK",
+            "Glycosite": "N28",
+            "log2FC": 2.616788139,
+            "FDR": 0.007599212,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "ERLIN2",
+            "Glycopeptide": "nYTADYDK",
+            "Glycosite": "N106",
+            "log2FC": 1.93426121,
+            "FDR": 0.024112884,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "MPZL1",
+            "Glycopeptide": "EIFVAnGTQGK",
+            "Glycosite": "N50",
+            "log2FC": 2.116256636,
+            "FDR": 0.039727474,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "TSPAN13",
+            "Glycopeptide": "SVnPnDTcLAScVK",
+            "Glycosite": "N137",
+            "log2FC": 2.443592259,
+            "FDR": 0.028568712,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "TSPAN13",
+            "Glycopeptide": "SVNPnDTcLAScVK",
+            "Glycosite": "N137",
+            "log2FC": 2.347460549,
+            "FDR": 0.039727474,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "TSPAN15",
+            "Glycopeptide": "nTTEVVNTmcGYK",
+            "Glycosite": "N189",
+            "log2FC": 2.51092008,
+            "FDR": 0.024112884,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "TSPAN15",
+            "Glycopeptide": "nTTEVVNTMcGYK",
+            "Glycosite": "N189",
+            "log2FC": 1.920782795,
+            "FDR": 0.042119628,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "TSPAN15",
+            "Glycopeptide": "nTTEVVnTMcGYK",
+            "Glycosite": "N189",
+            "log2FC": 1.778959454,
+            "FDR": 0.00648984,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "GUSB",
+            "Glycopeptide": "VVAnGTGTQGQLK",
+            "Glycosite": "N272",
+            "log2FC": 1.06500094,
+            "FDR": 0.028568712,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "MET",
+            "Glycopeptide": "AnLSGGVWK",
+            "Glycosite": "N106",
+            "log2FC": 1.942806546,
+            "FDR": 0.028267181,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "KRT19",
+            "Glycopeptide": "SLLEGQEDHYNnLSASK",
+            "Glycosite": "N393",
+            "log2FC": 2.244688065,
+            "FDR": 0.004827308,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "ICAM2",
+            "Glycopeptide": "QESMnSnVSVYQPPR",
+            "Glycosite": "N105",
+            "log2FC": 0.943070022,
+            "FDR": 0.004827308,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "ATP1A3",
+            "Glycopeptide": "VDnSSLTGESEPQTR",
+            "Glycosite": "N205",
+            "log2FC": 1.338891224,
+            "FDR": 0.007599212,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "F3",
+            "Glycopeptide": "VnVTVEDER",
+            "Glycosite": "N156",
+            "log2FC": 2.730434355,
+            "FDR": 0.004827308,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "ERBB3",
+            "Glycopeptide": "NLnVTSLGFR",
+            "Glycosite": "N437",
+            "log2FC": 1.93009152,
+            "FDR": 0.042548096,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "ITGA6",
+            "Glycopeptide": "EINSLnLTESHNSR",
+            "Glycosite": "N930",
+            "log2FC": 1.453915272,
+            "FDR": 0.048666943,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "EPHA2",
+            "Glycopeptide": "TASVSInQTEPPK",
+            "Glycosite": "N435",
+            "log2FC": 1.669846089,
+            "FDR": 0.028267181,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "SFN",
+            "Glycopeptide": "DnLTLWTADNAGEEGGEAPQEPQS",
+            "Glycosite": "N226",
+            "log2FC": 3.088334681,
+            "FDR": 0.014480162,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "SFN",
+            "Glycopeptide": "DnLTLWTADnAGEEGGEAPQEPQS",
+            "Glycosite": "N226",
+            "log2FC": 2.769909551,
+            "FDR": 0.024112884,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "BSG",
+            "Glycopeptide": "ALmnGSESR",
+            "Glycosite": "N268",
+            "log2FC": 2.25033628,
+            "FDR": 0.042223,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "EPHB3",
+            "Glycopeptide": "GVISnVnETSLILEWSEPR",
+            "Glycosite": "N351",
+            "log2FC": 1.530810521,
+            "FDR": 0.048666943,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "SLC12A2",
+            "Glycopeptide": "DATGNVnDTIVTELTncTSAAcK",
+            "Glycosite": "N553;N562",
+            "log2FC": 2.541225866,
+            "FDR": 0.046768721,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "SLC12A2",
+            "Glycopeptide": "DATGnVnDTIVTELTncTSAAcK",
+            "Glycosite": "N553;N562",
+            "log2FC": 2.90465849,
+            "FDR": 0.03936124,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "FAM3B",
+            "Glycopeptide": "GINIAIVNYVTGnVTATR",
+            "Glycosite": "N120",
+            "log2FC": 3.016732451,
+            "FDR": 0.041555162,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "MUC5AC",
+            "Glycopeptide": "nVTLHcTDGSSR",
+            "Glycosite": "N5591",
+            "log2FC": 4.810034279,
+            "FDR": 0.042119628,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "MUC5AC",
+            "Glycopeptide": "nATPGDTGAGcQK",
+            "Glycosite": "N813",
+            "log2FC": 6.027212778,
+            "FDR": 0.042119628,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "MUC5AC",
+            "Glycopeptide": "FAnNTEGQcGTcTNDRK",
+            "Glycosite": "N5057",
+            "log2FC": 4.984358929,
+            "FDR": 0.027363015,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "MUC5AC",
+            "Glycopeptide": "FAnNTEGQcGTcTNDR",
+            "Glycosite": "N5057",
+            "log2FC": 4.707232154,
+            "FDR": 0.019095238,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "DSC2",
+            "Glycopeptide": "AnYTILK",
+            "Glycosite": "N392",
+            "log2FC": 3.414589498,
+            "FDR": 0.03936124,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "DSC2",
+            "Glycopeptide": "nVTLHVPSK",
+            "Glycosite": "N34",
+            "log2FC": 1.477063852,
+            "FDR": 0.025123551,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "GCNT1",
+            "Glycopeptide": "HLELAGEnPSSDIncTK",
+            "Glycosite": "N58",
+            "log2FC": 2.444936395,
+            "FDR": 0.036542658,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "YWHAH",
+            "Glycopeptide": "DnLTLWTSDQQDEEAGEGn",
+            "Glycosite": "N229",
+            "log2FC": 1.165799182,
+            "FDR": 0.036542658,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "DSG2",
+            "Glycopeptide": "InATDADEPNTLNSK",
+            "Glycosite": "N182",
+            "log2FC": 2.913845481,
+            "FDR": 0.024112884,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "DSG2",
+            "Glycopeptide": "YVQnGTYTVK",
+            "Glycosite": "N462",
+            "log2FC": 2.882473449,
+            "FDR": 0.024112884,
+            "Up/Down": "Up.Sig"
+          },
+          {
+            "Protein": "DSG2",
+            "Glycopeptide": "InATDADEPNTLnSK",
+            "Glycosite": "N182",
+            "log2FC": 2.890771097,
+            "FDR": 0.046501296,
+            "Up/Down": "Up.Sig"
+          }
+        ],
+        "total_rows": 85
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "Protein",
+          "Glycopeptide",
+          "Glycosite",
+          "log2FC",
+          "FDR",
+          "Up/Down"
+        ],
+        "rows": "[{\"Protein\":\"MET\",\"Glycopeptide\":\"AnLSGGVWK\",\"Glycosite\":\"N106\",\"log2FC\":1.942806546,\"FDR\":0.028267181,\"Up\\/Down\":\"Up.Sig\"}]",
+        "total_rows": 1,
+        "storage_entry": {
+          "id": "1765741232_065dcaca",
+          "name": "glyco_MET_eb882c2210.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/glyco_MET_eb882c2210.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_select",
+      "payload": {
+        "columns": [
+          "Protein",
+          "log2FC"
+        ],
+        "rows": "[{\"Protein\":\"MUC5AC\",\"log2FC\":6.027212778},{\"Protein\":\"MUC5AC\",\"log2FC\":4.984358929},{\"Protein\":\"MUC5AC\",\"log2FC\":4.810034279},{\"Protein\":\"MUC5AC\",\"log2FC\":4.707232154},{\"Protein\":\"GALNT3\",\"log2FC\":3.491139613},{\"Protein\":\"DSC2\",\"log2FC\":3.414589498},{\"Protein\":\"SFN\",\"log2FC\":3.088334681},{\"Protein\":\"FAM3B\",\"log2FC\":3.016732451},{\"Protein\":\"GALNT5\",\"log2FC\":3.008217395},{\"Protein\":\"DSG2\",\"log2FC\":2.913845481},{\"Protein\":\"SLC12A2\",\"log2FC\":2.90465849},{\"Protein\":\"DSG2\",\"log2FC\":2.890771097},{\"Protein\":\"DSG2\",\"log2FC\":2.882473449},{\"Protein\":\"C1GALT1C1\",\"log2FC\":2.880356},{\"Protein\":\"SFN\",\"log2FC\":2.769909551},{\"Protein\":\"C1GALT1C1\",\"log2FC\":2.769615906},{\"Protein\":\"ENTPD5\",\"log2FC\":2.745555705},{\"Protein\":\"F3\",\"log2FC\":2.730434355},{\"Protein\":\"TM9SF3\",\"log2FC\":2.687001965},{\"Protein\":\"TMEM63A\",\"log2FC\":2.619742174}]",
+        "total_rows": 85,
+        "storage_entry": {
+          "id": "1765741252_2509b9e2",
+          "name": "glyco_distinct_top_log2FC_772f2bf91b.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/glyco_distinct_top_log2FC_772f2bf91b.csv"
+        }
+      }
+    },
+    {
+      "tool": "csv_filter",
+      "payload": {
+        "columns": [
+          "Protein",
+          "Glycopeptide",
+          "Glycosite",
+          "log2FC",
+          "FDR",
+          "Up/Down"
+        ],
+        "rows": "[{\"Protein\":\"ADAM10\",\"Glycopeptide\":\"nISQVLEK\",\"Glycosite\":\"N439\",\"log2FC\":2.220452564,\"FDR\":0.028267181,\"Up\\/Down\":\"Up.Sig\"}]",
+        "total_rows": 1,
+        "storage_entry": {
+          "id": "1765741261_73c43792",
+          "name": "glyco_ADAM10_8921d9a671.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/glyco_ADAM10_8921d9a671.csv"
+        }
+      }
+    },
+    {
+      "tool": "ora_pipe",
+      "payload": {
+        "ora_results": [
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Mucin type O-glycan biosynthesis",
+            "Overlap": "5/36",
+            "P-value": 4.6117768599352356e-08,
+            "Adjusted P-value": 3.966128099544302e-06,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 64.23870967741935,
+            "Combined Score": 1085.1246216033644,
+            "Genes": "ST6GALNAC1;C1GALT1C1;GALNT5;GALNT3;GCNT1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Other types of O-glycan biosynthesis",
+            "Overlap": "3/47",
+            "P-value": 0.00029287286273695285,
+            "Adjusted P-value": 0.0125935330976889,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 26.09396853146853,
+            "Combined Score": 212.294577469244,
+            "Genes": "C1GALT1C1;GALNT5;GALNT3"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Taurine and hypotaurine metabolism",
+            "Overlap": "1/11",
+            "P-value": 0.0298446484475958,
+            "Adjusted P-value": 0.1971921640921621,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 36.916666666666664,
+            "Combined Score": 129.64209444665414,
+            "Genes": "GGT7"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Epithelial cell signaling in Helicobacter pylori infection",
+            "Overlap": "3/70",
+            "P-value": 0.0009455179028946292,
+            "Adjusted P-value": 0.0203286349122345,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 17.116532721010334,
+            "Combined Score": 119.19572946641831,
+            "Genes": "ATP6V0A2;ADAM10;MET"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Aldosterone-regulated sodium reabsorption",
+            "Overlap": "2/37",
+            "P-value": 0.0046493297130716,
+            "Adjusted P-value": 0.0566603596955258,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 21.466307277628033,
+            "Combined Score": 115.29622797888813,
+            "Genes": "ATP1A3;SFN"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Arrhythmogenic right ventricular cardiomyopathy",
+            "Overlap": "3/77",
+            "P-value": 0.0012464760668206,
+            "Adjusted P-value": 0.0214393883493158,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 15.491943866943869,
+            "Combined Score": 103.60136539508392,
+            "Genes": "DSG2;ITGA6;DSC2"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "UV Response Dn",
+            "Overlap": "4/144",
+            "P-value": 0.0006610583167993423,
+            "Adjusted P-value": 0.0198317495039802,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 11.095238095238097,
+            "Combined Score": 81.23565522741771,
+            "Genes": "DDAH1;GCNT1;F3;MET"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Cell adhesion molecules",
+            "Overlap": "4/148",
+            "P-value": 0.0007325032958996121,
+            "Adjusted P-value": 0.0203286349122345,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 10.784858387799565,
+            "Combined Score": 77.85635340437672,
+            "Genes": "ICAM2;ITGA6;GLG1;MPZL1"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Vibrio cholerae infection",
+            "Overlap": "2/50",
+            "P-value": 0.0083588302127531,
+            "Adjusted P-value": 0.079873266477419,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 15.642295597484276,
+            "Combined Score": 74.83957451132376,
+            "Genes": "SLC12A2;ATP6V0A2"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Pyrimidine metabolism",
+            "Overlap": "2/56",
+            "P-value": 0.0103983862699687,
+            "Adjusted P-value": 0.0894261219217313,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 13.900069881201956,
+            "Combined Score": 63.46917373688809,
+            "Genes": "CANT1;ENTPD5"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "Apical Junction",
+            "Overlap": "4/200",
+            "P-value": 0.0022221695468688,
+            "Adjusted P-value": 0.0333325432030325,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 7.902761104441777,
+            "Combined Score": 48.28011150302565,
+            "Genes": "ICAM2;ATP1A3;MPZL1;YWHAH"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Lysosome",
+            "Overlap": "3/128",
+            "P-value": 0.0052707311344675,
+            "Adjusted P-value": 0.0566603596955258,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 9.147692307692308,
+            "Combined Score": 47.98500844745444,
+            "Genes": "GNPTAB;ATP6V0A2;GUSB"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "PI3K-Akt signaling pathway",
+            "Overlap": "5/354",
+            "P-value": 0.0028455117862376,
+            "Adjusted P-value": 0.0407856689360724,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 5.614899713467048,
+            "Combined Score": 32.91461139623312,
+            "Genes": "ERBB3;ITGA6;MET;EPHA2;YWHAH"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Salivary secretion",
+            "Overlap": "2/93",
+            "P-value": 0.0270804584645388,
+            "Adjusted P-value": 0.1940766189958614,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 8.233049968899026,
+            "Combined Score": 29.71260723946416,
+            "Genes": "SLC12A2;ATP1A3"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Axon guidance",
+            "Overlap": "3/182",
+            "P-value": 0.0137530033416004,
+            "Adjusted P-value": 0.1075234806706942,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 6.3706489041684575,
+            "Combined Score": 27.307774129652515,
+            "Genes": "MET;EPHA2;EPHB3"
+          },
+          {
+            "Gene_set": "KEGG_2021_Human",
+            "Term": "Pancreatic secretion",
+            "Overlap": "2/102",
+            "P-value": 0.0321010499684915,
+            "Adjusted P-value": 0.1971921640921621,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 7.488679245283019,
+            "Combined Score": 25.752568486012574,
+            "Genes": "SLC12A2;ATP1A3"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "KRAS Signaling Up",
+            "Overlap": "3/200",
+            "P-value": 0.0176580617409628,
+            "Adjusted P-value": 0.0882903087048144,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 5.783287778211636,
+            "Combined Score": 23.34460456181631,
+            "Genes": "TSPAN13;GALNT3;TLR8"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "Glycolysis",
+            "Overlap": "3/200",
+            "P-value": 0.0176580617409628,
+            "Adjusted P-value": 0.0882903087048144,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 5.783287778211636,
+            "Combined Score": 23.34460456181631,
+            "Genes": "GUSB;MET;DSC2"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "Estrogen Response Late",
+            "Overlap": "3/200",
+            "P-value": 0.0176580617409628,
+            "Adjusted P-value": 0.0882903087048144,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 5.783287778211636,
+            "Combined Score": 23.34460456181631,
+            "Genes": "KRT19;TSPAN13;SFN"
+          },
+          {
+            "Gene_set": "MSigDB_Hallmark_2020",
+            "Term": "Estrogen Response Early",
+            "Overlap": "3/200",
+            "P-value": 0.0176580617409628,
+            "Adjusted P-value": 0.0882903087048144,
+            "Old P-value": 0,
+            "Old Adjusted P-value": 0,
+            "Odds Ratio": 5.783287778211636,
+            "Combined Score": 23.34460456181631,
+            "Genes": "KRT19;CANT1;SFN"
+          }
+        ],
+        "ora_result_metadata": {
+          "id": "1765741279_808dab1d",
+          "name": "ora_results_20251214_144118.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20251214_144118.csv",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-14/ora_results_20251214_144118.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T194120Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=64ef18ed935374f4df799e04bdf3f134a2f897923ddecc0acd4fea255bcd5dcf"
+        }
+      }
+    },
+    {
+      "tool": "gsea_pipe",
+      "payload": {
+        "counts_by_database": {
+          "Reactome_Pathways_2024": {
+            "up": 2,
+            "down": 0,
+            "total": 2
+          }
+        },
+        "top_high_nes": {
+          "Reactome_Pathways_2024": [
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Post-translational Protein Modification",
+              "NES": 2.2659230825589454,
+              "Size": 7,
+              "ES": 0.8074614192392713,
+              "NOS p-val": 0.023456093070446604,
+              "FDR q-val": 0.22328792629990435,
+              "Lead_genes": [
+                "MUC5AC",
+                "GALNT3",
+                "GALNT5"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Metabolism of Proteins",
+              "NES": 2.044057558760528,
+              "Size": 9,
+              "ES": 0.7278601853987767,
+              "NOS p-val": 0.040947861255893336,
+              "FDR q-val": 0.22328792629990435,
+              "Lead_genes": [
+                "MUC5AC",
+                "GALNT3",
+                "GALNT5"
+              ]
+            }
+          ]
+        },
+        "top_low_nes": {
+          "Reactome_Pathways_2024": [
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Post-translational Protein Modification",
+              "NES": 2.2659230825589454,
+              "Size": 7,
+              "ES": 0.8074614192392713,
+              "NOS p-val": 0.023456093070446604,
+              "FDR q-val": 0.22328792629990435,
+              "Lead_genes": [
+                "MUC5AC",
+                "GALNT3",
+                "GALNT5"
+              ]
+            },
+            {
+              "Data Base": "Reactome_Pathways_2024",
+              "Pathway": "Metabolism of Proteins",
+              "NES": 2.044057558760528,
+              "Size": 9,
+              "ES": 0.7278601853987767,
+              "NOS p-val": 0.040947861255893336,
+              "FDR q-val": 0.22328792629990435,
+              "Lead_genes": [
+                "MUC5AC",
+                "GALNT3",
+                "GALNT5"
+              ]
+            }
+          ]
+        },
+        "gsea_result_metadata": {
+          "id": "1765741315_b86264e0",
+          "name": "gsea_results_20251214_144149.csv",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20251214_144149.csv",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-14/gsea_results_20251214_144149.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T194155Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=f4dc10008401673ce4c821b14f716189a4f85f170aabf72bc46df809480f2b71"
+        },
+        "gsea_plot_metadata": {
+          "id": "1765741315_7d27fb21",
+          "name": "gsea_results_20251214_144149.png",
+          "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20251214_144149.png",
+          "s3_presigned_url": "https://discovera.s3.us-east-2.amazonaws.com/outputs/2025-12-14/gsea_results_20251214_144149.png?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T194156Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=62d7565f13d635a073e7c345a3f97091b3bdb053d10bc2a6ff797a772dc63193"
+        }
+      }
+    }
+  ],
+  "uploaded_files": [
+    {
+      "name": "Wang_2025_Cancer_Cell_TableS3I.csv",
+      "type": "csv",
+      "preview": "Protein,Glycopeptide,Glycosite,log2FC,FDR,Up/Down\nANO9,GYVnHSLSVFHTK,N652,1.458571526,0.021570353,Up.Sig\nADAM10,nISQVLEK,N439,2.220452564,0.028267181,Up.Sig",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/Wang_2025_Cancer_Cell_TableS3I.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T193848Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=d478d9143d1d379148c1641b2733404d24b7310a21e04ddba3d0877326fc4368",
+      "s3_key": "uploads/2025-12-14/Wang_2025_Cancer_Cell_TableS3I.csv"
+    }
+  ]
+}

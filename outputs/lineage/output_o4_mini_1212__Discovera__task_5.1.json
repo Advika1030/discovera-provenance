@@ -1,0 +1,601 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_o4_mini_1212__Discovera__task_5.1",
+      "model": "o4-mini",
+      "mode": "Discovera",
+      "task_id": "5.1",
+      "run_date": "2025-12-12 17:21:55",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-12/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251212%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251212T222154Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=27443a59f6bb102a20b9e36588a7a1ce061849b5b2bfcb2b280c854024675288",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-12/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251212%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251212T222155Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=beec4608ea8fd92da87ed4b4641760d111373246b076d294d214b441b7158cb9",
+      "id": "upload:1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-12/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251212%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251212T222154Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=27443a59f6bb102a20b9e36588a7a1ce061849b5b2bfcb2b280c854024675288\", \"name\": \"Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-MS.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1765578203_08c839df"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 1,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-12/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251212%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251212T222155Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=beec4608ea8fd92da87ed4b4641760d111373246b076d294d214b441b7158cb9\", \"name\": \"Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq\"}",
+      "error": "",
+      "id": "step1_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Kuzuoglu-Ozturk_2025_Cancer_Cell_TableS1-RiboSeq.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1765578208_9680b484"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 2,
+      "args": "{\"id\": \"1765578203_08c839df\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step2_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 3,
+      "args": "{\"id\": \"1765578208_9680b484\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step3_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 4,
+      "args": "{\"conditions\": [{\"column\": \"gene_name\", \"op\": \"in\", \"value\": [\"CDK6\", \"HIF1A\", \"RALA\"]}], \"csv_id\": \"1765578203_08c839df\", \"keep_columns\": [\"gene_name\", \"Log2FC(Zota vs Vehicle)\", \"pval (Zota vs Vehicle)\"], \"name\": \"MS_candidate_filter\"}",
+      "error": "",
+      "id": "step4_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "MS_candidate_filter_a6fa546d59.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/MS_candidate_filter_a6fa546d59.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765578320_ef165827"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 5,
+      "args": "{\"conditions\": [{\"column\": \"gene_name\", \"op\": \"in\", \"value\": [\"AR\", \"MYC\", \"EIF4A1\"]}], \"csv_id\": \"1765578203_08c839df\", \"keep_columns\": [\"gene_name\", \"Log2FC(Zota vs Vehicle)\", \"pval (Zota vs Vehicle)\"], \"name\": \"MS_AR_MYC_eIF4A_filter\"}",
+      "error": "",
+      "id": "step5_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "MS_AR_MYC_eIF4A_filter_ca304b0e1d.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/MS_AR_MYC_eIF4A_filter_ca304b0e1d.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765578375_bc1a1f13"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 6,
+      "args": "{\"conditions\": [{\"column\": \"gene_name\", \"op\": \"in\", \"value\": [\"AR\", \"MYC\", \"EIF4A1\"]}], \"csv_id\": \"1765578208_9680b484\", \"keep_columns\": [\"gene_name\", \"log2FC(Zota vs Vehicle)\", \"fdr_Pr(>|z|)_Zota vs Vehicle\"], \"name\": \"Ribo_AR_MYC_eIF4A_filter\"}",
+      "error": "",
+      "id": "step6_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "Ribo_AR_MYC_eIF4A_filter_0c424e6670.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Ribo_AR_MYC_eIF4A_filter_0c424e6670.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765578399_6a13ef7d"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 7,
+      "args": "{\"conditions\": [{\"column\": \"fdr_Pr(>|z|)_Zota vs Vehicle\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"log2FC(Zota vs Vehicle)\", \"op\": \"<\", \"value\": 0}], \"csv_id\": \"1765578208_9680b484\", \"keep_columns\": [\"gene_name\", \"log2FC(Zota vs Vehicle)\", \"fdr_Pr(>|z|)_Zota vs Vehicle\"], \"name\": \"Ribo_down\"}",
+      "error": "",
+      "id": "step7_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "Ribo_down_255bfaaf73.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Ribo_down_255bfaaf73.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765578412_db7d52de"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 8,
+      "args": "{\"conditions\": [{\"column\": \"pval (Zota vs Vehicle)\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"Log2FC(Zota vs Vehicle)\", \"op\": \"<\", \"value\": 0}], \"csv_id\": \"1765578203_08c839df\", \"keep_columns\": [\"gene_name\", \"Log2FC(Zota vs Vehicle)\", \"pval (Zota vs Vehicle)\"], \"name\": \"MS_down\"}",
+      "error": "",
+      "id": "step8_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "MS_down_f08c8ea362.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/MS_down_f08c8ea362.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765578448_0881f591"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_join",
+      "step_index": 9,
+      "args": "{\"how\": \"inner\", \"left_csv_id\": \"1765578412_db7d52de\", \"name\": \"common_down\", \"on\": \"gene_name\", \"right_csv_id\": \"1765578448_0881f591\"}",
+      "error": "",
+      "id": "step9_csv_join"
+    },
+    {
+      "type": "data_table",
+      "name": "common_down_3981700441.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/common_down_3981700441.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765578480_c41ab5de"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 10,
+      "args": "{\"conditions\": [{\"column\": \"gene_name\", \"op\": \"in\", \"value\": [\"EIF4A1\", \"AR\", \"MYC\", \"CDK4\", \"CDK6\", \"HIF1A\", \"FOLH1\", \"RALA\"]}], \"csv_id\": \"1765578480_c41ab5de\", \"keep_columns\": [\"gene_name\", \"log2FC(Zota vs Vehicle)\", \"fdr_Pr(>|z|)_Zota vs Vehicle\", \"Log2FC(Zota vs Vehicle)\", \"pval (Zota vs Vehicle)\"], \"name\": \"common_down_candidates\"}",
+      "error": "",
+      "id": "step10_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "common_down_candidates_f482ec235e.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/common_down_candidates_f482ec235e.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765578510_15030d81"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 11,
+      "args": "{\"conditions\": [{\"column\": \"gene_name\", \"op\": \"in\", \"value\": [\"FOLH1\", \"CDK4\"]}], \"csv_id\": \"1765578208_9680b484\", \"keep_columns\": [\"gene_name\", \"log2FC(Zota vs Vehicle)\", \"fdr_Pr(>|z|)_Zota vs Vehicle\"], \"name\": \"Ribo_FOLH1_CDK4\"}",
+      "error": "",
+      "id": "step11_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "Ribo_FOLH1_CDK4_95eb478409.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Ribo_FOLH1_CDK4_95eb478409.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765578534_41c2231b"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gene_info",
+      "step_index": 12,
+      "args": "{\"gene_list\": [\"AR\", \"CDK4\", \"HIF1A\", \"FOLH1\"]}",
+      "error": "",
+      "id": "step12_gene_info"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gsea_pipe",
+      "step_index": 13,
+      "args": "{\"corr_col\": \"Log2FC(Zota vs Vehicle)\", \"csv_id\": \"1765578203_08c839df\", \"fdr_threshold\": 0.1, \"hit_col\": \"gene_name\", \"p_value_threshold\": 0.1}",
+      "error": "",
+      "id": "step13_gsea_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "gsea_results_20251212_172938.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20251212_172938.csv",
+      "source_key": "gsea_result_metadata",
+      "is_plot": false,
+      "id": "1765578586_5b259c86"
+    },
+    {
+      "type": "data_table",
+      "name": "gsea_results_20251212_172938.png",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20251212_172938.png",
+      "source_key": "gsea_plot_metadata",
+      "is_plot": true,
+      "id": "1765578587_b709415b"
+    },
+    {
+      "type": "tool_step",
+      "tool": "enrich_rumma",
+      "step_index": 14,
+      "args": "{\"first\": 30, \"genes\": [\"AR\", \"FOLH1\", \"CDK4\", \"HIF1A\"], \"max_records\": 100}",
+      "error": "",
+      "id": "step14_enrich_rumma"
+    },
+    {
+      "type": "tool_step",
+      "tool": "ora_pipe",
+      "step_index": 15,
+      "args": "{\"csv_id\": \"1765578480_c41ab5de\", \"gene_col\": \"gene_name\", \"p_value_threshold\": 0.2}",
+      "error": "",
+      "id": "step15_ora_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "ora_results_20251212_173032.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20251212_173032.csv",
+      "source_key": "ora_result_metadata",
+      "is_plot": false,
+      "id": "1765578633_570b46d3"
+    },
+    {
+      "type": "tool_step",
+      "tool": "query_string_rumma",
+      "step_index": 16,
+      "args": "{\"retmax\": 100, \"term\": \"androgen receptor prostate cancer translation\"}",
+      "error": "",
+      "id": "step16_query_string_rumma"
+    },
+    {
+      "type": "tool_step",
+      "tool": "query_table_rumma",
+      "step_index": 17,
+      "args": "{\"term\": \"prostate cancer\"}",
+      "error": "",
+      "id": "step17_query_table_rumma"
+    },
+    {
+      "type": "tool_step",
+      "tool": "literature_trends",
+      "step_index": 18,
+      "args": "{\"email\": \"user@example.com\", \"term\": \"translation initiation prostate cancer\"}",
+      "error": "",
+      "id": "step18_literature_trends"
+    },
+    {
+      "type": "data_table",
+      "name": "translation_initiation_prostate_cancer_timeline.png",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/translation_initiation_prostate_cancer_timeline.png",
+      "source_key": "literature_plot_metadata",
+      "is_plot": true,
+      "id": "1765578720_cacbc394"
+    },
+    {
+      "type": "tool_step",
+      "tool": "prioritize_genes",
+      "step_index": 19,
+      "args": "{\"context_term\": \"prostate cancer\", \"email\": \"user@example.com\", \"gene_list\": [\"AR\", \"CDK4\", \"HIF1A\", \"FOLH1\"]}",
+      "error": "",
+      "id": "step19_prioritize_genes"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 20,
+      "args": "{\"conditions\": [{\"column\": \"Term\", \"op\": \"contains\", \"value\": \"cancer\"}], \"csv_id\": \"1765578633_570b46d3\", \"keep_columns\": [\"Gene_set\", \"Term\", \"Overlap\", \"P-value\", \"Adjusted P-value\", \"Odds Ratio\", \"Genes\"], \"name\": \"ORA_cancer_terms\"}",
+      "error": "",
+      "id": "step20_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "ORA_cancer_terms_99ff57d0de.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/ORA_cancer_terms_99ff57d0de.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765578777_3acb61f9"
+    },
+    {
+      "type": "tool_step",
+      "tool": "query_string_rumma",
+      "step_index": 21,
+      "args": "{\"retmax\": 100, \"term\": \"CDK4 prostate cancer\"}",
+      "error": "",
+      "id": "step21_query_string_rumma"
+    },
+    {
+      "type": "report",
+      "length": 10132,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765578203_08c839df",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765578208_9680b484",
+      "target": "step1_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_read",
+      "target": "1765578203_08c839df"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_read",
+      "target": "1765578208_9680b484"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_filter",
+      "target": "1765578203_08c839df"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765578320_ef165827",
+      "target": "step4_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step5_csv_filter",
+      "target": "1765578203_08c839df"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765578375_bc1a1f13",
+      "target": "step5_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step6_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step6_csv_filter",
+      "target": "1765578208_9680b484"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765578399_6a13ef7d",
+      "target": "step6_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step7_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step7_csv_filter",
+      "target": "1765578208_9680b484"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765578412_db7d52de",
+      "target": "step7_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step8_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step8_csv_filter",
+      "target": "1765578203_08c839df"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765578448_0881f591",
+      "target": "step8_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step9_csv_join",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step9_csv_join",
+      "target": "1765578412_db7d52de"
+    },
+    {
+      "relation": "used",
+      "source": "step9_csv_join",
+      "target": "1765578448_0881f591"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765578480_c41ab5de",
+      "target": "step9_csv_join"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step10_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step10_csv_filter",
+      "target": "1765578480_c41ab5de"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765578510_15030d81",
+      "target": "step10_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step11_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step11_csv_filter",
+      "target": "1765578208_9680b484"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765578534_41c2231b",
+      "target": "step11_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step12_gene_info",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step13_gsea_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step13_gsea_pipe",
+      "target": "1765578203_08c839df"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765578586_5b259c86",
+      "target": "step13_gsea_pipe"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765578587_b709415b",
+      "target": "step13_gsea_pipe"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step14_enrich_rumma",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step15_ora_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step15_ora_pipe",
+      "target": "1765578480_c41ab5de"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765578633_570b46d3",
+      "target": "step15_ora_pipe"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step16_query_string_rumma",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step17_query_table_rumma",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step18_literature_trends",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765578720_cacbc394",
+      "target": "step18_literature_trends"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step19_prioritize_genes",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step20_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step20_csv_filter",
+      "target": "1765578633_570b46d3"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765578777_3acb61f9",
+      "target": "step20_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step21_query_string_rumma",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

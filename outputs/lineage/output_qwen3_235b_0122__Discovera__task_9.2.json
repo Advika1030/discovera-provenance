@@ -1,0 +1,140 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0122__Discovera__task_9.2",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Discovera",
+      "task_id": "9.2",
+      "run_date": "2026-01-21 01:57:16",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Wang_2025_Cancer_Cell_TableS2M.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Wang_2025_Cancer_Cell_TableS2M.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T065716Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=0395c30eb5e101522d3e75a9907e09eb09f1158d8e302b7fa7ed11b4a67dce00",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Wang_2025_Cancer_Cell_TableS2M.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260121%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260121T065716Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=0395c30eb5e101522d3e75a9907e09eb09f1158d8e302b7fa7ed11b4a67dce00\", \"name\": \"Wang_2025_Cancer_Cell_TableS2M\", \"tags\": [\"user_input\", \"proteomics\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Wang_2025_Cancer_Cell_TableS2M.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Wang_2025_Cancer_Cell_TableS2M.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1768978664_3637aa45"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1768978664_3637aa45\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"HG vs LG IPMN\", \"op\": \">\", \"value\": 0}, {\"column\": \"FDR\", \"op\": \"<\", \"value\": 0.05}, {\"column\": \"HG IPMN vs ND\", \"op\": \">\", \"value\": 0}, {\"column\": \"FDR.1\", \"op\": \"<\", \"value\": 0.05}], \"csv_id\": \"1768978664_3637aa45\", \"keep_columns\": [\"Gene\"]}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_filter_1768978664_3637aa45_7529a58ab9.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_filter_1768978664_3637aa45_7529a58ab9.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1768978693_b20d8241"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gene_info",
+      "step_index": 3,
+      "args": "{\"gene_list\": [\"AGPS\", \"ACOT7\", \"LGALS9\", \"HMGB3\", \"SPINT2\", \"SYNGR2\", \"PLOD3\", \"POP4\", \"TFRC\", \"TUBB4A\", \"SLC3A2\", \"MRPL3\", \"TACSTD2\", \"MCM3\", \"ANXA13\", \"GRN\", \"GTF2E1\", \"PDHA2\", \"MCM7\", \"HPCAL1\"]}",
+      "error": "",
+      "id": "step3_gene_info"
+    },
+    {
+      "type": "tool_step",
+      "tool": "prioritize_genes",
+      "step_index": 4,
+      "args": "{\"context_term\": \"Pancreatic Ductal Adenocarcinoma\", \"gene_list\": [\"AGPS\", \"ACOT7\", \"LGALS9\", \"HMGB3\", \"SPINT2\", \"SYNGR2\", \"PLOD3\", \"POP4\", \"TFRC\", \"TUBB4A\", \"SLC3A2\", \"MRPL3\", \"TACSTD2\", \"MCM3\", \"ANXA13\", \"GRN\", \"GTF2E1\", \"PDHA2\", \"MCM7\", \"HPCAL1\"]}",
+      "error": "",
+      "id": "step4_prioritize_genes"
+    },
+    {
+      "type": "report",
+      "length": 4798,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768978664_3637aa45",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1768978664_3637aa45"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1768978664_3637aa45"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1768978693_b20d8241",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_gene_info",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_prioritize_genes",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

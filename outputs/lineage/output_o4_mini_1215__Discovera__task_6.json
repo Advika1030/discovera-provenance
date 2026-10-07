@@ -1,0 +1,720 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_o4_mini_1215__Discovera__task_6",
+      "model": "o4-mini",
+      "mode": "Discovera",
+      "task_id": "6",
+      "run_date": "2025-12-14 16:39:53",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Teng_2025_Cancer_Cell_TableS3-shRNA1_DE_sig.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/Teng_2025_Cancer_Cell_TableS3-shRNA1_DE_sig.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T213951Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=a261b81e1cd80e33d5d4b325bda551c956d6cab9673d25f6ebcfce554ba77922",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Teng_2025_Cancer_Cell_TableS3-shRNA2_DE_sig.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/Teng_2025_Cancer_Cell_TableS3-shRNA2_DE_sig.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T213953Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=40d8098d1d76ec694be77238359bc9d38993a166a49ea67cbe277014974562ad",
+      "id": "upload:1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/Teng_2025_Cancer_Cell_TableS3-shRNA1_DE_sig.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T213951Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=a261b81e1cd80e33d5d4b325bda551c956d6cab9673d25f6ebcfce554ba77922\", \"name\": \"Teng_2025_Cancer_Cell_TableS3-shRNA1_DE_sig.csv\"}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Teng_2025_Cancer_Cell_TableS3-shRNA1_DE_sig.csv.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Teng_2025_Cancer_Cell_TableS3-shRNA1_DE_sig.csv.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1765748447_79db11c5"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 1,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-14/Teng_2025_Cancer_Cell_TableS3-shRNA2_DE_sig.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251214%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251214T213953Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=40d8098d1d76ec694be77238359bc9d38993a166a49ea67cbe277014974562ad\", \"name\": \"Teng_2025_Cancer_Cell_TableS3-shRNA2_DE_sig.csv\"}",
+      "error": "",
+      "id": "step1_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Teng_2025_Cancer_Cell_TableS3-shRNA2_DE_sig.csv.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/Teng_2025_Cancer_Cell_TableS3-shRNA2_DE_sig.csv.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1765748452_32e696a0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 2,
+      "args": "{\"id\": \"1765748447_79db11c5\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step2_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 3,
+      "args": "{\"id\": \"1765748452_32e696a0\", \"n_rows\": 20}",
+      "error": "",
+      "id": "step3_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 4,
+      "args": "{\"conditions\": [{\"column\": \"gene\", \"op\": \"in\", \"value\": [\"ASCL1\", \"CD24\", \"GRP\", \"ITGB1\", \"FTH1\"]}], \"csv_id\": \"1765748447_79db11c5\", \"keep_columns\": [\"gene\", \"log2FoldChange\", \"padj\"], \"name\": \"shRNA1_candidate_gene_changes\"}",
+      "error": "",
+      "id": "step4_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "shRNA1_candidate_gene_changes_eca9966a95.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/shRNA1_candidate_gene_changes_eca9966a95.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765748529_32c59e97"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 5,
+      "args": "{\"conditions\": [{\"column\": \"gene\", \"op\": \"in\", \"value\": [\"ASCL1\", \"CD24\", \"GRP\", \"ITGB1\", \"FTH1\"]}], \"csv_id\": \"1765748452_32e696a0\", \"keep_columns\": [\"gene\", \"log2FoldChange\", \"padj\"], \"name\": \"shRNA2_candidate_gene_changes\"}",
+      "error": "",
+      "id": "step5_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "shRNA2_candidate_gene_changes_eca9966a95.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/shRNA2_candidate_gene_changes_eca9966a95.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765748533_8b1ac6df"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 6,
+      "args": "{\"columns\": [\"gene\", \"log2FoldChange\"], \"csv_id\": \"1765748447_79db11c5\", \"name\": \"shRNA1_log2FC\", \"rename\": {\"log2FoldChange\": \"log2FC_sh1\"}}",
+      "error": "",
+      "id": "step6_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "shRNA1_log2FC_73bae15482.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/shRNA1_log2FC_73bae15482.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765748550_81da13dd"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_select",
+      "step_index": 7,
+      "args": "{\"columns\": [\"gene\", \"log2FoldChange\"], \"csv_id\": \"1765748452_32e696a0\", \"name\": \"shRNA2_log2FC\", \"rename\": {\"log2FoldChange\": \"log2FC_sh2\"}}",
+      "error": "",
+      "id": "step7_csv_select"
+    },
+    {
+      "type": "data_table",
+      "name": "shRNA2_log2FC_4893e4e835.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/shRNA2_log2FC_4893e4e835.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765748554_b8c69bee"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_join",
+      "step_index": 8,
+      "args": "{\"left_csv_id\": \"1765748550_81da13dd\", \"name\": \"joined_log2FC\", \"on\": \"gene\", \"right_csv_id\": \"1765748554_b8c69bee\"}",
+      "error": "",
+      "id": "step8_csv_join"
+    },
+    {
+      "type": "data_table",
+      "name": "joined_log2FC_3c81768b7e.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/joined_log2FC_3c81768b7e.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765748557_b79b6666"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 9,
+      "args": "{\"conditions\": [{\"column\": \"log2FC_sh1\", \"op\": \">\", \"value\": 1}, {\"column\": \"log2FC_sh2\", \"op\": \">\", \"value\": 1}], \"csv_id\": \"1765748557_b79b6666\", \"keep_columns\": [\"gene\"], \"name\": \"shRNA_upregulated_genes\"}",
+      "error": "",
+      "id": "step9_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "shRNA_upregulated_genes_7a526370f4.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/shRNA_upregulated_genes_7a526370f4.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765748609_9fb48ebf"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 10,
+      "args": "{\"conditions\": [{\"column\": \"log2FC_sh1\", \"op\": \"<\", \"value\": -1}, {\"column\": \"log2FC_sh2\", \"op\": \"<\", \"value\": -1}], \"csv_id\": \"1765748557_b79b6666\", \"keep_columns\": [\"gene\"], \"name\": \"shRNA_downregulated_genes\"}",
+      "error": "",
+      "id": "step10_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "shRNA_downregulated_genes_1b943a31da.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/shRNA_downregulated_genes_1b943a31da.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765748613_f19f0c04"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_aggregate",
+      "step_index": 11,
+      "args": "{\"aggregations\": {\"avg_log2FC\": {\"cols\": [\"log2FC_sh1\", \"log2FC_sh2\"], \"func\": \"mean\"}}, \"csv_id\": \"1765748557_b79b6666\"}",
+      "error": "",
+      "id": "step11_csv_aggregate"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_aggregate_1765748557_b79b6666_42d0591ed0.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/csv_aggregate_1765748557_b79b6666_42d0591ed0.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765748645_9b29f07e"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gsea_pipe",
+      "step_index": 12,
+      "args": "{\"corr_col\": \"avg_log2FC\", \"csv_id\": \"1765748645_9b29f07e\", \"fdr_threshold\": 0.05, \"gene_sets\": [\"KEGG_2016\", \"GO_Biological_Process_2023\", \"Reactome_Pathways_2024\", \"MSigDB_Hallmark_2020\"], \"hit_col\": \"gene\", \"p_value_threshold\": 0.05}",
+      "error": "",
+      "id": "step12_gsea_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "gsea_results_20251214_164426.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20251214_164426.csv",
+      "source_key": "gsea_result_metadata",
+      "is_plot": false,
+      "id": "1765748682_ec682bae"
+    },
+    {
+      "type": "data_table",
+      "name": "gsea_results_20251214_164426.png",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/gsea_results_20251214_164426.png",
+      "source_key": "gsea_plot_metadata",
+      "is_plot": true,
+      "id": "1765748682_4468133d"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 13,
+      "args": "{\"conditions\": [{\"column\": \"Pathway\", \"op\": \"contains\", \"value\": \"GPCR\"}], \"csv_id\": \"1765748682_ec682bae\", \"keep_columns\": [\"Data Base\", \"Pathway\", \"NES\", \"Lead_genes\"], \"name\": \"gsea_GPCR_binding\"}",
+      "error": "",
+      "id": "step13_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "gsea_GPCR_binding_0c7add75a0.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/gsea_GPCR_binding_0c7add75a0.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765748777_2191dfb8"
+    },
+    {
+      "type": "tool_step",
+      "tool": "query_table_rumma",
+      "step_index": 14,
+      "args": "{\"term\": \"GPCR Ligand Binding\"}",
+      "error": "",
+      "id": "step14_query_table_rumma"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gene_info",
+      "step_index": 15,
+      "args": "{\"gene_list\": [\"NTSR1\", \"GRP\", \"ASCL1\", \"SSTR3\", \"CGA\"]}",
+      "error": "",
+      "id": "step15_gene_info"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 16,
+      "args": "{\"conditions\": [{\"column\": \"Pathway\", \"op\": \"contains\", \"value\": \"G2-M Checkpoint\"}], \"csv_id\": \"1765748682_ec682bae\", \"keep_columns\": [\"Data Base\", \"Pathway\", \"NES\", \"Lead_genes\"], \"name\": \"gsea_G2M_Hallmark\"}",
+      "error": "",
+      "id": "step16_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "gsea_G2M_Hallmark_cbfb0da0d5.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/gsea_G2M_Hallmark_cbfb0da0d5.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765748896_3f7abaa6"
+    },
+    {
+      "type": "tool_step",
+      "tool": "sets_info_rumm",
+      "step_index": 17,
+      "args": "{\"gene_set_id\": \"GPCR Ligand Binding\"}",
+      "error": "{\"tool\": \"sets_info_rumm\", \"type\": \"ValueError\", \"message\": \"Malformed response JSON: 'data'\", \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera/bkd/rummagene.py\\\", line 47, in _post_graphql\\n    return response.json()[\\\"data\\\"]\\n           ~~~~~~~~~~~~~~~^^^^^^^^\\nKeyError: 'data'\\n\\nDuring handling of the above exception, another exception occurred:\\n\\nTraceback (most recent call last):\\n  File \\\"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera_fastmcp/server.py\\\", line 1737, in sets_info_rumm\\n    df = genes_query(params.gene_set_id)\\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera/bkd/rummagene.py\\\", line 196, in genes_query\\n    data = _post_graphql(\\n           ^^^^^^^^^^^^^^\\n  File \\\"/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/src/discovera/bkd/rummagene.py\\\", line 49, in _post_graphql\\n    raise ValueError(f\\\"Malformed response JSON: {e}\\\")\\nValueError: Malformed response JSON: 'data'\\n\"}",
+      "id": "step17_sets_info_rumm"
+    },
+    {
+      "type": "tool_step",
+      "tool": "query_string_rumma",
+      "step_index": 18,
+      "args": "{\"retmax\": 50, \"term\": \"Aurora kinase A neuroendocrine prostate cancer\"}",
+      "error": "",
+      "id": "step18_query_string_rumma"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 19,
+      "args": "{\"conditions\": [{\"column\": \"gene\", \"op\": \"==\", \"value\": \"NTSR1\"}], \"csv_id\": \"1765748557_b79b6666\", \"keep_columns\": [\"gene\", \"log2FC_sh1\", \"log2FC_sh2\"], \"name\": \"check_NTSR1\"}",
+      "error": "",
+      "id": "step19_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "check_NTSR1_6120df0153.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/check_NTSR1_6120df0153.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765748941_44207077"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 20,
+      "args": "{\"conditions\": [{\"column\": \"gene\", \"op\": \"==\", \"value\": \"AURKA\"}], \"csv_id\": \"1765748557_b79b6666\", \"keep_columns\": [\"gene\", \"log2FC_sh1\", \"log2FC_sh2\"], \"name\": \"check_AURKA\"}",
+      "error": "",
+      "id": "step20_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "check_AURKA_676e3c6235.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/check_AURKA_676e3c6235.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765748954_c1bf7741"
+    },
+    {
+      "type": "tool_step",
+      "tool": "query_string_rumma",
+      "step_index": 21,
+      "args": "{\"retmax\": 50, \"term\": \"GPCR ligand binding neuroendocrine prostate cancer\"}",
+      "error": "",
+      "id": "step21_query_string_rumma"
+    },
+    {
+      "type": "tool_step",
+      "tool": "enrich_rumma",
+      "step_index": 22,
+      "args": "{\"first\": 30, \"genes\": [\"ADRA2A\", \"ADRA1A\", \"PRLHR\", \"HCRTR1\", \"SSTR3\"], \"max_records\": 100}",
+      "error": "",
+      "id": "step22_enrich_rumma"
+    },
+    {
+      "type": "tool_step",
+      "tool": "gene_info",
+      "step_index": 23,
+      "args": "{\"gene_list\": [\"FTH1\", \"SESN3\", \"ITGB1\"]}",
+      "error": "",
+      "id": "step23_gene_info"
+    },
+    {
+      "type": "tool_step",
+      "tool": "ora_pipe",
+      "step_index": 24,
+      "args": "{\"csv_id\": \"1765748645_9b29f07e\", \"gene_col\": \"gene\", \"gene_sets\": null, \"p_value_threshold\": 0.05}",
+      "error": "",
+      "id": "step24_ora_pipe"
+    },
+    {
+      "type": "data_table",
+      "name": "ora_results_20251214_165204.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/ora_results_20251214_165204.csv",
+      "source_key": "ora_result_metadata",
+      "is_plot": false,
+      "id": "1765749157_bf295a52"
+    },
+    {
+      "type": "tool_step",
+      "tool": "literature_trends",
+      "step_index": 25,
+      "args": "{\"batch_size\": 500, \"email\": \"contact@example.com\", \"term\": \"NTSR1 neuroendocrine prostate cancer\"}",
+      "error": "",
+      "id": "step25_literature_trends"
+    },
+    {
+      "type": "data_table",
+      "name": "NTSR1_neuroendocrine_prostate_cancer_timeline.png",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/NTSR1_neuroendocrine_prostate_cancer_timeline.png",
+      "source_key": "literature_plot_metadata",
+      "is_plot": true,
+      "id": "1765749175_66b21dde"
+    },
+    {
+      "type": "tool_step",
+      "tool": "prioritize_genes",
+      "step_index": 26,
+      "args": "{\"context_term\": \"neuroendocrine prostate cancer\", \"email\": null, \"gene_list\": [\"ASCL1\", \"NTSR1\", \"GRP\", \"SSTR3\", \"SESN3\", \"FTH1\", \"ITGB1\"]}",
+      "error": "",
+      "id": "step26_prioritize_genes"
+    },
+    {
+      "type": "report",
+      "length": 7276,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765748447_79db11c5",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765748452_32e696a0",
+      "target": "step1_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_read",
+      "target": "1765748447_79db11c5"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step3_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step3_csv_read",
+      "target": "1765748452_32e696a0"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step4_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step4_csv_filter",
+      "target": "1765748447_79db11c5"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765748529_32c59e97",
+      "target": "step4_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step5_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step5_csv_filter",
+      "target": "1765748452_32e696a0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765748533_8b1ac6df",
+      "target": "step5_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step6_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step6_csv_select",
+      "target": "1765748447_79db11c5"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765748550_81da13dd",
+      "target": "step6_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step7_csv_select",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step7_csv_select",
+      "target": "1765748452_32e696a0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765748554_b8c69bee",
+      "target": "step7_csv_select"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step8_csv_join",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step8_csv_join",
+      "target": "1765748550_81da13dd"
+    },
+    {
+      "relation": "used",
+      "source": "step8_csv_join",
+      "target": "1765748554_b8c69bee"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765748557_b79b6666",
+      "target": "step8_csv_join"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step9_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step9_csv_filter",
+      "target": "1765748557_b79b6666"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765748609_9fb48ebf",
+      "target": "step9_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step10_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step10_csv_filter",
+      "target": "1765748557_b79b6666"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765748613_f19f0c04",
+      "target": "step10_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step11_csv_aggregate",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step11_csv_aggregate",
+      "target": "1765748557_b79b6666"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765748645_9b29f07e",
+      "target": "step11_csv_aggregate"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step12_gsea_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step12_gsea_pipe",
+      "target": "1765748645_9b29f07e"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765748682_ec682bae",
+      "target": "step12_gsea_pipe"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765748682_4468133d",
+      "target": "step12_gsea_pipe"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step13_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step13_csv_filter",
+      "target": "1765748682_ec682bae"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765748777_2191dfb8",
+      "target": "step13_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step14_query_table_rumma",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step15_gene_info",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step16_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step16_csv_filter",
+      "target": "1765748682_ec682bae"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765748896_3f7abaa6",
+      "target": "step16_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step17_sets_info_rumm",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step18_query_string_rumma",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step19_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step19_csv_filter",
+      "target": "1765748557_b79b6666"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765748941_44207077",
+      "target": "step19_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step20_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step20_csv_filter",
+      "target": "1765748557_b79b6666"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765748954_c1bf7741",
+      "target": "step20_csv_filter"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step21_query_string_rumma",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step22_enrich_rumma",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step23_gene_info",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step24_ora_pipe",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step24_ora_pipe",
+      "target": "1765748645_9b29f07e"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765749157_bf295a52",
+      "target": "step24_ora_pipe"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step25_literature_trends",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765749175_66b21dde",
+      "target": "step25_literature_trends"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step26_prioritize_genes",
+      "target": "agent_run"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

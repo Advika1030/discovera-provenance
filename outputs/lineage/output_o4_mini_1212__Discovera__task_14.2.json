@@ -1,0 +1,114 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_o4_mini_1212__Discovera__task_14.2",
+      "model": "o4-mini",
+      "mode": "Discovera",
+      "task_id": "14.2",
+      "run_date": "2025-12-12 15:44:30",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "41598_2024_75947_MOESM1_ESM-S2.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-12/41598_2024_75947_MOESM1_ESM-S2.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251212%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251212T204430Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=c7f0da4ff953af726c2b3310fa73ae7c7945d2e3f62bd7397ea3838359f2fd4a",
+      "id": "upload:0"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2025-12-12/41598_2024_75947_MOESM1_ESM-S2.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20251212%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251212T204430Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=c7f0da4ff953af726c2b3310fa73ae7c7945d2e3f62bd7397ea3838359f2fd4a\", \"name\": \"41598_2024_75947_MOESM1_ESM-S2.csv\", \"tags\": [\"user_input\", \"supplementary\", \"reactome\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "41598_2024_75947_MOESM1_ESM-S2.csv.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/41598_2024_75947_MOESM1_ESM-S2.csv.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1765572285_a625530e"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_read",
+      "step_index": 1,
+      "args": "{\"id\": \"1765572285_a625530e\", \"n_rows\": 50}",
+      "error": "",
+      "id": "step1_csv_read"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_filter",
+      "step_index": 2,
+      "args": "{\"conditions\": [{\"column\": \"Unnamed: 1\", \"op\": \"contains\", \"value\": \"FAU\"}, {\"column\": \"Unnamed: 4\", \"op\": \"==\", \"value\": \"PIFvsCtrl\"}], \"csv_id\": \"1765572285_a625530e\", \"name\": \"FAU_PIFvsCtrl\"}",
+      "error": "",
+      "id": "step2_csv_filter"
+    },
+    {
+      "type": "data_table",
+      "name": "FAU_PIFvsCtrl_f7aa18a976.csv",
+      "path": "/Users/yifanwu/Desktop/VIDA/ARPA-H/discovera/output/user_csvs/FAU_PIFvsCtrl_f7aa18a976.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1765572392_e8d5ff18"
+    },
+    {
+      "type": "report",
+      "length": 3003,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765572285_a625530e",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_read",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_read",
+      "target": "1765572285_a625530e"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_filter",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_filter",
+      "target": "1765572285_a625530e"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1765572392_e8d5ff18",
+      "target": "step2_csv_filter"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}

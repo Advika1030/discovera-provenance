@@ -1,0 +1,138 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "agent_run",
+      "run": "output_qwen3_235b_0123__Baseline__task_6",
+      "model": "qwen/qwen3-235b-a22b",
+      "mode": "Baseline",
+      "task_id": "6",
+      "run_date": "2026-01-21 23:46:56",
+      "id": "agent_run"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Teng_2025_Cancer_Cell_TableS3-shRNA1_DE_sig.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Teng_2025_Cancer_Cell_TableS3-shRNA1_DE_sig.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T044655Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=e7ec9289a36a280057efd861ae3cbc693ebddec31e04bcedde95e21b10d9aadf",
+      "id": "upload:0"
+    },
+    {
+      "type": "uploaded_file",
+      "name": "Teng_2025_Cancer_Cell_TableS3-shRNA2_DE_sig.csv",
+      "url": "https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Teng_2025_Cancer_Cell_TableS3-shRNA2_DE_sig.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T044656Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=5ec1cf2a58d17693646300a4c84d0b2ce492a887ca0c131982cfa35bf415d9d3",
+      "id": "upload:1"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 0,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Teng_2025_Cancer_Cell_TableS3-shRNA1_DE_sig.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T044655Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=e7ec9289a36a280057efd861ae3cbc693ebddec31e04bcedde95e21b10d9aadf\", \"metadata\": {\"source\": \"Teng et al., Cancer Cell 2025, SHP77 shRNA1 RNA-seq\"}, \"name\": \"Teng_2025_shRNA1_DE\", \"tags\": [\"user_input\", \"DE_genes\"]}",
+      "error": "",
+      "id": "step0_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Teng_2025_shRNA1_DE.csv",
+      "path": "/app/output/user_csvs/Teng_2025_shRNA1_DE.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769057234_d6b26f1b"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_record",
+      "step_index": 1,
+      "args": "{\"csv_url\": \"https://discovera.s3.us-east-2.amazonaws.com/uploads/2026-01-21/Teng_2025_Cancer_Cell_TableS3-shRNA2_DE_sig.csv?response-content-disposition=inline&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVRUVQPLPWRN7243O%2F20260122%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20260122T044656Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=5ec1cf2a58d17693646300a4c84d0b2ce492a887ca0c131982cfa35bf415d9d3\", \"metadata\": {\"source\": \"Teng et al., Cancer Cell 2025, SHP77 shRNA2 RNA-seq\"}, \"name\": \"Teng_2025_shRNA2_DE\", \"tags\": [\"user_input\", \"DE_genes\"]}",
+      "error": "",
+      "id": "step1_csv_record"
+    },
+    {
+      "type": "data_table",
+      "name": "Teng_2025_shRNA2_DE.csv",
+      "path": "/app/output/user_csvs/Teng_2025_shRNA2_DE.csv",
+      "source_key": "__root__",
+      "is_plot": false,
+      "id": "1769057247_afba0197"
+    },
+    {
+      "type": "tool_step",
+      "tool": "csv_join",
+      "step_index": 2,
+      "args": "{\"how\": \"inner\", \"left_csv_id\": \"1769057234_d6b26f1b\", \"name\": \"Teng_2025_common_DE\", \"on\": \"gene\", \"right_csv_id\": \"1769057247_afba0197\"}",
+      "error": "",
+      "id": "step2_csv_join"
+    },
+    {
+      "type": "data_table",
+      "name": "csv_join_1769057234_d6b26f1b_1769057247_afba0197_gene.csv",
+      "path": "/app/output/user_csvs/csv_join_1769057234_d6b26f1b_1769057247_afba0197_gene.csv",
+      "source_key": "storage_entry",
+      "is_plot": false,
+      "id": "1769057266_0dd61ca1"
+    },
+    {
+      "type": "report",
+      "length": 3117,
+      "id": "report"
+    }
+  ],
+  "links": [
+    {
+      "relation": "wasInformedBy",
+      "source": "step0_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step0_csv_record",
+      "target": "upload:0"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769057234_d6b26f1b",
+      "target": "step0_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step1_csv_record",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step1_csv_record",
+      "target": "upload:1"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769057247_afba0197",
+      "target": "step1_csv_record"
+    },
+    {
+      "relation": "wasInformedBy",
+      "source": "step2_csv_join",
+      "target": "agent_run"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_join",
+      "target": "1769057234_d6b26f1b"
+    },
+    {
+      "relation": "used",
+      "source": "step2_csv_join",
+      "target": "1769057247_afba0197"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "1769057266_0dd61ca1",
+      "target": "step2_csv_join"
+    },
+    {
+      "relation": "wasGeneratedBy",
+      "source": "report",
+      "target": "agent_run"
+    }
+  ]
+}
