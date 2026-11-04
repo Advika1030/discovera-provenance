@@ -1,0 +1,82 @@
+diff --git a/scripts/batch_runner_single.py b/scripts/batch_runner_single.py
+index 0e58d77..d737b60 100644
+--- a/scripts/batch_runner_single.py
++++ b/scripts/batch_runner_single.py
+@@ -25,6 +25,8 @@ from langgraph.checkpoint.memory import InMemorySaver
+ from langgraph.prebuilt import create_react_agent
+ from portkey_ai import createHeaders
+ 
++from annotate_steps import ANNOTATE_INSTRUCTIONS, timeline_markdown, wrap_tools
++
+ 
+ load_dotenv()
+ # Defaults via env
+@@ -849,6 +851,7 @@ def run_once(
+     server_url: str,
+     model: str = None,
+     uploaded_records: List[Dict[str, Any]] | None = None,
++    annotate_steps: bool = False,
+ ) -> Dict[str, Any]:
+     result: Dict[str, Any] = {
+         "output_text": None,
+@@ -865,6 +868,9 @@ def run_once(
+         return result
+ 
+     print(f"Loaded {len(tools) if tools else 0} tools from {server_url}")
++    if annotate_steps:
++        result["annotated_steps"] = []
++        tools = wrap_tools(tools, result["annotated_steps"])
+     try:
+         agent = create_react_agent(
+             model,
+@@ -877,9 +883,12 @@ def run_once(
+         result["error"] = f"Agent init error: {e}"
+         return result
+ 
++    system_message = _system_message_for_mode(mode)
++    if annotate_steps:
++        system_message = SystemMessage(content=system_message.content + ANNOTATE_INSTRUCTIONS)
+     inputs = {
+         "messages": [
+-            _system_message_for_mode(mode),
++            system_message,
+             _human_message(context_text, user_prompt, uploaded_records),
+         ]
+     }
+@@ -1071,6 +1080,11 @@ def main():
+             "Defaults to LLM_PROVIDER env var, or 'openai' if not set."
+         ),
+     )
++    parser.add_argument(
++        "--annotate-steps",
++        action="store_true",
++        help="Have the agent attach a one-sentence step_description to every tool call.",
++    )
+     args = parser.parse_args()
+ 
+     # Determine provider and validate API keys
+@@ -1205,6 +1219,7 @@ def main():
+                 server_url,
+                 model,
+                 ds_records,
++                annotate_steps=args.annotate_steps,
+             )
+             num_calls = len(res.get("tool_calls") or [])
+ 
+@@ -1261,9 +1276,16 @@ def main():
+             "trace_json": res.get("trace") or [],
+             "uploaded_files": ds_records,
+         }
++        if args.annotate_steps:
++            output_json["annotated_steps"] = res.get("annotated_steps") or []
++            output_json["flags"] = {"annotate_steps": True, "model": model_text}
+         output_json_path = os.path.join(out_path, f"{args.mode}/task_{task_id}.json")
+         with open(output_json_path, "w") as f:
+             json.dump(output_json, f, indent=2, ensure_ascii=False)
++        if args.annotate_steps:
++            timeline_path = os.path.join(out_path, f"{args.mode}/task_{task_id}.timeline.md")
++            with open(timeline_path, "w") as f:
++                f.write(timeline_markdown(task_id, output_json["annotated_steps"]))
+ 
+ 
+ if __name__ == "__main__":

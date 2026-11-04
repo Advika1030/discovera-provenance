@@ -81,6 +81,6 @@ Any difference between the two runs could come from any of these, or from normal
 
 ## Notes
 
-- Only the outputs are in this folder. The runner code is in the `annotate-steps` branch of the local `discovera-streamlit` checkout.
+- The code that produced these runs is in [`code/annotate_steps/`](../../../code/annotate_steps/).
 - File paths in the logs point to the machine that made the run, so those files won't exist elsewhere.
 - Email addresses in the logs are placeholders the model made up for tool arguments, such as `researcher@example.com`.
